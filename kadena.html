@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>КАДЕНА — Онлайн-симуляция управления цепочками поставок</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --violet-primary: #3D1959;
+  --violet-deep: #120B1E;
+  --violet-soft: #5C3D8A;
+  --orange-primary: #FF9800;
+  --orange-dark: #F57C00;
+  --white: #FFFFFF;
+  --gray-light: #F5F5F5;
+  --gray-border: #E0E0E0;
+  --text-heading: #1A1A2E;
+  --text-body: #444444;
+  --text-muted: #666666;
+  --font-display: 'Montserrat', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --shadow-card: 0 4px 24px rgba(0,0,0,0.06);
+  --shadow-card-hover: 0 12px 40px rgba(0,0,0,0.1);
+  --radius-sm: 8px; --radius-md: 10px; --radius-lg: 16px; --radius-xl: 20px; --radius-2xl: 24px;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); font-weight: 400; font-size: 16px; line-height: 1.7; color: var(--text-body); background: var(--white); -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+button { border: none; background: none; cursor: pointer; font-family: inherit; }
+img { max-width: 100%; height: auto; display: block; }
+ul { list-style: none; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+@media (max-width: 1024px) { .container { padding: 0 24px; } }
+@media (max-width: 768px) { .container { padding: 0 16px; } }
+
+.icon { width: 48px; height: 48px; stroke: var(--violet-soft); stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 20px; }
+.icon-sm { width: 32px; height: 32px; }
+.icon-orange { stroke: var(--orange-primary); }
+.icon-white { stroke: rgba(255,255,255,0.7); }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 4px; font-family: var(--font-body); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; border-radius: var(--radius-sm); transition: all 0.2s ease; white-space: nowrap; }
+.btn-primary { background: var(--orange-primary); color: var(--white); padding: 10px 24px; font-size: 13px; }
+.btn-primary:hover { background: var(--orange-dark); transform: translateY(-1px); }
+.btn-secondary { background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,0.8); padding: 10px 24px; font-size: 13px; }
+.btn-secondary:hover { border-color: var(--white); background: rgba(255,255,255,0.05); }
+.btn-large { padding: 16px 48px; font-size: 15px; border-radius: var(--radius-md); }
+
+.nav { position: fixed; top: 0; left: 0; right: 0; height: 72px; background: rgba(61,25,89,0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.08); z-index: 100; transition: background 0.3s ease; }
+.nav.scrolled { background: rgba(61,25,89,0.98); }
+.nav-container { max-width: 1200px; margin: 0 auto; padding: 0 48px; height: 100%; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-family: var(--font-display); font-weight: 800; font-size: 20px; color: var(--white); letter-spacing: -0.5px; }
+.nav-logo-dot { color: var(--orange-primary); }
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-link { font-family: var(--font-body); font-weight: 500; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; color: rgba(255,255,255,0.9); transition: color 0.2s ease; }
+.nav-link:hover { color: var(--white); }
+.nav-right { display: flex; align-items: center; gap: 16px; }
+.nav-toggle { display: none; color: var(--white); padding: 4px; }
+
+.mobile-menu { position: fixed; top: 0; right: 0; width: 300px; height: 100%; background: var(--violet-primary); z-index: 110; padding: 80px 32px 32px; display: flex; flex-direction: column; gap: 24px; transform: translateX(100%); transition: transform 0.3s ease; }
+.mobile-menu.open { transform: translateX(0); }
+.mobile-close { position: absolute; top: 20px; right: 20px; color: var(--white); }
+.mobile-link { font-family: var(--font-body); font-weight: 500; font-size: 18px; color: rgba(255,255,255,0.9); transition: color 0.2s; }
+.mobile-link:hover { color: var(--white); }
+.mobile-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 105; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+.mobile-overlay.open { opacity: 1; pointer-events: all; }
+@media (max-width: 1024px) { .nav-links { display: none; } .nav-toggle { display: block; } .nav-container { padding: 0 24px; } }
+@media (max-width: 768px) { .nav-container { padding: 0 16px; } .nav .btn-small { display: none; } }
+
+.hero { position: relative; min-height: 100dvh; min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--violet-primary) 0%, var(--violet-deep) 100%); overflow: hidden; }
+.hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+.hero-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(255,152,0,0.12) 0%, transparent 70%); pointer-events: none; z-index: 2; }
+.hero-content { position: relative; z-index: 5; text-align: center; max-width: 800px; padding: 0 24px; animation: heroFadeIn 0.8s ease-out forwards; opacity: 0; }
+.hero-label { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-body); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--orange-primary); margin-bottom: 20px; }
+.hero-label::before { content: ''; width: 6px; height: 6px; background: var(--orange-primary); border-radius: 50%; animation: pulse 2s infinite; }
+.hero-title { font-family: var(--font-display); font-weight: 800; font-size: 56px; line-height: 1.1; letter-spacing: -1.5px; color: var(--white); }
+.hero-title em { color: var(--orange-primary); font-style: normal; }
+.hero-subtitle { font-family: var(--font-body); font-size: 18px; line-height: 1.7; color: rgba(255,255,255,0.8); max-width: 640px; margin: 24px auto 0; }
+.hero-price { font-family: var(--font-display); font-weight: 800; font-size: 48px; color: var(--orange-primary); margin-top: 32px; }
+.hero-price span { font-size: 20px; font-weight: 500; color: rgba(255,255,255,0.7); }
+.hero-buttons { display: flex; justify-content: center; gap: 16px; margin-top: 40px; flex-wrap: wrap; }
+.hero-scroll { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); width: 2px; height: 40px; background: rgba(255,255,255,0.4); border-radius: 1px; animation: bounce 2s ease-in-out infinite; z-index: 5; }
+.hero-stats { display: flex; justify-content: center; gap: 48px; margin-top: 32px; flex-wrap: wrap; }
+.hero-stat { text-align: center; }
+.hero-stat-num { font-family: var(--font-display); font-weight: 700; font-size: 28px; color: var(--orange-primary); display: block; }
+.hero-stat-label { font-size: 14px; color: rgba(255,255,255,0.7); }
+
+@keyframes heroFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(10px); } }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+
+@media (max-width: 1024px) { .hero-title { font-size: 40px; } }
+@media (max-width: 768px) { .hero { min-height: auto; padding: 120px 0 80px; } .hero-title { font-size: 32px; } .hero-subtitle { font-size: 16px; } .hero-stats { flex-direction: column; gap: 16px; } .hero-buttons { flex-direction: column; align-items: center; } .hero-buttons .btn { width: 100%; max-width: 300px; } .hero-price { font-size: 36px; } }
+
+.section { padding: 100px 0; }
+@media (max-width: 1024px) { .section { padding: 80px 0; } }
+@media (max-width: 768px) { .section { padding: 60px 0; } }
+
+.section-header { text-align: center; margin-bottom: 48px; }
+.section-label { display: inline-block; font-family: var(--font-body); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--orange-primary); margin-bottom: 16px; }
+.section-title { font-family: var(--font-display); font-weight: 700; font-size: 40px; letter-spacing: -1px; line-height: 1.2; color: var(--text-heading); text-transform: uppercase; }
+.section-subtitle { font-size: 17px; color: var(--text-muted); line-height: 1.6; max-width: 640px; margin: 12px auto 0; }
+@media (max-width: 768px) { .section-title { font-size: 26px; } }
+
+/* Placeholder Images */
+.placeholder-img { background: linear-gradient(135deg, var(--violet-primary) 0%, var(--violet-soft) 100%); border-radius: var(--radius-lg); aspect-ratio: 16/9; display: flex; flex-direction: column; align-items: center; justify-content: center; color: rgba(255,255,255,0.7); font-size: 14px; gap: 12px; text-align: center; padding: 24px; }
+.placeholder-img svg { width: 48px; height: 48px; stroke: rgba(255,255,255,0.5); stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.placeholder-img--square { aspect-ratio: 1/1; }
+.placeholder-img--portrait { aspect-ratio: 3/4; }
+.placeholder-img--wide { aspect-ratio: 21/9; }
+
+/* Why / Hook */
+.why-section { background: linear-gradient(135deg, var(--violet-primary) 0%, var(--violet-deep) 100%); color: var(--white); }
+.why-section .section-title { color: var(--white); }
+.why-section .section-subtitle { color: rgba(255,255,255,0.75); }
+.why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.why-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-xl); padding: 48px 32px; transition: all 0.3s ease; }
+.why-card:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); transform: translateY(-4px); }
+.why-number { font-family: var(--font-display); font-weight: 800; font-size: 48px; color: var(--orange-primary); margin-bottom: 16px; line-height: 1; }
+.why-title { font-family: var(--font-display); font-weight: 700; font-size: 20px; margin-bottom: 12px; color: var(--white); }
+.why-desc { font-size: 15px; color: rgba(255,255,255,0.8); line-height: 1.6; }
+@media (max-width: 1024px) { .why-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .why-grid { grid-template-columns: 1fr; } }
+
+/* About / Stats */
+.about { background: var(--white); }
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.stat-card { border-radius: var(--radius-lg); padding: 40px; min-height: 180px; display: flex; flex-direction: column; justify-content: space-between; opacity: 0; transform: translateY(40px); transition: all 0.6s ease-out; }
+.stat-card.visible { opacity: 1; transform: translateY(0); }
+.stat-number { font-family: var(--font-display); font-weight: 800; font-size: 48px; letter-spacing: -1px; color: var(--text-heading); }
+.stat-card--light .stat-number { color: var(--white); }
+.stat-label { font-family: var(--font-body); font-weight: 500; font-size: 16px; line-height: 1.6; color: var(--text-heading); margin-top: 12px; }
+.stat-card--light .stat-label { color: rgba(255,255,255,0.85); }
+@media (max-width: 1024px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .stats-grid { grid-template-columns: 1fr; } .stat-number { font-size: 36px; } }
+
+/* Features */
+.features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.feature-card { background: var(--white); border: 1px solid var(--gray-border); border-radius: var(--radius-xl); padding: 40px 32px; transition: all 0.3s ease; }
+.feature-card:hover { border-color: var(--violet-soft); transform: translateY(-4px); box-shadow: var(--shadow-card-hover); }
+.feature-card h3 { font-family: var(--font-display); font-weight: 700; font-size: 20px; color: var(--text-heading); margin-bottom: 12px; }
+.feature-card p { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
+@media (max-width: 1024px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .features-grid { grid-template-columns: 1fr; } }
+
+/* Roles */
+.roles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.role-card { background: var(--white); border-radius: var(--radius-xl); padding: 40px 32px; border: 2px solid var(--gray-border); position: relative; transition: all 0.3s ease; }
+.role-card:hover { border-color: var(--violet-soft); transform: translateY(-4px); box-shadow: var(--shadow-card-hover); }
+.role-num { position: absolute; top: -16px; left: 32px; background: var(--violet-primary); color: var(--white); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 14px; font-weight: 700; }
+.role-card h3 { font-family: var(--font-display); font-weight: 700; font-size: 20px; color: var(--text-heading); margin-bottom: 12px; margin-top: 8px; }
+.role-card p { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
+@media (max-width: 1024px) { .roles-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .roles-grid { grid-template-columns: 1fr; } }
+
+/* Process */
+.process-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.process-card { background: var(--white); border: 1px solid var(--gray-border); border-radius: var(--radius-xl); padding: 40px 32px; transition: all 0.3s ease; }
+.process-card:hover { border-color: var(--violet-soft); transform: translateY(-4px); box-shadow: var(--shadow-card-hover); }
+.process-card h3 { font-family: var(--font-display); font-weight: 700; font-size: 20px; color: var(--text-heading); margin-bottom: 12px; }
+.process-card p { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
+.process-highlight { background: var(--violet-primary); color: var(--white); border-color: var(--violet-primary); }
+.process-highlight h3 { color: var(--white); }
+.process-highlight p { color: rgba(255,255,255,0.85); }
+.process-highlight .icon { stroke: var(--orange-primary); }
+@media (max-width: 1024px) { .process-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .process-grid { grid-template-columns: 1fr; } }
+
+/* Schedule */
+.schedule-timeline { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; position: relative; }
+.timeline-card { background: var(--white); border-radius: var(--radius-xl); padding: 40px 32px; border: 2px solid var(--gray-border); position: relative; transition: all 0.3s ease; }
+.timeline-card:hover { border-color: var(--violet-soft); transform: translateY(-4px); box-shadow: var(--shadow-card-hover); }
+.timeline-card::after { content: '→'; position: absolute; top: 50%; right: -28px; transform: translateY(-50%); font-size: 24px; color: var(--gray-border); font-family: var(--font-display); font-weight: 700; }
+.timeline-card:last-child::after { display: none; }
+.timeline-day { font-family: var(--font-display); font-weight: 800; font-size: 14px; color: var(--orange-primary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+.timeline-title { font-family: var(--font-display); font-weight: 700; font-size: 20px; color: var(--text-heading); margin-bottom: 12px; }
+.timeline-desc { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
+.timeline-card--highlight { background: var(--violet-primary); border-color: var(--violet-primary); }
+.timeline-card--highlight .timeline-day { color: var(--orange-primary); }
+.timeline-card--highlight .timeline-title { color: var(--white); }
+.timeline-card--highlight .timeline-desc { color: rgba(255,255,255,0.85); }
+.timeline-card--highlight::after { color: var(--violet-soft); }
+@media (max-width: 1024px) { .schedule-timeline { grid-template-columns: 1fr; } .timeline-card::after { display: none; } }
+
+/* Dashboard */
+.dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.dashboard-text { font-size: 16px; line-height: 1.8; color: var(--text-body); }
+.dashboard-text p + p { margin-top: 16px; }
+.dashboard-metrics { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.metric-card { background: var(--white); border: 1px solid var(--gray-border); border-radius: var(--radius-lg); padding: 24px; text-align: center; transition: all 0.3s ease; }
+.metric-card:hover { border-color: var(--violet-soft); }
+.metric-icon { width: 32px; height: 32px; stroke: var(--violet-soft); stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-linejoin: round; margin: 0 auto 12px; }
+.metric-name { font-family: var(--font-display); font-weight: 600; font-size: 14px; color: var(--text-heading); }
+.metric-desc { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+@media (max-width: 1024px) { .dashboard-grid { grid-template-columns: 1fr; } }
+
+/* Photo Gallery */
+.photo-section { background: var(--gray-light); }
+.photo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.photo-item { border-radius: var(--radius-lg); overflow: hidden; }
+.photo-item .placeholder-img { width: 100%; height: 100%; aspect-ratio: 4/3; }
+.photo-item--wide { grid-column: span 2; }
+@media (max-width: 1024px) { .photo-grid { grid-template-columns: repeat(2, 1fr); } .photo-item--wide { grid-column: span 2; } }
+@media (max-width: 768px) { .photo-grid { grid-template-columns: 1fr; } .photo-item--wide { grid-column: span 1; } }
+
+/* Audience */
+.audience-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.audience-card { background: var(--white); border: 1px solid var(--gray-border); border-radius: var(--radius-xl); padding: 40px 32px; text-align: center; transition: all 0.3s ease; }
+.audience-card:hover { border-color: var(--violet-soft); transform: translateY(-4px); box-shadow: var(--shadow-card-hover); }
+.audience-card h3 { font-family: var(--font-display); font-weight: 700; font-size: 18px; color: var(--text-heading); margin-bottom: 8px; }
+.audience-card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+@media (max-width: 1024px) { .audience-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .audience-grid { grid-template-columns: 1fr; } }
+
+/* Steps */
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.step { text-align: center; padding: 24px; }
+.step-num { width: 48px; height: 48px; background: var(--violet-primary); color: var(--white); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 20px; font-weight: 800; margin: 0 auto 16px; }
+.step-title { font-family: var(--font-display); font-weight: 700; font-size: 16px; color: var(--text-heading); margin-bottom: 6px; }
+.step-desc { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+@media (max-width: 1024px) { .steps { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .steps { grid-template-columns: 1fr; } }
+
+/* CTA */
+.cta { background: var(--violet-primary); text-align: center; }
+.cta-title { font-family: var(--font-display); font-weight: 700; font-size: 36px; color: var(--white); letter-spacing: -1px; }
+.cta-subtitle { font-size: 16px; color: rgba(255,255,255,0.75); margin-top: 16px; max-width: 600px; margin-left: auto; margin-right: auto; }
+@media (max-width: 768px) { .cta-title { font-size: 28px; } }
+
+/* Footer */
+.footer { background: var(--violet-deep); padding: 80px 0 40px; }
+.footer-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 48px; }
+.footer-logo { font-family: var(--font-display); font-weight: 800; font-size: 24px; color: var(--white); }
+.footer-logo span { color: var(--orange-primary); }
+.footer-tagline { font-size: 14px; color: rgba(255,255,255,0.5); margin-top: 12px; }
+.footer-email { display: inline-block; font-weight: 500; font-size: 14px; color: var(--orange-primary); margin-top: 20px; transition: opacity 0.2s; }
+.footer-email:hover { opacity: 0.8; }
+.footer-title { font-family: var(--font-body); font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.4); margin-bottom: 20px; }
+.footer-link { display: block; font-size: 14px; color: rgba(255,255,255,0.7); margin-bottom: 12px; transition: color 0.2s; }
+.footer-link:hover { color: var(--white); }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); margin-top: 60px; padding-top: 24px; display: flex; justify-content: space-between; font-size: 13px; color: rgba(255,255,255,0.4); }
+@media (max-width: 1024px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr; gap: 32px; } .footer-bottom { flex-direction: column; gap: 8px; text-align: center; } }
+
+/* Demo Modal */
+.demo-modal-overlay { position: fixed; inset: 0; background: rgba(18,11,30,0.7); backdrop-filter: blur(4px); z-index: 200; display: none; align-items: center; justify-content: center; padding: 16px; opacity: 0; transition: opacity 0.3s ease; }
+.demo-modal-overlay.open { display: flex; opacity: 1; }
+.demo-modal { background: var(--white); border-radius: var(--radius-xl); padding: 40px; max-width: 480px; width: 100%; position: relative; box-shadow: 0 24px 80px rgba(0,0,0,0.2); transform: scale(0.95); transition: transform 0.3s ease; }
+.demo-modal-overlay.open .demo-modal { transform: scale(1); }
+.demo-modal-close { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border-radius: 50%; background: var(--gray-light); color: var(--text-body); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s; border: none; }
+.demo-modal-close:hover { background: var(--gray-border); }
+.demo-modal-title { font-family: var(--font-display); font-weight: 700; font-size: 24px; color: var(--text-heading); margin-bottom: 8px; }
+.demo-modal-subtitle { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+.demo-form-group { margin-bottom: 20px; }
+.demo-form-label { display: block; font-weight: 500; font-size: 13px; color: var(--text-heading); margin-bottom: 6px; }
+.demo-form-label .required { color: #EF4444; }
+.demo-form-input, .demo-form-textarea { width: 100%; padding: 12px 16px; border: 1px solid var(--gray-border); border-radius: var(--radius-md); font-family: var(--font-body); font-size: 15px; color: var(--text-body); background: var(--white); transition: border-color 0.2s, box-shadow 0.2s; }
+.demo-form-input:focus, .demo-form-textarea:focus { outline: none; border-color: var(--violet-soft); box-shadow: 0 0 0 3px rgba(92,61,138,0.1); }
+.demo-form-input.error, .demo-form-textarea.error { border-color: #EF4444; background: #FEF2F2; }
+.demo-form-textarea { min-height: 100px; resize: vertical; }
+.demo-form-note { font-size: 13px; color: var(--text-muted); line-height: 1.5; padding: 12px; background: var(--gray-light); border-radius: var(--radius-md); margin-bottom: 20px; }
+.error-msg { color: #EF4444; font-size: 13px; margin-top: 4px; display: none; }
+.error-msg.visible { display: block; }
+.demo-form-submit { width: 100%; padding: 14px; background: var(--orange-primary); color: var(--white); font-family: var(--font-display); font-weight: 600; font-size: 15px; border: none; border-radius: var(--radius-md); cursor: pointer; transition: background 0.2s, transform 0.2s; }
+.demo-form-submit:hover { background: var(--orange-dark); transform: translateY(-1px); }
+.demo-form-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+@media (max-width: 768px) { .demo-modal { padding: 28px 20px; } .demo-modal-title { font-size: 20px; } }
+
+/* Reveal animations */
+.reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- ==================== NAVIGATION ==================== -->
+<header class="nav" id="nav">
+  <div class="nav-container">
+    <a href="index-ru.html" class="nav-logo">Логист<span class="nav-logo-dot">ориа</span></a>
+    <nav class="nav-links">
+      <a href="#about" class="nav-link">Об игре</a>
+      <a href="#process" class="nav-link">Процесс</a>
+      <a href="#schedule" class="nav-link">График</a>
+      <a href="#dashboard" class="nav-link">Дашборд</a>
+      <a href="#audience" class="nav-link">Для кого</a>
+    </nav>
+    <div class="nav-right">
+      <a href="#contact" class="btn btn-primary btn-small" onclick="openDemoModal();return false;">Заказать демо</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="mobileClose" aria-label="Close menu">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <a href="#about" class="mobile-link">Об игре</a>
+  <a href="#process" class="mobile-link">Процесс</a>
+  <a href="#schedule" class="mobile-link">График</a>
+  <a href="#dashboard" class="mobile-link">Дашборд</a>
+  <a href="#audience" class="mobile-link">Для кого</a>
+  <a href="#contact" class="btn btn-primary" style="margin-top:24px" onclick="openDemoModal();return false;">Заказать демо</a>
+</div>
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero" id="about">
+  <canvas id="particleCanvas" class="hero-canvas" role="img" aria-label="Animated particle constellation"></canvas>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-label">Онлайн-симуляция · 2–100 игроков · Без отрыва от работы</div>
+    <h1 class="hero-title">КАДЕНА<br><em>Управление цепочками поставок</em></h1>
+    <p class="hero-subtitle">Прогнозируй спрос. Управляй запасами. Снижай издержки. Онлайн-симуляция для обучения логистике и цепям поставок в реальном времени.</p>
+    <div class="hero-price">4 500 ₽<span>/сессия</span></div>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="hero-stat-num">2ч–4д</span><span class="hero-stat-label">Длительность</span></div>
+      <div class="hero-stat"><span class="hero-stat-num">2–100</span><span class="hero-stat-label">Игроков</span></div>
+      <div class="hero-stat"><span class="hero-stat-num">Онлайн</span><span class="hero-stat-label">Формат</span></div>
+    </div>
+    <div class="hero-buttons">
+      <a href="#contact" class="btn btn-primary btn-large" onclick="openDemoModal();return false;">Заказать демо →</a>
+      <a href="#features" class="btn btn-secondary btn-large">Узнать больше</a>
+    </div>
+  </div>
+  <div class="hero-scroll"></div>
+</section>
+
+<!-- ==================== WHY / HOOK ==================== -->
+<section class="section why-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Почему заказывают</span>
+      <h2 class="section-title">То, что нельзя объяснить на лекции</h2>
+      <p class="section-subtitle">Топ-менеджеры производственных и торговых компаний заказывают КАДЕНУ, чтобы их команды увидели проблемы управления цепями поставок на собственных решениях.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-number">15–30%</div>
+        <div class="why-title">Экономия на запасах</div>
+        <div class="why-desc">После игры участники находят точки роста: где избыточные запасы, где дефицит убивает продажи, как оптимизировать закупки без рисков.</div>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-number">2 часа</div>
+        <div class="why-title">Увидеть эффект хлыста</div>
+        <div class="why-desc">Небольшие колебания спроса на вашем рынке превращаются в хаос заказов у поставщиков. Игроки чувствуют это на своей шкуре — и запоминают навсегда.</div>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-number">1 неделя</div>
+        <div class="why-title">Без отрыва от работы</div>
+        <div class="why-desc">Команды играют асинхронно в течение рабочей недели, обсуждают решения в привычных мессенджерах. Дебрифинг — в пятницу или субботу.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ABOUT / STATS ==================== -->
+<section class="section about">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">О чём игра</span>
+      <h2 class="section-title">Планируй. Прогнозируй. Управляй.</h2>
+      <p class="section-subtitle">«КАДЕНА» — это симуляция реальной ситуации в управлении цепочками поставок. Вы принимаете решения от заказа сырья до поставки товаров на рынок в условиях меняющегося спроса и конкуренции.</p>
+    </div>
+    <div style="margin: 40px auto; max-width: 900px;">
+      <img src="assets/kadena-demand-chart.jpg" alt="График спроса в КАДЕНЕ — три рынка, 12 месяцев, прогнозирование и анализ данных" style="width: 100%; display: block; border-radius: var(--radius-md); box-shadow: var(--shadow-card);">
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card" style="background:#FFB74D">
+        <svg class="icon" viewBox="0 0 48 48"><rect x="4" y="20" width="40" height="24" rx="2"/><path d="M4 28h40"/><path d="M12 20V12a12 12 0 0124 0v8"/><circle cx="24" cy="8" r="2"/><line x1="14" y1="32" x2="14" y2="32"/><line x1="24" y1="32" x2="24" y2="32"/><line x1="34" y1="32" x2="34" y2="32"/></svg>
+        <div class="stat-number">Прогнозирование</div>
+        <div class="stat-label">Анализ данных, прогнозы спроса и неожиданные события</div>
+      </div>
+      <div class="stat-card stat-card--light" style="background:#5C3D8A">
+        <svg class="icon icon-orange" viewBox="0 0 48 48"><rect x="8" y="4" width="32" height="40" rx="2"/><path d="M8 14h32"/><path d="M8 34h32"/><line x1="16" y1="24" x2="16" y2="24"/><line x1="24" y1="24" x2="24" y2="24"/><line x1="32" y1="24" x2="32" y2="24"/></svg>
+        <div class="stat-number" style="color:#fff">Запасы</div>
+        <div class="stat-label" style="color:rgba(255,255,255,0.85)">Современный завод vs старый дешёвый, оптимизация уровня запасов</div>
+      </div>
+      <div class="stat-card" style="background:#7BAAF7">
+        <svg class="icon" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M24 12v12l8 8"/><path d="M24 6v4"/><path d="M24 38v4"/><path d="M6 24h4"/><path d="M38 24h4"/></svg>
+        <div class="stat-number">Издержки</div>
+        <div class="stat-label">Баланс клиентского сервиса, стоимости и эффективности цепочки</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FEATURES ==================== -->
+<section class="section" id="features" style="background:var(--gray-light)">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Возможности</span>
+      <h2 class="section-title">Что умеет КАДЕНА</h2>
+    </div>
+    <div style="margin: 40px auto; max-width: 900px;">
+      <img src="assets/kadena-features.jpg" alt="Интерфейс КАДЕНЫ — 6 шагов для нового игрока: правила, график спроса, заводы, рынки, данные, модель поставок" style="width: 100%; display: block; border-radius: var(--radius-md); box-shadow: var(--shadow-card);">
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <svg class="icon" viewBox="0 0 48 48"><rect x="4" y="8" width="40" height="32" rx="2"/><path d="M4 16h40"/><line x1="10" y1="24" x2="18" y2="24"/><line x1="10" y1="28" x2="14" y2="28"/><line x1="10" y1="32" x2="16" y2="32"/><path d="M24 24l4 4 8-8"/></svg>
+        <h3>Прогнозирование рисков</h3>
+        <p>Анализируйте данные за прошлые периоды, стройте прогнозы спроса и учитывайте неожиданные события, которые меняют правила игры.</p>
+      </div>
+      <div class="feature-card reveal">
+        <svg class="icon" viewBox="0 0 48 48"><rect x="8" y="4" width="32" height="40" rx="2"/><path d="M8 14h32"/><path d="M8 34h32"/><line x1="16" y1="24" x2="16" y2="24"/><line x1="24" y1="24" x2="24" y2="24"/><line x1="32" y1="24" x2="32" y2="24"/></svg>
+        <h3>Управление запасами</h3>
+        <p>Решайте, где производить товары — на современном дорогом заводе или старом дешёвом. Оптимизируйте уровень запасов в распределительном центре.</p>
+      </div>
+      <div class="feature-card reveal">
+        <svg class="icon" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M24 12v12l8 8"/><path d="M24 6v4"/><path d="M24 38v4"/><path d="M6 24h4"/><path d="M38 24h4"/></svg>
+        <h3>Снижение издержек</h3>
+        <p>Находите баланс между уровнем клиентского сервиса, стоимостью управления запасами и финансовой эффективностью цепочки.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ROLES ==================== -->
+<section class="section" id="roles">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Три роли</span>
+      <h2 class="section-title">Создавайте. Играйте. Советуйте.</h2>
+      <p class="section-subtitle">Каждый участник имеет свою роль и зону ответственности в игровой сессии.</p>
+    </div>
+    <div class="roles-grid">
+      <div class="role-card reveal">
+        <div class="role-num">1</div>
+        <svg class="icon" viewBox="0 0 48 48"><rect x="8" y="6" width="32" height="36" rx="2"/><path d="M8 14h32"/><circle cx="24" cy="22" r="4"/><path d="M16 34c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+        <h3>Администратор</h3>
+        <p>Создаёт игровые сессии для Старост. Указывает их логины и пароли. Собирает все результаты работы команд для анализа.</p>
+      </div>
+      <div class="role-card reveal">
+        <div class="role-num">2</div>
+        <svg class="icon" viewBox="0 0 48 48"><circle cx="24" cy="14" r="6"/><path d="M12 40c0-6.6 5.4-12 12-12s12 5.4 12 12"/><path d="M24 20v8"/><path d="M20 26l4-4 4 4"/></svg>
+        <h3>Староста</h3>
+        <p>Единственная роль с правом ввода данных. Создаёт Игроков своей команды. Результаты Старосты = результат всей команды.</p>
+      </div>
+      <div class="role-card reveal">
+        <div class="role-num">3</div>
+        <svg class="icon" viewBox="0 0 48 48"><circle cx="16" cy="16" r="6"/><circle cx="32" cy="16" r="6"/><path d="M8 40c0-4.4 3.6-8 8-8"/><path d="M32 32c4.4 0 8 3.6 8 8"/><path d="M16 24v4"/><path d="M32 24v4"/></svg>
+        <h3>Игрок</h3>
+        <p>Член команды, авторизуется в той же сессии, что и Староста. Вместе обсуждают решения в чате, но вводит данные только Староста.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PROCESS ==================== -->
+<section class="section" id="process">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Процесс</span>
+      <h2 class="section-title">Командная работа в реальном времени</h2>
+      <p class="section-subtitle">КАДЕНА не требует выезда или отрыва от работы. Команды играют онлайн, обсуждают решения в привычных мессенджерах и принимают стратегические решения вместе.</p>
+    </div>
+    <div class="process-grid">
+      <div class="process-card reveal">
+        <svg class="icon" viewBox="0 0 48 48"><circle cx="24" cy="14" r="6"/><path d="M12 40c0-6.6 5.4-12 12-12s12 5.4 12 12"/><path d="M24 20v8"/><path d="M20 26l4-4 4 4"/></svg>
+        <h3>Староста + команда наблюдателей</h3>
+        <p>Мы регистрируем Старост — тех, кто вводит данные в систему. Каждый Староста может собрать команду наблюдателей, которые видят ту же игровую сессию и обсуждают решения в любом мессенджере: Telegram, WhatsApp, Slack — на выбор команды.</p>
+      </div>
+      <div class="process-card process-highlight reveal">
+        <svg class="icon icon-orange" viewBox="0 0 48 48"><circle cx="16" cy="16" r="6"/><circle cx="32" cy="16" r="6"/><path d="M8 40c0-4.4 3.6-8 8-8"/><path d="M32 32c4.4 0 8 3.6 8 8"/><path d="M16 24v4"/><path d="M32 24v4"/></svg>
+        <h3>Стандартная команда</h3>
+        <p>Староста + 3 наблюдателя. Все видят одну и ту же сессию, анализируют данные, спорят о стратегии — но решение вводит один. Это моделирует реальную корпоративную динамику: советуются все, отвечает один.</p>
+      </div>
+      <div class="process-card reveal">
+        <svg class="icon" viewBox="0 0 48 48"><rect x="4" y="8" width="40" height="32" rx="2"/><path d="M4 16h40"/><line x1="10" y1="24" x2="18" y2="24"/><line x1="10" y1="28" x2="14" y2="28"/><line x1="10" y1="32" x2="16" y2="32"/><path d="M24 24l4 4 8-8"/></svg>
+        <h3>Без отрыва от работы</h3>
+        <p>Игра проходит асинхронно в течение рабочей недели. Участники заходят, анализируют ситуацию, обсуждают в чате и делают ходы тогда, когда удобно — без необходимости собираться в одном месте в одно время.</p>
+      </div>
+    </div>
+
+    <div class="placeholder-img" style="margin-top:48px">
+      <svg viewBox="0 0 48 48"><rect x="4" y="8" width="40" height="32" rx="2"/><path d="M4 16h40"/><line x1="10" y1="24" x2="18" y2="24"/><line x1="10" y1="28" x2="14" y2="28"/><line x1="10" y1="32" x2="16" y2="32"/><path d="M24 24l4 4 8-8"/></svg>
+      <span>Фото: команда обсуждает стратегию в мессенджере<br/>(или скриншот чата с игровыми данными)</span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SCHEDULE ==================== -->
+<section class="section" id="schedule" style="background:var(--gray-light)">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">График</span>
+      <h2 class="section-title">Расписание игровой недели</h2>
+      <p class="section-subtitle">Неделя, которая меняет подход к управлению цепями поставок. Команды играют асинхронно, а в конце недели — групповой разбор с фасилитатором.</p>
+    </div>
+    <div class="schedule-timeline">
+      <div class="timeline-card reveal">
+        <div class="timeline-day">Понедельник</div>
+        <div class="timeline-title">Старт игры</div>
+        <div class="timeline-desc">Администратор открывает сессию. Старосты получают доступ, создают команды наблюдателей. Первый ход — знакомство с интерфейсом и правилами.</div>
+      </div>
+      <div class="timeline-card reveal">
+        <div class="timeline-day">Вт–Чт</div>
+        <div class="timeline-title">Игровые ходы</div>
+        <div class="timeline-desc">Команды анализируют данные, обсуждают стратегию в мессенджерах, Староста вводит решения. Каждый ход — новая порция данных, новые вызовы.</div>
+      </div>
+      <div class="timeline-card timeline-card--highlight reveal">
+        <div class="timeline-day">Пятница / Суббота</div>
+        <div class="timeline-title">Дебрифинг</div>
+        <div class="timeline-desc">2–3 часа групповой сессии с фасилитатором. Разбор решений каждой команды, сравнение результатов, выявление инсайтов. Формируем планы на будущее.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:48px">
+      <div class="section-header" style="margin-bottom:32px">
+        <span class="section-label">Результат</span>
+        <h2 class="section-title" style="font-size:28px">Что дала игра</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center">
+        <div style="font-size:16px;line-height:1.8;color:var(--text-body)">
+          <p style="margin-bottom:16px"><strong>Участники формируют планы на будущее:</strong> как изменить процессы прогнозирования, закупок и управления запасами в реальной работе.</p>
+          <p style="margin-bottom:16px">Каждая команда видит, как её локально оптимальные решения привели к глобальным проблемам цепи. Это понимание невозможно получить из лекции или кейса — только через собственный опыт.</p>
+          <p>После дебрифинга менеджеры возвращаются к работе с конкретными гипотезами: где сократить страховые запасы, как улучшить обмен данными с поставщиками, как выстроить прогнозирование под реальный спрос.</p>
+        </div>
+        <div class="placeholder-img placeholder-img--square">
+          <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M24 12v12l8 8"/><path d="M24 6v4"/><path d="M24 38v4"/><path d="M6 24h4"/><path d="M38 24h4"/></svg>
+          <span>Фото: дебрифинг — фасилитатор разбирает<br/>решения команд на общем экране</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== DASHBOARD ==================== -->
+<section class="section" id="dashboard">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Аналитика</span>
+      <h2 class="section-title">Дашборд результатов для каждой команды</h2>
+      <p class="section-subtitle">После игры каждая команда получает полный финальный отчёт с P&L за 12 месяцев, структурой затрат, динамикой сервиса по рынкам и ключевыми выводами — реальные данные, на которые можно опираться в работе.</p>
+    </div>
+    <div class="dashboard-grid">
+      <div class="dashboard-text">
+        <p><strong>Реальные данные за 12 месяцев.</strong> Каждая команда видит итоговый P&L: оборот €81,684, операционная прибыль €29,403, рентабельность 36%. Всё по месяцам — где заработали, где просели.</p>
+        <p><strong>Структура затрат.</strong> Хранение сырья €9,464 (32% расходов) — главная статья потерь. Производство €12,774, дистрибуция €3,837, упущенные продажи €1,174. Видно, куда уходят деньги.</p>
+        <p><strong>Сервис по рынкам.</strong> Рынок 2 — 94% сервиса, рынок 1 — 79.4%, рынок 3 — 90.4%. Понятно, какая стратегия приоритизации сработала, а где дефицит стоил прибыли.</p>
+        <p><strong>Ключевые выводы.</strong> Дашборд показывает: где избыточные запасы съели маржу, как ненадёжность заводов повлияла на продажи, где прогноз спроса расходился с реальностью. Это не просто цифры — это повод для конкретных решений.</p>
+      </div>
+      <div>
+        <div class="dashboard-metrics" style="margin-bottom:24px">
+          <div class="metric-card reveal">
+            <svg class="metric-icon" viewBox="0 0 48 48"><rect x="4" y="8" width="40" height="32" rx="2"/><path d="M4 16h40"/><line x1="10" y1="24" x2="18" y2="24"/><line x1="10" y1="28" x2="14" y2="28"/><line x1="10" y1="32" x2="16" y2="32"/><path d="M24 24l4 4 8-8"/></svg>
+            <div class="metric-name">Прогноз vs факт</div>
+            <div class="metric-desc">Точность предсказаний спроса</div>
+          </div>
+          <div class="metric-card reveal">
+            <svg class="metric-icon" viewBox="0 0 48 48"><rect x="8" y="4" width="32" height="40" rx="2"/><path d="M8 14h32"/><path d="M8 34h32"/><line x1="16" y1="24" x2="16" y2="24"/><line x1="24" y1="24" x2="24" y2="24"/><line x1="32" y1="24" x2="32" y2="24"/></svg>
+            <div class="metric-name">Прибыль</div>
+            <div class="metric-desc">€29 403 за 12 мес</div>
+          </div>
+          <div class="metric-card reveal">
+            <svg class="metric-icon" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M24 12v12l8 8"/><path d="M24 6v4"/><path d="M24 38v4"/><path d="M6 24h4"/><path d="M38 24h4"/></svg>
+            <div class="metric-name">Рентабельность</div>
+            <div class="metric-desc">36% годовых</div>
+          </div>
+          <div class="metric-card reveal">
+            <svg class="metric-icon" viewBox="0 0 48 48"><path d="M12 40c0-6.6 5.4-12 12-12s12 5.4 12 12"/><circle cx="24" cy="14" r="6"/><path d="M24 20v8"/><path d="M20 26l4-4 4 4"/></svg>
+            <div class="metric-name">Сервис</div>
+            <div class="metric-desc">94% — лучший рынок</div>
+          </div>
+          <div class="metric-card reveal">
+            <svg class="metric-icon" viewBox="0 0 48 48"><rect x="4" y="8" width="40" height="32" rx="2"/><path d="M4 16h40"/><line x1="10" y1="24" x2="18" y2="24"/><line x1="10" y1="28" x2="14" y2="28"/><line x1="10" y1="32" x2="16" y2="32"/><path d="M24 24l4 4 8-8"/></svg>
+            <div class="metric-name">Оборот</div>
+            <div class="metric-desc">€81 684 за год</div>
+          </div>
+        </div>
+        <div style="border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-card); background: var(--violet-deep); padding: 8px;">
+          <img src="assets/kadena-dashboard.png" alt="Финальный дашборд КАДЕНЫ — операционная прибыль €29,403, оборот €81,684, рентабельность 36%" style="width: 100%; display: block; border-radius: var(--radius-md);">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== AUDIENCE ==================== -->
+<section class="section" id="audience" style="background:var(--white)">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Для кого</span>
+      <h2 class="section-title">Кому подходит КАДЕНА</h2>
+      <p class="section-subtitle">Игра адаптируется под задачи разных аудиторий — от студентов до топ-менеджеров.</p>
+    </div>
+    <div class="audience-grid">
+      <div class="audience-card reveal">
+        <svg class="icon" viewBox="0 0 48 48"><path d="M24 4L4 14v20l20 10 20-10V14L24 4z"/><path d="M4 14l20 10"/><path d="M24 24v20"/><path d="M44 14L24 24"/></svg>
+        <h3>Университеты</h3>
+        <p>Курсы по логистике, цепям поставок, операционному менеджменту. Практическая замена теоретических кейсов.</p>
+      </div>
+      <div class="audience-card reveal">
+        <svg class="icon" viewBox="0 0 48 48"><rect x="4" y="16" width="40" height="28" rx="2"/><path d="M4 24h40"/><path d="M16 16V8a8 8 0 0116 0v8"/><line x1="14" y1="32" x2="14" y2="32"/><line x1="24" y1="32" x2="24" y2="32"/><line x1="34" y1="32" x2="34" y2="32"/></svg>
+        <h3>Производственные компании</h3>
+        <p>Обучение сотрудников планированию, прогнозированию и управлению запасами на реальных данных.</p>
+      </div>
+      <div class="audience-card reveal">
+        <svg class="icon" viewBox="0 0 48 48"><rect x="4" y="4" width="18" height="40" rx="2"/><rect x="26" y="12" width="18" height="32" rx="2"/><path d="M4 16h18"/><path d="M26 24h18"/></svg>
+        <h3>Торговые организации</h3>
+        <p>Понимание динамики спроса, оптимизация уровня запасов и снижение потерь от дефицита или избытка.</p>
+      </div>
+      <div class="audience-card reveal">
+        <svg class="icon" viewBox="0 0 48 48"><rect x="8" y="4" width="32" height="40" rx="2"/><path d="M8 14h32"/><path d="M8 34h32"/><path d="M16 24h4"/><path d="M28 24h4"/></svg>
+        <h3>Колледжи</h3>
+        <p>Введение в логистику для студентов среднего профессионального образования. Простой старт, глубокий результат.</p>
+      </div>
+      <div class="audience-card reveal">
+        <svg class="icon" viewBox="0 0 48 48"><rect x="4" y="28" width="40" height="16" rx="2"/><path d="M8 28V20a16 16 0 0132 0v8"/><path d="M4 36h40"/><circle cx="24" cy="14" r="2"/></svg>
+        <h3>Корпоративное обучение</h3>
+        <p>Тренинги для отделов закупок, логистики, цепей поставок. Командная работа и соревновательный элемент.</p>
+      </div>
+      <div class="audience-card reveal">
+        <svg class="icon" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><ellipse cx="24" cy="24" rx="8" ry="18"/><path d="M6 24h36"/></svg>
+        <h3>Международные программы</h3>
+        <p>Онлайн-формат позволяет проводить игру с участниками из разных стран без логистических затрат.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PHOTOS ==================== -->
+<section class="section photo-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">В процессе</span>
+      <h2 class="section-title">Как это выглядит</h2>
+    </div>
+    <div class="photo-grid">
+      <div class="photo-item photo-item--wide reveal">
+        <div class="placeholder-img">
+          <svg viewBox="0 0 48 48"><rect x="4" y="8" width="40" height="28" rx="2"/><path d="M4 20h40"/><path d="M20 36l4-4 4 4"/><circle cx="24" cy="4" r="2"/></svg>
+          <span>Фото: команда за игровым столом / онлайн-сессия</span>
+        </div>
+      </div>
+      <div class="photo-item reveal">
+        <div class="placeholder-img">
+          <svg viewBox="0 0 48 48"><circle cx="24" cy="14" r="6"/><path d="M12 40c0-6.6 5.4-12 12-12s12 5.4 12 12"/><path d="M24 20v8"/><path d="M20 26l4-4 4 4"/></svg>
+          <span>Фото: участники обсуждают стратегию</span>
+        </div>
+      </div>
+      <div class="photo-item reveal">
+        <div class="placeholder-img">
+          <svg viewBox="0 0 48 48"><rect x="4" y="4" width="18" height="18" rx="2"/><rect x="26" y="4" width="18" height="18" rx="2"/><rect x="4" y="26" width="18" height="18" rx="2"/><rect x="26" y="26" width="18" height="18" rx="2"/></svg>
+          <span>Фото: дашборд на экране</span>
+        </div>
+      </div>
+      <div class="photo-item photo-item--wide reveal">
+        <div class="placeholder-img">
+          <svg viewBox="0 0 48 48"><rect x="8" y="4" width="32" height="40" rx="2"/><path d="M8 14h32"/><path d="M8 34h32"/><circle cx="16" cy="24" r="2"/><circle cx="24" cy="24" r="2"/><circle cx="32" cy="24" r="2"/></svg>
+          <span>Фото: дебрифинг с фасилитатором</span>
+        </div>
+      </div>
+      <div class="photo-item reveal">
+        <div class="placeholder-img">
+          <svg viewBox="0 0 48 48"><path d="M24 4L4 14v20l20 10 20-10V14L24 4z"/><path d="M4 14l20 10"/><path d="M24 24v20"/><path d="M44 14L24 24"/></svg>
+          <span>Фото: сертификаты / материалы игры</span>
+        </div>
+      </div>
+      <div class="photo-item reveal">
+        <div class="placeholder-img">
+          <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M24 12v12l8 8"/><path d="M24 6v4"/><path d="M24 38v4"/><path d="M6 24h4"/><path d="M38 24h4"/></svg>
+          <span>Фото: сравнение результатов команд</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== HOW TO PLAY ==================== -->
+<section class="section" id="how" style="background:var(--gray-light)">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Как начать</span>
+      <h2 class="section-title">Четыре шага до первой игры</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">1</div>
+        <div class="step-title">Заказать демо</div>
+        <div class="step-desc">Оставьте заявку — покажем, как работает игра в реальном времени.</div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">2</div>
+        <div class="step-title">Создать сессию</div>
+        <div class="step-desc">Администратор создаёт игровую сессию и назначает Старост команд.</div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">3</div>
+        <div class="step-title">Собрать команды</div>
+        <div class="step-desc">Старосты создают Игроков и распределяют доступы внутри команд.</div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">4</div>
+        <div class="step-title">Играть и анализировать</div>
+        <div class="step-desc">Принимайте решения по ходу игры, обсуждайте результаты, сравнивайте с конкурентами.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CTA ==================== -->
+<section class="section cta" id="contact">
+  <div class="container">
+    <h2 class="cta-title">Закажите демо КАДЕНЫ</h2>
+    <p class="cta-subtitle">Покажем, как онлайн-симуляция помогает обучать логистике и управлению цепями поставок. Подберём формат под ваши задачи.</p>
+    <div style="margin-top:32px">
+      <a href="#" class="btn btn-primary btn-large" onclick="openDemoModal();return false;">Заказать демо →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">Логист<span>ориа</span></div>
+        <p class="footer-tagline">Игровые технологии для обучения логистике и цепям поставок. Доставляем в 30+ стран.</p>
+        <a href="mailto:project@logistoria.com" class="footer-email">project@logistoria.com</a>
+      </div>
+      <div>
+        <div class="footer-title">Навигация</div>
+        <a href="index-ru.html#games" class="footer-link">Каталог игр</a>
+        <a href="index-ru.html#subs" class="footer-link">Абонементы</a>
+        <a href="index-ru.html#how" class="footer-link">Как это работает</a>
+      </div>
+      <div>
+        <div class="footer-title">Продукты</div>
+        <a href="#" class="footer-link">КРОССДОК</a>
+        <a href="#" class="footer-link">Beer Game</a>
+        <a href="#" class="footer-link">КАДЕНА</a>
+      </div>
+      <div>
+        <div class="footer-title">Связаться</div>
+        <p class="footer-tagline">Планируете игровую сессию или обучение?</p>
+        <a href="#contact" class="footer-link" onclick="openDemoModal();return false;">Заказать демо</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2022–2026 Logistoria. Все права защищены.</span>
+      <span>Информационный ресурс по закупкам, логистике и цепям поставок.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ==================== DEMO MODAL ==================== -->
+<div class="demo-modal-overlay" id="demoModal">
+  <div class="demo-modal">
+    <button class="demo-modal-close" onclick="closeDemoModal()">✕</button>
+    <h3 class="demo-modal-title">Заказать демо КАДЕНЫ</h3>
+    <p class="demo-modal-subtitle">Оставьте контакты — покажем игру в действии</p>
+    <form id="demoForm" onsubmit="submitDemo(event)">
+      <div class="demo-form-group">
+        <label class="demo-form-label">Имя и фамилия <span class="required">*</span></label>
+        <input type="text" class="demo-form-input" id="demoName" placeholder="Иван Иванов" required>
+      </div>
+      <div class="demo-form-group">
+        <label class="demo-form-label">Email <span class="required">*</span></label>
+        <input type="email" class="demo-form-input" id="demoEmail1" placeholder="your@email.com" required>
+        <div class="error-msg" id="errEmail1">Введите корректный email</div>
+      </div>
+      <div class="demo-form-group">
+        <label class="demo-form-label">Подтвердите email <span class="required">*</span></label>
+        <input type="email" class="demo-form-input" id="demoEmail2" placeholder="your@email.com" required>
+        <div class="error-msg" id="errEmail2">Email не совпадает</div>
+      </div>
+      <div class="demo-form-group">
+        <label class="demo-form-label">Организация</label>
+        <input type="text" class="demo-form-input" id="demoOrg" placeholder="Название компании или вуза">
+      </div>
+      <div class="demo-form-group">
+        <label class="demo-form-label">Что хотите посмотреть</label>
+        <textarea class="demo-form-textarea" id="demoMessage" placeholder="Например: демо для группы 30 студентов, 2 часа"></textarea>
+      </div>
+      <div class="demo-form-note">Хотим быть уверенными, что при вводе email не закралась опечатка и запрос не остался без ответа.</div>
+      <button type="submit" class="demo-form-submit">Отправить запрос</button>
+    </form>
+  </div>
+</div>
+
+<script>
+// === Sticky nav ===
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// === Mobile menu ===
+const navToggle = document.getElementById('navToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+const mobileClose = document.getElementById('mobileClose');
+const mobileOverlay = document.getElementById('mobileOverlay');
+
+navToggle.addEventListener('click', () => {
+  mobileMenu.classList.add('open');
+  mobileOverlay.classList.add('open');
+});
+mobileClose.addEventListener('click', closeMobile);
+mobileOverlay.addEventListener('click', closeMobile);
+
+function closeMobile() {
+  mobileMenu.classList.remove('open');
+  mobileOverlay.classList.remove('open');
+}
+
+// === Demo modal ===
+function openDemoModal() {
+  document.getElementById('demoModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeDemoModal() {
+  document.getElementById('demoModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('demoModal').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('demoModal')) closeDemoModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeDemoModal();
+});
+
+// === Email validation ===
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function submitDemo(e) {
+  e.preventDefault();
+  const email1 = document.getElementById('demoEmail1');
+  const email2 = document.getElementById('demoEmail2');
+  const name = document.getElementById('demoName');
+  const org = document.getElementById('demoOrg');
+  const msg = document.getElementById('demoMessage');
+  const err1 = document.getElementById('errEmail1');
+  const err2 = document.getElementById('errEmail2');
+
+  let valid = true;
+  [email1, email2].forEach(el => el.classList.remove('error'));
+  [err1, err2].forEach(el => el.classList.remove('visible'));
+
+  if (!isValidEmail(email1.value.trim())) {
+    email1.classList.add('error');
+    err1.classList.add('visible');
+    valid = false;
+  }
+  if (email1.value.trim() !== email2.value.trim()) {
+    email2.classList.add('error');
+    err2.classList.add('visible');
+    valid = false;
+  }
+  if (!valid) return;
+
+  const subject = encodeURIComponent('Запрос на демо КАДЕНЫ — Логисториа');
+  const body = encodeURIComponent(
+    'Имя: ' + name.value.trim() + '\n' +
+    'Email: ' + email1.value.trim() + '\n' +
+    'Организация: ' + (org.value.trim() || 'Не указана') + '\n\n' +
+    'Что хотят посмотреть:\n' + msg.value.trim()
+  );
+  window.location.href = 'mailto:project@logistoria.com?subject=' + subject + '&body=' + body;
+  closeDemoModal();
+  document.getElementById('demoForm').reset();
+}
+
+// === Particle canvas ===
+const canvas = document.getElementById('particleCanvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+let width, height;
+
+function resizeCanvas() {
+  width = canvas.width = window.innerWidth;
+  height = canvas.height = window.innerHeight;
+}
+function createParticles() {
+  particles = [];
+  const count = Math.min(Math.floor(window.innerWidth / 15), 120);
+  for (let i = 0; i < count; i++) {
+    particles.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      vx: (Math.random() - 0.5) * 0.5,
+      vy: (Math.random() - 0.5) * 0.5,
+      radius: Math.random() * 2 + 1
+    });
+  }
+}
+function drawParticles() {
+  ctx.clearRect(0, 0, width, height);
+  ctx.fillStyle = 'rgba(255,255,255,0.15)';
+  ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+  
+  for (let i = 0; i < particles.length; i++) {
+    const p = particles[i];
+    p.x += p.vx;
+    p.y += p.vy;
+    if (p.x < 0) p.x = width;
+    if (p.x > width) p.x = 0;
+    if (p.y < 0) p.y = height;
+    if (p.y > height) p.y = 0;
+    
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+    ctx.fill();
+    
+    for (let j = i + 1; j < particles.length; j++) {
+      const p2 = particles[j];
+      const dx = p.x - p2.x;
+      const dy = p.y - p2.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 120) {
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(p2.x, p2.y);
+        ctx.lineWidth = (1 - dist / 120) * 0.8;
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(drawParticles);
+}
+
+resizeCanvas();
+createParticles();
+drawParticles();
+window.addEventListener('resize', () => { resizeCanvas(); createParticles(); });
+
+// === Scroll reveal ===
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+
+// Smooth scroll
+ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const href = this.getAttribute('href');
+    if (href === '#') return;
+    e.preventDefault();
+    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
+
+</body>
+</html>
