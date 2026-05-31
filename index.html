@@ -1,1254 +1,445 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Логисториа — Маркетплейс игр в логистику и цепочки поставок</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        :root {
-            --sky: #E8F4FD;
-            --sky-light: #F0F7FF;
-            --white: #FFFFFF;
-            --navy: #1E3A5F;
-            --navy-light: #2A4A6F;
-            --text: #1F2937;
-            --text-muted: #6B7280;
-            --border: #E5E7EB;
-            --purple: #7C3AED;
-            --purple-light: #EDE9FE;
-            --blue: #2563EB;
-            --blue-light: #DBEAFE;
-            --orange: #F97316;
-            --orange-light: #FFEDD5;
-            --green: #10B981;
-            --green-light: #D1FAE5;
-            --indigo: #4F46E5;
-            --indigo-light: #E0E7FF;
-            --red: #EF4444;
-            --cream: #FAF9F7;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            color: var(--text);
-            line-height: 1.6;
-            background: var(--white);
-        }
-
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-
-        /* Nav */
-        .nav {
-            position: fixed;
-            top: 0; width: 100%;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(20px);
-            z-index: 1000;
-            padding: 16px 0;
-            border-bottom: 1px solid var(--border);
-            transition: all 0.3s;
-        }
-        .nav.scrolled { padding: 12px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
-        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 24px; font-weight: 800; color: var(--navy); text-decoration: none; letter-spacing: -0.5px; }
-        .logo span { color: var(--purple); }
-        .nav-links { display: flex; gap: 32px; align-items: center; }
-        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
-        .nav-links a:hover { color: var(--navy); }
-        .nav-cta {
-            background: var(--orange);
-            color: var(--white);
-            padding: 10px 24px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-        .nav-cta:hover { background: #EA580C; transform: translateY(-1px); }
-
-        /* Hero */
-        .hero {
-            background: linear-gradient(135deg, var(--sky) 0%, var(--sky-light) 50%, var(--white) 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 120px 0 80px;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero::before {
-            content: ''; position: absolute; top: -20%; right: -10%;
-            width: 600px; height: 600px;
-            background: radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-        .hero::after {
-            content: ''; position: absolute; bottom: -10%; left: -5%;
-            width: 400px; height: 400px;
-            background: radial-gradient(circle, rgba(249,115,22,0.06) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-        .hero-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 60px; align-items: center; position: relative; z-index: 1; }
-        .hero-label {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: var(--purple-light); color: var(--purple);
-            padding: 8px 16px; border-radius: 20px;
-            font-size: 13px; font-weight: 600; margin-bottom: 24px;
-        }
-        .hero-label::before { content: ''; width: 8px; height: 8px; background: var(--purple); border-radius: 50%; animation: pulse 2s infinite; }
-        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
-        .hero h1 { font-size: 52px; font-weight: 800; color: var(--navy); line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 20px; }
-        .hero h1 em { color: var(--purple); font-style: normal; position: relative; }
-        .hero h1 em::after { content: ''; position: absolute; bottom: 4px; left: 0; width: 100%; height: 8px; background: rgba(124,58,237,0.2); z-index: -1; }
-        .hero-subtitle { font-size: 18px; color: var(--text-muted); max-width: 480px; margin-bottom: 40px; line-height: 1.6; }
-        .hero-buttons { display: flex; gap: 16px; margin-bottom: 48px; }
-        .btn {
-            display: inline-flex; align-items: center; gap: 8px;
-            padding: 14px 32px; border-radius: 10px;
-            font-weight: 600; font-size: 15px;
-            text-decoration: none; transition: all 0.2s;
-            border: none; cursor: pointer;
-        }
-        .btn-primary { background: var(--purple); color: var(--white); }
-        .btn-primary:hover { background: #6D28D9; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(124,58,237,0.25); }
-        .btn-secondary { background: var(--white); color: var(--navy); border: 1.5px solid var(--border); }
-        .btn-secondary:hover { border-color: var(--purple); color: var(--purple); }
-        .hero-stats { display: flex; gap: 40px; }
-        .stat-number { font-size: 36px; font-weight: 800; color: var(--navy); line-height: 1; }
-        .stat-label { font-size: 13px; color: var(--text-muted); margin-top: 6px; }
-        .stat-divider { width: 1px; background: var(--border); }
-        .hero-visual { position: relative; }
-        .hero-image-container {
-            background: var(--white); border-radius: 20px;
-            padding: 24px; box-shadow: 0 20px 60px rgba(30,58,95,0.1);
-            border: 1px solid var(--border);
-        }
-        .hero-image-placeholder { aspect-ratio: 4/3; background: var(--sky); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 14px; border: 2px dashed var(--border); }
-
-        /* Trust */
-        .trust { background: var(--white); padding: 40px 0; border-bottom: 1px solid var(--border); }
-        .trust-label { text-align: center; font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; font-weight: 600; margin-bottom: 24px; }
-        .trust-logos { display: flex; justify-content: center; align-items: center; gap: 60px; flex-wrap: wrap; }
-        .trust-logo { font-size: 16px; font-weight: 700; color: var(--text-muted); opacity: 0.6; filter: grayscale(100%); transition: all 0.2s; }
-        .trust-logo:hover { opacity: 1; filter: grayscale(0%); }
-
-        /* Sections */
-        .section { padding: 80px 0; }
-        .section-alt { background: var(--sky-light); }
-        .section-header { text-align: center; max-width: 640px; margin: 0 auto 56px; }
-        .section-tag { display: inline-block; padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px; }
-        .section-title { font-size: 36px; font-weight: 800; color: var(--navy); margin-bottom: 12px; letter-spacing: -1px; }
-        .section-subtitle { font-size: 17px; color: var(--text-muted); line-height: 1.6; }
-
-        /* Filters */
-        .filter-bar { display: flex; justify-content: center; gap: 8px; margin-bottom: 40px; flex-wrap: wrap; }
-        .filter-btn { padding: 10px 20px; border-radius: 8px; border: 1.5px solid var(--border); background: var(--white); color: var(--text-muted); font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
-        .filter-btn:hover { border-color: var(--purple); color: var(--purple); }
-        .filter-btn.active { background: var(--navy); color: var(--white); border-color: var(--navy); }
-
-        /* Games Grid */
-        .games-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-        .game-card {
-            background: var(--white); border-radius: 16px; overflow: hidden;
-            border: 1px solid var(--border); transition: all 0.3s;
-            display: flex; flex-direction: column;
-        }
-        .game-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
-        .game-card.hidden { display: none; }
-
-        .game-image { height: 200px; position: relative; overflow: hidden; }
-        .game-image-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 13px; }
-        .game-badges { position: absolute; top: 12px; left: 12px; display: flex; gap: 6px; flex-wrap: wrap; }
-        .badge { padding: 5px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; }
-        .badge-board { background: var(--indigo); color: var(--white); }
-        .badge-online { background: var(--blue); color: var(--white); }
-        .badge-training { background: var(--orange); color: var(--white); }
-        .badge-course { background: var(--purple); color: var(--white); }
-        .badge-free { background: var(--green); color: var(--white); }
-        .badge-ai { background: var(--red); color: var(--white); }
-        .badge-soon { background: var(--text-muted); color: var(--white); }
-        .badge-bestseller { background: var(--orange); color: var(--white); }
-        .badge-pp { background: var(--green); color: var(--white); }
-        .badge-intl { background: linear-gradient(135deg, var(--blue), var(--indigo)); color: var(--white); }
-
-        .game-content { padding: 24px; flex: 1; display: flex; flex-direction: column; }
-        .game-title { font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
-        .game-desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px; }
-        .game-meta { display: flex; gap: 16px; margin-bottom: 16px; font-size: 13px; color: var(--text-muted); }
-
-        /* Format Tabs — НОВОЕ */
-        .format-tabs { display: flex; gap: 4px; margin-bottom: 12px; }
-        .format-tab {
-            flex: 1;
-            padding: 8px 4px;
-            border: 1.5px solid var(--border);
-            border-radius: 8px;
-            background: var(--white);
-            cursor: pointer;
-            text-align: center;
-            font-size: 11px;
-            font-weight: 600;
-            transition: all 0.2s;
-            line-height: 1.3;
-            color: var(--text-muted);
-        }
-        .format-tab:hover { border-color: var(--purple); color: var(--purple); }
-        .format-tab.active { background: var(--navy); color: var(--white); border-color: var(--navy); }
-        .format-tab.disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-            background: var(--border);
-        }
-        .format-tab.disabled:hover { border-color: var(--border); color: var(--text-muted); }
-        .format-icon { font-size: 18px; display: block; margin-bottom: 2px; }
-
-        .format-content { animation: fadeIn 0.3s ease; }
-        .format-content.hidden { display: none; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
-
-        .format-price { font-size: 24px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
-        .format-note { font-size: 12px; color: var(--text-muted); line-height: 1.4; margin-bottom: 12px; padding: 8px 10px; background: var(--sky-light); border-radius: 6px; }
-        .format-pp-note { background: var(--green-light); color: var(--green); }
-        .format-intl-note { background: var(--blue-light); color: var(--blue); }
-
-        .btn-block { display: block; width: 100%; text-align: center; padding: 12px; border-radius: 8px; font-weight: 600; font-size: 14px; text-decoration: none; transition: all 0.2s; border: none; cursor: pointer; }
-        .btn-navy { background: var(--navy); color: var(--white); }
-        .btn-navy:hover { background: var(--navy-light); }
-        .btn-purple { background: var(--purple); color: var(--white); }
-        .btn-purple:hover { background: #6D28D9; }
-        .btn-orange { background: var(--orange); color: var(--white); }
-        .btn-orange:hover { background: #EA580C; }
-        .btn-green { background: var(--green); color: var(--white); }
-        .btn-green:hover { background: #059669; }
-        .btn-blue { background: var(--blue); color: var(--white); }
-        .btn-blue:hover { background: #1D4ED8; }
-        .btn-outline { background: transparent; color: var(--navy); border: 2px solid var(--navy); }
-        .btn-outline:hover { background: var(--navy); color: var(--white); }
-        .btn-gray { background: var(--border); color: var(--text-muted); }
-        .btn-gray:hover { background: #D1D5DB; }
-
-        /* Subs, Steps, Audience, Gallery, Blog, FAQ, CTA, Footer — без изменений */
-        .subs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 800px; margin: 0 auto; }
-        .sub-card { background: var(--white); border-radius: 16px; padding: 40px; border: 2px solid var(--border); transition: all 0.3s; }
-        .sub-card:hover { border-color: var(--purple); transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.06); }
-        .sub-card.featured { border-color: var(--purple); position: relative; }
-        .sub-card.featured::before { content: 'Популярный'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--purple); color: var(--white); padding: 4px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; }
-        .sub-name { font-size: 24px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
-        .sub-price { font-size: 36px; font-weight: 800; color: var(--purple); margin-bottom: 24px; }
-        .sub-price span { font-size: 16px; font-weight: 500; color: var(--text-muted); }
-        .sub-features { list-style: none; margin-bottom: 32px; }
-        .sub-features li { padding: 8px 0; font-size: 14px; color: var(--text); display: flex; align-items: center; gap: 8px; }
-        .sub-features li::before { content: '✓'; color: var(--green); font-weight: 700; }
-
-        .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-        .step { text-align: center; padding: 32px; }
-        .step-num { width: 56px; height: 56px; background: var(--purple); color: var(--white); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 800; margin: 0 auto 24px; position: relative; }
-        .step-num::after { content: ''; position: absolute; top: 50%; right: -48px; width: 32px; height: 2px; background: var(--border); }
-        .step:last-child .step-num::after { display: none; }
-        .step-title { font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
-        .step-desc { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
-
-        .audience-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-        .audience-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 40px 32px; text-align: center; transition: all 0.3s; }
-        .audience-card:hover { border-color: var(--purple); transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.06); }
-        .audience-icon { font-size: 40px; margin-bottom: 20px; }
-        .audience-card h3 { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
-        .audience-card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
-
-        .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-        .gallery-item { aspect-ratio: 1; background: var(--sky); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 13px; border: 2px dashed var(--border); transition: all 0.3s; cursor: pointer; }
-        .gallery-item:hover { border-color: var(--purple); background: var(--purple-light); }
-
-        .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-        .blog-card { background: var(--white); border-radius: 12px; overflow: hidden; border: 1px solid var(--border); transition: all 0.3s; }
-        .blog-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.06); }
-        .blog-image { height: 160px; background: var(--sky); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 13px; }
-        .blog-content { padding: 24px; }
-        .blog-tag { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; text-transform: uppercase; margin-bottom: 8px; }
-        .blog-tag-purple { background: var(--purple-light); color: var(--purple); }
-        .blog-tag-blue { background: var(--blue-light); color: var(--blue); }
-        .blog-tag-green { background: var(--green-light); color: var(--green); }
-        .blog-title { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 8px; line-height: 1.4; }
-        .blog-excerpt { font-size: 14px; color: var(--text-muted); line-height: 1.5; margin-bottom: 12px; }
-        .blog-link { font-size: 14px; font-weight: 600; color: var(--purple); text-decoration: none; }
-        .blog-link:hover { text-decoration: underline; }
-
-        .faq-list { max-width: 800px; margin: 0 auto; }
-        .faq-item { border-bottom: 1px solid var(--border); }
-        .faq-question { padding: 24px 0; font-size: 16px; font-weight: 600; color: var(--navy); cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: color 0.2s; }
-        .faq-question:hover { color: var(--purple); }
-        .faq-question::after { content: '+'; font-size: 24px; color: var(--purple); font-weight: 400; }
-        .faq-item.active .faq-question::after { content: '−'; }
-        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
-        .faq-item.active .faq-answer { max-height: 200px; }
-        .faq-answer p { padding-bottom: 24px; font-size: 15px; color: var(--text-muted); line-height: 1.6; }
-
-        .cta-box { background: var(--white); border-radius: 24px; padding: 64px; text-align: center; max-width: 720px; margin: 0 auto; border: 1px solid var(--border); position: relative; overflow: hidden; box-shadow: 0 20px 60px rgba(30,58,95,0.08); }
-        .cta-box::before { content: ''; position: absolute; top: -100px; right: -100px; width: 300px; height: 300px; background: radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 70%); border-radius: 50%; }
-        .cta-title { font-size: 32px; font-weight: 800; color: var(--navy); margin-bottom: 16px; position: relative; }
-        .cta-desc { font-size: 17px; color: var(--text-muted); margin-bottom: 32px; line-height: 1.6; position: relative; }
-        .btn-large { padding: 16px 40px; font-size: 16px; }
-
-        .footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 64px 0 32px; }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
-        .footer-brand { font-size: 22px; font-weight: 800; color: var(--white); margin-bottom: 12px; }
-        .footer-brand span { color: var(--purple); }
-        .footer-desc { font-size: 14px; line-height: 1.7; margin-bottom: 16px; max-width: 300px; }
-        .footer-email { color: var(--white); text-decoration: none; font-weight: 600; }
-        .footer-email:hover { color: var(--purple); }
-        .footer-col h4 { font-size: 13px; font-weight: 700; color: var(--white); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 20px; }
-        .footer-links { list-style: none; }
-        .footer-links li { margin-bottom: 12px; }
-        .footer-links a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 14px; transition: color 0.2s; }
-        .footer-links a:hover { color: var(--white); }
-        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; text-align: center; font-size: 13px; }
-
-        .modal-overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 2000;
-            display: none; align-items: center; justify-content: center; padding: 24px;
-        }
-        .modal-overlay.active { display: flex; }
-        .modal-box {
-            background: var(--white); border-radius: 20px; padding: 40px;
-            max-width: 520px; width: 100%; max-height: 90vh; overflow-y: auto;
-            position: relative; box-shadow: 0 24px 80px rgba(0,0,0,0.2);
-            animation: modalIn 0.3s ease;
-        }
-        @keyframes modalIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .modal-close {
-            position: absolute; top: 16px; right: 20px; font-size: 28px; color: var(--text-muted);
-            cursor: pointer; background: none; border: none; line-height: 1;
-        }
-        .modal-close:hover { color: var(--navy); }
-        .modal-title { font-size: 24px; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
-        .modal-subtitle { font-size: 15px; color: var(--text-muted); margin-bottom: 24px; }
-        .demo-form .form-group { margin-bottom: 16px; }
-        .demo-form label { display: block; font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
-        .demo-form label .required { color: var(--red); }
-        .demo-form input, .demo-form textarea {
-            width: 100%; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 10px;
-            font-size: 15px; font-family: inherit; transition: border-color 0.2s;
-        }
-        .demo-form input:focus, .demo-form textarea:focus { outline: none; border-color: var(--purple); }
-        .demo-form input.error, .demo-form textarea.error { border-color: var(--red); background: #FEF2F2; }
-        .demo-form .error-msg { color: var(--red); font-size: 13px; margin-top: 4px; display: none; }
-        .demo-form .error-msg.visible { display: block; }
-        .demo-form textarea { min-height: 100px; resize: vertical; }
-        .demo-form .form-note {
-            font-size: 13px; color: var(--text-muted); line-height: 1.5;
-            padding: 12px; background: var(--sky-light); border-radius: 8px; margin-bottom: 20px;
-        }
-        .demo-form .btn-submit {
-            width: 100%; padding: 14px; background: var(--purple); color: var(--white);
-            border: none; border-radius: 10px; font-size: 16px; font-weight: 600;
-            cursor: pointer; transition: all 0.2s;
-        }
-        .demo-form .btn-submit:hover { background: #6D28D9; transform: translateY(-1px); }
-        .demo-form .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-        @media (max-width: 480px) {
-            .modal-box { padding: 28px 20px; }
-            .modal-title { font-size: 20px; }
-        }
-
-        @media (max-width: 1024px) {
-            .games-grid { grid-template-columns: repeat(2, 1fr); }
-            .audience-grid { grid-template-columns: repeat(2, 1fr); }
-            .hero-grid { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 40px; }
-            .steps { grid-template-columns: 1fr; }
-            .step-num::after { display: none; }
-            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-            .blog-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        @media (max-width: 768px) {
-            .games-grid { grid-template-columns: 1fr; }
-            .audience-grid { grid-template-columns: 1fr; }
-            .subs-grid { grid-template-columns: 1fr; }
-            .footer-grid { grid-template-columns: 1fr; }
-            .nav-links { display: none; }
-            .mobile-toggle { display: block; }
-            .hero-stats { flex-wrap: wrap; gap: 20px; }
-            .hero h1 { font-size: 32px; }
-            .section { padding: 60px 0; }
-            .cta-box { padding: 40px 20px; }
-            .gallery-grid { grid-template-columns: 1fr; }
-            .blog-grid { grid-template-columns: 1fr; }
-            .format-tab { font-size: 10px; padding: 6px 2px; }
-            .trust-logos { gap: 24px; }
-            .step-num { width: 48px; height: 48px; font-size: 20px; }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 { font-size: 28px; }
-            .section-title { font-size: 28px; }
-            .hero-buttons { flex-direction: column; }
-            .hero-buttons .btn { width: 100%; justify-content: center; }
-            .format-tab { font-size: 9px; padding: 5px 1px; }
-            .format-icon { font-size: 14px; }
-            .format-price { font-size: 20px; }
-            .filter-bar { gap: 6px; }
-            .filter-btn { padding: 8px 12px; font-size: 12px; }
-            .game-title { font-size: 18px; }
-            .game-content { padding: 20px; }
-            .btn-block { padding: 10px; font-size: 13px; }
-            .stat-number { font-size: 28px; }
-            .hero-stats { gap: 16px; }
-            .stat-divider { display: none; }
-            .section-header { margin-bottom: 36px; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logistoria - Serious Games in Logistics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=2">
 </head>
 <body>
 
-    <nav class="nav" id="nav">
-        <div class="container nav-inner">
-            <a href="#" class="logo">Логист<span>ориа</span></a>
-            <div class="nav-links">
-                <a href="#games">Игры</a>
-                <a href="#subs">Абонементы</a>
-                <a href="#how">Как это работает</a>
-                <a href="#audience">Для кого</a>
-                <a href="#blog">Блог</a>
-                <a href="#faq">FAQ</a>
-            </div>
-            <a href="#cta" class="nav-cta">Заказать демо</a>
-            <div class="mobile-toggle">☰</div>
-        </div>
+<!-- ==================== NAVIGATION ==================== -->
+<header class="nav" id="nav">
+  <div class="nav-container">
+    <a href="#" class="nav-logo">Logistoria<span class="nav-logo-dot">.</span></a>
+    <nav class="nav-links">
+      <a href="#games" class="nav-link">Games</a>
+      <a href="#partners" class="nav-link">Partners</a>
+      <a href="#blog" class="nav-link">Blog</a>
+      <a href="#faq" class="nav-link">FAQ</a>
     </nav>
-
-    <section class="hero">
-        <div class="container hero-grid">
-            <div>
-                <div class="hero-label">Более 10 лет на рынке · Доставка по всему миру</div>
-                <h1>Игровые технологии для обучения <em>логистике</em></h1>
-                <p class="hero-subtitle">Логисториа — первый маркетплейс игр в логистику и цепочки поставок. Настольные игры, онлайн-симуляции и тренинги для учебных заведений и компаний. Доставляем в Россию, СНГ, Европу, Азию и Латинскую Америку.</p>
-                <div class="hero-buttons">
-                    <a href="#games" class="btn btn-primary">Выбрать игру →</a>
-                    <a href="#how" class="btn btn-secondary">Как это работает</a>
-                </div>
-                <div class="hero-stats">
-                    <div class="stat"><div class="stat-number">8</div><div class="stat-label">игровых продуктов</div></div>
-                    <div class="stat-divider"></div>
-                    <div class="stat"><div class="stat-number">4000+</div><div class="stat-label">студентов обучено</div></div>
-                    <div class="stat-divider"></div>
-                    <div class="stat"><div class="stat-number">30+</div><div class="stat-label">стран доставки</div></div>
-                </div>
-            </div>
-            <div class="hero-visual">
-                <div class="hero-image-container">
-                    <div class="hero-image-placeholder">[Фото: процесс игры / тренинга]</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="trust">
-        <div class="container">
-            <div class="trust-label">Нам доверяют</div>
-            <div class="trust-logos">
-                <div class="trust-logo">РАНХиГС</div>
-                <div class="trust-logo">МГУ</div>
-                <div class="trust-logo">Х5 Retail</div>
-                <div class="trust-logo">Магнит</div>
-                <div class="trust-logo">Пятёрочка</div>
-                <div class="trust-logo">Дикси</div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section section-alt" id="games">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-tag" style="background: var(--purple-light); color: var(--purple);">Каталог игр</div>
-                <h2 class="section-title">Выберите формат под свои задачи</h2>
-                <p class="section-subtitle">Полный набор · Print&Play · Международная доставка</p>
-            </div>
-
-            <div class="filter-bar">
-                <button class="filter-btn active" data-filter="all">Все</button>
-                <button class="filter-btn" data-filter="board">🎲 Настольные</button>
-                <button class="filter-btn" data-filter="online">💻 Онлайн</button>
-                <button class="filter-btn" data-filter="training">👥 Тренинги</button>
-                <button class="filter-btn" data-filter="course">📚 Курсы</button>
-                <button class="filter-btn" data-filter="free">🆓 Бесплатно</button>
-                <button class="filter-btn" data-filter="author">🚀 Для авторов</button>
-            </div>
-
-            <div class="games-grid" id="gamesGrid">
-
-                <!-- КРОССДОК — 3 формата -->
-                <div class="game-card" data-category="board">
-                    <div class="game-image" style="background: var(--indigo-light);">
-                        <div class="game-badges"><span class="badge badge-board">Настольная</span><span class="badge badge-bestseller">Бестселлер</span><span class="badge badge-pp">P&P</span><span class="badge badge-intl">🌍 Межд</span></div>
-                        <img src="images/crossdock.jpg" alt="КРОССДОК — настольная игра в логистику" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">
-                    </div>
-                    <div class="game-content">
-                        <h3 class="game-title">КРОССДОК</h3>
-                        <p class="game-desc">Первая игра в логистику. Игроки выстраивают цепочки поставок на карте, используют разный транспорт и выполняют заказы.</p>
-                        <div class="game-meta"><span>👥 2-4 игрока</span><span>⏱ 2-3 часа</span></div>
-
-                        <div class="format-tabs">
-                            <button class="format-tab active" data-format="full" onclick="switchFormat(this)"><span class="format-icon">🎁</span>Полный</button>
-                            <button class="format-tab" data-format="pp" onclick="switchFormat(this)"><span class="format-icon">🖨️</span>P&P</button>
-                            <button class="format-tab" data-format="intl" onclick="switchFormat(this)"><span class="format-icon">🌍</span>Межд.</button>
-                        </div>
-
-                        <div class="format-content" data-format="full">
-                            <div class="format-price">от 8 800 ₽</div>
-                            <div class="format-note">Коробка, поле, фишки, карты, правила. Доставка СДЭК/Почта по РФ.</div>
-                            <a href="#" class="btn-block btn-navy">Заказать полный набор</a>
-                        </div>
-                        <div class="format-content hidden" data-format="pp">
-                            <div class="format-price">от 5 500 ₽</div>
-                            <div class="format-note format-pp-note">🖨️ Фишки отправляем почтой. Поле и карты — PDF для печати. Идеально для международных заказов.</div>
-                            <a href="#" class="btn-block btn-green">Заказать Print&Play</a>
-                        </div>
-                        <div class="format-content hidden" data-format="intl">
-                            <div class="format-price">от 15 000 ₽</div>
-                            <div class="format-note format-intl-note">🌍 Полный набор. Доставка DHL/EMS. 7-14 дней. Для заказов из-за РФ.</div>
-                            <a href="#" class="btn-block btn-blue">Заказать международно</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Beer Game Тренинг — только полный (услуга) -->
-                <div class="game-card" data-category="training">
-                    <div class="game-image" style="background: var(--orange-light);">
-                        <div class="game-badges"><span class="badge badge-training">Тренинг</span></span></div>
-                        <div class="game-image-placeholder">[Beer Game]</div>
-                    </div>
-                    <div class="game-content">
-                        <h3 class="game-title">The Beer Game — Тренинг</h3>
-                        <p class="game-desc">Классическая симуляция для 4-400 человек. Участники на практике понимают «Эффект Хлыста».</p>
-                        <div class="game-meta"><span>👥 4-400 чел</span><span>⏱ 4 часа</span></div>
-
-                        <div class="format-tabs">
-                            <button class="format-tab active" data-format="full" onclick="switchFormat(this)"><span class="format-icon">👥</span>Тренинг</button>
-                            <button class="format-tab disabled" title="Только проведение тренинга"><span class="format-icon">🖨️</span>P&P</button>
-                            <button class="format-tab disabled" title="Только проведение тренинга"><span class="format-icon">🌍</span>Межд.</button>
-                        </div>
-
-                        <div class="format-content" data-format="full">
-                            <div class="format-price">от 150 000 ₽</div>
-                            <div class="format-note">Полный набор для 32 человек + проведение тренинга нашими специалистами. Доступен выезд в любую точку мира.</div>
-                            <a href="#" class="btn-block btn-orange">Заказать тренинг</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Beer Game Онлайн — только онлайн -->
-                <div class="game-card" data-category="online">
-                    <div class="game-image" style="background: var(--blue-light);">
-                        <div class="game-badges"><span class="badge badge-online">Онлайн</span></span></div>
-                        <div class="game-image-placeholder">[Онлайн версия]</div>
-                    </div>
-                    <div class="game-content">
-                        <h3 class="game-title">The Beer Game — Онлайн</h3>
-                        <p class="game-desc">Удалённая версия классической игры. Минимальная подготовка, подробный отчёт после игры.</p>
-                        <div class="game-meta"><span>👥 4 игрока</span><span>⏱ 1-2 часа</span></div>
-
-                        <div class="format-tabs">
-                            <button class="format-tab active" data-format="online" onclick="switchFormat(this)"><span class="format-icon">💻</span>Онлайн</button>
-                            <button class="format-tab disabled" title="Только онлайн-доступ"><span class="format-icon">🖨️</span>P&P</button>
-                            <button class="format-tab disabled" title="Только онлайн-доступ"><span class="format-icon">🌍</span>Межд.</button>
-                        </div>
-
-                        <div class="format-content" data-format="online">
-                            <div class="format-price">от 12 000 ₽</div>
-                            <div class="format-note">Доступ к одной партии для 4 игроков. Партия · Семестр · Безлимитная лицензия.</div>
-                            <a href="#" class="btn-block btn-blue">Получить доступ</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- КАДЕНА — 3 формата -->
-                <div class="game-card" data-category="online">
-                    <div class="game-image" style="background: var(--blue-light);">
-                        <div class="game-badges"><span class="badge badge-online">Онлайн</span><span class="badge badge-pp">P&P</span><span class="badge badge-intl">🌍 Межд</span></div>
-                        <div class="game-image-placeholder">[КАДЕНА]</div>
-                    </div>
-                    <div class="game-content">
-                        <h3 class="game-title">КАДЕНА</h3>
-                        <p class="game-desc">Управление планированием поставок одного SKU с 2 заводов на 3 рынка. Прогнозирование, риск-менеджмент.</p>
-                        <div class="game-meta"><span>👥 1-4 игрока</span><span>⏱ Несколько дней</span></div>
-
-                        <div class="format-tabs">
-                            <button class="format-tab active" data-format="full" onclick="switchFormat(this)"><span class="format-icon">💻</span>Онлайн</button>
-                            <button class="format-tab" data-format="pp" onclick="switchFormat(this)"><span class="format-icon">🖨️</span>P&P</button>
-                            <button class="format-tab" data-format="intl" onclick="switchFormat(this)"><span class="format-icon">🌍</span>Межд.</button>
-                        </div>
-
-                        <div class="format-content" data-format="full">
-                            <div class="format-price">от 4 000 ₽</div>
-                            <div class="format-note">Доступ для 1 игрока. Проведение без ограничений в семестр. Безлимитная лицензия.</div>
-                            <a href="#" class="btn-block btn-navy">Получить доступ</a>
-                        </div>
-                        <div class="format-content hidden" data-format="pp">
-                            <div class="format-price">от 2 500 ₽</div>
-                            <div class="format-note format-pp-note">🖨️ PDF-инструкции + онлайн-доступ. Материалы для печати прилагаются.</div>
-                            <a href="#" class="btn-block btn-green">Заказать Print&Play</a>
-                        </div>
-                        <div class="format-content hidden" data-format="intl">
-                            <div class="format-price">от 6 000 ₽</div>
-                            <div class="format-note format-intl-note">🌍 Полный онлайн-доступ + поддержка на английском. DHL/EMS не требуется.</div>
-                            <a href="#" class="btn-block btn-blue">Заказать международно</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Курс — только цифровой -->
-                <div class="game-card" data-category="course">
-                    <div class="game-image" style="background: var(--purple-light);">
-                        <div class="game-badges"><span class="badge badge-course">Курс</span></span></div>
-                        <div class="game-image-placeholder">[Курс]</div>
-                    </div>
-                    <div class="game-content">
-                        <h3 class="game-title">Курс в логистику</h3>
-                        <p class="game-desc">История производителя ручек через все этапы цепочки поставок. Для школьников и профориентации.</p>
-                        <div class="game-meta"><span>👥 Индивидуально</span><span>📖 5 модулей</span></div>
-
-                        <div class="format-tabs">
-                            <button class="format-tab active" data-format="full" onclick="switchFormat(this)"><span class="format-icon">📚</span>Цифровой</button>
-                            <button class="format-tab disabled" title="Цифровой курс"><span class="format-icon">🖨️</span>P&P</button>
-                            <button class="format-tab disabled" title="Цифровой курс"><span class="format-icon">🌍</span>Межд.</button>
-                        </div>
-
-                        <div class="format-content" data-format="full">
-                            <div class="format-price">от 7 500 ₽</div>
-                            <div class="format-note">1 модуль · Полный курс из 5 модулей — 35 000 ₽. Доступ после оплаты мгновенно.</div>
-                            <a href="#" class="btn-block btn-purple">Получить доступ</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Герои Стеллажа — скоро -->
-                <div class="game-card" data-category="board">
-                    <div class="game-image" style="background: var(--indigo-light);">
-                        <div class="game-badges"><span class="badge badge-board">Настольная</span><span class="badge badge-soon">Скоро</span><span class="badge badge-pp">P&P</span><span class="badge badge-intl">🌍 Межд</span></div>
-                        <div class="game-image-placeholder">[Герои Стеллажа]</div>
-                    </div>
-                    <div class="game-content">
-                        <h3 class="game-title">Герои Стеллажа и Склада</h3>
-                        <p class="game-desc">Первая игра в складскую логистику. Адресное хранение, оптимизация погрузчиков.</p>
-                        <div class="game-meta"><span>👥 2-4 игрока</span><span>⏱ 2-3 часа</span></div>
-
-                        <div class="format-tabs">
-                            <button class="format-tab active" data-format="full" onclick="switchFormat(this)"><span class="format-icon">🎁</span>Полный</button>
-                            <button class="format-tab" data-format="pp" onclick="switchFormat(this)"><span class="format-icon">🖨️</span>P&P</button>
-                            <button class="format-tab" data-format="intl" onclick="switchFormat(this)"><span class="format-icon">🌍</span>Межд.</button>
-                        </div>
-
-                        <div class="format-content" data-format="full">
-                            <div class="format-price">Скоро</div>
-                            <div class="format-note">Версия Стандарт и PRO с Личным кабинетом. Следите за новостями @supplychains.</div>
-                            <a href="#" class="btn-block btn-gray">Узнать о запуске</a>
-                        </div>
-                        <div class="format-content hidden" data-format="pp">
-                            <div class="format-price">Скоро</div>
-                            <div class="format-note format-pp-note">🖨️ Фишки отправляем, поле — PDF. Доступно для предзаказа.</div>
-                            <a href="#" class="btn-block btn-gray">Предзаказать P&P</a>
-                        </div>
-                        <div class="format-content hidden" data-format="intl">
-                            <div class="format-price">Скоро</div>
-                            <div class="format-note format-intl-note">🌍 Доставка DHL/EMS. Предзаказ открыт.</div>
-                            <a href="#" class="btn-block btn-gray">Предзаказать межд.</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- МаркетPLAYS — бесплатно P&P -->
-                <div class="game-card" data-category="free">
-                    <div class="game-image" style="background: var(--green-light);">
-                        <div class="game-badges"><span class="badge badge-free">Бесплатно</span><span class="badge badge-pp">P&P</span></span></div>
-                        <div class="game-image-placeholder">[МаркетPLAYS]</div>
-                    </div>
-                    <div class="game-content">
-                        <h3 class="game-title">МаркетPLAYS</h3>
-                        <p class="game-desc">Игра про работу на маркетплейсе: FBS, FBO, риски. Формат Print & Play — распечатайте и играйте.</p>
-                        <div class="game-meta"><span>👥 2-4 игрока</span><span>🖨 P&P</span></div>
-
-                        <div class="format-tabs">
-                            <button class="format-tab active" data-format="pp" onclick="switchFormat(this)"><span class="format-icon">🖨️</span>P&P</button>
-                            <button class="format-tab disabled" title="Только Print&Play"><span class="format-icon">🎁</span>Полный</button>
-                            <button class="format-tab disabled" title="Только Print&Play"><span class="format-icon">🌍</span>Межд.</button>
-                        </div>
-
-                        <div class="format-content" data-format="pp">
-                            <div class="format-price">Бесплатно</div>
-                            <div class="format-note format-pp-note">🖨️ PDF для печати. Распечатайте поле и карточки — играйте бесплатно. Наборы по запросу.</div>
-                            <a href="#" class="btn-block btn-green">Скачать PDF</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Ценность или Цена — бесплатно P&P -->
-                <div class="game-card" data-category="free">
-                    <div class="game-image" style="background: var(--green-light);">
-                        <div class="game-badges"><span class="badge badge-free">Бесплатно</span><span class="badge badge-pp">P&P</span></span></div>
-                        <div class="game-image-placeholder">[Ценность]</div>
-                    </div>
-                    <div class="game-content">
-                        <h3 class="game-title">Ценность или Цена</h3>
-                        <p class="game-desc">Аукцион, торги, реклама и стратегия. Научитесь различать ценность от цены.</p>
-                        <div class="game-meta"><span>👥 3-6 игроков</span><span>⏱ 1-2 часа</span></div>
-
-                        <div class="format-tabs">
-                            <button class="format-tab active" data-format="pp" onclick="switchFormat(this)"><span class="format-icon">🖨️</span>P&P</button>
-                            <button class="format-tab disabled" title="Только Print&Play"><span class="format-icon">🎁</span>Полный</button>
-                            <button class="format-tab disabled" title="Только Print&Play"><span class="format-icon">🌍</span>Межд.</button>
-                        </div>
-
-                        <div class="format-content" data-format="pp">
-                            <div class="format-price">Бесплатно</div>
-                            <div class="format-note format-pp-note">🖨️ PDF для печати. Наборы карточек и полей по запросу.</div>
-                            <a href="#" class="btn-block btn-green">Скачать PDF</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ИИ — бесплатно онлайн -->
-                <div class="game-card" data-category="free">
-                    <div class="game-image" style="background: linear-gradient(135deg, var(--purple-light), var(--blue-light));">
-                        <div class="game-badges"><span class="badge badge-ai">AI-сервис</span><span class="badge badge-free">Бесплатно</span></span></div>
-                        <div class="game-image-placeholder">[AI Теоретик]</div>
-                    </div>
-                    <div class="game-content">
-                        <h3 class="game-title">ИИ — Теоретик Поставок</h3>
-                        <p class="game-desc">AI-ассистент для преподавателей. Учебники в формате «вопрос-ответ», подготовка курсов.</p>
-                        <div class="game-meta"><span>🤖 AI</span><span>📚 Подготовка курсов</span></div>
-
-                        <div class="format-tabs">
-                            <button class="format-tab active" data-format="online" onclick="switchFormat(this)"><span class="format-icon">🤖</span>Онлайн</button>
-                            <button class="format-tab disabled" title="Только онлайн"><span class="format-icon">🖨️</span>P&P</button>
-                            <button class="format-tab disabled" title="Только онлайн"><span class="format-icon">🌍</span>Межд.</button>
-                        </div>
-
-                        <div class="format-content" data-format="online">
-                            <div class="format-price">Бесплатно</div>
-                            <div class="format-note">Демо-версия бесплатно. Разработка кастомного AI под заказ.</div>
-                            <a href="#" class="btn-block btn-purple">Попробовать демо</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Стать автором — призыв -->
-                <div class="game-card game-card-cta" data-category="author">
-                    <div class="game-image" style="background: linear-gradient(135deg, var(--purple), var(--indigo)); display: flex; align-items: center; justify-content: center;">
-                        <div class="game-badges"><span class="badge" style="background: var(--white); color: var(--purple);">Для авторов</span></div>
-                        <div style="text-align: center; color: var(--white);">
-                            <div style="font-size: 48px; margin-bottom: 8px;">🎮</div>
-                            <div style="font-size: 14px; font-weight: 600; opacity: 0.9;">Ваша игра здесь</div>
-                        </div>
-                    </div>
-                    <div class="game-content" style="background: linear-gradient(135deg, var(--purple-light), var(--indigo-light));">
-                        <h3 class="game-title" style="color: var(--purple);">Разместить свою игру</h3>
-                        <p class="game-desc">У вас есть игра в логистику, цепочки поставок или смежную тему? Разместите её на маркетплейсе Логисториа и получайте продажи по всему миру.</p>
-                        <div class="game-meta"><span>🌍 Международный охват</span><span>📈 Продажи и продвижение</span></div>
-                        <div style="margin-top: auto; padding-top: 16px; border-top: 1px solid rgba(124,58,237,0.2);">
-                            <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">Мы берём на себя: доставку, маркетинг, поддержку клиентов</div>
-                            <a href="#cta" class="btn-block" style="background: var(--purple); color: var(--white);">🚀 Стать автором</a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Subs — без изменений -->
-    <section class="section" id="subs">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-tag" style="background: var(--orange-light); color: var(--orange);">Абонементы</div>
-                <h2 class="section-title">Подписки для учебных заведений</h2>
-                <p class="section-subtitle">Новый формат работы с колледжами и вузами</p>
-            </div>
-            <div class="subs-grid">
-                <div class="sub-card">
-                    <div class="sub-name">Базовый</div>
-                    <div class="sub-price">100 000 ₽<span>/год</span></div>
-                    <ul class="sub-features">
-                        <li>5 доступов к Beer Game онлайн</li>
-                        <li>5 доступов к КАДЕНА онлайн</li>
-                        <li>Помощь в сопровождении игр</li>
-                        <li>Консультации по методикам</li>
-                        <li>Доступ к правилам КРОССДОК</li>
-                    </ul>
-                    <a href="#" class="btn-block btn-outline">Оформить</a>
-                </div>
-                <div class="sub-card featured">
-                    <div class="sub-name">PRO</div>
-                    <div class="sub-price">280 000 ₽<span>/год</span></div>
-                    <ul class="sub-features">
-                        <li>30 доступов к Beer Game онлайн</li>
-                        <li>30 доступов к КАДЕНА онлайн</li>
-                        <li>Помощь в интерпретации результатов</li>
-                        <li>Консультации по всем методикам</li>
-                        <li>Подготовка и интеграция в программы</li>
-                    </ul>
-                    <a href="#" class="btn-block btn-purple">Оформить</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How, Audience, Gallery, Blog, FAQ, CTA, Footer — без изменений -->
-    <section class="section section-alt" id="how">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-tag" style="background: var(--blue-light); color: var(--blue);">Простой старт</div>
-                <h2 class="section-title">Как это работает</h2>
-                <p class="section-subtitle">От выбора игры до первого занятия — три простых шага</p>
-            </div>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-num">1</div>
-                    <h3 class="step-title">Выберите игру</h3>
-                    <p class="step-desc">Ознакомьтесь с каталогом, сравните форматы и выберите подходящий продукт для вашей аудитории</p>
-                </div>
-                <div class="step">
-                    <div class="step-num">2</div>
-                    <h3 class="step-title">Получите доступ</h3>
-                    <p class="step-desc">Физическая игра — доставим курьером. Онлайн — вышлем ссылку. Тренинг — согласуем дату</p>
-                </div>
-                <div class="step">
-                    <div class="step-num">3</div>
-                    <h3 class="step-title">Играйте и обучайте</h3>
-                    <p class="step-desc">Проводите занятия самостоятельно или с нашими методистами. Анализируйте результаты</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section" id="audience">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-tag" style="background: var(--green-light); color: var(--green);">Наши клиенты</div>
-                <h2 class="section-title">Для кого мы разрабатываем</h2>
-                <p class="section-subtitle">Игровые методики для разных задач и аудиторий</p>
-            </div>
-            <div class="audience-grid">
-                <div class="audience-card"><div class="audience-icon">🏢</div><h3>Компании</h3><p>Тренинги для логистических, производственных и торговых компаний</p></div>
-                <div class="audience-card"><div class="audience-icon">🎓</div><h3>Университеты</h3><p>Интеграция игр в курсы MBA, логистики и цепочек поставок</p></div>
-                <div class="audience-card"><div class="audience-icon">📋</div><h3>Колледжи</h3><p>Профессионалитеты и профессиональное обучение</p></div>
-                <div class="audience-card"><div class="audience-icon">🎁</div><h3>Брендирование</h3><p>Игры с вашим логотипом и сценариями</p></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section section-alt" id="gallery">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-tag" style="background: var(--indigo-light); color: var(--indigo);">Галерея</div>
-                <h2 class="section-title">Первые настольные игры в логистику</h2>
-                <p class="section-subtitle">Фото с тренингов, игр и мероприятий</p>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item" style="padding:0;overflow:hidden;"><img src="images/crossdock.jpg" alt="КРОССДОК" style="width:100%;height:100%;object-fit:cover;border-radius:12px;"></div>
-                <div class="gallery-item">[Beer Game]</div>
-                <div class="gallery-item">[КАДЕНА]</div>
-                <div class="gallery-item">[Тренинг]</div>
-                <div class="gallery-item">[Процесс]</div>
-                <div class="gallery-item">[Команда]</div>
-                <div class="gallery-item">[Игра]</div>
-                <div class="gallery-item">[Склад]</div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section" id="blog">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-tag" style="background: var(--blue-light); color: var(--blue);">Блог</div>
-                <h2 class="section-title">SupplyChains.ru</h2>
-                <p class="section-subtitle">Материалы по логистике и цепочкам поставок</p>
-            </div>
-            <div class="blog-grid">
-                <div class="blog-card"><div class="blog-image">[Управление запасами]</div><div class="blog-content"><div class="blog-tag blog-tag-purple">Управление запасами</div><h3 class="blog-title">Запас как материальный поток</h3><p class="blog-excerpt">Логистика как воздух, которым мы дышим...</p><a href="https://supplychains.ru" class="blog-link">Читать →</a></div></div>
-                <div class="blog-card"><div class="blog-image">[Складская логистика]</div><div class="blog-content"><div class="blog-tag blog-tag-blue">Складская логистика</div><h3 class="blog-title">Учёт и сохранность товаров</h3><p class="blog-excerpt">Как эффективно вести управление запасами...</p><a href="https://supplychains.ru" class="blog-link">Читать →</a></div></div>
-                <div class="blog-card"><div class="blog-image">[Игры в логистике]</div><div class="blog-content"><div class="blog-tag blog-tag-green">Игры в логистике</div><h3 class="blog-title">Полезны ли игры в логистику?</h3><p class="blog-excerpt">Что становится с играми, когда мы вырастаем?</p><a href="https://supplychains.ru" class="blog-link">Читать →</a></div></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section section-alt" id="faq">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-tag" style="background: var(--purple-light); color: var(--purple);">FAQ</div>
-                <h2 class="section-title">Частые вопросы</h2>
-                <p class="section-subtitle">Ответы на популярные вопросы о наших играх</p>
-            </div>
-            <div class="faq-list">
-                <div class="faq-item">
-                    <div class="faq-question">Как заказать игру для учебного заведения?</div>
-                    <div class="faq-answer"><p>Выберите игру в каталоге, выберите формат (Полный набор / Print&Play / Международная доставка) и нажмите «Заказать». Мы свяжемся с вами в течение рабочего дня.</p></div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">Что такое Print&Play?</div>
-                    <div class="faq-answer"><p>Мы отправляем фишки почтой (пластик или дерево), а поле, карты и правила — в виде PDF для печати. Это в 3-5 раз дешевле доставки полного набора и идеально для международных заказов.</p></div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">Доставляете ли вы за границу?</div>
-                    <div class="faq-answer"><p>Да. Для международных заказов доступны два формата: Print&Play (фишки почтой + PDF, дёшево и быстро) или Полный набор через DHL/EMS (7-14 дней).</p></div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">Можно ли адаптировать игру под наши задачи?</div>
-                    <div class="faq-answer"><p>Да, мы предлагаем брендирование игр с вашим логотипом и адаптацию сценариев под специфику вашей компании или учебного заведения.</p></div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">Есть ли скидки на большие объёмы?</div>
-                    <div class="faq-answer"><p>Да, при заказе от 10 комплектов КРОССДОК или абонементе PRO действуют специальные условия. Свяжитесь с нами для расчёта.</p></div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">Можно ли получить демо-версию?</div>
-                    <div class="faq-answer"><p>Да, для большинства продуктов доступна демонстрация. Закажите демо через форму на сайте или напишите нам.</p></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section" id="cta">
-        <div class="container">
-            <div class="cta-box">
-                <h2 class="cta-title">Не знаете, с чего начать?</h2>
-                <p class="cta-desc">Закажите бесплатную демонстрацию — покажем, как игры работают на практике, и подберём формат под ваши задачи</p>
-                <a href="#" class="btn btn-primary btn-large">Заказать демо →</a>
-            </div>
-        </div>
-    </section>
-
-    <div class="modal-overlay" id="demoModal">
-        <div class="modal-box">
-            <button class="modal-close" onclick="closeDemoModal()">&times;</button>
-            <h3 class="modal-title">Заказать демо</h3>
-            <p class="modal-subtitle">Оставьте контакты — покажем, как игры работают на практике</p>
-            
-            <form class="demo-form" id="demoForm" onsubmit="submitDemo(event)">
-                <div class="form-group">
-                    <label for="demoEmail1">Email <span class="required">*</span></label>
-                    <input type="email" id="demoEmail1" placeholder="your@email.com" required>
-                    <div class="error-msg" id="errEmail1">Введите корректный email</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="demoEmail2">Подтвердите email <span class="required">*</span></label>
-                    <input type="email" id="demoEmail2" placeholder="your@email.com" required>
-                    <div class="error-msg" id="errEmail2">Email не совпадает</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="demoMessage">Что хотите посмотреть</label>
-                    <textarea id="demoMessage" placeholder="Например: демо Beer Game для группы 20 человек"></textarea>
-                </div>
-                
-                <div class="form-note">
-                    Хотим быть уверенными, что при вводе email не закралась опечатка и запрос не остался без ответа.
-                </div>
-                
-                <button type="submit" class="btn-submit">Отправить запрос</button>
-            </form>
-        </div>
+    <div class="nav-right">
+      <a href="index.html" class="nav-link" style="margin-right:8px;font-size:14px;font-weight:700;">EN</a>
+      <a href="index-ru.html" class="nav-link" style="margin-right:8px;font-size:14px;">RU</a>
+      <a href="index-es.html" class="nav-link" style="margin-right:16px;font-size:14px;">ES</a>
+      <a href="#contact" class="btn btn-primary btn-small">Request Demo</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
     </div>
+  </div>
+</header>
 
-    <!-- Subscription Modal -->
-    <div class="modal-overlay" id="subModal">
-        <div class="modal-box">
-            <button class="modal-close" onclick="closeSubModal()">&times;</button>
-            <h3 class="modal-title">Оформить подписку</h3>
-            <p class="modal-subtitle">Запрос на абонемент для учебного заведения</p>
-            
-            <form class="demo-form" id="subForm" onsubmit="submitSub(event)">
-                <div class="form-group">
-                    <label for="subName">Имя и фамилия <span class="required">*</span></label>
-                    <input type="text" id="subName" placeholder="Иван Иванов" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="subEmail1">Email <span class="required">*</span></label>
-                    <input type="email" id="subEmail1" placeholder="your@university.ru" required>
-                    <div class="error-msg" id="errSubEmail1">Введите корректный email</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="subEmail2">Подтвердите email <span class="required">*</span></label>
-                    <input type="email" id="subEmail2" placeholder="your@university.ru" required>
-                    <div class="error-msg" id="errSubEmail2">Email не совпадает</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="subOrg">Организация</label>
-                    <input type="text" id="subOrg" placeholder="Название учебного заведения">
-                </div>
-                
-                <div class="form-group">
-                    <label>Тариф</label>
-                    <div style="display: flex; gap: 8px;">
-                        <label style="flex: 1; padding: 12px; border: 1.5px solid var(--border); border-radius: 10px; cursor: pointer; text-align: center; font-size: 14px; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--purple)'" onmouseout="if(!this.querySelector('input').checked)this.style.borderColor='var(--border)'">
-                            <input type="radio" name="subPlan" value="Базовый" style="display: none;" onchange="this.parentElement.style.borderColor='var(--purple)'; this.parentElement.style.background='var(--purple-light)'">
-                            <strong>Базовый</strong><br><small>100 000 ₽/год</small>
-                        </label>
-                        <label style="flex: 1; padding: 12px; border: 1.5px solid var(--border); border-radius: 10px; cursor: pointer; text-align: center; font-size: 14px; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--purple)'" onmouseout="if(!this.querySelector('input').checked)this.style.borderColor='var(--border)'">
-                            <input type="radio" name="subPlan" value="PRO" style="display: none;" onchange="this.parentElement.style.borderColor='var(--purple)'; this.parentElement.style.background='var(--purple-light)'">
-                            <strong>PRO</strong><br><small>280 000 ₽/год</small>
-                        </label>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="subMessage">Комментарий</label>
-                    <textarea id="subMessage" placeholder="Например: нужно для 15 студентов, 2 группы"></textarea>
-                </div>
-                
-                <div class="form-note">
-                    Хотим быть уверенными, что при вводе email не закралась опечатка и запрос не остался без ответа.
-                </div>
-                
-                <button type="submit" class="btn-submit">Отправить запрос</button>
-            </form>
-        </div>
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="mobileClose" aria-label="Close menu">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <a href="#games" class="mobile-link">Games</a>
+  <a href="#partners" class="mobile-link">Partners</a>
+  <a href="#blog" class="mobile-link">Blog</a>
+  <a href="#faq" class="mobile-link">FAQ</a>
+  <a href="index-ru.html" class="mobile-link">Русская версия</a>
+  <a href="index-es.html" class="mobile-link">Versión en español</a>
+  <a href="#contact" class="btn btn-primary" style="margin-top:24px">Request Demo</a>
+</div>
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero">
+  <canvas id="particleCanvas" class="hero-canvas" role="img" aria-label="Animated particle constellation"></canvas>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <span class="hero-label">Serious Games in Logistics</span>
+    <h1 class="hero-title">Logistoria - The First Marketplace of Games in Logistics and Supply Chains</h1>
+    <p class="hero-subtitle">We develop gaming technologies for logistics and supply chain education. Board games, online simulations, and training formats for educational institutions and companies.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="hero-stat-num">8</span><span class="hero-stat-label">Products</span></div>
+      <div class="hero-stat"><span class="hero-stat-num">4000+</span><span class="hero-stat-label">Students</span></div>
+      <div class="hero-stat"><span class="hero-stat-num">10 Years</span><span class="hero-stat-label">On Market</span></div>
     </div>
+    <div class="hero-buttons">
+      <a href="#games" class="btn btn-primary btn-large">Explore Games</a>
+      <a href="#contact" class="btn btn-secondary btn-large">Request Demo</a>
+    </div>
+  </div>
+  <div class="hero-scroll"></div>
+</section>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div>
-                    <div class="footer-brand">Логист<span>ориа</span></div>
-                    <p class="footer-desc">Логисториа — первый маркетплейс игр в логистику и цепочки поставок. Доставляем по всему миру.</p>
-                    <a href="mailto:project@logistoria.com" class="footer-email">project@logistoria.com</a>
-                </div>
-                <div class="footer-col">
-                    <h4>Каталог</h4>
-                    <ul class="footer-links">
-                        <li><a href="#">Настольные игры</a></li>
-                        <li><a href="#">Онлайн-симуляции</a></li>
-                        <li><a href="#">Тренинги</a></li>
-                        <li><a href="#">Курсы</a></li>
-                        <li><a href="#">Бесплатные игры</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Компания</h4>
-                    <ul class="footer-links">
-                        <li><a href="#">О нас</a></li>
-                        <li><a href="#">Партнёры</a></li>
-                        <li><a href="#">Блог</a></li>
-                        <li><a href="#">Карьера</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Поддержка</h4>
-                    <ul class="footer-links">
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Доставка и оплата</a></li>
-                        <li><a href="#">Брендирование</a></li>
-                        <li><a href="#">Контакты</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">© 2026 Логисториа. Все права защищены. · Политика конфиденциальности</div>
+<!-- ==================== ABOUT / STATS ==================== -->
+<section class="section about" id="about">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">About Us</span>
+      <h2 class="section-title">Proud Facts About Logistoria</h2>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card" style="background:#FFB74D"><div class="stat-number">950</div><div class="stat-label">Crossdok game copies sold</div></div>
+      <div class="stat-card stat-card--light" style="background:#5C3D8A"><div class="stat-number">110+</div><div class="stat-label">Logistics and Bullwhip Effect trainings conducted</div></div>
+      <div class="stat-card" style="background:#7BAAF7"><div class="stat-number">8</div><div class="stat-label">Game products in logistics</div></div>
+      <div class="stat-card stat-card--light" style="background:#120B1E"><div class="stat-number">10+</div><div class="stat-label">Years on the market - first to describe supply chains</div></div>
+      <div class="stat-card" style="background:#FF8A65"><div class="stat-number">4000</div><div class="stat-label">Students trained on our games</div></div>
+      <div class="stat-card" style="background:#A5D6A7"><div class="stat-number">TOP-20</div><div class="stat-label">Largest companies and universities are our clients</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== GAMES CATALOG ==================== -->
+<section class="section games" id="games">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Games &amp; Technologies</span>
+      <h2 class="section-title">Serious Games in Logistics</h2>
+    </div>
+    <div class="filter-tabs">
+      <button class="filter-tab active" data-filter="all">All</button>
+      <button class="filter-tab" data-filter="board">Board Games</button>
+      <button class="filter-tab" data-filter="online">Online</button>
+      <button class="filter-tab" data-filter="course">Courses</button>
+    </div>
+    <div class="games-grid">
+      <div class="game-card" data-category="board">
+        <div class="game-img-wrap"><img src="images/crossdok-product.jpg" alt="Crossdok" class="game-img" loading="lazy"></div>
+        <div class="game-body">
+          <span class="game-badge">Board Game</span>
+          <h3 class="game-name">Crossdok</h3>
+          <p class="game-desc">The best supply chain simulation game</p>
+          <div class="game-footer">
+            <span class="game-price">from 8 800 &#8381;</span>
+            <a href="#" class="game-link">Details <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+          </div>
+          <div class="game-variants"><span class="game-variant">Standard</span><span class="game-variant">Pro</span></div>
         </div>
-    </footer>
+      </div>
+      <div class="game-card" data-category="online">
+        <div class="game-img-wrap"><img src="images/kadena-product.jpg" alt="Kadena" class="game-img" loading="lazy"></div>
+        <div class="game-body">
+          <span class="game-badge">Online</span>
+          <h3 class="game-name">Kadena</h3>
+          <p class="game-desc">The most famous logistics game</p>
+          <div class="game-footer">
+            <span class="game-price">from 4 000 &#8381; / person</span>
+            <a href="#" class="game-link">Details <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+          </div>
+          <div class="game-variants"><span class="game-variant">Company</span><span class="game-variant">Online</span></div>
+        </div>
+      </div>
+      <div class="game-card" data-category="board">
+        <div class="game-img-wrap"><img src="images/beer-game-product.jpg" alt="The Beer Game" class="game-img" loading="lazy"></div>
+        <div class="game-body">
+          <span class="game-badge">Board Game</span>
+          <h3 class="game-name">The Beer Game</h3>
+          <p class="game-desc">The legendary supply chain classic</p>
+          <div class="game-footer">
+            <span class="game-price">9 800 &#8381;</span>
+            <a href="#" class="game-link">Details <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+          </div>
+        </div>
+      </div>
+      <div class="game-card" data-category="board">
+        <div class="game-img-wrap"><img src="images/heroes-rack-product.jpg" alt="Heroes of the Rack" class="game-img" loading="lazy"></div>
+        <div class="game-body">
+          <span class="game-badge">Board Game</span>
+          <h3 class="game-name">Heroes of the Rack</h3>
+          <p class="game-desc">First warehouse logistics game</p>
+          <div class="game-footer">
+            <span class="game-price">from 20 000 &#8381; / person</span>
+            <a href="#" class="game-link">Details <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+          </div>
+        </div>
+      </div>
+      <div class="game-card" data-category="board">
+        <div class="game-img-wrap"><img src="images/market-plays-product.jpg" alt="Market Plays" class="game-img" loading="lazy"></div>
+        <div class="game-body">
+          <span class="game-badge">Board Game</span>
+          <h3 class="game-name">Market Plays</h3>
+          <p class="game-desc">Learn to sell on marketplaces</p>
+          <div class="game-footer">
+            <span class="game-price">2 000 &#8381;</span>
+            <a href="#" class="game-link">Details <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+          </div>
+        </div>
+      </div>
+      <div class="game-card" data-category="board">
+        <div class="game-img-wrap"><img src="images/price-value-product.jpg" alt="Price & Value" class="game-img" loading="lazy"></div>
+        <div class="game-body">
+          <span class="game-badge">Board Game</span>
+          <h3 class="game-name">Price &amp; Value</h3>
+          <p class="game-desc">Master negotiation skills</p>
+          <div class="game-footer">
+            <span class="game-price" style="color:#3D1959">PRE-ORDER</span>
+            <a href="#" class="game-link">Details <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+          </div>
+        </div>
+      </div>
+      <div class="game-card" data-category="course">
+        <div class="game-img-wrap"><img src="images/logistics-course-product.jpg" alt="Logistics Course" class="game-img" loading="lazy"></div>
+        <div class="game-body">
+          <span class="game-badge">Course</span>
+          <h3 class="game-name">Logistics Course for Students</h3>
+          <p class="game-desc">Online course for school students</p>
+          <div class="game-footer">
+            <span class="game-price">from 8 000 &#8381;</span>
+            <a href="#" class="game-link">Details <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+          </div>
+          <div class="game-variants"><span class="game-variant">Online</span><span class="game-variant">Full</span></div>
+        </div>
+      </div>
+      <div class="game-card game-card--soon">
+        <div class="game-soon-content">
+          <h3 class="game-soon-title">Coming Soon</h3>
+          <p class="game-soon-desc">Stay tuned for updates</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script>
-        // Format switcher
-        function switchFormat(tab) {
-            if (tab.classList.contains('disabled')) return;
-            const card = tab.closest('.game-card');
-            card.querySelectorAll('.format-tab').forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-            const format = tab.dataset.format;
-            card.querySelectorAll('.format-content').forEach(c => {
-                c.classList.toggle('hidden', c.dataset.format !== format);
-            });
-        }
+<!-- ==================== AUDIENCE ==================== -->
+<section class="section audience">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Our Clients</span>
+      <h2 class="section-title">Whom We Develop Gaming Technologies For</h2>
+    </div>
+    <div class="audience-grid">
+      <div class="audience-card" style="background:#FFB74D">
+        <span class="audience-num">01</span>
+        <div class="audience-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v3"/></svg></div>
+        <h3 class="audience-title">Companies</h3>
+        <p class="audience-desc">We work with logistics, manufacturing, and retail companies. Our gaming methods accelerate the mastery of planning, forecasting, and supply chain management skills.</p>
+      </div>
+      <div class="audience-card" style="background:#3D1959">
+        <span class="audience-num">02</span>
+        <div class="audience-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.66 2.24 3 5 3s5-1.34 5-3v-5"/></svg></div>
+        <h3 class="audience-title">Universities</h3>
+        <p class="audience-desc">Our partners are faculty at leading universities where logistics and supply chain disciplines are central to the curriculum.</p>
+      </div>
+      <div class="audience-card" style="background:#7BAAF7">
+        <span class="audience-num">03</span>
+        <div class="audience-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></div>
+        <h3 class="audience-title">Colleges</h3>
+        <p class="audience-desc">The rapid growth of logistics programs in colleges allows us to integrate gaming methods into vocational training.</p>
+      </div>
+      <div class="audience-card" style="background:#120B1E">
+        <span class="audience-num">04</span>
+        <div class="audience-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><circle cx="13.5" cy="6.5" r="2.5"/><path d="M13.5 9c-3 0-5.5 2-6.5 5l-2 7h4l1-3h7l1 3h4l-2-7c-1-3-3.5-5-6.5-5z"/></svg></div>
+        <h3 class="audience-title">Branding</h3>
+        <p class="audience-desc">Any of our games can be branded with your logo, custom scenarios, and values. An excellent gift for Logistics Day, New Year, or corporate souvenirs.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-        // Category filter
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                const filter = btn.dataset.filter;
-                document.querySelectorAll('.game-card').forEach(card => {
-                    if (filter === 'all' || card.dataset.category === filter) {
-                        card.classList.remove('hidden');
-                    } else {
-                        card.classList.add('hidden');
-                    }
-                });
-            });
-        });
+<!-- ==================== SUBSCRIPTIONS ==================== -->
+<section class="section subscriptions" id="subscriptions">
+  <div class="container" style="max-width:800px">
+    <div class="section-header">
+      <span class="section-label">Subscriptions for Educational Institutions</span>
+      <h2 class="section-title" style="color:white">Subscriptions &mdash; A New Format</h2>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">BASIC</h3>
+        <div class="pricing-price">&#8381;100k<span class="pricing-period">/year</span></div>
+        <ul class="pricing-features">
+          <li>5 accesses to The Beer Game online + game facilitation support</li>
+          <li>5 accesses to KADENA online + results interpretation support</li>
+          <li>Consultations on all purchased gaming methodologies</li>
+        </ul>
+        <a href="#" class="btn btn-outlined-light">Subscribe</a>
+      </div>
+      <div class="pricing-card pricing-card--popular">
+        <span class="pricing-badge">MOST POPULAR</span>
+        <h3 class="pricing-name">PRO</h3>
+        <div class="pricing-price">&#8381;280k<span class="pricing-period">/year</span></div>
+        <ul class="pricing-features">
+          <li>30 accesses to The Beer Game online + game facilitation support</li>
+          <li>30 accesses to KADENA online + results interpretation support</li>
+          <li>Access to Crossdok game rules</li>
+          <li>Assistance in integrating gaming technologies into educational programs</li>
+        </ul>
+        <a href="#" class="btn btn-primary btn-large" style="width:100%;text-align:center">Subscribe</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-        // Nav scroll
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('nav');
-            nav.classList.toggle('scrolled', window.scrollY > 50);
-        });
+<!-- ==================== PARTNERS ==================== -->
+<section class="section partners" id="partners">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Partners</span>
+      <h2 class="section-title">Trusted by Industry Leaders</h2>
+    </div>
+    <div class="partners-grid">
+      <div class="partner-logo">DNS</div>
+      <div class="partner-logo">Pyaterochka</div>
+      <div class="partner-logo">KZhGPK</div>
+      <div class="partner-logo">Suzuki</div>
+      <div class="partner-logo">RANEPA</div>
+      <div class="partner-logo">HSE</div>
+      <div class="partner-logo">MADI</div>
+      <div class="partner-logo">ZabIZhT</div>
+      <div class="partner-logo">MIIT</div>
+      <div class="partner-logo">X5 Retail</div>
+      <div class="partner-logo">GUU</div>
+      <div class="partner-logo">NGTU</div>
+    </div>
+  </div>
+</section>
 
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            });
-        });
+<!-- ==================== GALLERY ==================== -->
+<section class="section gallery">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Gallery</span>
+      <h2 class="section-title">See Our Games in Action</h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item gallery-item--wide"><img src="images/gallery-1.jpg" alt="Crossdok supply chain simulation" loading="lazy"><div class="gallery-overlay"><span>Crossdok &mdash; supply chain simulation</span></div></div>
+      <div class="gallery-item"><img src="images/gallery-2.jpg" alt="Training logistics fundamentals" loading="lazy"><div class="gallery-overlay"><span>Training logistics fundamentals</span></div></div>
+      <div class="gallery-item"><img src="images/gallery-3.jpg" alt="KADENA in the classroom" loading="lazy"><div class="gallery-overlay"><span>KADENA in the classroom</span></div></div>
+      <div class="gallery-item"><img src="images/gallery-4.jpg" alt="Unique game mechanics" loading="lazy"><div class="gallery-overlay"><span>Unique game mechanics</span></div></div>
+      <div class="gallery-item"><img src="images/gallery-1.jpg" alt="Engaged learning" loading="lazy"><div class="gallery-overlay"><span>Engaged learning</span></div></div>
+      <div class="gallery-item"><img src="images/gallery-2.jpg" alt="First board game in logistics" loading="lazy"><div class="gallery-overlay"><span>First board game in logistics</span></div></div>
+    </div>
+  </div>
+</section>
 
-        // FAQ
-        document.querySelectorAll('.faq-question').forEach(q => {
-            q.addEventListener('click', () => {
-                const item = q.parentElement;
-                const wasActive = item.classList.contains('active');
-                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
-                if (!wasActive) item.classList.add('active');
-            });
-        });
+<!-- ==================== BLOG ==================== -->
+<section class="section blog" id="blog">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Blog</span>
+      <h2 class="section-title">SupplyChains.ru &mdash; Insights on Logistics</h2>
+    </div>
+    <div class="blog-grid">
+      <article class="blog-card">
+        <div class="blog-img"><img src="images/blog-thumb-1.jpg" alt="Inventory Management" loading="lazy"></div>
+        <div class="blog-body">
+          <span class="blog-category">Inventory Management</span>
+          <h3 class="blog-title">Basics of Inventory Management</h3>
+          <p class="blog-excerpt">Inventory represents a type of material flow in a relatively static state. Like the air we breathe, we don't notice logistics &mdash; yet everyone has different perceptions.</p>
+          <a href="#" class="blog-link">Read more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+        </div>
+      </article>
+      <article class="blog-card">
+        <div class="blog-img"><img src="images/blog-thumb-2.jpg" alt="Warehouse Logistics" loading="lazy"></div>
+        <div class="blog-body">
+          <span class="blog-category">Warehouse Logistics</span>
+          <h3 class="blog-title">Warehouse Logistics: From Classification to Shipping</h3>
+          <p class="blog-excerpt">The operations of any enterprise handling goods are fundamentally based on the need for inventory management, accounting, and ensuring product safety.</p>
+          <a href="#" class="blog-link">Read more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+        </div>
+      </article>
+      <article class="blog-card">
+        <div class="blog-img"><img src="images/blog-thumb-3.jpg" alt="Serious Games" loading="lazy"></div>
+        <div class="blog-body">
+          <span class="blog-category">Serious Games</span>
+          <h3 class="blog-title">Serious Games in Logistics</h3>
+          <p class="blog-excerpt">We've played games since childhood &mdash; computer, board, role-playing games where we temporarily transform into warriors, wanderers, businessmen.</p>
+          <a href="#" class="blog-link">Read more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
 
-        // Demo Modal
-        function openDemoModal(e) {
-            if (e) e.preventDefault();
-            document.getElementById('demoModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeDemoModal() {
-            document.getElementById('demoModal').classList.remove('active');
-            document.body.style.overflow = '';
-        }
-        document.getElementById('demoModal').addEventListener('click', (e) => {
-            if (e.target === document.getElementById('demoModal')) closeDemoModal();
-        });
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeDemoModal();
-        });
+<!-- ==================== FAQ ==================== -->
+<section class="section faq" id="faq">
+  <div class="container" style="max-width:800px">
+    <div class="section-header">
+      <span class="section-label">FAQ</span>
+      <h2 class="section-title">Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question">How do I contact support?<span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+        <div class="faq-answer"><p>You can reach our support team via email at project@logistoria.com or through our Telegram channel. We typically respond within 24 hours on business days.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Do you develop custom board games?<span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+        <div class="faq-answer"><p>Yes! We specialize in creating custom board games tailored to your company's specific logistics processes and training objectives. Contact us to discuss your requirements.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Do you ship internationally?<span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+        <div class="faq-answer"><p>We primarily ship within Russia and CIS countries. For international orders, please contact us directly to discuss shipping options and pricing.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">We're a serious organization &mdash; why do we need games?<span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+        <div class="faq-answer"><p>Serious games are proven to increase engagement, improve knowledge retention, and accelerate skill development. Our clients include major corporations and universities who use our games for employee training and student education.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">How long does a game session last?<span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+        <div class="faq-answer"><p>Most board game sessions last 2&ndash;4 hours including briefing and debriefing. Online simulations can range from 30 minutes to 2 hours depending on the scenario complexity.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Can your games be customized for our company?<span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+        <div class="faq-answer"><p>Absolutely. We offer branding services where we can incorporate your company logo, custom scenarios, and specific supply chain processes into any of our games.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">What is the minimum group size for training?<span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+        <div class="faq-answer"><p>Our games work best with groups of 8&ndash;30 participants. However, we can accommodate smaller teams with adapted rules or facilitate multiple simultaneous sessions.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Do you provide facilitator training?<span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+        <div class="faq-answer"><p>Yes, we offer comprehensive facilitator training programs so your internal trainers can run sessions independently. This is included in our PRO subscription package.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        // Attach to all "Заказать демо" buttons
-        document.querySelectorAll('.nav-cta, .btn-large').forEach(btn => {
-            if (btn.textContent.includes('Заказать демо') || btn.textContent.includes('демо')) {
-                btn.addEventListener('click', openDemoModal);
-            }
-        });
+<!-- ==================== CTA BANNER ==================== -->
+<section class="section cta" id="cta">
+  <div class="container" style="max-width:700px;text-align:center">
+    <h2 class="cta-title">Ready to Transform Your Logistics Training?</h2>
+    <p class="cta-subtitle">Request a game demo and discover how serious games can elevate your team's supply chain skills.</p>
+    <a href="#contact" class="btn btn-primary btn-large" style="margin-top:32px;display:inline-block">Request Demo</a>
+  </div>
+</section>
 
-        // Email validation
-        function isValidEmail(email) {
-            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-        }
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer" id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo">Logistoria<span>.</span></div>
+        <p class="footer-tagline">Serious games for logistics education.</p>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-title">Projects</h4>
+        <a href="kadena.html" class="footer-link">Kadena</a>
+        <a href="https://www.supplychains.ru" class="footer-link">SupplyChains.ru</a>
+        <a href="thebeergame.html" class="footer-link">The Beer Game</a>
+        <a href="https://www.krossdok.ru" class="footer-link">Krossdok</a>
+        <a href="#" class="footer-link">Gaming Platform</a>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-title">Social</h4>
+        <a href="#" class="footer-link">Telegram Channel</a>
+        <a href="https://vk.com/logistoriagames" class="footer-link">VK Group</a>
+        <a href="https://rutube.ru/channel/54513624/" class="footer-link">RuTube Channel</a>
+        <a href="https://dzen.ru/id/6087b8f77887f67488160f65" class="footer-link">Dzen Channel</a>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-title">Get in Touch</h4>
+        <p class="footer-text">Planning a game session, developing a course, or organizing a training?</p>
+        <a href="index-ru.html" class="footer-link">Русская версия</a>
+        <a href="index-es.html" class="footer-link">Versión en español</a>
+        <a href="#" class="footer-cta">Write to us</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Logistoria. All rights reserved.</p>
+      <p>Information resource on procurement, logistics, and supply chains with practical focus.</p>
+    </div>
+  </div>
+</footer>
 
-        function submitDemo(e) {
-            e.preventDefault();
-            const email1 = document.getElementById('demoEmail1');
-            const email2 = document.getElementById('demoEmail2');
-            const msg = document.getElementById('demoMessage');
-            const err1 = document.getElementById('errEmail1');
-            const err2 = document.getElementById('errEmail2');
-
-            let valid = true;
-
-            // Reset
-            [email1, email2].forEach(el => el.classList.remove('error'));
-            [err1, err2].forEach(el => el.classList.remove('visible'));
-
-            // Validate email 1
-            if (!isValidEmail(email1.value.trim())) {
-                email1.classList.add('error');
-                err1.classList.add('visible');
-                valid = false;
-            }
-
-            // Validate match
-            if (email1.value.trim() !== email2.value.trim()) {
-                email2.classList.add('error');
-                err2.classList.add('visible');
-                valid = false;
-            }
-
-            if (!valid) return;
-
-            // Send via mailto
-            const subject = encodeURIComponent('Запрос на демо — Логисториа');
-            const body = encodeURIComponent(
-                'Email: ' + email1.value.trim() + '\n\n' +
-                'Что хочет посмотреть:\n' + msg.value.trim()
-            );
-            window.location.href = 'mailto:project@logistoria.com?subject=' + subject + '&body=' + body;
-
-            // Close and reset
-            closeDemoModal();
-            document.getElementById('demoForm').reset();
-        }
-        // Subscription Modal
-        function openSubModal(e) {
-            if (e) e.preventDefault();
-            document.getElementById('subModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeSubModal() {
-            document.getElementById('subModal').classList.remove('active');
-            document.body.style.overflow = '';
-        }
-        document.getElementById('subModal').addEventListener('click', (e) => {
-            if (e.target === document.getElementById('subModal')) closeSubModal();
-        });
-
-        // Attach to subscription buttons
-        document.querySelectorAll('.btn-outline, .btn-purple').forEach(btn => {
-            if (btn.textContent.includes('Оформить')) {
-                btn.addEventListener('click', openSubModal);
-            }
-        });
-
-        function submitSub(e) {
-            e.preventDefault();
-            const name = document.getElementById('subName');
-            const email1 = document.getElementById('subEmail1');
-            const email2 = document.getElementById('subEmail2');
-            const org = document.getElementById('subOrg');
-            const plan = document.querySelector('input[name="subPlan"]:checked');
-            const msg = document.getElementById('subMessage');
-            const err1 = document.getElementById('errSubEmail1');
-            const err2 = document.getElementById('errSubEmail2');
-
-            let valid = true;
-
-            [email1, email2].forEach(el => el.classList.remove('error'));
-            [err1, err2].forEach(el => el.classList.remove('visible'));
-
-            if (!isValidEmail(email1.value.trim())) {
-                email1.classList.add('error');
-                err1.classList.add('visible');
-                valid = false;
-            }
-
-            if (email1.value.trim() !== email2.value.trim()) {
-                email2.classList.add('error');
-                err2.classList.add('visible');
-                valid = false;
-            }
-
-            if (!valid) return;
-
-            const subject = encodeURIComponent('Запрос на абонемент — Логисториа');
-            const planText = plan ? plan.value : 'Не указан';
-            const body = encodeURIComponent(
-                'Имя: ' + name.value.trim() + '\n' +
-                'Email: ' + email1.value.trim() + '\n' +
-                'Организация: ' + (org.value.trim() || 'Не указана') + '\n' +
-                'Тариф: ' + planText + '\n\n' +
-                'Комментарий:\n' + msg.value.trim()
-            );
-            window.location.href = 'mailto:project@logistoria.com?subject=' + subject + '&body=' + body;
-
-            closeSubModal();
-            document.getElementById('subForm').reset();
-            document.querySelectorAll('input[name="subPlan"]').forEach(r => {
-                r.parentElement.style.borderColor = 'var(--border)';
-                r.parentElement.style.background = 'transparent';
-            });
-        }
-    </script>
-
+<script src="js/main.js?v=6"></script>
 </body>
 </html>
