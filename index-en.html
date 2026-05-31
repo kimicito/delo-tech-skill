@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logistoria - Logistics Games</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=2">
+</head>
+<body>
+
+<!-- ==================== NAVIGATION ==================== -->
+<header class="nav" id="nav">
+  <div class="nav-container">
+    <a href="#" class="nav-logo">Logistoria<span class="nav-logo-dot">.</span></a>
+    <nav class="nav-links">
+      <a href="#games" class="nav-link">Games</a>
+      <a href="#partners" class="nav-link">Partners</a>
+      <a href="#blog" class="nav-link">Blog</a>
+      <a href="#faq" class="nav-link">FAQ</a>
+    </nav>
+    <div class="nav-right">
+      <a href="index-en.html" class="nav-link" style="margin-right:8px;font-size:14px;font-weight:700;">EN</a>
+      <a href="index-ru.html" class="nav-link" style="margin-right:8px;font-size:14px;">RU</a>
+      <a href="index-es.html" class="nav-link" style="margin-right:16px;font-size:14px;">ES</a>
+      <a href="#contact" class="btn btn-primary btn-small" onclick="openDemoModal();return false;">Request a Demo</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="mobileClose" aria-label="Close menu">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <a href="#games" class="mobile-link">Games</a>
+  <a href="#partners" class="mobile-link">Partners</a>
+  <a href="#blog" class="mobile-link">Blog</a>
+  <a href="#faq" class="mobile-link">FAQ</a>
+  <a href="index-en.html" class="mobile-link">English version</a>
+  <a href="index-es.html" class="mobile-link">Versión en español</a>
+  <a href="#contact" class="btn btn-primary" style="margin-top:24px" onclick="openDemoModal();return false;">Request a Demo</a>
+</div>
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero">
+  <canvas id="particleCanvas" class="hero-canvas" role="img" aria-label="Animated particle constellation"></canvas>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <span class="hero-label">Logistics Games</span>
+    <h1 class="hero-title">Logistoria - The first marketplace for logistics and supply chain games</h1>
+    <p class="hero-subtitle">We develop game-based technologies for logistics and supply chain education. Board games, online simulations, and training formats for educational institutions and companies.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="hero-stat-num">8</span><span class="hero-stat-label">Products</span></div>
+      <div class="hero-stat"><span class="hero-stat-num">4000+</span><span class="hero-stat-label">Students</span></div>
+      <div class="hero-stat"><span class="hero-stat-num">10 years</span><span class="hero-stat-label">On the market</span></div>
+    </div>
+    <div class="hero-buttons">
+      <a href="#games" class="btn btn-primary btn-large">Browse Games</a>
+      <a href="#contact" class="btn btn-secondary btn-large" onclick="openDemoModal();return false;">Request a Demo</a>
+    </div>
+  </div>
+  <div class="hero-scroll"></div>
+</section>
+
+<!-- ==================== ABOUT / STATS ==================== -->
+<section class="section about" id="about">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">About</span>
+      <h2 class="section-title">Logistoria in Numbers</h2>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card" style="background:#FFB74D"><div class="stat-number">950</div><div class="stat-label">Copies of Krossdok game sold</div></div>
+      <div class="stat-card stat-card--light" style="background:#5C3D8A"><div class="stat-number">110+</div><div class="stat-label">Logistics and bullwhip effect trainings conducted</div></div>
+      <div class="stat-card" style="background:#7BAAF7"><div class="stat-number">8</div><div class="stat-label">Logistics game products</div></div>
+      <div class="stat-card stat-card--light" style="background:#120B1E"><div class="stat-number">10+</div><div class="stat-label">Years on the market — first to describe supply chains</div></div>
+      <div class="stat-card" style="background:#FF8A65"><div class="stat-number">4000</div><div class="stat-label">Students trained with our games</div></div>
+      <div class="stat-card" style="background:#A5D6A7"><div class="stat-number">TOP-20</div><div class="stat-label">Largest companies and universities — our clients</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== GAMES CATALOG ==================== -->
+<section class="section games" id="games">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Games & Technologies</span>
+      <h2 class="section-title">Logistics Games</h2>
+    </div>
+    <div class="filter-tabs">
+      <button class="filter-tab active" data-filter="all">All</button>
+      <button class="filter-tab" data-filter="board">Board</button>
+      <button class="filter-tab" data-filter="online">Online</button>
+      <button class="filter-tab" data-filter="course">Courses</button>
+    </div>
+    <div class="games-grid">
+      <div class="game-card" data-category="board">
+        <div class="game-img-wrap"><img src="images/crossdok-product.jpg" alt="Krossdok" class="game-img" loading="lazy"></div>
+        <div class="game-body">
+          <span class="game-badge">Board Game</span>
+          <h3 class="game-name">Krossdok</h3>
+          <p class="game-desc">The first board game in logistics and supply chains</p>
+          <div class="game-footer">
+            <span class="game-price">from 8,800 ₽</span>
+            <a href="https://www.krossdok.ru" class="game-link">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+          </div>
+          <div class="game-variants"><span class="game-variant">Standard</span><span class="game-variant">PRO</span><span class="game-variant">Print&Play</span></div>
+        </div>
+      </div>
+      <div class="game-card" data-category="online">
+        <div class="game-img-wrap"><img src="images/kadena-product.jpg" alt="KADENA" class="game-img" loading="lazy"></div>
+        <div class="game-body">
+          <span class="game-badge">Seminar / Online</span>
+          <h3 class="game-name">KADENA</h3>
+          <p class="game-desc">The most realistic supply chain simulation</p>
+          <div class="game-footer">
+            <span class="game-price">from 4,500 ₽ / person</span>
+            <a href="kadena.html" class="game-link">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+          </div>
+          <div class="game-variants"><span class="game-variant">Seminar</span><span class="game-variant">Online</span></div>
+        </div>
+      </div>
+      <div class="game-card" data-category="board online">
+        <div class="game-img-wrap"><img src="images/beer-game-product.jpg" alt="The Beer Game" class="game-img" loading="lazy"></div>
+        <div class="game-body">
+          <span class="game-badge">Seminar / Board Game / Online</span>
+          <h3 class="game-name">The Beer Game</h3>
+          <p class="game-desc">The legendary classic supply chain game</p>
+          <div class="game-footer">
+            <span class="game-price">from 9,900 ₽</span>
+            <a href="thebeergame.html" class="game-link">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+          </div>
+          <div class="game-variants"><span class="game-variant">Seminar</span><span class="game-variant">Online</span><span class="game-variant">Print&Play</span></div>
+        </div>
+      </div>
+      <div class="game-card" data-category="board">
+        <div class="game-img-wrap"><img src="images/heroes-rack-product.jpg" alt="Heroes of the Rack and Warehouse" class="game-img" loading="lazy"></div>
+        <div class="game-body">
+          <span class="game-badge">Board Game</span>
+          <h3 class="game-name">Heroes of the Rack and Warehouse</h3>
+          <p class="game-desc">The first warehouse logistics game</p>
+          <div class="game-footer">
+            <span class="game-price">from 9,900 ₽</span>
+            <a href="https://wareheroes.ru/" target="_blank" rel="noopener" class="game-link">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+          </div>
+          <div class="game-variants"><span class="game-variant">Standard</span><span class="game-variant">PRO</span><span class="game-variant">Print&Play</span></div>
+        </div>
+      </div>
+      <div class="game-card" data-category="board">
+        <div class="game-img-wrap"><img src="images/market-plays-product.jpg" alt="MarketPlace" class="game-img" loading="lazy"></div>
+        <div class="game-body">
+          <span class="game-badge">Board Game</span>
+          <h3 class="game-name">MarketPlace</h3>
+          <p class="game-desc">Learn to sell on marketplaces</p>
+          <div class="game-footer">
+            <span class="game-price">2,000 ₽</span>
+            <a href="#" class="game-link">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+          </div>
+        </div>
+      </div>
+      <div class="game-card" data-category="board">
+        <div class="game-img-wrap"><img src="images/price-value-product.jpg" alt="Price and Value" class="game-img" loading="lazy"></div>
+        <div class="game-body">
+          <span class="game-badge">Board Game</span>
+          <h3 class="game-name">Price and Value</h3>
+          <p class="game-desc">Master negotiation skills</p>
+          <div class="game-footer">
+            <span class="game-price" style="color:#3D1959">PRE-ORDER</span>
+            <a href="#" class="game-link">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+          </div>
+        </div>
+      </div>
+      <div class="game-card" data-category="course">
+        <div class="game-img-wrap"><img src="images/logistics-course-product.jpg" alt="Logistics Course" class="game-img" loading="lazy"></div>
+        <div class="game-body">
+          <span class="game-badge">Seminar / Online</span>
+          <h3 class="game-name">Logistics Course for Schoolchildren and Students</h3>
+          <p class="game-desc">Logistics education in the language of a new generation</p>
+          <div class="game-footer">
+            <span class="game-price">from 8,000 ₽</span>
+            <a href="#" class="game-link">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+          </div>
+          <div class="game-variants"><span class="game-variant">Seminar</span><span class="game-variant">Online</span><span class="game-variant">Print&Play</span></div>
+        </div>
+      </div>
+      <div class="game-card game-card--soon">
+        <div class="game-soon-content">
+          <h3 class="game-soon-title">Calling All Game Creators!</h3>
+          <p class="game-soon-desc">Submit your game and we'll add it to the Logistoria marketplace.</p>
+          <a href="#" class="btn btn-primary btn-small" style="margin-top:12px" onclick="openSubmitGameModal();return false;">Submit Application</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== AUDIENCE ==================== -->
+<section class="section audience">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Our Clients</span>
+      <h2 class="section-title">Who We Develop Game Technologies For</h2>
+    </div>
+    <div class="audience-grid">
+      <div class="audience-card" style="background:#FFB74D">
+        <span class="audience-num">01</span>
+        <div class="audience-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v3"/></svg></div>
+        <h3 class="audience-title">Companies</h3>
+        <p class="audience-desc">We work with companies in logistics, manufacturing, and retail. Our game-based methods accelerate skill development in planning, forecasting, and supply chain management.</p>
+      </div>
+      <div class="audience-card" style="background:#3D1959">
+        <span class="audience-num">02</span>
+        <div class="audience-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.66 2.24 3 5 3s5-1.34 5-3v-5"/></svg></div>
+        <h3 class="audience-title">Universities</h3>
+        <p class="audience-desc">Our partners are professors at leading universities where logistics and supply chains are core program disciplines.</p>
+      </div>
+      <div class="audience-card" style="background:#7BAAF7">
+        <span class="audience-num">03</span>
+        <div class="audience-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></div>
+        <h3 class="audience-title">Colleges</h3>
+        <p class="audience-desc">The rapid growth of logistics programs in colleges allows us to integrate game-based methods into professional training.</p>
+      </div>
+      <div class="audience-card" style="background:#120B1E">
+        <span class="audience-num">04</span>
+        <div class="audience-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><circle cx="13.5" cy="6.5" r="2.5"/><path d="M13.5 9c-3 0-5.5 2-6.5 5l-2 7h4l1-3h7l1 3h4l-2-7c-1-3-3.5-5-6.5-5z"/></svg></div>
+        <h3 class="audience-title">Branding</h3>
+        <p class="audience-desc">Any of our games can be branded with your logo, scenarios, and values. A great gift for Logistics Day, New Year, or as a corporate souvenir.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SUBSCRIPTIONS ==================== -->
+<section class="section subscriptions" id="subscriptions">
+  <div class="container" style="max-width:800px">
+    <div class="section-header">
+      <span class="section-label">Subscriptions for Educational Institutions</span>
+      <h2 class="section-title" style="color:white">Subscriptions — A New Format</h2>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="pricing-name">BASIC</h3>
+        <div class="pricing-price">₽100K<span class="pricing-period">/year</span></div>
+        <ul class="pricing-features">
+          <li>5 accesses to The Beer Game online + facilitation support</li>
+          <li>5 accesses to KADENA online + results interpretation support</li>
+          <li>Consultations on all purchased game-based methodologies</li>
+        </ul>
+        <a href="#" class="btn btn-outlined-light" onclick="openSubscribeModal();return false;">Subscribe</a>
+      </div>
+      <div class="pricing-card pricing-card--popular">
+        <span class="pricing-badge">MOST POPULAR</span>
+        <h3 class="pricing-name">PRO</h3>
+        <div class="pricing-price">₽280K<span class="pricing-period">/year</span></div>
+        <ul class="pricing-features">
+          <li>30 accesses to The Beer Game online + facilitation support</li>
+          <li>30 accesses to KADENA online + results interpretation support</li>
+          <li>Access to Krossdok game rules</li>
+          <li>Assistance in integrating game-based technologies into educational programs</li>
+        </ul>
+        <a href="#" class="btn btn-primary btn-large" style="width:100%;text-align:center" onclick="openSubscribeModal();return false;">Subscribe</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PARTNERS ==================== -->
+<section class="section partners" id="partners">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Partners</span>
+      <h2 class="section-title">Industry Leaders Trust Us</h2>
+    </div>
+    <div class="partners-grid">
+      <div class="partner-logo">DNS</div>
+      <div class="partner-logo">Pyaterochka</div>
+      <div class="partner-logo">KZHGPK</div>
+      <div class="partner-logo">Suzuki</div>
+      <div class="partner-logo">RANEPA</div>
+      <div class="partner-logo">HSE</div>
+      <div class="partner-logo">MADI</div>
+      <div class="partner-logo">ZabIZHT</div>
+      <div class="partner-logo">MIIT</div>
+      <div class="partner-logo">X5 Retail</div>
+      <div class="partner-logo">GSU</div>
+      <div class="partner-logo">NSTU</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== GALLERY ==================== -->
+<section class="section gallery">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Gallery</span>
+      <h2 class="section-title">Our Games in Action</h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item gallery-item--wide"><img src="images/gallery-1.jpg" alt="Krossdok — supply chain simulation" loading="lazy"><div class="gallery-overlay"><span>Krossdok — supply chain simulation</span></div></div>
+      <div class="gallery-item"><img src="images/gallery-2.jpg" alt="Logistics fundamentals training" loading="lazy"><div class="gallery-overlay"><span>Logistics fundamentals training</span></div></div>
+      <div class="gallery-item"><img src="images/gallery-3.jpg" alt="KADENA in the classroom" loading="lazy"><div class="gallery-overlay"><span>KADENA in the classroom</span></div></div>
+      <div class="gallery-item"><img src="images/gallery-4.jpg" alt="Unique game mechanics" loading="lazy"><div class="gallery-overlay"><span>Unique game mechanics</span></div></div>
+      <div class="gallery-item"><img src="images/gallery-2.jpg" alt="The first board game in logistics" loading="lazy"><div class="gallery-overlay"><span>The first board game in logistics</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== BLOG ==================== -->
+<section class="section blog" id="blog">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Blog</span>
+      <h2 class="section-title">SupplyChains.ru — Logistics Insights</h2>
+    </div>
+    <div class="blog-grid">
+      <article class="blog-card">
+        <div class="blog-img"><img src="images/blog-thumb-1.jpg" alt="Inventory Management" loading="lazy"></div>
+        <div class="blog-body">
+          <span class="blog-category">Inventory Management</span>
+          <h3 class="blog-title">Fundamentals of Inventory Management</h3>
+          <p class="blog-excerpt">Inventory is a type of material flow in a relatively static state. Like the air we breathe, we don't notice logistics — but everyone has their own perception.</p>
+          <a href="https://www.supplychains.ru" class="blog-link">Read More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+        </div>
+      </article>
+      <article class="blog-card">
+        <div class="blog-img"><img src="images/blog-thumb-2.jpg" alt="Warehouse Logistics" loading="lazy"></div>
+        <div class="blog-body">
+          <span class="blog-category">Warehouse Logistics</span>
+          <h3 class="blog-title">Warehouse Logistics: from Classification to Shipment</h3>
+          <p class="blog-excerpt">The operations of any enterprise dealing with goods are essentially based on the need to manage inventory, account for it, and ensure product safety.</p>
+          <a href="https://www.supplychains.ru" class="blog-link">Read More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+        </div>
+      </article>
+      <article class="blog-card">
+        <div class="blog-img"><img src="images/blog-thumb-3.jpg" alt="Serious Games" loading="lazy"></div>
+        <div class="blog-body">
+          <span class="blog-category">Serious Games</span>
+          <h3 class="blog-title">Serious Games in Logistics</h3>
+          <p class="blog-excerpt">We've been playing since childhood — computer, board, role-playing games, where we temporarily become warriors, wanderers, businessmen.</p>
+          <a href="https://www.supplychains.ru" class="blog-link">Read More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FAQ ==================== -->
+<section class="section faq" id="faq">
+  <div class="container" style="max-width:800px">
+    <div class="section-header">
+      <span class="section-label">FAQ</span>
+      <h2 class="section-title">Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question">How do I contact support?<span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+        <div class="faq-answer"><p>Email us at project@logistoria.com or via our Telegram channel. We usually respond within 24 hours on business days.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Do you develop custom board games?<span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+        <div class="faq-answer"><p>Yes! We specialize in creating custom board games tailored to your company's processes and training goals. Contact us to discuss.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Do you deliver internationally?<span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+        <div class="faq-answer"><p>Our main geography is Russia and CIS. For international orders, please contact us directly to discuss terms and shipping costs.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">We're a serious organization — why do we need games?<span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+        <div class="faq-answer"><p>Serious games have been proven to increase engagement, improve retention, and accelerate skill development. Our clients are large corporations and universities that use games to train employees and students.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">How long does a game session last?<span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+        <div class="faq-answer"><p>Board games — 2–4 hours with briefing and debriefing. Online simulations — from 30 minutes to 2 hours depending on scenario complexity.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Can a game be customized for our company?<span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+        <div class="faq-answer"><p>Absolutely. We offer branding with your logo, custom scenarios, and supply chain processes in any of our games.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">What's the minimum group size for training?<span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+        <div class="faq-answer"><p>Optimal — 8–30 participants. For smaller groups, we adapt the rules or run parallel sessions.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Is there training for internal facilitators?<span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+        <div class="faq-answer"><p>Yes, we have facilitator training programs so your trainers can run sessions independently. Included in the PRO subscription.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">What is the Print&Play game format?<span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button>
+        <div class="faq-answer"><p>The Print&Play format is our innovative way to quickly deliver the game to the most remote cities. You download the game board and cards. We ship the tokens by mail.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CTA BANNER ==================== -->
+<section class="section cta" id="cta">
+  <div class="container" style="max-width:700px;text-align:center">
+    <h2 class="cta-title">Ready to Transform Logistics Education?</h2>
+    <p class="cta-subtitle">Request a game demo and learn how serious games can level up your team's skills.</p>
+    <a href="#contact" class="btn btn-primary btn-large" style="margin-top:32px;display:inline-block" onclick="openDemoModal();return false;">Request a Demo</a>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer" id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo">Logistoria<span>.</span></div>
+        <p class="footer-tagline">Serious games for logistics education.</p>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-title">Projects</h4>
+        <a href="kadena.html" class="footer-link">KADENA</a>
+        <a href="https://www.supplychains.ru" class="footer-link">SupplyChains.ru</a>
+        <a href="thebeergame.html" class="footer-link">The Beer Game</a>
+        <a href="https://www.krossdok.ru" class="footer-link">Krossdok</a>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-title">Social Media</h4>
+        <a href="https://web.telegram.org/k/#@supplychains" class="footer-link">Telegram Channel</a>
+        <a href="https://vk.com/logistoriagames" class="footer-link">VK Group</a>
+        <a href="https://rutube.ru/channel/54513624/" class="footer-link">RuTube Channel</a>
+        <a href="https://dzen.ru/id/6087b8f77887f67488160f65" class="footer-link">Dzen Channel</a>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-title">Contact</h4>
+        <p class="footer-text">Planning a game session, course development, or training event?</p>
+        <a href="index-en.html" class="footer-link">English version</a>
+        <a href="index-es.html" class="footer-link">Versión en español</a>
+        <a href="#" class="footer-cta" onclick="openDemoModal();return false;">Write to Us</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Logistoria. All rights reserved.</p>
+      <p>An informational resource on procurement, logistics, and supply chains with a practical focus.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Demo Request Modal -->
+<div class="demo-modal-overlay" id="demoModal">
+  <div class="demo-modal">
+    <button class="demo-modal-close" onclick="closeDemoModal()" aria-label="Close">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <h3 class="demo-modal-title">Request a Demo</h3>
+    <p class="demo-modal-subtitle">Leave your email and describe what you'd like to see. We'll get back to you within a day.</p>
+    <form id="demoForm" action="https://formsubmit.co/project@logistoria.com" method="POST">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_subject" value="Demo Request - Logistoria">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_next" value="https://kimicito.github.io/logistoria-website/index-en.html?demo=thanks">
+      <div class="demo-form-group">
+        <label class="demo-form-label" for="demoEmail">Email *</label>
+        <input type="email" id="demoEmail" name="email" class="demo-form-input" placeholder="your@email.com" required>
+      </div>
+      <div class="demo-form-group">
+        <label class="demo-form-label" for="demoMessage">What would you like to see?</label>
+        <textarea id="demoMessage" name="message" class="demo-form-textarea" placeholder="Example: Krossdok game demo for a group of 15 students..."></textarea>
+      </div>
+      <button type="submit" class="demo-form-submit">Send Request</button>
+    </form>
+  </div>
+</div>
+
+<!-- Submit Game Modal -->
+<div class="demo-modal-overlay" id="submitGameModal">
+  <div class="demo-modal">
+    <button class="demo-modal-close" onclick="closeSubmitGameModal()" aria-label="Close">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <h3 class="demo-modal-title">Submit Game Application</h3>
+    <p class="demo-modal-subtitle">Tell us about your logistics game. We'll review your application and get in touch.</p>
+    <form id="submitGameForm" action="https://formsubmit.co/project@logistoria.com" method="POST">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_subject" value="Game Submission - Logistoria">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_next" value="https://kimicito.github.io/logistoria-website/index-en.html?game=thanks">
+      <div class="demo-form-group">
+        <label class="demo-form-label" for="sgName">Your Name *</label>
+        <input type="text" id="sgName" name="name" class="demo-form-input" placeholder="John Doe" required>
+      </div>
+      <div class="demo-form-group">
+        <label class="demo-form-label" for="sgEmail">Email *</label>
+        <input type="email" id="sgEmail" name="email" class="demo-form-input" placeholder="your@email.com" required>
+      </div>
+      <div class="demo-form-group">
+        <label class="demo-form-label" for="sgGameName">Game Name *</label>
+        <input type="text" id="sgGameName" name="gameName" class="demo-form-input" placeholder="Example: Logistics Quest" required>
+      </div>
+      <div class="demo-form-group">
+        <label class="demo-form-label" for="sgDescription">Game Description</label>
+        <textarea id="sgDescription" name="description" class="demo-form-textarea" placeholder="Briefly describe the mechanics, target audience, and game format..."></textarea>
+      </div>
+      <button type="submit" class="demo-form-submit">Submit Application</button>
+    </form>
+  </div>
+</div>
+
+<!-- Subscribe Modal -->
+<div class="demo-modal-overlay" id="subscribeModal">
+  <div class="demo-modal">
+    <button class="demo-modal-close" onclick="closeSubscribeModal()" aria-label="Close">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <h3 class="demo-modal-title">Subscribe</h3>
+    <p class="demo-modal-subtitle">Leave your contacts — we'll reach out to finalize your subscription and discuss details.</p>
+    <form id="subscribeForm" onsubmit="return handleSubscribe(event)">
+      <div class="demo-form-group">
+        <label class="demo-form-label" for="subName">Your Name *</label>
+        <input type="text" id="subName" name="name" class="demo-form-input" placeholder="John Doe" required>
+      </div>
+      <div class="demo-form-group">
+        <label class="demo-form-label" for="subEmail">Email *</label>
+        <input type="email" id="subEmail" name="email" class="demo-form-input" placeholder="your@email.com" required>
+      </div>
+      <div class="demo-form-group">
+        <label class="demo-form-label" for="subCompany">Company / University</label>
+        <input type="text" id="subCompany" name="company" class="demo-form-input" placeholder="Organization Name">
+      </div>
+      <div class="demo-form-group">
+        <label class="demo-form-label" for="subPlan">Plan</label>
+        <select id="subPlan" name="plan" class="demo-form-input">
+          <option value="basic">BASIC — ₽100K/year</option>
+          <option value="pro" selected>PRO — ₽280K/year</option>
+        </select>
+      </div>
+      <button type="submit" class="demo-form-submit">Submit Request</button>
+    </form>
+  </div>
+</div>
+
+<script src="js/main.js?v=6"></script>
+</body>
+</html>
