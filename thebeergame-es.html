@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Beer Game — El juego más famoso de logística</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --violet-primary: #3D1959;
+  --violet-deep: #120B1E;
+  --violet-soft: #5C3D8A;
+  --orange-primary: #FF9800;
+  --orange-dark: #F57C00;
+  --white: #FFFFFF;
+  --gray-light: #F5F5F5;
+  --gray-border: #E0E0E0;
+  --text-heading: #1A1A2E;
+  --text-body: #444444;
+  --text-muted: #666666;
+  --font-display: 'Montserrat', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --shadow-card: 0 4px 24px rgba(0,0,0,0.06);
+  --shadow-card-hover: 0 12px 40px rgba(0,0,0,0.1);
+  --radius-sm: 8px; --radius-md: 10px; --radius-lg: 16px; --radius-xl: 20px; --radius-2xl: 24px;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); font-weight: 400; font-size: 16px; line-height: 1.7; color: var(--text-body); background: var(--white); -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+button { border: none; background: none; cursor: pointer; font-family: inherit; }
+img { max-width: 100%; height: auto; display: block; }
+ul { list-style: none; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+@media (max-width: 1024px) { .container { padding: 0 24px; } }
+@media (max-width: 768px) { .container { padding: 0 16px; } }
+
+.icon { width: 48px; height: 48px; stroke: var(--violet-soft); stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 20px; }
+.icon-orange { stroke: var(--orange-primary); }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 4px; font-family: var(--font-body); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; border-radius: var(--radius-sm); transition: all 0.2s ease; white-space: nowrap; }
+.btn-primary { background: var(--orange-primary); color: var(--white); padding: 10px 24px; font-size: 13px; }
+.btn-primary:hover { background: var(--orange-dark); transform: translateY(-1px); }
+.btn-secondary { background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,0.8); padding: 10px 24px; font-size: 13px; }
+.btn-secondary:hover { border-color: var(--white); background: rgba(255,255,255,0.05); }
+.btn-large { padding: 16px 48px; font-size: 15px; border-radius: var(--radius-md); }
+
+.nav { position: fixed; top: 0; left: 0; right: 0; height: 72px; background: rgba(61,25,89,0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.08); z-index: 100; transition: background 0.3s ease; }
+.nav.scrolled { background: rgba(61,25,89,0.98); }
+.nav-container { max-width: 1200px; margin: 0 auto; padding: 0 48px; height: 100%; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-family: var(--font-display); font-weight: 800; font-size: 20px; color: var(--white); letter-spacing: -0.5px; }
+.nav-logo-dot { color: var(--orange-primary); }
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-link { font-family: var(--font-body); font-weight: 500; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; color: rgba(255,255,255,0.9); transition: color 0.2s ease; }
+.nav-link:hover { color: var(--white); }
+.nav-right { display: flex; align-items: center; gap: 16px; }
+.nav-toggle { display: none; color: var(--white); padding: 4px; }
+
+.mobile-menu { position: fixed; top: 0; right: 0; width: 300px; height: 100%; background: var(--violet-primary); z-index: 110; padding: 80px 32px 32px; display: flex; flex-direction: column; gap: 24px; transform: translateX(100%); transition: transform 0.3s ease; }
+.mobile-menu.open { transform: translateX(0); }
+.mobile-close { position: absolute; top: 20px; right: 20px; color: var(--white); }
+.mobile-link { font-family: var(--font-body); font-weight: 500; font-size: 18px; color: rgba(255,255,255,0.9); transition: color 0.2s; }
+.mobile-link:hover { color: var(--white); }
+.mobile-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 105; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+.mobile-overlay.open { opacity: 1; pointer-events: all; }
+@media (max-width: 1024px) { .nav-links { display: none; } .nav-toggle { display: block; } .nav-container { padding: 0 24px; } }
+@media (max-width: 768px) { .nav-container { padding: 0 16px; } .nav .btn-small { display: none; } }
+
+.hero { position: relative; min-height: 100dvh; min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--violet-primary) 0%, var(--violet-deep) 100%); overflow: hidden; }
+.hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+.hero-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(255,152,0,0.12) 0%, transparent 70%); pointer-events: none; z-index: 2; }
+.hero-content { position: relative; z-index: 5; text-align: center; max-width: 800px; padding: 0 24px; animation: heroFadeIn 0.8s ease-out forwards; opacity: 0; }
+.hero-label { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-body); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--orange-primary); margin-bottom: 20px; }
+.hero-label::before { content: ''; width: 6px; height: 6px; background: var(--orange-primary); border-radius: 50%; animation: pulse 2s infinite; }
+.hero-title { font-family: var(--font-display); font-weight: 800; font-size: 56px; line-height: 1.1; letter-spacing: -1.5px; color: var(--white); }
+.hero-title em { color: var(--orange-primary); font-style: normal; }
+.hero-subtitle { font-family: var(--font-body); font-size: 18px; line-height: 1.7; color: rgba(255,255,255,0.8); max-width: 640px; margin: 24px auto 0; }
+.hero-price { font-family: var(--font-display); font-weight: 800; font-size: 48px; color: var(--orange-primary); margin-top: 32px; }
+.hero-price span { font-size: 20px; font-weight: 500; color: rgba(255,255,255,0.7); }
+.hero-buttons { display: flex; justify-content: center; gap: 16px; margin-top: 40px; flex-wrap: wrap; }
+.hero-scroll { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); width: 2px; height: 40px; background: rgba(255,255,255,0.4); border-radius: 1px; animation: bounce 2s ease-in-out infinite; z-index: 5; }
+.hero-stats { display: flex; justify-content: center; gap: 48px; margin-top: 32px; flex-wrap: wrap; }
+.hero-stat { text-align: center; }
+.hero-stat-num { font-family: var(--font-display); font-weight: 700; font-size: 28px; color: var(--orange-primary); display: block; }
+.hero-stat-label { font-size: 14px; color: rgba(255,255,255,0.7); }
+
+@keyframes heroFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(10px); } }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+
+@media (max-width: 1024px) { .hero-title { font-size: 40px; } }
+@media (max-width: 768px) { .hero { min-height: auto; padding: 120px 0 80px; } .hero-title { font-size: 32px; } .hero-subtitle { font-size: 16px; } .hero-stats { flex-direction: column; gap: 16px; } .hero-buttons { flex-direction: column; align-items: center; } .hero-buttons .btn { width: 100%; max-width: 300px; } .hero-price { font-size: 36px; } }
+
+.section { padding: 100px 0; }
+@media (max-width: 1024px) { .section { padding: 80px 0; } }
+@media (max-width: 768px) { .section { padding: 60px 0; } }
+
+.section-header { text-align: center; margin-bottom: 48px; }
+.section-label { display: inline-block; font-family: var(--font-body); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--orange-primary); margin-bottom: 16px; }
+.section-title { font-family: var(--font-display); font-weight: 700; font-size: 40px; letter-spacing: -1px; line-height: 1.2; color: var(--text-heading); text-transform: uppercase; }
+.section-subtitle { font-size: 17px; color: var(--text-muted); line-height: 1.6; max-width: 640px; margin: 12px auto 0; }
+@media (max-width: 768px) { .section-title { font-size: 26px; } }
+
+/* Placeholder Images */
+.placeholder-img { background: linear-gradient(135deg, var(--violet-primary) 0%, var(--violet-soft) 100%); border-radius: var(--radius-lg); aspect-ratio: 16/9; display: flex; flex-direction: column; align-items: center; justify-content: center; color: rgba(255,255,255,0.7); font-size: 14px; gap: 12px; text-align: center; padding: 24px; }
+.placeholder-img svg { width: 48px; height: 48px; stroke: rgba(255,255,255,0.5); stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.placeholder-img--portrait { aspect-ratio: 3/4; }
+.placeholder-img--square { aspect-ratio: 1/1; }
+
+/* About / Bullwhip */
+.about { background: var(--white); }
+.bullwhip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; margin-top: 48px; }
+.bullwhip-text { font-size: 16px; line-height: 1.8; color: var(--text-body); }
+.bullwhip-text p + p { margin-top: 16px; }
+.bullwhip-fact { background: var(--gray-light); border-left: 4px solid var(--orange-primary); padding: 20px 24px; border-radius: 0 var(--radius-md) var(--radius-md) 0; margin-top: 24px; }
+.bullwhip-fact-title { font-family: var(--font-display); font-weight: 700; font-size: 14px; color: var(--text-heading); margin-bottom: 6px; }
+.bullwhip-fact p { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin: 0; }
+@media (max-width: 1024px) { .bullwhip-grid { grid-template-columns: 1fr; } }
+
+/* Mechanics */
+.mechanics-chain { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 48px; }
+.chain-card { background: var(--white); border: 2px solid var(--gray-border); border-radius: var(--radius-xl); padding: 32px 24px; text-align: center; position: relative; transition: all 0.3s ease; }
+.chain-card:hover { border-color: var(--violet-soft); transform: translateY(-4px); box-shadow: var(--shadow-card-hover); }
+.chain-card::after { content: '→'; position: absolute; right: -20px; top: 50%; transform: translateY(-50%); font-size: 24px; color: var(--gray-border); font-family: var(--font-display); font-weight: 700; }
+.chain-card:last-child::after { display: none; }
+.chain-icon { width: 40px; height: 40px; stroke: var(--violet-primary); stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-linejoin: round; margin: 0 auto 16px; }
+.chain-name { font-family: var(--font-display); font-weight: 700; font-size: 16px; color: var(--text-heading); margin-bottom: 8px; }
+.chain-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+.mechanics-rules { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.rule-card { background: var(--white); border: 1px solid var(--gray-border); border-radius: var(--radius-lg); padding: 32px; }
+.rule-num { font-family: var(--font-display); font-weight: 800; font-size: 32px; color: var(--orange-primary); margin-bottom: 12px; }
+.rule-title { font-family: var(--font-display); font-weight: 700; font-size: 16px; color: var(--text-heading); margin-bottom: 8px; }
+.rule-desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+@media (max-width: 1024px) { .mechanics-chain { grid-template-columns: repeat(2, 1fr); } .chain-card::after { display: none; } .mechanics-rules { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .mechanics-chain { grid-template-columns: 1fr; } .mechanics-rules { grid-template-columns: 1fr; } }
+
+/* Emotions */
+.emotions-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.emotion-card { background: var(--white); border: 1px solid var(--gray-border); border-radius: var(--radius-xl); padding: 40px 32px; text-align: center; transition: all 0.3s ease; }
+.emotion-card:hover { border-color: var(--violet-soft); transform: translateY(-4px); box-shadow: var(--shadow-card-hover); }
+.emotion-quote { font-family: var(--font-display); font-weight: 700; font-size: 18px; color: var(--text-heading); line-height: 1.4; margin-bottom: 16px; }
+.emotion-desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+@media (max-width: 1024px) { .emotions-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .emotions-grid { grid-template-columns: 1fr; } }
+
+/* Causes */
+.causes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.cause-card { background: var(--white); border: 2px solid var(--gray-border); border-radius: var(--radius-xl); padding: 40px 32px; position: relative; transition: all 0.3s ease; }
+.cause-card:hover { border-color: var(--violet-soft); transform: translateY(-4px); box-shadow: var(--shadow-card-hover); }
+.cause-num { position: absolute; top: -16px; left: 32px; background: var(--violet-primary); color: var(--white); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 14px; font-weight: 700; }
+.cause-card h3 { font-family: var(--font-display); font-weight: 700; font-size: 18px; color: var(--text-heading); margin: 8px 0 12px; }
+.cause-card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+@media (max-width: 1024px) { .causes-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .causes-grid { grid-template-columns: 1fr; } }
+
+/* Debrief */
+.debrief-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.debrief-list { list-style: none; }
+.debrief-list li { display: flex; align-items: flex-start; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--gray-border); }
+.debrief-list li:last-child { border-bottom: none; }
+.debrief-list-icon { width: 32px; height: 32px; stroke: var(--orange-primary); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; margin-top: 2px; }
+.debrief-list-text { font-size: 15px; color: var(--text-body); line-height: 1.6; }
+@media (max-width: 1024px) { .debrief-grid { grid-template-columns: 1fr; } }
+
+/* Stats / legacy */
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.stat-card { border-radius: var(--radius-lg); padding: 40px; min-height: 180px; display: flex; flex-direction: column; justify-content: space-between; opacity: 0; transform: translateY(40px); transition: all 0.6s ease-out; }
+.stat-card.visible { opacity: 1; transform: translateY(0); }
+.stat-number { font-family: var(--font-display); font-weight: 800; font-size: 48px; letter-spacing: -1px; color: var(--text-heading); }
+.stat-card--light .stat-number { color: var(--white); }
+.stat-label { font-family: var(--font-body); font-weight: 500; font-size: 16px; line-height: 1.6; color: var(--text-heading); margin-top: 12px; }
+.stat-card--light .stat-label { color: rgba(255,255,255,0.85); }
+@media (max-width: 1024px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .stats-grid { grid-template-columns: 1fr; } .stat-number { font-size: 36px; } }
+
+.features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.feature-card { background: var(--white); border: 1px solid var(--gray-border); border-radius: var(--radius-xl); padding: 40px 32px; transition: all 0.3s ease; }
+.feature-card:hover { border-color: var(--violet-soft); transform: translateY(-4px); box-shadow: var(--shadow-card-hover); }
+.feature-card h3 { font-family: var(--font-display); font-weight: 700; font-size: 20px; color: var(--text-heading); margin-bottom: 12px; }
+.feature-card p { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
+@media (max-width: 1024px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .features-grid { grid-template-columns: 1fr; } }
+
+.audience-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.audience-card { background: var(--white); border: 1px solid var(--gray-border); border-radius: var(--radius-xl); padding: 40px 32px; text-align: center; transition: all 0.3s ease; }
+.audience-card:hover { border-color: var(--violet-soft); transform: translateY(-4px); box-shadow: var(--shadow-card-hover); }
+.audience-card h3 { font-family: var(--font-display); font-weight: 700; font-size: 18px; color: var(--text-heading); margin-bottom: 8px; }
+.audience-card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+@media (max-width: 1024px) { .audience-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .audience-grid { grid-template-columns: 1fr; } }
+
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.step { text-align: center; padding: 24px; }
+.step-num { width: 48px; height: 48px; background: var(--violet-primary); color: var(--white); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 20px; font-weight: 800; margin: 0 auto 16px; }
+.step-title { font-family: var(--font-display); font-weight: 700; font-size: 16px; color: var(--text-heading); margin-bottom: 6px; }
+.step-desc { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+@media (max-width: 1024px) { .steps { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .steps { grid-template-columns: 1fr; } }
+
+.cta { background: var(--violet-primary); text-align: center; }
+.cta-title { font-family: var(--font-display); font-weight: 700; font-size: 36px; color: var(--white); letter-spacing: -1px; }
+.cta-subtitle { font-size: 16px; color: rgba(255,255,255,0.75); margin-top: 16px; max-width: 600px; margin-left: auto; margin-right: auto; }
+@media (max-width: 768px) { .cta-title { font-size: 28px; } }
+
+.footer { background: var(--violet-deep); padding: 80px 0 40px; }
+.footer-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 48px; }
+.footer-logo { font-family: var(--font-display); font-weight: 800; font-size: 24px; color: var(--white); }
+.footer-logo-dot { color: var(--orange-primary); }
+.footer-tagline { font-size: 14px; color: rgba(255,255,255,0.5); margin-top: 12px; }
+.footer-email { display: inline-block; font-weight: 500; font-size: 14px; color: var(--orange-primary); margin-top: 20px; transition: opacity 0.2s; }
+.footer-email:hover { opacity: 0.8; }
+.footer-title { font-family: var(--font-body); font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.4); margin-bottom: 20px; }
+.footer-link { display: block; font-size: 14px; color: rgba(255,255,255,0.7); margin-bottom: 12px; transition: color 0.2s; }
+.footer-link:hover { color: var(--white); }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); margin-top: 60px; padding-top: 24px; display: flex; justify-content: space-between; font-size: 13px; color: rgba(255,255,255,0.4); }
+@media (max-width: 1024px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr; gap: 32px; } .footer-bottom { flex-direction: column; gap: 8px; text-align: center; } }
+
+.demo-modal-overlay { position: fixed; inset: 0; background: rgba(18,11,30,0.7); backdrop-filter: blur(4px); z-index: 200; display: none; align-items: center; justify-content: center; padding: 16px; opacity: 0; transition: opacity 0.3s ease; }
+.demo-modal-overlay.open { display: flex; opacity: 1; }
+.demo-modal { background: var(--white); border-radius: var(--radius-xl); padding: 40px; max-width: 480px; width: 100%; position: relative; box-shadow: 0 24px 80px rgba(0,0,0,0.2); transform: scale(0.95); transition: transform 0.3s ease; }
+.demo-modal-overlay.open .demo-modal { transform: scale(1); }
+.demo-modal-close { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border-radius: 50%; background: var(--gray-light); color: var(--text-body); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s; border: none; }
+.demo-modal-close:hover { background: var(--gray-border); }
+.demo-modal-title { font-family: var(--font-display); font-weight: 700; font-size: 24px; color: var(--text-heading); margin-bottom: 8px; }
+.demo-modal-subtitle { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+.demo-form-group { margin-bottom: 20px; }
+.demo-form-label { display: block; font-weight: 500; font-size: 13px; color: var(--text-heading); margin-bottom: 6px; }
+.demo-form-label .required { color: #EF4444; }
+.demo-form-input, .demo-form-textarea { width: 100%; padding: 12px 16px; border: 1px solid var(--gray-border); border-radius: var(--radius-md); font-family: var(--font-body); font-size: 15px; color: var(--text-body); background: var(--white); transition: border-color 0.2s, box-shadow 0.2s; }
+.demo-form-input:focus, .demo-form-textarea:focus { outline: none; border-color: var(--violet-soft); box-shadow: 0 0 0 3px rgba(92,61,138,0.1); }
+.demo-form-input.error, .demo-form-textarea.error { border-color: #EF4444; background: #FEF2F2; }
+.demo-form-textarea { min-height: 100px; resize: vertical; }
+.demo-form-note { font-size: 13px; color: var(--text-muted); line-height: 1.5; padding: 12px; background: var(--gray-light); border-radius: var(--radius-md); margin-bottom: 20px; }
+.error-msg { color: #EF4444; font-size: 13px; margin-top: 4px; display: none; }
+.error-msg.visible { display: block; }
+.demo-form-submit { width: 100%; padding: 14px; background: var(--orange-primary); color: var(--white); font-family: var(--font-display); font-weight: 600; font-size: 15px; border: none; border-radius: var(--radius-md); cursor: pointer; transition: background 0.2s, transform 0.2s; }
+.demo-form-submit:hover { background: var(--orange-dark); transform: translateY(-1px); }
+.demo-form-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+@media (max-width: 768px) { .demo-modal { padding: 28px 20px; } .demo-modal-title { font-size: 20px; } }
+
+.reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="nav-container">
+    <a href="index-es.html" class="nav-logo">Логист<span>ориа</span><span class="nav-logo-dot">.</span></a>
+    <nav class="nav-links">
+      <a href="#about" class="nav-link">Sobre el juego</a>
+      <a href="#mechanics" class="nav-link">Mecánica</a>
+      <a href="#emotions" class="nav-link">Sensaciones</a>
+      <a href="#formats" class="nav-link">Formatos</a>
+      <a href="#audience" class="nav-link">Para quién</a>
+    </nav>
+    <div class="nav-right">
+      <a href="index-en.html" class="nav-link" style="margin-right:8px;font-size:14px;">EN</a>
+      <a href="index-ru.html" class="nav-link" style="margin-right:8px;font-size:14px;">RU</a>
+      <a href="index-es.html" class="nav-link" style="margin-right:16px;font-size:14px;font-weight:700;">ES</a>
+      <a href="#contact" class="btn btn-primary btn-small" onclick="openDemoModal();return false;">Solicitar demo</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="mobileClose" aria-label="Cerrar menú">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <a href="#about" class="mobile-link">Sobre el juego</a>
+  <a href="#mechanics" class="mobile-link">Mecánica</a>
+  <a href="#emotions" class="mobile-link">Sensaciones</a>
+  <a href="#formats" class="mobile-link">Formatos</a>
+  <a href="#audience" class="mobile-link">Para quién</a>
+  <a href="#contact" class="btn btn-primary" style="margin-top:24px" onclick="openDemoModal();return false;">Solicitar demo</a>
+</div>
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+<section class="hero" id="about">
+  <canvas id="particleCanvas" class="hero-canvas" role="img" aria-label="Constelación animada de partículas"></canvas>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-label">Juego de mesa · MIT · Efecto látigo</div>
+    <h1 class="hero-title">The Beer Game<br><em>El juego más famoso de logística</em></h1>
+    <p class="hero-subtitle">Jugamos en el curso del MIT. Conservamos el objetivo, el sentido y la mecánica. Verás el efecto látigo en 2 horas.</p>
+    <div class="hero-price"><span>desde</span> 9 900 ₽</div>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="hero-stat-num">2h</span><span class="hero-stat-label">Sesión de juego</span></div>
+      <div class="hero-stat"><span class="hero-stat-num">4–400</span><span class="hero-stat-label">Jugadores</span></div>
+      <div class="hero-stat"><span class="hero-stat-num">+2h</span><span class="hero-stat-label">Debate</span></div>
+    </div>
+    <div class="hero-buttons">
+      <a href="#contact" class="btn btn-primary btn-large" onclick="openDemoModal();return false;">Solicitar demo →</a>
+      <a href="#mechanics" class="btn btn-secondary btn-large">Saber más</a>
+    </div>
+  </div>
+  <div class="hero-scroll"></div>
+</section>
+
+<section class="section about">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">De qué trata el juego</span>
+      <h2 class="section-title">Efecto látigo en acción</h2>
+      <p class="section-subtitle">Todo lo que usamos a diario es fruto del trabajo de los eslabones de las cadenas de suministro. The Beer Game simula el funcionamiento de varios eslabones y demuestra visualmente el efecto látigo.</p>
+    </div>
+    <div class="bullwhip-cards">
+      <div class="bullwhip-card" style="background:var(--violet-primary);color:#fff;padding:24px;border-radius:var(--radius-lg);margin-bottom:16px;">
+        <h3 style="font-family:var(--font-display);font-weight:700;font-size:18px;margin-bottom:12px;">Historia</h3>
+        <p style="font-size:15px;line-height:1.6;opacity:0.9;">El juego de la cerveza se describe en el libro «La quinta disciplina». Modela la cadena de distribución con cuatro niveles: minorista, mayorista, distribuidor y fabricante.</p>
+      </div>
+      <div class="bullwhip-card" style="background:var(--orange-primary);color:#fff;padding:24px;border-radius:var(--radius-lg);margin-bottom:16px;">
+        <h3 style="font-family:var(--font-display);font-weight:700;font-size:18px;margin-bottom:12px;">Efecto látigo</h3>
+        <p style="font-size:15px;line-height:1.6;opacity:0.9;">Consecuencia de los problemas de coordinación en las cadenas de suministro. Las pequeñas variaciones de la demanda en el retail se amplifican hacia arriba en la cadena. El término se acuñó en 1990: Procter &amp; Gamble descubrió las oscilaciones de pedidos en la cadena de pañales.</p>
+      </div>
+      <div class="bullwhip-card" style="background:var(--violet-soft);color:#fff;padding:24px;border-radius:var(--radius-lg);margin-bottom:16px;">
+        <h3 style="font-family:var(--font-display);font-weight:700;font-size:18px;margin-bottom:12px;">Consecuencias</h3>
+        <p style="font-size:15px;line-height:1.6;opacity:0.9;">Altos inventarios de seguridad · Mal servicio al cliente · Uso ineficiente de capacidades · Problemas de previsión · Bajo nivel de confianza en la cadena.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="mechanics" style="background:var(--gray-light)">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Mecánica</span>
+      <h2 class="section-title">Cómo funciona el juego</h2>
+      <p class="section-subtitle">52 rondas = 52 semanas. Una ronda dura menos de un minuto. Cada eslabón lo juegan 2–3 personas — un total de 8–12 jugadores por cadena.</p>
+    </div>
+
+    <div class="mechanics-chain">
+      <div class="chain-card reveal">
+        <svg class="chain-icon" viewBox="0 0 48 48"><rect x="4" y="8" width="40" height="32" rx="2"/><path d="M4 16h40"/><line x1="10" y1="24" x2="18" y2="24"/><line x1="10" y1="28" x2="14" y2="28"/><line x1="10" y1="32" x2="16" y2="32"/></svg>
+        <div class="chain-name">Minorista</div>
+        <div class="chain-desc">Vende cerveza al consumidor final. El único que conoce la demanda real externa.</div>
+      </div>
+      <div class="chain-card reveal">
+        <svg class="chain-icon" viewBox="0 0 48 48"><rect x="4" y="8" width="40" height="32" rx="2"/><path d="M4 16h40"/><line x1="10" y1="24" x2="18" y2="24"/><line x1="10" y1="28" x2="14" y2="28"/></svg>
+        <div class="chain-name">Mayorista</div>
+        <div class="chain-desc">Recibe pedidos de minoristas y hace pedidos al distribuidor. No ve la demanda real.</div>
+      </div>
+      <div class="chain-card reveal">
+        <svg class="chain-icon" viewBox="0 0 48 48"><rect x="4" y="8" width="40" height="32" rx="2"/><path d="M4 16h40"/><line x1="10" y1="24" x2="18" y2="24"/></svg>
+        <div class="chain-name">Distribuidor</div>
+        <div class="chain-desc">Intermediario entre mayorista y producción. Los inventarios y pedidos crecen cada vez más.</div>
+      </div>
+      <div class="chain-card reveal">
+        <svg class="chain-icon" viewBox="0 0 48 48"><rect x="8" y="4" width="32" height="40" rx="2"/><path d="M8 14h32"/><path d="M8 34h32"/><circle cx="16" cy="24" r="2"/><circle cx="24" cy="24" r="2"/><circle cx="32" cy="24" r="2"/></svg>
+        <div class="chain-name">Fabricante</div>
+        <div class="chain-desc">Recibe pedidos del distribuidor y produce cerveza con un retraso de 2 rondas.</div>
+      </div>
+    </div>
+
+    <img src="assets/beergame-supply-chain.jpg" alt="Esquema de cadena de suministro The Beer Game — pedidos hacia arriba, productos hacia abajo, retraso de 2 rondas" style="width:100%;border-radius:var(--radius-lg);box-shadow:var(--shadow-card);margin-bottom:48px;display:block;">
+
+    <div class="section-header" style="margin-bottom:32px">
+      <span class="section-label">Reglas</span>
+      <h2 class="section-title" style="font-size:28px">Qué ocurre cada semana</h2>
+    </div>
+
+    <div class="mechanics-rules">
+      <div class="rule-card reveal">
+        <div class="rule-num">01</div>
+        <div class="rule-title">Recibir y cumplir el pedido</div>
+        <div class="rule-desc">Recibir producto del proveedor, enviar producto al cliente más adelante en la cadena. Los inventarios deben cubrir el pedido — de lo contrario, hay retraso.</div>
+      </div>
+      <div class="rule-card reveal">
+        <div class="rule-num">02</div>
+        <div class="rule-title">Retraso de 2 rondas</div>
+        <div class="rule-desc">Cada entrega y orden de producción requieren dos semanas antes de llegar al siguiente eslabón. Este es el tiempo de entrega + producción.</div>
+      </div>
+      <div class="rule-card reveal">
+        <div class="rule-num">03</div>
+        <div class="rule-title">La única decisión: volumen del pedido</div>
+        <div class="rule-desc">Los jugadores no pueden comunicarse. La única información es la cifra del pedido. No hay transparencia en los niveles de inventario o la demanda real de otros eslabones.</div>
+      </div>
+    </div>
+
+    <div class="mechanics-rules" style="margin-top:24px">
+      <div class="rule-card reveal">
+        <div class="rule-num" style="color:var(--violet-soft)">₽</div>
+        <div class="rule-title">Costo de inventarios y retrasos</div>
+        <div class="rule-desc">Almacenamiento: 0,5 u.m. por unidad/semana. Pedido atrasado: 1,0 u.m. por unidad. Objetivo: mínimo costo sin déficit.</div>
+      </div>
+      <div class="rule-card reveal">
+        <div class="rule-num" style="color:var(--violet-soft)">⚡</div>
+        <div class="rule-title">Repentino aumento de la demanda</div>
+        <div class="rule-desc">Las primeras 5 rondas: demanda estable (5 unid.). Luego un salto brusco (hasta 9 unid.) y estabilización. Un solo salto provoca el efecto látigo.</div>
+      </div>
+      <div class="rule-card reveal">
+        <div class="rule-num" style="color:var(--violet-soft)">🤐</div>
+        <div class="rule-title">Prohibición de comunicación</div>
+        <div class="rule-desc">Los jugadores no hablan entre sí. Solo el volumen del pedido se transmite hacia arriba en la cadena. Esto modela cadenas con bajo nivel de confianza.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="emotions">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Sensaciones</span>
+      <h2 class="section-title">Qué sentirán tus empleados</h2>
+      <p class="section-subtitle">Desesperación y decepción: sentimientos comunes durante las últimas rondas. No es un error, es una característica. La estructura de la cadena dicta el comportamiento.</p>
+    </div>
+    <div class="emotions-grid">
+      <div class="emotion-card reveal">
+        <svg class="icon" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M18 30s3-4 6-4 6 4 6 4"/><circle cx="18" cy="20" r="2"/><circle cx="30" cy="20" r="2"/></svg>
+        <div class="emotion-quote">«No controlo la situación»</div>
+        <div class="emotion-desc">Los jugadores pierden la sensación de control sobre su eslabón. Los pedidos suben y bajan impredeciblemente, aunque la demanda real se estabilizó hace tiempo.</div>
+      </div>
+      <div class="emotion-card reveal">
+        <svg class="icon" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M18 18l-4-2"/><path d="M30 18l4-2"/><path d="M18 32s3-2 6-2 6 2 6 2"/></svg>
+        <div class="emotion-quote">«Es culpa del proveedor / cliente»</div>
+        <div class="emotion-desc">La gente culpa a los socios de la cadena: «Hacen pedidos irrazonables» o «No pueden entregar a tiempo». La estructura provoca conflicto.</div>
+      </div>
+      <div class="emotion-card reveal">
+        <svg class="icon" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M18 32s3-3 6-3 6 3 6 3"/><path d="M16 20l4 2"/><path d="M32 20l-4 2"/></svg>
+        <div class="emotion-quote">«Desesperación al final»</div>
+        <div class="emotion-desc">Al final del juego, los inventarios están rebosantes o el déficit es crítico. Los costos totales de la cadena resultan mucho mayores de lo esperado.</div>
+      </div>
+    </div>
+
+    <img src="assets/beergame-inventory-graph.jpg" alt="Gráfico de fluctuación de niveles de inventario en The Beer Game — inventario negativo = pedidos atrasados" style="width:100%;border-radius:var(--radius-lg);box-shadow:var(--shadow-card);margin-top:48px;display:block;">
+  </div>
+</section>
+
+<section class="section" id="causes" style="background:var(--gray-light)">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Análisis</span>
+      <h2 class="section-title">Por qué ocurre</h2>
+      <p class="section-subtitle">El efecto látigo es causado por tres problemas básicos. Los jugadores los descubren por sí mismos — a través del debate de la experiencia y referencias a la práctica.</p>
+    </div>
+    <div class="causes-grid">
+      <div class="cause-card reveal">
+        <div class="cause-num">1</div>
+        <svg class="icon" viewBox="0 0 48 48"><rect x="4" y="8" width="40" height="32" rx="2"/><path d="M4 16h40"/><line x1="12" y1="24" x2="36" y2="24" stroke-dasharray="4 4"/></svg>
+        <h3>Falta de información</h3>
+        <p>En el juego no se conserva información alguna aparte del tamaño del pedido. La demanda real del consumidor se pierde rápidamente hacia arriba en la cadena. Sin datos reales de demanda, toda la previsión se basa en los pedidos entrantes — y esto genera distorsiones.</p>
+      </div>
+      <div class="cause-card reveal">
+        <div class="cause-num">2</div>
+        <svg class="icon" viewBox="0 0 48 48"><path d="M8 40V20a16 16 0 0132 0v20"/><path d="M4 40h40"/><circle cx="24" cy="12" r="4"/><line x1="24" y1="24" x2="24" y2="32"/></svg>
+        <h3>Estructura de la cadena de suministro</h3>
+        <p>Largo tiempo de cumplimiento del pedido: se necesita mucho tiempo para que el pedido suba y la entrega vuelva a bajar. Cuanto más tiempo, mayor la probabilidad del efecto látigo. Los inventarios de seguridad crecen proporcionalmente.</p>
+      </div>
+      <div class="cause-card reveal">
+        <div class="cause-num">3</div>
+        <svg class="icon" viewBox="0 0 48 48"><rect x="8" y="4" width="32" height="40" rx="2"/><path d="M8 14h32"/><path d="M8 34h32"/><circle cx="16" cy="24" r="2"/><circle cx="24" cy="24" r="2"/><circle cx="32" cy="24" r="2"/></svg>
+        <h3>Optimización local</h3>
+        <p>Cada eslabón optimiza sus costos localmente: lotes grandes para descuentos, inventarios de seguridad contra déficit. Pero el óptimo local = el fracaso global. Hasta que el producto no llegue al comprador, nadie en la cadena ha ganado.</p>
+      </div>
+    </div>
+
+    <img src="assets/beergame-costs-graph.jpg" alt="Gráfico de costos acumulados de la cadena de suministro — comparación entre optimización local vs global" style="width:100%;border-radius:var(--radius-lg);box-shadow:var(--shadow-card);margin-top:48px;display:block;">
+  </div>
+</section>
+
+<section class="section" id="debrief">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Análisis post-juego</span>
+      <h2 class="section-title">Qué se discute después del juego</h2>
+      <p class="section-subtitle">El debriefing dura 60–90 minutos y a menudo se convierte en la parte más valiosa de la sesión. La estructura crea el comportamiento — y esa es la conclusión principal.</p>
+    </div>
+    <div class="debrief-grid">
+      <ul class="debrief-list">
+        <li>
+          <svg class="debrief-list-icon" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+          <span class="debrief-list-text"><strong>Emociones de los jugadores.</strong> ¿Surgió la sensación de pérdida de control? ¿Culparon a los socios? ¿Sintieron desesperación?</span>
+        </li>
+        <li>
+          <svg class="debrief-list-icon" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+          <span class="debrief-list-text"><strong>Realismo.</strong> ¿Qué es irrealista en el juego? ¿Por qué existen los retrasos? ¿Por qué se necesitan distribuidores?</span>
+        </li>
+        <li>
+          <svg class="debrief-list-icon" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+          <span class="debrief-list-text"><strong>Causas del efecto látigo.</strong> Falta de información, estructura de la cadena, optimización local — tres problemas básicos.</span>
+        </li>
+        <li>
+          <svg class="debrief-list-icon" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+          <span class="debrief-list-text"><strong>Pensamiento global.</strong> Costos acumulados de la cadena: hasta que el producto no llegue al comprador, nadie ha ganado. Primer paso hacia la colaboración.</span>
+        </li>
+        <li>
+          <svg class="debrief-list-icon" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+          <span class="debrief-list-text"><strong>Soluciones.</strong> ¿Qué cambiará si los jugadores empiezan a compartir información de inventarios y coordinar compras?</span>
+        </li>
+      </ul>
+        <img src="assets/beergame-team-table.jpg" alt="Equipo en la mesa de The Beer Game — sesión online o versión de mesa" style="width:100%;border-radius:var(--radius-lg);box-shadow:var(--shadow-card);display:block;">
+    </div>
+  </div>
+</section>
+
+<section class="section" id="formats" style="background:var(--gray-light)">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Formatos</span>
+      <h2 class="section-title">Tres formas de jugar</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <svg class="icon" viewBox="0 0 48 48"><rect x="8" y="4" width="32" height="40" rx="2"/><path d="M8 14h32"/><path d="M8 34h32"/><circle cx="16" cy="24" r="2"/><circle cx="24" cy="24" r="2"/><circle cx="32" cy="24" r="2"/></svg>
+        <h3>Juego de mesa</h3>
+        <p>Formato clásico con tablero, cartas de pedidos, formularios y fichas. De 4 a 400 jugadores simultáneamente.</p>
+      </div>
+      <div class="feature-card reveal">
+        <svg class="icon" viewBox="0 0 48 48"><rect x="4" y="8" width="40" height="28" rx="2"/><path d="M4 20h40"/><path d="M20 36l4-4 4 4"/><circle cx="24" cy="4" r="2"/></svg>
+        <h3>Versión online</h3>
+        <p>Participantes de distintas ciudades y países se reúnen en una misma mesa de juego. Videollamada, formularios digitales, comunicación real.</p>
+      </div>
+      <div class="feature-card reveal">
+        <svg class="icon" viewBox="0 0 48 48"><circle cx="24" cy="18" r="10"/><path d="M8 40c0-8.8 7.2-16 16-16s16 7.2 16 16"/><path d="M24 8v4"/><path d="M24 26v4"/></svg>
+        <h3>Sesión formativa</h3>
+        <p>Nuestro equipo gestiona el juego llave en mano: briefing, facilitación, debriefing con análisis de decisiones de los equipos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="audience">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Para quién</span>
+      <h2 class="section-title">A quién va dirigido The Beer Game</h2>
+    </div>
+    <div class="audience-grid">
+      <div class="audience-card reveal">
+        <svg class="icon" viewBox="0 0 48 48"><path d="M24 4L4 14v20l20 10 20-10V14L24 4z"/><path d="M4 14l20 10"/><path d="M24 24v20"/><path d="M44 14L24 24"/></svg>
+        <h3>Profesores de universidades y colegios</h3>
+        <p>Aplica uno de los juegos de negocios más conocidos en la enseñanza de dinámica de sistemas y logística.</p>
+      </div>
+      <div class="audience-card reveal">
+        <svg class="icon" viewBox="0 0 48 48"><path d="M12 40c0-6.6 5.4-12 12-12s12 5.4 12 12"/><circle cx="24" cy="14" r="6"/><path d="M24 20v8"/><path d="M18 26l6-6 6 6"/></svg>
+        <h3>Startups</h3>
+        <p>Comprende los desafíos que aguardan al pasar a la producción de lotes industriales y la compra de materias primas.</p>
+      </div>
+      <div class="audience-card reveal">
+        <svg class="icon" viewBox="0 0 48 48"><rect x="4" y="16" width="40" height="28" rx="2"/><path d="M4 24h40"/><path d="M16 16V8a8 8 0 0116 0v8"/><circle cx="14" cy="32" r="2"/><circle cx="24" cy="32" r="2"/><circle cx="34" cy="32" r="2"/></svg>
+        <h3>Negocios en pleno crecimiento</h3>
+        <p>Muestre a los gestores de compras qué ocurre en otros eslabones y cómo reducir el impacto negativo de la incertidumbre.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section cta" id="contact">
+  <div class="container">
+    <h2 class="cta-title">Solicite una demo de The Beer Game</h2>
+    <p class="cta-subtitle">Le mostraremos cómo el juego más famoso de logística ayuda a ver el efecto látigo y mejorar la gestión de cadenas de suministro.</p>
+    <div style="margin-top:32px">
+      <a href="#" class="btn btn-primary btn-large" onclick="openDemoModal();return false;">Solicitar demo →</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">Логист<span>ориа</span><span class="footer-logo-dot">.</span></div>
+        <p class="footer-tagline">Tecnologías de juego para la enseñanza de logística y cadenas de suministro. Entregamos a 30+ países.</p>
+      </div>
+      <div>
+        <div class="footer-title">Navegación</div>
+        <a href="index-es.html#games" class="footer-link">Catálogo de juegos</a>
+        <a href="index-es.html#subs" class="footer-link">Abonos</a>
+        <a href="index-es.html#how" class="footer-link">Cómo funciona</a>
+      </div>
+      <div>
+        <div class="footer-title">Productos</div>
+        <a href="https://www.krossdok.ru" class="footer-link">Krossdok</a>
+        <a href="https://kimicito.github.io/logistoria-website/thebeergame.html" class="footer-link">The Beer Game</a>
+        <a href="https://kimicito.github.io/logistoria-website/kadena.html" class="footer-link">Kadena</a>
+      </div>
+      <div>
+        <div class="footer-title">Contacto</div>
+        <p class="footer-tagline">¿Planeas una sesión de juego o formación?</p>
+        <a href="#contact" class="footer-link" onclick="openDemoModal();return false;">Solicitar demo</a>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Logistoria. Todos los derechos reservados. · Política de privacidad</div>
+  </div>
+</footer>
+
+<div class="demo-modal-overlay" id="demoModal">
+  <div class="demo-modal">
+    <button class="demo-modal-close" onclick="closeDemoModal()">✕</button>
+    <h3 class="demo-modal-title">Solicitar demo de The Beer Game</h3>
+    <p class="demo-modal-subtitle">Deje sus datos — le mostraremos el juego en acción</p>
+    <form id="demoForm" onsubmit="submitDemo(event)">
+      <div class="demo-form-group">
+        <label class="demo-form-label">Nombre y apellido <span class="required">*</span></label>
+        <input type="text" class="demo-form-input" id="demoName" placeholder="Juan García" required>
+      </div>
+      <div class="demo-form-group">
+        <label class="demo-form-label">Email <span class="required">*</span></label>
+        <input type="email" class="demo-form-input" id="demoEmail1" placeholder="tu@email.com" required>
+        <div class="error-msg" id="errEmail1">Ingrese un email válido</div>
+      </div>
+      <div class="demo-form-group">
+        <label class="demo-form-label">Confirme el email <span class="required">*</span></label>
+        <input type="email" class="demo-form-input" id="demoEmail2" placeholder="tu@email.com" required>
+        <div class="error-msg" id="errEmail2">Los emails no coinciden</div>
+      </div>
+      <div class="demo-form-group">
+        <label class="demo-form-label">Organización</label>
+        <input type="text" class="demo-form-input" id="demoOrg" placeholder="Nombre de empresa o universidad">
+      </div>
+      <div class="demo-form-group">
+        <label class="demo-form-label">Qué desea ver</label>
+        <textarea class="demo-form-textarea" id="demoMessage" placeholder="Ejemplo: versión de mesa para 20 empleados"></textarea>
+      </div>
+      <div class="demo-form-note">Queremos asegurarnos de que no haya errores tipográficos al ingresar el email y que la solicitud no quede sin respuesta.</div>
+      <button type="submit" class="demo-form-submit">Enviar solicitud</button>
+    </form>
+  </div>
+</div>
+
+<script>
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+const navToggle = document.getElementById('navToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+const mobileClose = document.getElementById('mobileClose');
+const mobileOverlay = document.getElementById('mobileOverlay');
+
+navToggle.addEventListener('click', () => {
+  mobileMenu.classList.add('open');
+  mobileOverlay.classList.add('open');
+});
+mobileClose.addEventListener('click', closeMobile);
+mobileOverlay.addEventListener('click', closeMobile);
+
+function closeMobile() {
+  mobileMenu.classList.remove('open');
+  mobileOverlay.classList.remove('open');
+}
+
+function openDemoModal() {
+  document.getElementById('demoModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeDemoModal() {
+  document.getElementById('demoModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('demoModal').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('demoModal')) closeDemoModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeDemoModal();
+});
+
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function submitDemo(e) {
+  e.preventDefault();
+  const email1 = document.getElementById('demoEmail1');
+  const email2 = document.getElementById('demoEmail2');
+  const name = document.getElementById('demoName');
+  const org = document.getElementById('demoOrg');
+  const msg = document.getElementById('demoMessage');
+  const err1 = document.getElementById('errEmail1');
+  const err2 = document.getElementById('errEmail2');
+
+  let valid = true;
+  [email1, email2].forEach(el => el.classList.remove('error'));
+  [err1, err2].forEach(el => el.classList.remove('visible'));
+
+  if (!isValidEmail(email1.value.trim())) {
+    email1.classList.add('error');
+    err1.classList.add('visible');
+    valid = false;
+  }
+  if (email1.value.trim() !== email2.value.trim()) {
+    email2.classList.add('error');
+    err2.classList.add('visible');
+    valid = false;
+  }
+  if (!valid) return;
+
+  const subject = encodeURIComponent('Solicitud de demo The Beer Game — Logistoria');
+  const body = encodeURIComponent(
+    'Nombre: ' + name.value.trim() + '\n' +
+    'Email: ' + email1.value.trim() + '\n' +
+    'Organización: ' + (org.value.trim() || 'No especificada') + '\n\n' +
+    'Qué desean ver:\n' + msg.value.trim()
+  );
+  window.location.href = 'mailto:project@logistoria.com?subject=' + subject + '&body=' + body;
+  closeDemoModal();
+  document.getElementById('demoForm').reset();
+}
+
+const canvas = document.getElementById('particleCanvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+let width, height;
+
+function resizeCanvas() {
+  width = canvas.width = window.innerWidth;
+  height = canvas.height = window.innerHeight;
+}
+function createParticles() {
+  particles = [];
+  const count = Math.min(Math.floor(window.innerWidth / 15), 120);
+  for (let i = 0; i < count; i++) {
+    particles.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      vx: (Math.random() - 0.5) * 0.5,
+      vy: (Math.random() - 0.5) * 0.5,
+      radius: Math.random() * 2 + 1
+    });
+  }
+}
+function drawParticles() {
+  ctx.clearRect(0, 0, width, height);
+  ctx.fillStyle = 'rgba(255,255,255,0.15)';
+  ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+  
+  for (let i = 0; i < particles.length; i++) {
+    const p = particles[i];
+    p.x += p.vx;
+    p.y += p.vy;
+    if (p.x < 0) p.x = width;
+    if (p.x > width) p.x = 0;
+    if (p.y < 0) p.y = height;
+    if (p.y > height) p.y = 0;
+    
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+    ctx.fill();
+    
+    for (let j = i + 1; j < particles.length; j++) {
+      const p2 = particles[j];
+      const dx = p.x - p2.x;
+      const dy = p.y - p2.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 120) {
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(p2.x, p2.y);
+        ctx.lineWidth = (1 - dist / 120) * 0.8;
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(drawParticles);
+}
+
+resizeCanvas();
+createParticles();
+drawParticles();
+window.addEventListener('resize', () => { resizeCanvas(); createParticles(); });
+
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+
+ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const href = this.getAttribute('href');
+    if (href === '#') return;
+    e.preventDefault();
+    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
+
+</body>
+</html>
