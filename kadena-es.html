@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KADENA — Simulación online de gestión de cadenas de suministro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --violet-primary: #3D1959;
+  --violet-deep: #120B1E;
+  --violet-soft: #5C3D8A;
+  --orange-primary: #FF9800;
+  --orange-dark: #F57C00;
+  --white: #FFFFFF;
+  --gray-light: #F5F5F5;
+  --gray-border: #E0E0E0;
+  --text-heading: #1A1A2E;
+  --text-body: #444444;
+  --text-muted: #666666;
+  --font-display: 'Montserrat', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --shadow-card: 0 4px 24px rgba(0,0,0,0.06);
+  --shadow-card-hover: 0 12px 40px rgba(0,0,0,0.1);
+  --radius-sm: 8px; --radius-md: 10px; --radius-lg: 16px; --radius-xl: 20px; --radius-2xl: 24px;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body { font-family: var(--font-body); font-weight: 400; font-size: 16px; line-height: 1.7; color: var(--text-body); background: var(--white); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+button { border: none; background: none; cursor: pointer; font-family: inherit; }
+img { max-width: 100%; height: auto; display: block; }
+ul { list-style: none; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+@media (max-width: 1024px) { .container { padding: 0 24px; } }
+@media (max-width: 768px) { .container { padding: 0 16px; } }
+
+.icon { width: 48px; height: 48px; stroke: var(--violet-soft); stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 20px; }
+.icon-sm { width: 32px; height: 32px; }
+.icon-orange { stroke: var(--orange-primary); }
+.icon-white { stroke: rgba(255,255,255,0.7); }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 4px; font-family: var(--font-body); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; border-radius: var(--radius-sm); transition: all 0.2s ease; white-space: nowrap; }
+.btn-primary { background: var(--orange-primary); color: var(--white); padding: 10px 24px; font-size: 13px; }
+.btn-primary:hover { background: var(--orange-dark); transform: translateY(-1px); }
+.btn-secondary { background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,0.8); padding: 10px 24px; font-size: 13px; }
+.btn-secondary:hover { border-color: var(--white); background: rgba(255,255,255,0.05); }
+.btn-large { padding: 16px 48px; font-size: 15px; border-radius: var(--radius-md); }
+
+.nav { position: fixed; top: 0; left: 0; right: 0; height: 72px; background: rgba(61,25,89,0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.08); z-index: 100; transition: background 0.3s ease; }
+.nav.scrolled { background: rgba(61,25,89,0.98); }
+.nav-container { max-width: 1200px; margin: 0 auto; padding: 0 48px; height: 100%; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-family: var(--font-display); font-weight: 800; font-size: 20px; color: var(--white); letter-spacing: -0.5px; }
+.nav-logo-dot { color: var(--orange-primary); }
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-link { font-family: var(--font-body); font-weight: 500; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; color: rgba(255,255,255,0.9); transition: color 0.2s ease; }
+.nav-link:hover { color: var(--white); }
+.nav-right { display: flex; align-items: center; gap: 16px; }
+.nav-toggle { display: none; color: var(--white); padding: 4px; }
+
+.mobile-menu { position: fixed; top: 0; right: 0; width: 300px; height: 100%; background: var(--violet-primary); z-index: 110; padding: 80px 32px 32px; display: flex; flex-direction: column; gap: 24px; transform: translateX(100%); transition: transform 0.3s ease; }
+.mobile-menu.open { transform: translateX(0); }
+.mobile-close { position: absolute; top: 20px; right: 20px; color: var(--white); }
+.mobile-link { font-family: var(--font-body); font-weight: 500; font-size: 18px; color: rgba(255,255,255,0.9); transition: color 0.2s; }
+.mobile-link:hover { color: var(--white); }
+.mobile-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 105; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+.mobile-overlay.open { opacity: 1; pointer-events: all; }
+@media (max-width: 1024px) { .nav-links { display: none; } .nav-toggle { display: block; } .nav-container { padding: 0 24px; } }
+@media (max-width: 768px) { .nav-container { padding: 0 16px; } .nav .btn-small { display: none; } }
+
+.hero { position: relative; min-height: 100dvh; min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--violet-primary) 0%, var(--violet-deep) 100%); overflow: hidden; }
+.hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; max-width: 100%; }
+.hero-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(255,152,0,0.12) 0%, transparent 70%); pointer-events: none; z-index: 2; }
+.hero-content { position: relative; z-index: 5; text-align: center; max-width: 800px; padding: 0 24px; animation: heroFadeIn 0.8s ease-out forwards; opacity: 0; }
+.hero-label { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-body); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--orange-primary); margin-bottom: 20px; }
+.hero-label::before { content: ''; width: 6px; height: 6px; background: var(--orange-primary); border-radius: 50%; animation: pulse 2s infinite; }
+.hero-title { font-family: var(--font-display); font-weight: 800; font-size: 56px; line-height: 1.1; letter-spacing: -1.5px; color: var(--white); }
+.hero-title em { color: var(--orange-primary); font-style: normal; }
+.hero-subtitle { font-family: var(--font-body); font-size: 18px; line-height: 1.7; color: rgba(255,255,255,0.8); max-width: 640px; margin: 24px auto 0; }
+.hero-price { font-family: var(--font-display); font-weight: 800; font-size: 48px; color: var(--orange-primary); margin-top: 32px; }
+.hero-price span { font-size: 20px; font-weight: 500; color: rgba(255,255,255,0.7); }
+.hero-buttons { display: flex; justify-content: center; gap: 16px; margin-top: 40px; flex-wrap: wrap; }
+.hero-scroll { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); width: 2px; height: 40px; background: rgba(255,255,255,0.4); border-radius: 1px; animation: bounce 2s ease-in-out infinite; z-index: 5; }
+.hero-stats { display: flex; justify-content: center; gap: 48px; margin-top: 32px; flex-wrap: wrap; }
+.hero-stat { text-align: center; }
+.hero-stat-num { font-family: var(--font-display); font-weight: 700; font-size: 28px; color: var(--orange-primary); display: block; }
+.hero-stat-label { font-size: 14px; color: rgba(255,255,255,0.7); }
+
+@keyframes heroFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(10px); } }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+
+@media (max-width: 1024px) { .hero-title { font-size: 40px; } }
+@media (max-width: 768px) { .hero { min-height: auto; padding: 120px 0 80px; } .hero-title { font-size: 32px; } .hero-subtitle { font-size: 16px; } .hero-stats { flex-direction: column; gap: 16px; } .hero-buttons { flex-direction: column; align-items: center; } .hero-buttons .btn { width: 100%; max-width: 300px; } .hero-price { font-size: 36px; } }
+
+.section { padding: 100px 0; }
+@media (max-width: 1024px) { .section { padding: 80px 0; } }
+@media (max-width: 768px) { .section { padding: 60px 0; } }
+
+.section-header { text-align: center; margin-bottom: 48px; }
+.section-label { display: inline-block; font-family: var(--font-body); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--orange-primary); margin-bottom: 16px; }
+.section-title { font-family: var(--font-display); font-weight: 700; font-size: 40px; letter-spacing: -1px; line-height: 1.2; color: var(--text-heading); text-transform: uppercase; }
+.section-subtitle { font-size: 17px; color: var(--text-muted); line-height: 1.6; max-width: 640px; margin: 12px auto 0; }
+@media (max-width: 768px) { .section-title { font-size: 26px; } }
+
+/* Placeholder Images */
+.placeholder-img { background: linear-gradient(135deg, var(--violet-primary) 0%, var(--violet-soft) 100%); border-radius: var(--radius-lg); aspect-ratio: 16/9; display: flex; flex-direction: column; align-items: center; justify-content: center; color: rgba(255,255,255,0.7); font-size: 14px; gap: 12px; text-align: center; padding: 24px; }
+.placeholder-img svg { width: 48px; height: 48px; stroke: rgba(255,255,255,0.5); stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.placeholder-img--square { aspect-ratio: 1/1; }
+.placeholder-img--portrait { aspect-ratio: 3/4; }
+.placeholder-img--wide { aspect-ratio: 21/9; }
+
+/* Why / Hook */
+.why-section { background: linear-gradient(135deg, var(--violet-primary) 0%, var(--violet-deep) 100%); color: var(--white); }
+.why-section .section-title { color: var(--white); }
+.why-section .section-subtitle { color: rgba(255,255,255,0.75); }
+.why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.why-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-xl); padding: 48px 32px; transition: all 0.3s ease; }
+.why-card:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); transform: translateY(-4px); }
+.why-number { font-family: var(--font-display); font-weight: 800; font-size: 48px; color: var(--orange-primary); margin-bottom: 16px; line-height: 1; }
+.why-title { font-family: var(--font-display); font-weight: 700; font-size: 20px; margin-bottom: 12px; color: var(--white); }
+.why-desc { font-size: 15px; color: rgba(255,255,255,0.8); line-height: 1.6; }
+@media (max-width: 1024px) { .why-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .why-grid { grid-template-columns: 1fr; } }
+
+/* About */
+.about { background: var(--white); }
+@media (max-width: 768px) { .about .section-header { margin-bottom: 20px; } .about .section-title { font-size: 22px; letter-spacing: -0.5px; } }
+
+/* Features */
+.features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.feature-card { background: var(--white); border: 1px solid var(--gray-border); border-radius: var(--radius-xl); padding: 40px 32px; transition: all 0.3s ease; }
+.feature-card:hover { border-color: var(--violet-soft); transform: translateY(-4px); box-shadow: var(--shadow-card-hover); }
+.feature-card h3 { font-family: var(--font-display); font-weight: 700; font-size: 20px; color: var(--text-heading); margin-bottom: 12px; }
+.feature-card p { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
+@media (max-width: 1024px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .features-grid { grid-template-columns: 1fr; } }
+
+/* Roles */
+.roles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.role-card { background: var(--white); border-radius: var(--radius-xl); padding: 40px 32px; border: 2px solid var(--gray-border); position: relative; transition: all 0.3s ease; }
+.role-card:hover { border-color: var(--violet-soft); transform: translateY(-4px); box-shadow: var(--shadow-card-hover); }
+.role-num { position: absolute; top: -16px; left: 32px; background: var(--violet-primary); color: var(--white); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 14px; font-weight: 700; }
+.role-card h3 { font-family: var(--font-display); font-weight: 700; font-size: 20px; color: var(--text-heading); margin-bottom: 12px; margin-top: 8px; }
+.role-card p { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
+@media (max-width: 1024px) { .roles-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .roles-grid { grid-template-columns: 1fr; } }
+
+/* Process */
+.process-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.process-card { background: var(--white); border: 1px solid var(--gray-border); border-radius: var(--radius-xl); padding: 40px 32px; transition: all 0.3s ease; }
+.process-card:hover { border-color: var(--violet-soft); transform: translateY(-4px); box-shadow: var(--shadow-card-hover); }
+.process-card h3 { font-family: var(--font-display); font-weight: 700; font-size: 20px; color: var(--text-heading); margin-bottom: 12px; }
+.process-card p { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
+.process-highlight { background: var(--violet-primary); color: var(--white); border-color: var(--violet-primary); }
+.process-highlight h3 { color: var(--white); }
+.process-highlight p { color: rgba(255,255,255,0.85); }
+.process-highlight .icon { stroke: var(--orange-primary); }
+@media (max-width: 1024px) { .process-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .process-grid { grid-template-columns: 1fr; } }
+
+/* Schedule */
+.schedule-timeline { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; position: relative; }
+.timeline-card { background: var(--white); border-radius: var(--radius-xl); padding: 40px 32px; border: 2px solid var(--gray-border); position: relative; transition: all 0.3s ease; }
+.timeline-card:hover { border-color: var(--violet-soft); transform: translateY(-4px); box-shadow: var(--shadow-card-hover); }
+.timeline-card::after { content: '→'; position: absolute; top: 50%; right: -28px; transform: translateY(-50%); font-size: 24px; color: var(--gray-border); font-family: var(--font-display); font-weight: 700; }
+.timeline-card:last-child::after { display: none; }
+.timeline-day { font-family: var(--font-display); font-weight: 800; font-size: 14px; color: var(--orange-primary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+.timeline-title { font-family: var(--font-display); font-weight: 700; font-size: 20px; color: var(--text-heading); margin-bottom: 12px; }
+.timeline-desc { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
+.timeline-card--highlight { background: var(--violet-primary); border-color: var(--violet-primary); }
+.timeline-card--highlight .timeline-day { color: var(--orange-primary); }
+.timeline-card--highlight .timeline-title { color: var(--white); }
+.timeline-card--highlight .timeline-desc { color: rgba(255,255,255,0.85); }
+.timeline-card--highlight::after { color: var(--violet-soft); }
+@media (max-width: 1024px) { .schedule-timeline { grid-template-columns: 1fr; } .timeline-card::after { display: none; } }
+
+/* Insights */
+.insight-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.insight-card { background: var(--white); border: 1px solid var(--gray-border); border-radius: var(--radius-lg); padding: 24px; transition: all 0.3s ease; }
+.insight-card:hover { border-color: var(--violet-soft); transform: translateY(-2px); box-shadow: var(--shadow-card); }
+.insight-icon { width: 32px; height: 32px; stroke: var(--orange-primary); stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 12px; }
+.insight-title { font-family: var(--font-display); font-weight: 700; font-size: 15px; color: var(--text-heading); margin-bottom: 8px; }
+.insight-desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+@media (max-width: 768px) { .insight-grid { grid-template-columns: 1fr; } }
+.dashboard-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 48px; align-items: start; }
+.dashboard-text { font-size: 16px; line-height: 1.8; color: var(--text-body); }
+.dashboard-text p + p { margin-top: 16px; }
+.dashboard-metrics { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.metric-card { background: var(--white); border: 1px solid var(--gray-border); border-radius: var(--radius-lg); padding: 24px; text-align: center; transition: all 0.3s ease; }
+.metric-card:hover { border-color: var(--violet-soft); }
+.metric-icon { width: 32px; height: 32px; stroke: var(--violet-soft); stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-linejoin: round; margin: 0 auto 12px; }
+.metric-name { font-family: var(--font-display); font-weight: 600; font-size: 14px; color: var(--text-heading); }
+.metric-desc { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+@media (max-width: 1024px) { .dashboard-grid { grid-template-columns: 1fr; } }
+
+/* Photo Gallery */
+.photo-section { background: var(--gray-light); }
+.photo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.photo-item { border-radius: var(--radius-lg); overflow: hidden; }
+.photo-item .placeholder-img { width: 100%; height: 100%; aspect-ratio: 4/3; }
+.photo-item--wide { grid-column: span 2; }
+@media (max-width: 1024px) { .photo-grid { grid-template-columns: repeat(2, 1fr); } .photo-item--wide { grid-column: span 2; } }
+@media (max-width: 768px) { .photo-grid { grid-template-columns: 1fr; } .photo-item--wide { grid-column: span 1; } }
+
+/* Audience */
+.audience-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.audience-card { background: var(--white); border: 1px solid var(--gray-border); border-radius: var(--radius-xl); padding: 40px 32px; text-align: center; transition: all 0.3s ease; }
+.audience-card:hover { border-color: var(--violet-soft); transform: translateY(-4px); box-shadow: var(--shadow-card-hover); }
+.audience-card h3 { font-family: var(--font-display); font-weight: 700; font-size: 18px; color: var(--text-heading); margin-bottom: 8px; }
+.audience-card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+@media (max-width: 1024px) { .audience-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .audience-grid { grid-template-columns: 1fr; } }
+
+/* Steps */
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.step { text-align: center; padding: 24px; }
+.step-num { width: 48px; height: 48px; background: var(--violet-primary); color: var(--white); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 20px; font-weight: 800; margin: 0 auto 16px; }
+.step-title { font-family: var(--font-display); font-weight: 700; font-size: 16px; color: var(--text-heading); margin-bottom: 6px; }
+.step-desc { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+@media (max-width: 1024px) { .steps { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .steps { grid-template-columns: 1fr; } }
+
+/* CTA */
+.cta { background: var(--violet-primary); text-align: center; }
+.cta-title { font-family: var(--font-display); font-weight: 700; font-size: 36px; color: var(--white); letter-spacing: -1px; }
+.cta-subtitle { font-size: 16px; color: rgba(255,255,255,0.75); margin-top: 16px; max-width: 600px; margin-left: auto; margin-right: auto; }
+@media (max-width: 768px) { .cta-title { font-size: 28px; } }
+
+/* Footer */
+.footer { background: var(--violet-deep); padding: 80px 0 40px; }
+.footer-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 48px; }
+.footer-logo { font-family: var(--font-display); font-weight: 800; font-size: 24px; color: var(--white); }
+.footer-logo span { color: var(--white); }
+.footer-logo-dot { color: var(--orange-primary); }
+.footer-tagline { font-size: 14px; color: rgba(255,255,255,0.5); margin-top: 12px; }
+.footer-email { display: inline-block; font-weight: 500; font-size: 14px; color: var(--orange-primary); margin-top: 20px; transition: opacity 0.2s; }
+.footer-email:hover { opacity: 0.8; }
+.footer-title { font-family: var(--font-body); font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.4); margin-bottom: 20px; }
+.footer-link { display: block; font-size: 14px; color: rgba(255,255,255,0.7); margin-bottom: 12px; transition: color 0.2s; }
+.footer-link:hover { color: var(--white); }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); margin-top: 60px; padding-top: 24px; display: flex; justify-content: space-between; font-size: 13px; color: rgba(255,255,255,0.4); }
+@media (max-width: 1024px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr; gap: 32px; } .footer-bottom { flex-direction: column; gap: 8px; text-align: center; } }
+
+/* Demo Modal */
+.demo-modal-overlay { position: fixed; inset: 0; background: rgba(18,11,30,0.7); backdrop-filter: blur(4px); z-index: 200; display: none; align-items: center; justify-content: center; padding: 16px; opacity: 0; transition: opacity 0.3s ease; }
+.demo-modal-overlay.open { display: flex; opacity: 1; }
+.demo-modal { background: var(--white); border-radius: var(--radius-xl); padding: 40px; max-width: 480px; width: 100%; position: relative; box-shadow: 0 24px 80px rgba(0,0,0,0.2); transform: scale(0.95); transition: transform 0.3s ease; }
+.demo-modal-overlay.open .demo-modal { transform: scale(1); }
+.demo-modal-close { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border-radius: 50%; background: var(--gray-light); color: var(--text-body); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s; border: none; }
+.demo-modal-close:hover { background: var(--gray-border); }
+.demo-modal-title { font-family: var(--font-display); font-weight: 700; font-size: 24px; color: var(--text-heading); margin-bottom: 8px; }
+.demo-modal-subtitle { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+.demo-form-group { margin-bottom: 20px; }
+.demo-form-label { display: block; font-weight: 500; font-size: 13px; color: var(--text-heading); margin-bottom: 6px; }
+.demo-form-label .required { color: #EF4444; }
+.demo-form-input, .demo-form-textarea { width: 100%; padding: 12px 16px; border: 1px solid var(--gray-border); border-radius: var(--radius-md); font-family: var(--font-body); font-size: 15px; color: var(--text-body); background: var(--white); transition: border-color 0.2s, box-shadow 0.2s; }
+.demo-form-input:focus, .demo-form-textarea:focus { outline: none; border-color: var(--violet-soft); box-shadow: 0 0 0 3px rgba(92,61,138,0.1); }
+.demo-form-input.error, .demo-form-textarea.error { border-color: #EF4444; background: #FEF2F2; }
+.demo-form-textarea { min-height: 100px; resize: vertical; }
+.demo-form-note { font-size: 13px; color: var(--text-muted); line-height: 1.5; padding: 12px; background: var(--gray-light); border-radius: var(--radius-md); margin-bottom: 20px; }
+.error-msg { color: #EF4444; font-size: 13px; margin-top: 4px; display: none; }
+.error-msg.visible { display: block; }
+.demo-form-submit { width: 100%; padding: 14px; background: var(--orange-primary); color: var(--white); font-family: var(--font-display); font-weight: 600; font-size: 15px; border: none; border-radius: var(--radius-md); cursor: pointer; transition: background 0.2s, transform 0.2s; }
+.demo-form-submit:hover { background: var(--orange-dark); transform: translateY(-1px); }
+.demo-form-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+@media (max-width: 768px) { .demo-modal { padding: 28px 20px; } .demo-modal-title { font-size: 20px; } }
+
+/* Reveal animations */
+.reveal { transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- ==================== NAVIGATION ==================== -->
+<header class="nav" id="nav">
+  <div class="nav-container">
+    <a href="index-es.html" class="nav-logo">Logistoria<span class="nav-logo-dot">.</span></a>
+    <nav class="nav-links">
+      <a href="#about" class="nav-link">Acerca del juego</a>
+      <a href="#process" class="nav-link">Proceso</a>
+      <a href="#schedule" class="nav-link">Calendario</a>
+      <a href="#dashboard" class="nav-link">Panel</a>
+      <a href="#audience" class="nav-link">Para quién</a>
+    </nav>
+    <div class="nav-right">
+      <a href="index-en.html" class="nav-link" style="margin-right:8px;font-size:14px;">EN</a>
+      <a href="index-ru.html" class="nav-link" style="margin-right:8px;font-size:14px;">RU</a>
+      <a href="index-es.html" class="nav-link" style="margin-right:16px;font-size:14px;font-weight:700;">ES</a>
+      <a href="#contact" class="btn btn-primary btn-small" onclick="openDemoModal();return false;">Solicitar demo</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Alternar menú">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="mobileClose" aria-label="Cerrar menú">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <a href="#about" class="mobile-link">Acerca del juego</a>
+  <a href="#process" class="mobile-link">Proceso</a>
+  <a href="#schedule" class="mobile-link">Calendario</a>
+  <a href="#dashboard" class="mobile-link">Panel</a>
+  <a href="#audience" class="mobile-link">Para quién</a>
+  <a href="#contact" class="btn btn-primary" style="margin-top:24px" onclick="openDemoModal();return false;">Solicitar demo</a>
+</div>
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero" id="about">
+  <canvas id="particleCanvas" class="hero-canvas" role="img" aria-label="Constelación de partículas animada"></canvas>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-label">Simulación online · 2–100 jugadores · Sin interrumpir el trabajo</div>
+    <h1 class="hero-title">KADENA<br><em>Gestión de cadenas de suministro</em></h1>
+    <p class="hero-subtitle">Predice la demanda. Gestiona inventarios. Reduce costos. Simulación online para aprender logística y cadenas de suministro en tiempo real.</p>
+    <div class="hero-price">$65<span>/sesión</span></div>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="hero-stat-num">2h–4d</span><span class="hero-stat-label">Duración</span></div>
+      <div class="hero-stat"><span class="hero-stat-num">2–100</span><span class="hero-stat-label">Jugadores</span></div>
+      <div class="hero-stat"><span class="hero-stat-num">Online</span><span class="hero-stat-label">Formato</span></div>
+    </div>
+    <div class="hero-buttons">
+      <a href="#contact" class="btn btn-primary btn-large" onclick="openDemoModal();return false;">Solicitar demo →</a>
+      <a href="#features" class="btn btn-secondary btn-large">Saber más</a>
+    </div>
+  </div>
+  <div class="hero-scroll"></div>
+</section>
+
+<!-- ==================== WHY / HOOK ==================== -->
+<section class="section why-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Por qué lo solicitan</span>
+      <h2 class="section-title">Lo que no se puede explicar en una clase</h2>
+      <p class="section-subtitle">Los altos directivos de empresas manufactureras y comerciales solicitan KADENA para que sus equipos vean los problemas de gestión de cadenas de suministro en sus propias decisiones.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-number">15–30%</div>
+        <div class="why-title">Ahorro en inventarios</div>
+        <div class="why-desc">Después del juego, los participantes encuentran puntos de crecimiento: dónde hay exceso de inventario, dónde la escasez mata las ventas, cómo optimizar las compras sin riesgos.</div>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-number">2 horas</div>
+        <div class="why-title">Ver el efecto látigo</div>
+        <div class="why-desc">Pequeñas fluctuaciones de demanda en tu mercado se convierten en caos de pedidos para los proveedores. Los jugadores lo sienten en carne propia — y lo recuerdan para siempre.</div>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-number">1 semana</div>
+        <div class="why-title">Sin interrumpir el trabajo</div>
+        <div class="why-desc">Los equipos juegan de forma asincrónica durante la semana laboral, discuten decisiones en sus mensajeros habituales. El debriefing es el viernes o sábado.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ABOUT / STATS ==================== -->
+<section class="section about" style="padding: 40px 0 0;">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">De qué trata el juego</span>
+      <h2 class="section-title">Planifica. Predice. Gestiona.</h2>
+      <p class="section-subtitle">«KADENA» es una simulación de una situación real en la gestión de cadenas de suministro. Tomas decisiones desde la orden de materia prima hasta la entrega de productos al mercado en condiciones de demanda cambiante y competencia.</p>
+    </div>
+    <div style="margin: 16px auto 0; max-width: 900px;">
+      <img src="assets/kadena-demand-chart.jpg" alt="Gráfico de demanda en KADENA — tres mercados, 12 meses, pronóstico y análisis de datos" style="width: 100%; display: block; border-radius: var(--radius-md); box-shadow: var(--shadow-card);">
+    </div>
+
+  </div>
+</section>
+
+<!-- ==================== FEATURES ==================== -->
+<section class="section" id="features" style="background:var(--gray-light); padding-top: 0;">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Características</span>
+      <h2 class="section-title">Qué hace KADENA</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <svg class="icon" viewBox="0 0 48 48"><rect x="4" y="8" width="40" height="32" rx="2"/><path d="M4 16h40"/><line x1="10" y1="24" x2="18" y2="24"/><line x1="10" y1="28" x2="14" y2="28"/><line x1="10" y1="32" x2="16" y2="32"/><path d="M24 24l4 4 8-8"/></svg>
+        <h3>Pronóstico de riesgos</h3>
+        <p>Analiza datos de períodos anteriores, construye pronósticos de demanda y considera eventos inesperados que cambian las reglas del juego.</p>
+      </div>
+      <div class="feature-card reveal">
+        <svg class="icon" viewBox="0 0 48 48"><rect x="8" y="4" width="32" height="40" rx="2"/><path d="M8 14h32"/><path d="M8 34h32"/><line x1="16" y1="24" x2="16" y2="24"/><line x1="24" y1="24" x2="24" y2="24"/><line x1="32" y1="24" x2="32" y2="24"/></svg>
+        <h3>Gestión de inventarios</h3>
+        <p>Decide dónde producir bienes — en una planta moderna y cara o en una vieja y barata. Optimiza el nivel de inventarios en el centro de distribución.</p>
+      </div>
+      <div class="feature-card reveal">
+        <svg class="icon" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M24 12v12l8 8"/><path d="M24 6v4"/><path d="M24 38v4"/><path d="M6 24h4"/><path d="M38 24h4"/></svg>
+        <h3>Reducción de costos</h3>
+        <p>Encuentra el equilibrio entre el nivel de servicio al cliente, el costo de gestión de inventarios y la eficiencia financiera de la cadena.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div style="margin: 40px auto; max-width: 900px; padding: 0 48px;">
+    <img src="assets/kadena-features.jpg" alt="Interfaz de KADENA — 6 pasos para un nuevo jugador" style="width: 100%; display: block; border-radius: var(--radius-md); box-shadow: var(--shadow-card); margin-bottom: 10px;">
+</div>
+
+<!-- ==================== ROLES ==================== -->
+<section class="section" id="roles">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Tres roles</span>
+      <h2 class="section-title">Crea. Juega. Aconseja.</h2>
+      <p class="section-subtitle">Cada participante tiene su propio rol y área de responsabilidad en la sesión de juego.</p>
+    </div>
+    <div class="roles-grid">
+      <div class="role-card reveal">
+        <div class="role-num">1</div>
+        <svg class="icon" viewBox="0 0 48 48"><rect x="8" y="6" width="32" height="36" rx="2"/><path d="M8 14h32"/><circle cx="24" cy="22" r="4"/><path d="M16 34c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+        <h3>Administrador</h3>
+        <p>Crea sesiones de juego para los Líderes. Les asigna sus inicios de sesión y contraseñas. Recopila todos los resultados del trabajo de los equipos para su análisis.</p>
+      </div>
+      <div class="role-card reveal">
+        <div class="role-num">2</div>
+        <svg class="icon" viewBox="0 0 48 48"><circle cx="24" cy="14" r="6"/><path d="M12 40c0-6.6 5.4-12 12-12s12 5.4 12 12"/><path d="M24 20v8"/><path d="M20 26l4-4 4 4"/></svg>
+        <h3>Líder</h3>
+        <p>El único rol con derecho a ingresar datos. Crea Jugadores de su equipo. Los resultados del Líder = resultado de todo el equipo.</p>
+      </div>
+      <div class="role-card reveal">
+        <div class="role-num">3</div>
+        <svg class="icon" viewBox="0 0 48 48"><circle cx="16" cy="16" r="6"/><circle cx="32" cy="16" r="6"/><path d="M8 40c0-4.4 3.6-8 8-8"/><path d="M32 32c4.4 0 8 3.6 8 8"/><path d="M16 24v4"/><path d="M32 24v4"/></svg>
+        <h3>Jugador</h3>
+        <p>Miembro del equipo, se autoriza en la misma sesión que el Líder. Juntos discuten decisiones en el chat, pero solo el Líder ingresa los datos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PROCESS ==================== -->
+<section class="section" id="process">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Proceso</span>
+      <h2 class="section-title">Trabajo en equipo en tiempo real</h2>
+      <p class="section-subtitle">KADENA no requiere desplazamiento ni interrupción del trabajo. Los equipos juegan online, discuten decisiones en sus mensajeros habituales y toman decisiones estratégicas juntos.</p>
+    </div>
+    <div class="process-grid">
+      <div class="process-card reveal">
+        <svg class="icon" viewBox="0 0 48 48"><circle cx="24" cy="14" r="6"/><path d="M12 40c0-6.6 5.4-12 12-12s12 5.4 12 12"/><path d="M24 20v8"/><path d="M20 26l4-4 4 4"/></svg>
+        <h3>Líder + equipo de observadores</h3>
+        <p>Registramos a los Líderes — quienes ingresan datos en el sistema. Cada Líder puede reunir un equipo de observadores que ven la misma sesión de juego y discuten decisiones en cualquier mensajero: Telegram, WhatsApp, Slack — a elección del equipo.</p>
+      </div>
+      <div class="process-card process-highlight reveal">
+        <svg class="icon icon-orange" viewBox="0 0 48 48"><circle cx="16" cy="16" r="6"/><circle cx="32" cy="16" r="6"/><path d="M8 40c0-4.4 3.6-8 8-8"/><path d="M32 32c4.4 0 8 3.6 8 8"/><path d="M16 24v4"/><path d="M32 24v4"/></svg>
+        <h3>Equipo estándar</h3>
+        <p>Líder + 3 observadores. Todos ven la misma sesión, analizan datos, discuten estrategia — pero una sola persona ingresa la decisión. Esto modela la dinámica corporativa real: todos aconsejan, uno responde.</p>
+      </div>
+      <div class="process-card reveal">
+        <svg class="icon" viewBox="0 0 48 48"><rect x="4" y="8" width="40" height="32" rx="2"/><path d="M4 16h40"/><line x1="10" y1="24" x2="18" y2="24"/><line x1="10" y1="28" x2="14" y2="28"/><line x1="10" y1="32" x2="16" y2="32"/><path d="M24 24l4 4 8-8"/></svg>
+        <h3>Sin interrupción del trabajo</h3>
+        <p>El juego transcurre de forma asincrónica durante la semana laboral. Los participantes entran, analizan la situación, discuten en el chat y hacen jugadas cuando les conviene — sin necesidad de reunirse en un lugar a la misma hora.</p>
+      </div>
+    </div>
+
+    <img src="assets/kadena-team.jpg" alt="El equipo discute estrategia en KADENA — seminario sobre cadenas de suministro" style="width:100%;border-radius:var(--radius-lg);box-shadow:var(--shadow-card);margin-top:48px;display:block;">
+  </div>
+</section>
+
+<!-- ==================== SCHEDULE ==================== -->
+<section class="section" id="schedule" style="background:var(--gray-light)">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Calendario</span>
+      <h2 class="section-title">Calendario de la semana de juego</h2>
+      <p class="section-subtitle">La semana que cambia el enfoque de gestión de cadenas de suministro. Los equipos juegan de forma asincrónica, y al final de la semana — revisión grupal con facilitador.</p>
+    </div>
+    <div class="schedule-timeline">
+      <div class="timeline-card reveal">
+        <div class="timeline-day">Lunes</div>
+        <div class="timeline-title">Inicio del juego</div>
+        <div class="timeline-desc">El Administrador abre la sesión. Los Líderes obtienen acceso, crean equipos de observadores. Primera jugada — familiarización con la interfaz y reglas.</div>
+      </div>
+      <div class="timeline-card reveal">
+        <div class="timeline-day">Mar–Jue</div>
+        <div class="timeline-title">Jugadas del juego</div>
+        <div class="timeline-desc">Los equipos analizan datos, discuten estrategia en mensajeros, el Líder ingresa decisiones. Cada jugada — nuevos datos, nuevos desafíos.</div>
+      </div>
+      <div class="timeline-card timeline-card--highlight reveal">
+        <div class="timeline-day">Viernes / Sábado</div>
+        <div class="timeline-title">Debriefing</div>
+        <div class="timeline-desc">2–3 horas de sesión grupal con facilitador. Revisión de decisiones de cada equipo, comparación de resultados, identificación de insights. Formulamos planes para el futuro.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:48px">
+      <div class="section-header" style="margin-bottom:32px">
+        <span class="section-label">Resultado</span>
+        <h2 class="section-title" style="font-size:28px">Qué aportó el juego</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+        <div style="background:#fff;padding:28px;border-radius:var(--radius-md);box-shadow:var(--shadow-card)">
+          <div style="font-weight:700;font-size:18px;margin-bottom:12px;color:var(--violet-primary)">Planes para el futuro</div>
+          <p style="font-size:15px;line-height:1.6;color:var(--text-body);margin:0">Los gerentes regresan con hipótesis sobre pronóstico, compras e inventarios.</p>
+        </div>
+        <div style="background:#fff;padding:28px;border-radius:var(--radius-md);box-shadow:var(--shadow-card)">
+          <div style="font-weight:700;font-size:18px;margin-bottom:12px;color:var(--violet-primary)">Conciencia de la cadena</div>
+          <p style="font-size:15px;line-height:1.6;color:var(--text-body);margin:0">Decisiones localmente óptimas llevan a problemas globales. Comprensión solo a través de la propia experiencia.</p>
+        </div>
+        <div style="background:#fff;padding:28px;border-radius:var(--radius-md);box-shadow:var(--shadow-card)">
+          <div style="font-weight:700;font-size:18px;margin-bottom:12px;color:var(--violet-primary)">Pasos concretos</div>
+          <p style="font-size:15px;line-height:1.6;color:var(--text-body);margin:0">Reducir inventarios de seguridad, mejorar el intercambio de datos, construir pronósticos para la demanda real.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== DASHBOARD ==================== -->
+<section class="section" id="dashboard">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Analítica</span>
+      <h2 class="section-title">Panel de resultados para cada equipo</h2>
+      <p class="section-subtitle">Después del juego, cada equipo recibe un informe final completo con P&L de 12 meses, estructura de costos, dinámica de servicio por mercados y conclusiones clave — datos reales en los que puedes basar tu trabajo.</p>
+    </div>
+    <div class="dashboard-grid">
+      <div>
+        <div class="insight-grid">
+          <div class="insight-card reveal">
+            <svg class="insight-icon" viewBox="0 0 48 48"><rect x="8" y="4" width="32" height="40" rx="2"/><path d="M8 14h32"/><path d="M12 34l6-10 4 4 10-12"/></svg>
+            <div class="insight-title">Datos reales de 12 meses</div>
+            <div class="insight-desc">P&L: facturación €81.684, beneficio operativo €29.403, rentabilidad 36%. Todo por meses — dónde ganaron, dónde cayeron.</div>
+          </div>
+          <div class="insight-card reveal">
+            <svg class="insight-icon" viewBox="0 0 48 48"><circle cx="24" cy="24" r="16"/><path d="M24 8v16l12 8"/></svg>
+            <div class="insight-title">Estructura de costos</div>
+            <div class="insight-desc">Almacenamiento de materia prima €9.464 (32%) — principal partida. Producción €12.774, distribución €3.837, ventas perdidas €1.174.</div>
+          </div>
+          <div class="insight-card reveal">
+            <svg class="insight-icon" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><ellipse cx="24" cy="24" rx="8" ry="18"/><path d="M6 24h36"/></svg>
+            <div class="insight-title">Servicio por mercados</div>
+            <div class="insight-desc">Mercado 2 — 94%, mercado 1 — 79.4%, mercado 3 — 90.4%. Se ve qué estrategia de priorización funcionó.</div>
+          </div>
+          <div class="insight-card reveal">
+            <svg class="insight-icon" viewBox="0 0 48 48"><path d="M24 4c-6.6 0-12 5.4-12 12 0 5.2 3.3 9.6 8 11.2V32h8v-4.8c4.7-1.6 8-6 8-11.2C36 9.4 30.6 4 24 4z"/><path d="M20 36h8"/><path d="M22 40h4"/></svg>
+            <div class="insight-title">Conclusiones clave</div>
+            <div class="insight-desc">Exceso de inventarios, falta de fiabilidad de plantas, desviación del pronóstico de la realidad — motivo para decisiones concretas.</div>
+          </div>
+        </div>
+        <div class="dashboard-metrics" style="margin-top:24px">
+          <div class="metric-card reveal">
+            <svg class="metric-icon" viewBox="0 0 48 48"><rect x="4" y="8" width="40" height="32" rx="2"/><path d="M4 16h40"/><line x1="10" y1="24" x2="18" y2="24"/><line x1="10" y1="28" x2="14" y2="28"/><line x1="10" y1="32" x2="16" y2="32"/><path d="M24 24l4 4 8-8"/></svg>
+            <div class="metric-name">Pronóstico vs realidad</div>
+            <div class="metric-desc">Precisión de predicciones de demanda</div>
+          </div>
+          <div class="metric-card reveal">
+            <svg class="metric-icon" viewBox="0 0 48 48"><rect x="8" y="4" width="32" height="40" rx="2"/><path d="M8 14h32"/><path d="M8 34h32"/><line x1="16" y1="24" x2="16" y2="24"/><line x1="24" y1="24" x2="24" y2="24"/><line x1="32" y1="24" x2="32" y2="24"/></svg>
+            <div class="metric-name">Beneficio</div>
+            <div class="metric-desc">€29.403 en 12 meses</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-card); background: var(--violet-deep); padding: 8px;">
+          <img src="assets/kadena-dashboard.png" alt="Panel final de KADENA — beneficio operativo €29.403, facturación €81.684, rentabilidad 36%" style="width: 100%; display: block; border-radius: var(--radius-md);">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== AUDIENCE ==================== -->
+<section class="section" id="audience" style="background:var(--white)">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Para quién</span>
+      <h2 class="section-title">Para quién es KADENA</h2>
+      <p class="section-subtitle">El juego se adapta a las necesidades de diferentes audiencias — desde estudiantes hasta altos directivos.</p>
+    </div>
+    <div class="audience-grid">
+      <div class="audience-card reveal">
+        <svg class="icon" viewBox="0 0 48 48"><path d="M24 4L4 14v20l20 10 20-10V14L24 4z"/><path d="M4 14l20 10"/><path d="M24 24v20"/><path d="M44 14L24 24"/></svg>
+        <h3>Universidades</h3>
+        <p>Cursos de logística, cadenas de suministro, gestión de operaciones. Reemplazo práctico de casos teóricos.</p>
+      </div>
+      <div class="audience-card reveal">
+        <svg class="icon" viewBox="0 0 48 48"><rect x="4" y="16" width="40" height="28" rx="2"/><path d="M4 24h40"/><path d="M16 16V8a8 8 0 0116 0v8"/><line x1="14" y1="32" x2="14" y2="32"/><line x1="24" y1="32" x2="24" y2="32"/><line x1="34" y1="32" x2="34" y2="32"/></svg>
+        <h3>Empresas manufactureras</h3>
+        <p>Capacitación de empleados en planificación, pronóstico y gestión de inventarios con datos reales.</p>
+      </div>
+      <div class="audience-card reveal">
+        <svg class="icon" viewBox="0 0 48 48"><rect x="4" y="4" width="18" height="40" rx="2"/><rect x="26" y="12" width="18" height="32" rx="2"/><path d="M4 16h18"/><path d="M26 24h18"/></svg>
+        <h3>Organizaciones comerciales</h3>
+        <p>Comprensión de la dinámica de demanda, optimización del nivel de inventarios y reducción de pérdidas por escasez o exceso.</p>
+      </div>
+      <div class="audience-card reveal">
+        <svg class="icon" viewBox="0 0 48 48"><rect x="8" y="4" width="32" height="40" rx="2"/><path d="M8 14h32"/><path d="M8 34h32"/><path d="M16 24h4"/><path d="M28 24h4"/></svg>
+        <h3>Centros de formación</h3>
+        <p>Introducción a la logística para estudiantes de formación profesional. Inicio sencillo, resultado profundo.</p>
+      </div>
+      <div class="audience-card reveal">
+        <svg class="icon" viewBox="0 0 48 48"><rect x="4" y="28" width="40" height="16" rx="2"/><path d="M8 28V20a16 16 0 0132 0v8"/><path d="M4 36h40"/><circle cx="24" cy="14" r="2"/></svg>
+        <h3>Capacitación corporativa</h3>
+        <p>Entrenamientos para departamentos de compras, logística, cadenas de suministro. Trabajo en equipo y elemento competitivo.</p>
+      </div>
+      <div class="audience-card reveal">
+
+        <svg class="icon" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><ellipse cx="24" cy="24" rx="8" ry="18"/><path d="M6 24h36"/></svg>
+        <h3>Programas internacionales</h3>
+        <p>El formato online permite realizar el juego con participantes de diferentes países sin costos logísticos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PHOTOS ==================== -->
+<section class="section photo-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">En proceso</span>
+      <h2 class="section-title">Cómo se ve</h2>
+    </div>
+    <div class="photo-grid" style="grid-template-columns: 1fr 1fr;">
+      <div class="photo-item reveal">
+        <img src="assets/kadena-roles.jpg" alt="4 roles en el juego KADENA — Administrador, Organizador, Jugador, Observador" style="width: 100%; display: block; border-radius: var(--radius-lg); aspect-ratio: 4/3; object-fit: cover;">
+      </div>
+      <div class="photo-item reveal">
+        <img src="assets/kadena-model.jpg" alt="Modelo de suministro de KADENA — oficina, plantas, centro de distribución, mercados" style="width: 100%; display: block; border-radius: var(--radius-lg); aspect-ratio: 4/3; object-fit: cover;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== HOW TO PLAY ==================== -->
+<section class="section" id="how" style="background:var(--gray-light)">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Cómo empezar</span>
+      <h2 class="section-title">Cuatro pasos hasta la primera partida</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">1</div>
+        <div class="step-title">Solicitar demo</div>
+        <div class="step-desc">Deja tu solicitud — te mostraremos cómo funciona el juego en tiempo real.</div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">2</div>
+        <div class="step-title">Crear sesión</div>
+        <div class="step-desc">El Administrador crea una sesión de juego y asigna Líderes a los equipos.</div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">3</div>
+        <div class="step-title">Reunir equipos</div>
+        <div class="step-desc">Los Líderes crean Jugadores y distribuyen accesos dentro de los equipos.</div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">4</div>
+        <div class="step-title">Jugar y analizar</div>
+        <div class="step-desc">Toma decisiones durante el juego, discute resultados, compara con competidores.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CTA ==================== -->
+<section class="section cta" id="contact">
+  <div class="container">
+    <h2 class="cta-title">Solicita una demo de KADENA</h2>
+    <p class="cta-subtitle">Te mostraremos cómo la simulación online ayuda a enseñar logística y gestión de cadenas de suministro. Elegiremos el formato para tus necesidades.</p>
+    <div style="margin-top:32px">
+      <a href="#" class="btn btn-primary btn-large" onclick="openDemoModal();return false;">Solicitar demo →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">Logist<span>oria</span><span class="footer-logo-dot">.</span></div>
+        <p class="footer-tagline">Tecnologías de juego para aprender logística y cadenas de suministro. Entregamos en 30+ países.</p>
+      </div>
+      <div>
+        <div class="footer-title">Navegación</div>
+        <a href="index-es.html#games" class="footer-link">Catálogo de juegos</a>
+        <a href="index-es.html#subs" class="footer-link">Suscripciones</a>
+        <a href="index-es.html#how" class="footer-link">Cómo funciona</a>
+      </div>
+      <div>
+        <div class="footer-title">Productos</div>
+        <a href="https://www.krossdok.ru" class="footer-link">Crossdock</a>
+        <a href="https://kimicito.github.io/logistoria-website/thebeergame.html" class="footer-link">The Beer Game</a>
+        <a href="#" class="footer-link">KADENA</a>
+      </div>
+      <div>
+        <div class="footer-title">Contacto</div>
+        <p class="footer-tagline">¿Planeas una sesión de juego o capacitación?</p>
+        <a href="#contact" class="footer-link" onclick="openDemoModal();return false;">Solicitar demo</a>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Logistoria. Todos los derechos reservados. · Política de privacidad</div>
+  </div>
+</footer>
+
+<!-- ==================== DEMO MODAL ==================== -->
+<div class="demo-modal-overlay" id="demoModal">
+  <div class="demo-modal">
+    <button class="demo-modal-close" onclick="closeDemoModal()">✕</button>
+    <h3 class="demo-modal-title">Solicitar demo de KADENA</h3>
+    <p class="demo-modal-subtitle">Deja tus datos de contacto — te mostraremos el juego en acción</p>
+    <form id="demoForm" onsubmit="submitDemo(event)">
+      <div class="demo-form-group">
+        <label class="demo-form-label">Nombre y apellidos <span class="required">*</span></label>
+        <input type="text" class="demo-form-input" id="demoName" placeholder="Juan Pérez" required>
+      </div>
+      <div class="demo-form-group">
+        <label class="demo-form-label">Correo electrónico <span class="required">*</span></label>
+        <input type="email" class="demo-form-input" id="demoEmail1" placeholder="tu@email.com" required>
+        <div class="error-msg" id="errEmail1">Ingresa un correo válido</div>
+      </div>
+      <div class="demo-form-group">
+        <label class="demo-form-label">Confirma el correo electrónico <span class="required">*</span></label>
+        <input type="email" class="demo-form-input" id="demoEmail2" placeholder="tu@email.com" required>
+        <div class="error-msg" id="errEmail2">Los correos no coinciden</div>
+      </div>
+      <div class="demo-form-group">
+        <label class="demo-form-label">Organización</label>
+        <input type="text" class="demo-form-input" id="demoOrg" placeholder="Nombre de la empresa o universidad">
+      </div>
+      <div class="demo-form-group">
+        <label class="demo-form-label">Qué te gustaría ver</label>
+        <textarea class="demo-form-textarea" id="demoMessage" placeholder="Por ejemplo: demo para un grupo de 30 estudiantes, 2 horas"></textarea>
+      </div>
+      <div class="demo-form-note">Queremos asegurarnos de que no haya errores tipográficos al ingresar el correo y que la solicitud no quede sin respuesta.</div>
+      <button type="submit" class="demo-form-submit">Enviar solicitud</button>
+    </form>
+  </div>
+</div>
+
+<script>
+// === Sticky nav ===
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// === Mobile menu ===
+const navToggle = document.getElementById('navToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+const mobileClose = document.getElementById('mobileClose');
+const mobileOverlay = document.getElementById('mobileOverlay');
+
+navToggle.addEventListener('click', () => {
+  mobileMenu.classList.add('open');
+  mobileOverlay.classList.add('open');
+});
+mobileClose.addEventListener('click', closeMobile);
+mobileOverlay.addEventListener('click', closeMobile);
+
+function closeMobile() {
+  mobileMenu.classList.remove('open');
+  mobileOverlay.classList.remove('open');
+}
+
+// === Demo modal ===
+function openDemoModal() {
+  document.getElementById('demoModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeDemoModal() {
+  document.getElementById('demoModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('demoModal').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('demoModal')) closeDemoModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeDemoModal();
+});
+
+// === Email validation ===
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function submitDemo(e) {
+  e.preventDefault();
+  const email1 = document.getElementById('demoEmail1');
+  const email2 = document.getElementById('demoEmail2');
+  const name = document.getElementById('demoName');
+  const org = document.getElementById('demoOrg');
+  const msg = document.getElementById('demoMessage');
+  const err1 = document.getElementById('errEmail1');
+  const err2 = document.getElementById('errEmail2');
+
+  let valid = true;
+  [email1, email2].forEach(el => el.classList.remove('error'));
+  [err1, err2].forEach(el => el.classList.remove('visible'));
+
+  if (!isValidEmail(email1.value.trim())) {
+    email1.classList.add('error');
+    err1.classList.add('visible');
+    valid = false;
+  }
+  if (email1.value.trim() !== email2.value.trim()) {
+    email2.classList.add('error');
+    err2.classList.add('visible');
+    valid = false;
+  }
+  if (!valid) return;
+
+  const subject = encodeURIComponent('Solicitud de demo KADENA — Logistoria');
+  const body = encodeURIComponent(
+    'Nombre: ' + name.value.trim() + '\n' +
+    'Correo electrónico: ' + email1.value.trim() + '\n' +
+    'Organización: ' + (org.value.trim() || 'No especificada') + '\n\n' +
+    'Qué les gustaría ver:\n' + msg.value.trim()
+  );
+  window.location.href = 'mailto:art@logistoria.ru?subject=' + subject + '&body=' + body;
+  closeDemoModal();
+  document.getElementById('demoForm').reset();
+}
+
+// === Particle canvas ===
+const canvas = document.getElementById('particleCanvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+let width, height;
+
+function resizeCanvas() {
+  width = canvas.width = window.innerWidth;
+  height = canvas.height = window.innerHeight;
+}
+function createParticles() {
+  particles = [];
+  const count = Math.min(Math.floor(window.innerWidth / 15), 120);
+  for (let i = 0; i < count; i++) {
+    particles.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      vx: (Math.random() - 0.5) * 0.5,
+      vy: (Math.random() - 0.5) * 0.5,
+      radius: Math.random() * 2 + 1
+    });
+  }
+}
+function drawParticles() {
+  ctx.clearRect(0, 0, width, height);
+  ctx.fillStyle = 'rgba(255,255,255,0.15)';
+  ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+  
+  for (let i = 0; i < particles.length; i++) {
+    const p = particles[i];
+    p.x += p.vx;
+    p.y += p.vy;
+    if (p.x < 0) p.x = width;
+    if (p.x > width) p.x = 0;
+    if (p.y < 0) p.y = height;
+    if (p.y > height) p.y = 0;
+    
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+    ctx.fill();
+    
+    for (let j = i + 1; j < particles.length; j++) {
+      const p2 = particles[j];
+      const dx = p.x - p2.x;
+      const dy = p.y - p2.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 120) {
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(p2.x, p2.y);
+        ctx.lineWidth = (1 - dist / 120) * 0.8;
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(drawParticles);
+}
+
+resizeCanvas();
+createParticles();
+drawParticles();
+window.addEventListener('resize', () => { resizeCanvas(); createParticles(); });
+
+// === Scroll reveal ===
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+
+// Smooth scroll
+ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const href = this.getAttribute('href');
+    if (href === '#') return;
+    e.preventDefault();
+    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
+
+</body>
+</html>
