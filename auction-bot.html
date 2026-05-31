@@ -170,6 +170,44 @@ footer { background: var(--violet-deep); color: rgba(255,255,255,0.6); padding: 
 .mobile-link { font-family: var(--font-display); font-weight: 700; font-size: 24px; color: var(--white); }
 .mobile-close { position: absolute; top: 24px; right: 24px; background: none; border: none; color: var(--white); cursor: pointer; }
 
+/* ==================== MOBILE ADAPTIVE ==================== */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 32px; letter-spacing: -0.5px; }
+  .hero-subtitle { font-size: 15px; }
+  .hero-buttons { flex-direction: column; gap: 12px; }
+  .btn-large { padding: 14px 32px; font-size: 14px; width: 100%; }
+  .hero-stats { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .stat-number { font-size: 28px; }
+  .stat-label { font-size: 12px; }
+  .hero-card { padding: 24px; max-width: 100%; }
+  .hero-card-title { font-size: 20px; }
+  .about-cards { grid-template-columns: 1fr 1fr; }
+  .about-grid { gap: 24px; }
+  .rules-grid { grid-template-columns: 1fr; gap: 16px; }
+  .rule-card { padding: 20px; }
+  .strategy-grid { grid-template-columns: 1fr; gap: 16px; }
+  .strategy-card { padding: 24px; }
+  .cta-box { padding: 40px 24px; }
+  .cta-box h2 { font-size: 24px; }
+  .cta-box p { font-size: 15px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+  .steps-grid { grid-template-columns: 1fr !important; gap: 16px; }
+  .step-card { padding: 24px; }
+  .about-text h2 { font-size: 24px; }
+  .section-title { font-size: 24px; }
+  .section-subtitle { font-size: 15px; }
+  .nav-container { padding: 0 16px; height: 56px; }
+  .nav-logo { font-size: 18px; }
+  .hero { min-height: auto; padding: 40px 0; }
+  .how-to { padding: 60px 0; }
+  .about { padding: 60px 0; }
+  .rules { padding: 60px 0; }
+  .strategy { padding: 60px 0; }
+  .cta { padding: 40px 0; }
+  .how-to .steps-grid { grid-template-columns: 1fr !important; }
+}
+
 /* ==================== ANIMATIONS ==================== */
 @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
@@ -270,19 +308,19 @@ footer { background: var(--violet-deep); color: rgba(255,255,255,0.6); padding: 
         <div class="step-number">2</div>
         <svg class="step-icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         <div class="step-title">Создайте игру</div>
-        <div class="step-desc">Напишите <b>/newgame</b> в группе. Бот создаст лобби и выдаст каждому карты 1-6.</div>
+        <div class="step-desc">Напишите <b>/newgame</b> в группе. Бот создаст лобби и выдаст каждому карты 1–6. Можно сразу задать количество: <b>/startgame 8</b> (8 карт вместо 6).</div>
       </div>
       <div class="step-card reveal">
         <div class="step-number">3</div>
         <svg class="step-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         <div class="step-title">Пригласите друзей</div>
-        <div class="step-desc">Друзья пишут <b>/join</b>, чтобы войти в лобби. Можно добавить ботов командой <b>/addbots</b>.</div>
+        <div class="step-desc">Друзья пишут <b>/join</b>, чтобы войти в лобби. Не хватает людей? Добавьте ботов командой <b>/addbots</b> — бот заполнит пустые слоты автоматически.</div>
       </div>
       <div class="step-card reveal">
         <div class="step-number">4</div>
         <svg class="step-icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
         <div class="step-title">Начните торги</div>
-        <div class="step-desc">Создатель пишет <b>/startgame</b>. Выбирайте карты в личку боту — и торгуйтесь в группе!</div>
+        <div class="step-desc">Напишите боту в личные сообщения: <b>/card 1</b> (или 2–6). Каждая карта используется один раз за игру. Торги начинаются в группе!</div>
       </div>
     </div>
   </div>
@@ -300,6 +338,12 @@ footer { background: var(--violet-deep); color: rgba(255,255,255,0.6); padding: 
         <p>Очки = истинная стоимость − цена покупки. Купил дешево — получил плюс. Переплатил — минус.</p>
         <div class="about-quote">
           <p>Игра полна пирровых побед, когда триумфаторы вынуждены слишком много платить за приз. Это явление аукционные экономисты окрестили «проклятием победителя».</p>
+        </div>
+        <div style="margin-top:24px;background:var(--white);border-radius:var(--radius-lg);padding:24px;box-shadow:var(--shadow-card);">
+          <div style="font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--text-heading);margin-bottom:12px;">📊 Пример подсчёта очков</div>
+          <p style="font-size:14px;color:var(--text-body);margin-bottom:8px;"><b>Карты игроков:</b> 5 + 3 + 2 + 4 = <b>Истинная стоимость: 14</b></p>
+          <p style="font-size:14px;color:var(--text-body);margin-bottom:8px;"><b>Победная ставка:</b> 12 → Очки: 14 − 12 = <span style="color:#27ae60;font-weight:700;">+2 ✅</span></p>
+          <p style="font-size:14px;color:var(--text-body);"><b>Переплата:</b> 16 → Очки: 14 − 16 = <span style="color:#e74c3c;font-weight:700;">−2 ❌</span> (проклятие победителя)</p>
         </div>
       </div>
       <div class="about-visual">
@@ -367,7 +411,62 @@ footer { background: var(--violet-deep); color: rgba(255,255,255,0.6); padding: 
         <svg class="rule-icon" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
         <div class="rule-step">Шаг 5</div>
         <div class="rule-title">Покупка и очки</div>
-        <div class="rule-desc">Последний игрок покупает лот. Открывается истинная стоимость. Очки = цена − ставка. 5 раундов — и победитель!</div>
+        <div class="rule-desc">Последний игрок покупает лот. Бот открывает истинную стоимость. Очки = истинная стоимость − ваша ставка. Купил дешево — плюс, переплатил — минус (проклятие победителя). После 5 раундов бот показывает итоговую таблицу — победитель с наибольшим счётом.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== COMMANDS ==================== -->
+<section class="how-to" id="commands" style="padding-top:60px;padding-bottom:60px;">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Команды</div>
+      <h2 class="section-title">Шпаргалка по командам</h2>
+      <p class="section-subtitle">Все команды, которые понадобятся за одну игру.</p>
+    </div>
+    <div class="steps-grid" style="grid-template-columns:repeat(3,1fr);">
+      <div class="step-card reveal">
+        <div class="step-number" style="background:var(--violet-primary);">G</div>
+        <svg class="step-icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <div class="step-title">/newgame</div>
+        <div class="step-desc">Создать лобби в группе. Бот определит язык автоматически.</div>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-number" style="background:var(--violet-primary);">G</div>
+        <svg class="step-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <div class="step-title">/join</div>
+        <div class="step-desc">Войти в лобби. Напишите в том же чате, где создали игру.</div>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-number" style="background:var(--violet-primary);">G</div>
+        <svg class="step-icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        <div class="step-title">/startgame</div>
+        <div class="step-desc">Начать торги. <b>/startgame 8</b> — играть с 8 картами (сложнее).</div>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-number" style="background:var(--violet-primary);">G</div>
+        <svg class="step-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <div class="step-title">/card (в личку)</div>
+        <div class="step-desc">Напишите боту в ЛС: <b>/card 1</b> (или 2–6). Выбор карты — тайный.</div>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-number" style="background:var(--violet-primary);">G</div>
+        <svg class="step-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <div class="step-title">/addbots</div>
+        <div class="step-desc">Добавить ИИ-игроков. Боты заполнят пустые слоты автоматически.</div>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-number" style="background:var(--violet-primary);">G</div>
+        <svg class="step-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <div class="step-title">/status</div>
+        <div class="step-desc">Узнать чей ход, текущую ставку и фазу игры.</div>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-number" style="background:var(--violet-primary);">G</div>
+        <svg class="step-icon" viewBox="0 0 24 24"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        <div class="step-title">/stop</div>
+        <div class="step-desc">Остановить игру. Только создатель игры может использовать.</div>
       </div>
     </div>
   </div>
