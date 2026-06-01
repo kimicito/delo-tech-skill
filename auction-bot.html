@@ -52,21 +52,31 @@ ul { list-style: none; }
 .btn-large { padding: 16px 48px; font-size: 15px; border-radius: var(--radius-md); }
 
 /* ==================== HEADER ==================== */
-header { position: sticky; top: 0; z-index: 1000; background: rgba(61,25,89,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.08); }
-.nav-container { display: flex; align-items: center; justify-content: space-between; height: 64px; padding: 0 48px; max-width: 1200px; margin: 0 auto; }
+.nav { position: fixed; top: 0; left: 0; right: 0; height: 72px; background: rgba(61,25,89,0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.08); z-index: 100; transition: background 0.3s ease; }
+.nav.scrolled { background: rgba(61,25,89,0.98); }
+.nav-container { max-width: 1200px; margin: 0 auto; padding: 0 48px; height: 100%; display: flex; align-items: center; justify-content: space-between; }
 .nav-logo { font-family: var(--font-display); font-weight: 800; font-size: 20px; color: var(--white); letter-spacing: -0.5px; }
 .nav-logo-dot { color: var(--orange-primary); }
 .nav-links { display: flex; align-items: center; gap: 32px; }
-.nav-link { font-family: var(--font-body); font-weight: 500; font-size: 14px; color: rgba(255,255,255,0.85); transition: color 0.2s; }
+.nav-link { font-family: var(--font-body); font-weight: 500; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; color: rgba(255,255,255,0.9); transition: color 0.2s ease; }
 .nav-link:hover { color: var(--white); }
 .nav-right { display: flex; align-items: center; gap: 16px; }
 .btn-small { padding: 8px 20px; font-size: 12px; }
-.nav-toggle { display: none; background: none; border: none; color: var(--white); cursor: pointer; }
+.nav-toggle { display: none; color: var(--white); padding: 4px; }
+
+.mobile-menu { position: fixed; top: 0; right: 0; width: 300px; height: 100%; background: var(--violet-primary); z-index: 110; padding: 80px 32px 32px; display: flex; flex-direction: column; gap: 24px; transform: translateX(100%); transition: transform 0.3s ease; }
+.mobile-menu.open { transform: translateX(0); }
+.mobile-close { position: absolute; top: 20px; right: 20px; color: var(--white); background: none; border: none; cursor: pointer; }
+.mobile-link { font-family: var(--font-body); font-weight: 500; font-size: 18px; color: rgba(255,255,255,0.9); transition: color 0.2s; }
+.mobile-link:hover { color: var(--white); }
+.mobile-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 105; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+.mobile-overlay.open { opacity: 1; pointer-events: all; }
 
 @media (max-width: 1024px) { .nav-links { display: none; } .nav-toggle { display: block; } .nav-container { padding: 0 24px; } }
+@media (max-width: 768px) { .nav-container { padding: 0 16px; } .nav .btn-small { display: none; } }
 
 /* ==================== HERO ==================== */
-.hero { position: relative; min-height: 85vh; background: linear-gradient(135deg, var(--violet-deep) 0%, var(--violet-primary) 50%, #2D1B4E 100%); overflow: hidden; display: flex; align-items: center; }
+.hero { position: relative; min-height: 85vh; padding-top: 72px; background: linear-gradient(135deg, var(--violet-deep) 0%, var(--violet-primary) 50%, #2D1B4E 100%); overflow: hidden; display: flex; align-items: center; }
 #hero-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
 .hero .container { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
 @media (max-width: 1024px) { .hero .container { grid-template-columns: 1fr; gap: 40px; padding-top: 60px; padding-bottom: 60px; } }
@@ -217,7 +227,7 @@ footer { background: var(--violet-deep); color: rgba(255,255,255,0.6); padding: 
 <body>
 
 <!-- ==================== HEADER ==================== -->
-<header>
+<div class="nav" id="mainNav">
   <div class="nav-container">
     <a href="index-ru.html" class="nav-logo">Логисториа<span class="nav-logo-dot">.</span></a>
     <nav class="nav-links">
@@ -227,17 +237,15 @@ footer { background: var(--violet-deep); color: rgba(255,255,255,0.6); padding: 
       <a href="#strategy" class="nav-link">Стратегия</a>
     </nav>
     <div class="nav-right">
-      <a href="auction-bot-en.html" class="nav-link" style="margin-right:8px;font-size:14px;">EN</a>
-      <a href="auction-bot.html" class="nav-link" style="margin-right:8px;font-size:14px;font-weight:700;">RU</a>
-      <a href="auction-bot-es.html" class="nav-link" style="margin-right:16px;font-size:14px;">ES</a>
       <a href="https://t.me/Auction_play_bot" class="btn btn-primary btn-small" target="_blank">Играть в Telegram</a>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
     </div>
   </div>
-</header>
+</div>
 
+<div class="mobile-overlay" id="mobileOverlay"></div>
 <div class="mobile-menu" id="mobileMenu">
   <button class="mobile-close" id="mobileClose"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
   <a href="#start" class="mobile-link">Как начать</a>
@@ -565,9 +573,16 @@ const observer = new IntersectionObserver((entries) => { entries.forEach(entry =
 reveals.forEach(el => observer.observe(el));
 
 /* ==================== MOBILE MENU ==================== */
-document.getElementById('navToggle').addEventListener('click', () => document.getElementById('mobileMenu').classList.add('active'));
-document.getElementById('mobileClose').addEventListener('click', () => document.getElementById('mobileMenu').classList.remove('active'));
-document.querySelectorAll('.mobile-link').forEach(link => link.addEventListener('click', () => document.getElementById('mobileMenu').classList.remove('active')));
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => { if (window.scrollY > 50) nav.classList.add('scrolled'); else nav.classList.remove('scrolled'); });
+const mobileMenu = document.getElementById('mobileMenu');
+const mobileOverlay = document.getElementById('mobileOverlay');
+function openMobile() { mobileMenu.classList.add('open'); mobileOverlay.classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeMobile() { mobileMenu.classList.remove('open'); mobileOverlay.classList.remove('open'); document.body.style.overflow = ''; }
+document.getElementById('navToggle').addEventListener('click', openMobile);
+document.getElementById('mobileClose').addEventListener('click', closeMobile);
+mobileOverlay.addEventListener('click', closeMobile);
+document.querySelectorAll('.mobile-link').forEach(link => link.addEventListener('click', closeMobile));
 </script>
 </body>
 </html>
