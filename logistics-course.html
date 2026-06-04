@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Логистика для школьников — Logistoria</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --violet: #3D1959;
+            --violet-light: #5A2D80;
+            --violet-dark: #2A0F3F;
+            --orange: #FF9800;
+            --orange-light: #FFB74D;
+            --bg-dark: #0F0F1A;
+            --bg-light: #F5F5F8;
+            --bg-card: #1A1A2E;
+            --bg-card-light: #FFFFFF;
+            --text: #1A1A2E;
+            --text-light: #F0F0F5;
+            --text-muted: #6A6A7A;
+            --text-muted-light: #8A8A9A;
+            --border: #2A2A3E;
+            --border-light: #E5E5EA;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            color: var(--text);
+            background: var(--bg-light);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        /* ===== NAV ===== */
+        .nav {
+            background: rgba(15, 15, 26, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 16px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+        }
+        
+        .nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-weight: 800;
+            color: var(--text-light);
+            font-size: 1.1rem;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+        
+        .nav-logo span { color: var(--orange); }
+        
+        .nav-links a {
+            color: var(--text-muted-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-left: 28px;
+            transition: color 0.2s;
+            font-weight: 500;
+        }
+        
+        .nav-links a:hover { color: var(--orange); }
+        
+        /* ===== HERO ===== */
+        .hero {
+            background: linear-gradient(180deg, var(--violet-dark) 0%, var(--violet) 50%, var(--bg-dark) 100%);
+            color: var(--text-light);
+            padding: 120px 0 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -20%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255,152,0,0.12) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255,152,0,0.15);
+            border: 1px solid rgba(255,152,0,0.3);
+            color: var(--orange-light);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            letter-spacing: 0.5px;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+        
+        .hero h1 span { color: var(--orange); }
+        
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-muted-light);
+            max-width: 600px;
+            margin: 0 auto 32px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+        
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--orange);
+            color: var(--bg-dark);
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(255,152,0,0.35);
+            background: var(--orange-light);
+        }
+        
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.1);
+            color: var(--text-light);
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,0.15);
+            transition: all 0.2s;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: rgba(255,255,255,0.25);
+        }
+        
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            margin-bottom: 40px;
+        }
+        
+        .hero-stat {
+            text-align: center;
+        }
+        
+        .hero-stat-num {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--orange);
+            display: block;
+            line-height: 1;
+        }
+        
+        .hero-stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted-light);
+            margin-top: 4px;
+        }
+        
+        .hero-illustration {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 40px 32px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .hero-illustration h3 {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 16px;
+        }
+        
+        .hero-illustration p {
+            font-size: 0.95rem;
+            color: var(--text-muted-light);
+            margin-bottom: 20px;
+        }
+        
+        .hero-cards {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            font-size: 2rem;
+        }
+        
+        /* ===== SECTIONS ===== */
+        .section { padding: 80px 0; }
+        .section-dark { background: var(--bg-dark); color: var(--text-light); }
+        .section-light { background: var(--bg-light); }
+        
+        .section-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--orange);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+        
+        .section-dark .section-title { color: var(--text-light); }
+        
+        .section-sub {
+            text-align: center;
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin: 0 auto 48px;
+            color: var(--text-muted);
+        }
+        
+        .section-dark .section-sub { color: var(--text-muted-light); }
+        
+        /* ===== STEPS ===== */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        
+        .step-card {
+            display: flex;
+            gap: 20px;
+            background: var(--bg-card-light);
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            padding: 28px;
+            transition: all 0.3s;
+        }
+        
+        .step-card:hover {
+            border-color: var(--orange);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+        
+        .step-num {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--violet), var(--violet-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--white);
+            flex-shrink: 0;
+        }
+        
+        .step-content h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+        
+        .step-content p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        
+        .step-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+        
+        /* ===== FEATURE CARDS ===== */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover {
+            border-color: var(--orange);
+            transform: translateY(-4px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+        
+        .feature-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted-light);
+        }
+        
+        /* ===== MODULES ===== */
+        .modules-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .module-item {
+            display: grid;
+            grid-template-columns: 60px 1fr;
+            gap: 20px;
+            background: var(--bg-card-light);
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s;
+            align-items: start;
+        }
+        
+        .module-item:hover {
+            border-color: var(--orange);
+            transform: translateX(4px);
+        }
+        
+        .module-num {
+            width: 48px;
+            height: 48px;
+            background: var(--violet);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+        
+        .module-content h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+        
+        .module-content p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .module-tag {
+            display: inline-block;
+            background: rgba(255,152,0,0.1);
+            color: var(--orange);
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* ===== AUDIENCE ===== */
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .audience-card {
+            background: var(--bg-card-light);
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .audience-card:hover {
+            border-color: var(--violet);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+        
+        .audience-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--violet), var(--violet-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 16px;
+        }
+        
+        .audience-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+        
+        .audience-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        /* ===== QUOTE ===== */
+        .quote-block {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .quote-block p {
+            font-style: italic;
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            line-height: 1.7;
+        }
+        
+        .quote-block .author {
+            color: var(--orange);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        /* ===== CTA ===== */
+        .cta-section {
+            background: linear-gradient(180deg, var(--bg-dark) 0%, var(--violet-dark) 100%);
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-light);
+            margin-bottom: 16px;
+        }
+        
+        .cta-section p {
+            font-size: 1.1rem;
+            color: var(--text-muted-light);
+            max-width: 500px;
+            margin: 0 auto 32px;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+            font-size: 0.95rem;
+            color: var(--text-muted-light);
+        }
+        
+        .contact-info a {
+            color: var(--text-muted-light);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .contact-info a:hover { color: var(--orange); }
+        
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--bg-dark);
+            border-top: 1px solid var(--border);
+            padding: 60px 0 40px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-brand h3 {
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+        
+        .footer-brand h3 span { color: var(--orange); }
+        
+        .footer-brand p {
+            font-size: 0.9rem;
+            color: var(--text-muted-light);
+            line-height: 1.6;
+        }
+        
+        .footer-col h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .footer-col a {
+            display: block;
+            color: var(--text-muted-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            transition: color 0.2s;
+        }
+        
+        .footer-col a:hover { color: var(--orange); }
+        
+        .footer-bottom {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .hero { padding: 100px 0 40px; }
+            .hero-stats { gap: 24px; }
+            .hero-buttons { flex-direction: column; align-items: center; }
+            .steps-grid { grid-template-columns: 1fr; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .audience-grid { grid-template-columns: 1fr; }
+            .section-title { font-size: 1.7rem; }
+            .module-item { grid-template-columns: 1fr; text-align: center; }
+            .module-num { margin: 0 auto; }
+            .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+    <div class="container">
+        <a href="/" class="nav-logo">LOGISTORIA<span>.</span></a>
+        <div class="nav-links">
+            <a href="#about">О курсе</a>
+            <a href="#modules">Модули</a>
+            <a href="#audience">Аудитория</a>
+            <a href="#contact">Контакты</a>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-badge">Первый профориентационный курс в России и СНГ</div>
+        <h1>Логистика для <span>школьников</span></h1>
+        <p>Игровой профориентационный курс. 6 модулей, практика на реальных кейсах — от завода до доставки клиенту.</p>
+        <div class="hero-buttons">
+            <a href="mailto:project@logistoria.com?subject=Курс%20Логистика" class="btn-primary">Получить программу</a>
+            <a href="#about" class="btn-secondary">Узнать больше</a>
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <span class="hero-stat-num">6</span>
+                <div class="hero-stat-label">модулей</div>
+            </div>
+            <div class="hero-stat">
+                <span class="hero-stat-num">12+</span>
+                <div class="hero-stat-label">заданий</div>
+            </div>
+            <div class="hero-stat">
+                <span class="hero-stat-num">ТОП-15</span>
+                <div class="hero-stat-label">востребованных профессий</div>
+            </div>
+        </div>
+        <div class="hero-illustration">
+            <h3>🎮 Как проходит занятие?</h3>
+            <p>Короткая вводная с видео → командное задание → презентация результатов → дебрифинг. Каждый ученик участвует, а не слушает.</p>
+            <div class="hero-cards">🏭 🚛 ⚓ 📦 🎲</div>
+        </div>
+    </div>
+</section>
+
+<!-- WHY (light) -->
+<section class="section section-light" id="about">
+    <div class="container">
+        <div class="section-label">Проблема</div>
+        <h2 class="section-title">Почему курс нужен именно сейчас</h2>
+        <p class="section-sub">Профессия логиста в ТОП-15 запросов работодателей. Но старшеклассники не выбирают её, потому что не понимают, чем там занимаются.</p>
+        <div class="quote-block">
+            <p>«Логистика — это бесконечная и захватывающая интеллектуальная игра. 80% работы — логика оптимального товародвижения, 20% — математика.»</p>
+            <div class="author">— Разработчики курса, «Арап и Ко»</div>
+        </div>
+    </div>
+</section>
+
+<!-- FORMAT (dark) -->
+<section class="section section-dark">
+    <div class="container">
+        <div class="section-label">Формат</div>
+        <h2 class="section-title">Игровое обучение без лекций</h2>
+        <p class="section-sub">Каждый модуль — практика. Руки в работе, команда в действии, результат на столе.</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎮</div>
+                <h3>Игры и симуляции</h3>
+                <p>Настольная игра «Кроссдок», проектирование завода, расчёт маршрутов</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🧩</div>
+                <h3>Командные задания</h3>
+                <p>Размещение оборудования, поиск «бутылочных горлышек», оптимизация</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎬</div>
+                <h3>Видео с реальных заводов</h3>
+                <p>АвтоВАЗ, производство ручек, Amazon — увидеть, как это работает</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Результат — портфолио</h3>
+                <p>Спроектированный завод, просчитанные маршруты, понимание профессии</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- MODULES (light) -->
+<section class="section section-light" id="modules">
+    <div class="container">
+        <div class="section-label">Программа</div>
+        <h2 class="section-title">6 модулей — от завода до доставки</h2>
+        <p class="section-sub">Каждый модуль — самостоятельная единица. Можно пройти все или выбрать интересующие темы.</p>
+        <div class="modules-list">
+            <div class="module-item">
+                <div class="module-num">01</div>
+                <div class="module-content">
+                    <h3>Завод</h3>
+                    <p>Планирование продукции, размещение оборудования, поиск «бутылочных горлышек», проектирование собственного завода. Видео: АвтоВАЗ, производство ручек.</p>
+                    <span class="module-tag">Производство</span>
+                </div>
+            </div>
+            <div class="module-item">
+                <div class="module-num">02</div>
+                <div class="module-content">
+                    <h3>Транспорт</h3>
+                    <p>Поезда, машины, самолёты, суда — путь товара от завода до порта. Особенности каждого вида и выбор оптимального.</p>
+                    <span class="module-tag">Перевозки</span>
+                </div>
+            </div>
+            <div class="module-item">
+                <div class="module-num">03</div>
+                <div class="module-content">
+                    <h3>Порты</h3>
+                    <p>Морские ворота мировой торговли. Кейс: Новороссийск — один из крупнейших портов мира. Видео изнутри.</p>
+                    <span class="module-tag">Морская логистика</span>
+                </div>
+            </div>
+            <div class="module-item">
+                <div class="module-num">04</div>
+                <div class="module-content">
+                    <h3>Склад</h3>
+                    <p>Складская логистика на примере Amazon. Приёмка, хранение, роботы на складах, прогнозирование запасов.</p>
+                    <span class="module-tag">Хранение</span>
+                </div>
+            </div>
+            <div class="module-item">
+                <div class="module-num">05</div>
+                <div class="module-content">
+                    <h3>E-commerce</h3>
+                    <p>Как товары попадают из интернет-магазина к двери клиента. Кейс: Bol.com. Доставка, возврат, ожидания покупателей.</p>
+                    <span class="module-tag">Онлайн-торговля</span>
+                </div>
+            </div>
+            <div class="module-item">
+                <div class="module-num">06</div>
+                <div class="module-content">
+                    <h3>Игра «Кроссдок»</h3>
+                    <p>Легендарная настольная игра в цепочки поставок — стандарт в учебных заведениях РФ и СНГ. Командная борьба за эффективность.</p>
+                    <span class="module-tag">Симуляция</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- AUDIENCE (dark) -->
+<section class="section section-dark" id="audience">
+    <div class="container">
+        <div class="section-label">Аудитория</div>
+        <h2 class="section-title">Кому подходит курс</h2>
+        <p class="section-sub">Разработан для разных возрастов и уровня подготовки. Простой язык, сложные задачи.</p>
+        <div class="audience-grid">
+            <div class="audience-card">
+                <div class="audience-icon">🎓</div>
+                <h3>Старшеклассники</h3>
+                <p>9–11 классы. Выбор профессии после школы. Понятно, что делает логист и почему это круто.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">👨‍🎓</div>
+                <h3>Колледжи</h3>
+                <p>Углублённое понимание цепочек поставок, дополнение к профессиональной программе.</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">🏫</div>
+                <h3>Вузы</h3>
+                <p>Базовый курс по логистике и SCM. Практика вместо абстрактной теории.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA (dark) -->
+<section class="cta-section" id="contact">
+    <div class="container">
+        <h2>Готовы узнать, что такое логистика?</h2>
+        <p>Запросите программу курса или запишите класс на демо-урок. Первый модуль «Завод» можно провести прямо сейчас.</p>
+        <a href="mailto:project@logistoria.com?subject=Курс%20Логистика%20для%20школьников" class="btn-primary">Получить программу курса</a>
+        <div class="contact-info">
+            <a href="tel:+74992887371">+7 499 288 73 71</a>
+            <a href="mailto:project@logistoria.com">project@logistoria.com</a>
+            <a href="https://www.logistoria.com">www.logistoria.com</a>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3>LOGISTORIA<span>.</span></h3>
+                <p>Образовательные игры и симуляции для обучения логистике, управлению цепочками поставок и стратегическому мышлению.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Игры</h4>
+                <a href="/kadena.html">КАДЕНА</a>
+                <a href="/thebeergame.html">The Beer Game</a>
+                <a href="/auction-bot.html">Auction Bot</a>
+            </div>
+            <div class="footer-col">
+                <h4>Язык</h4>
+                <a href="/logistics-course-en.html">English version</a>
+                <a href="/logistics-course-es.html">Versión en español</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Логисториа. Все права защищены.</p>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
