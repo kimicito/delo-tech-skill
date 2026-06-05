@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ИИ-проекты РУСАЛ — Superset Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <style>
+        :root {
+            --bg: #0f1117;
+            --bg-card: #1a1d2e;
+            --bg-hover: #22263a;
+            --border: #2a2e45;
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --accent-blue: #00d4ff;
+            --accent-violet: #7b2cbf;
+            --accent-orange: #ff9800;
+            --accent-green: #48bb78;
+            --accent-red: #f56565;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+        }
+        .dashboard {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 24px;
+        }
+        .header h1 { font-size: 1.5rem; font-weight: 700; color: var(--text); }
+        .header .subtitle { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; }
+        .header-badge {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-violet));
+            color: var(--bg);
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        /* KPI Row */
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .kpi-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+        .kpi-card:hover { border-color: var(--accent-blue); transform: translateY(-2px); }
+        .kpi-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+        .kpi-value { font-size: 2rem; font-weight: 800; color: var(--text); line-height: 1; }
+        .kpi-change { font-size: 0.85rem; margin-top: 8px; font-weight: 600; }
+        .kpi-up { color: var(--accent-green); }
+        .kpi-down { color: var(--accent-red); }
+        .kpi-neutral { color: var(--accent-orange); }
+        /* Chart Grid */
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .chart-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .chart-card.full-width { grid-column: 1 / -1; }
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .chart-title { font-size: 1rem; font-weight: 600; color: var(--text); }
+        .chart-subtitle { font-size: 0.75rem; color: var(--text-muted); }
+        .chart-actions { display: flex; gap: 8px; }
+        .chart-btn {
+            background: var(--bg-hover);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+        .chart-btn:hover { color: var(--text); border-color: var(--accent-blue); }
+        .chart-container { position: relative; height: 250px; }
+        .chart-container.tall { height: 350px; }
+        /* Table */
+        .table-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            overflow-x: auto;
+        }
+        .data-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        .data-table th {
+            text-align: left;
+            padding: 12px 16px;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 2px solid var(--border);
+        }
+        .data-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+        }
+        .data-table tr:hover td { background: var(--bg-hover); }
+        .data-table .num { font-weight: 700; text-align: right; }
+        .tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .tag-blue { background: rgba(0, 212, 255, 0.15); color: var(--accent-blue); }
+        .tag-green { background: rgba(72, 187, 120, 0.15); color: var(--accent-green); }
+        .tag-orange { background: rgba(255, 152, 0, 0.15); color: var(--accent-orange); }
+        .tag-violet { background: rgba(123, 44, 191, 0.15); color: var(--accent-violet); }
+        /* Progress bar */
+        .progress-bar { height: 8px; background: var(--bg); border-radius: 4px; overflow: hidden; margin-top: 4px; }
+        .progress-fill { height: 100%; border-radius: 4px; transition: width 1s ease; }
+        .progress-blue { background: var(--accent-blue); }
+        .progress-green { background: var(--accent-green); }
+        .progress-orange { background: var(--accent-orange); }
+        .progress-violet { background: var(--accent-violet); }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .chart-grid { grid-template-columns: 1fr; }
+            .kpi-row { grid-template-columns: repeat(2, 1fr); }
+            .header { flex-direction: column; gap: 12px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+<div class="dashboard">
+    <!-- Header -->
+    <div class="header">
+        <div>
+            <h1>ИИ-проекты РУСАЛ</h1>
+            <div class="subtitle">Статус проектов: План, Факт, Идеи | 11.06.2026</div>
+        </div>
+        <div class="header-badge">Dashboard</div>
+    </div>
+
+    <!-- KPI Row -->
+    <div class="kpi-row">
+        <div class="kpi-card">
+            <div class="kpi-label">Всего проектов</div>
+            <div class="kpi-value" style="color: var(--accent-blue);">19</div>
+            <div class="kpi-change kpi-neutral">4 дивизиона</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Общий эффект</div>
+            <div class="kpi-value" style="color: var(--accent-green);">4+ млрд ₽</div>
+            <div class="kpi-change kpi-up">2026–2029</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Пользователи GenAI</div>
+            <div class="kpi-value" style="color: var(--accent-violet);">3 411</div>
+            <div class="kpi-change kpi-up">7 корп. проектов</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Флагман</div>
+            <div class="kpi-value" style="color: var(--accent-orange);">2 млрд</div>
+            <div class="kpi-change kpi-neutral">Цифровой завод</div>
+        </div>
+    </div>
+
+    <!-- Charts -->
+    <div class="chart-grid">
+        <div class="chart-card">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Эффект по проектам</div>
+                    <div class="chart-subtitle">Млн рублей, 2026–2029</div>
+                </div>
+                <div class="chart-actions">
+                    <button class="chart-btn">Bar</button>
+                    <button class="chart-btn">Export</button>
+                </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="chart-effects"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Распределение по дивизионам</div>
+                    <div class="chart-subtitle">Доля в общем эффекте</div>
+                </div>
+                <div class="chart-actions">
+                    <button class="chart-btn">Pie</button>
+                    <button class="chart-btn">Export</button>
+                </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="chart-divisions"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-card full-width">
+            <div class="chart-header">
+                <div>
+                    <div class="chart-title">Timeline проектов</div>
+                    <div class="chart-subtitle">Старт → Завершение</div>
+                </div>
+            </div>
+            <div class="chart-container tall">
+                <canvas id="chart-timeline"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="table-card">
+        <div class="chart-header">
+            <div>
+                <div class="chart-title">Детализация проектов</div>
+                <div class="chart-subtitle">Все активные и завершённые проекты</div>
+            </div>
+        </div>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Проект</th>
+                    <th>Дивизион</th>
+                    <th>Эффект</th>
+                    <th>Срок</th>
+                    <th>Заказчик</th>
+                    <th>Статус</th>
+                    <th>Прогресс</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Цифровой завод</strong></td>
+                    <td><span class="tag tag-blue">АД</span></td>
+                    <td class="num">2 000 млн ₽</td>
+                    <td>2026–2028</td>
+                    <td>Щербаков / Курьянов</td>
+                    <td><span class="tag tag-green">В работе</span></td>
+                    <td>
+                        <div class="progress-bar"><div class="progress-fill progress-blue" style="width: 35%"></div></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>ALVERSE</strong></td>
+                    <td><span class="tag tag-blue">АД</span></td>
+                    <td class="num">920 млн ₽</td>
+                    <td>2026</td>
+                    <td>Никитин Е.В.</td>
+                    <td><span class="tag tag-green">В работе</span></td>
+                    <td>
+                        <div class="progress-bar"><div class="progress-fill progress-green" style="width: 60%"></div></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Цифровое ТОРО</strong></td>
+                    <td><span class="tag tag-blue">АД</span></td>
+                    <td class="num">980 млн ₽</td>
+                    <td>2026–2029</td>
+                    <td>Щербаков / Курьянов</td>
+                    <td><span class="tag tag-green">В работе</span></td>
+                    <td>
+                        <div class="progress-bar"><div class="progress-fill progress-violet" style="width: 25%"></div></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Модуляция КРАЗ</strong></td>
+                    <td><span class="tag tag-blue">АД</span></td>
+                    <td class="num">1 000 млн ₽</td>
+                    <td>2026–2027</td>
+                    <td>Курьянов Е.Ю.</td>
+                    <td><span class="tag tag-green">В работе</span></td>
+                    <td>
+                        <div class="progress-bar"><div class="progress-fill progress-orange" style="width: 40%"></div></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Энергоэффективность САЗ</strong></td>
+                    <td><span class="tag tag-blue">АД</span></td>
+                    <td class="num">84.2 млн ₽/год</td>
+                    <td>2026–2027</td>
+                    <td>Щербаков Е.А.</td>
+                    <td><span class="tag tag-orange">Пилот</span></td>
+                    <td>
+                        <div class="progress-bar"><div class="progress-fill progress-green" style="width: 55%"></div></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+// Chart defaults
+Chart.defaults.color = '#94a3b8';
+Chart.defaults.borderColor = '#2a2e45';
+Chart.defaults.font.family = 'Inter';
+
+// Effects Bar Chart
+new Chart(document.getElementById('chart-effects'), {
+    type: 'bar',
+    data: {
+        labels: ['Цифровой завод', 'Модуляция КРАЗ', 'Цифровое ТОРО', 'ALVERSE', 'Энергоэфф. САЗ'],
+        datasets: [{
+            label: 'Эффект, млн ₽',
+            data: [2000, 1000, 980, 920, 84.2],
+            backgroundColor: ['#00d4ff', '#ff9800', '#7b2cbf', '#48bb78', '#f56565'],
+            borderRadius: 8,
+            borderWidth: 0
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+            y: { beginAtZero: true, grid: { color: '#2a2e45' } },
+            x: { grid: { display: false } }
+        }
+    }
+});
+
+// Division Pie Chart
+new Chart(document.getElementById('chart-divisions'), {
+    type: 'doughnut',
+    data: {
+        labels: ['Алюминиевый', 'Глинозёмный', 'Даунстрим', 'Центральный офис'],
+        datasets: [{
+            data: [4984.2, 920, 0, 0],
+            backgroundColor: ['#00d4ff', '#ff9800', '#7b2cbf', '#48bb78'],
+            borderWidth: 0,
+            hoverOffset: 10
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { position: 'right', labels: { padding: 20, usePointStyle: true } }
+        },
+        cutout: '65%'
+    }
+});
+
+// Timeline Chart
+new Chart(document.getElementById('chart-timeline'), {
+    type: 'bar',
+    data: {
+        labels: ['Цифровой завод', 'Цифровое ТОРО', 'ALVERSE', 'Модуляция КРАЗ', 'Энергоэфф. САЗ'],
+        datasets: [
+            {
+                label: '2026',
+                data: [1, 0.3, 0.9, 0.5, 0.4],
+                backgroundColor: '#00d4ff',
+                borderRadius: 4
+            },
+            {
+                label: '2027',
+                data: [0.7, 0.3, 0, 0.5, 0.4],
+                backgroundColor: '#ff9800',
+                borderRadius: 4
+            },
+            {
+                label: '2028-2029',
+                data: [0.3, 0.4, 0, 0, 0],
+                backgroundColor: '#7b2cbf',
+                borderRadius: 4
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        indexAxis: 'y',
+        plugins: { legend: { position: 'top' } },
+        scales: {
+            x: { stacked: true, grid: { color: '#2a2e45' } },
+            y: { stacked: true, grid: { display: false } }
+        }
+    }
+});
+</script>
+</body>
+</html>
