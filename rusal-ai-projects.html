@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ИИ-проекты РУСАЛ — Инвесторская презентация</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1a365d;
+  --navy-light: #2c5282;
+  --green: #276749;
+  --green-light: #48bb78;
+  --gray: #718096;
+  --gray-light: #a0aec0;
+  --gray-bg: #f7fafc;
+  --text: #2d3748;
+  --text-light: #4a5568;
+  --border: #e2e8f0;
+  --white: #ffffff;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--white);
+  color: var(--text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Slide */
+.slide {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 80px;
+  page-break-after: always;
+  position: relative;
+}
+.container {
+  max-width: 1200px;
+  width: 100%;
+}
+
+/* Header */
+.header-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--navy) 0%, var(--green) 100%);
+}
+
+/* Typography */
+h1 { font-size: 3.2rem; font-weight: 800; line-height: 1.1; color: var(--navy); letter-spacing: -0.02em; }
+h2 { font-size: 2.2rem; font-weight: 700; color: var(--navy); margin-bottom: 1.5rem; }
+h3 { font-size: 1.3rem; font-weight: 600; color: var(--navy); margin-bottom: 0.5rem; }
+p { font-size: 1.1rem; color: var(--text-light); line-height: 1.6; }
+.label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--green);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.date {
+  font-size: 0.9rem;
+  color: var(--gray);
+  margin-top: 1rem;
+}
+
+/* Hero */
+.hero h1 { font-size: 3.8rem; margin-bottom: 1rem; }
+.hero .subtitle { font-size: 1.4rem; color: var(--text-light); max-width: 700px; }
+.hero-stats {
+  display: flex;
+  gap: 60px;
+  margin-top: 3rem;
+}
+.hero-stat { text-align: center; }
+.hero-stat-num {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--green);
+  line-height: 1;
+}
+.hero-stat-label {
+  font-size: 0.9rem;
+  color: var(--gray);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 0.5rem;
+}
+
+/* Table */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+}
+.data-table th {
+  background: var(--navy);
+  color: var(--white);
+  padding: 14px 18px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.data-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+.data-table tr:hover td {
+  background: var(--gray-bg);
+}
+.data-table .num { font-weight: 700; color: var(--navy); text-align: right; }
+.data-table .status { font-weight: 600; }
+.status-done { color: var(--green); }
+.status-wip { color: #d69e2e; }
+.status-new { color: var(--navy-light); }
+
+/* Cards */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-top: 2rem;
+}
+.card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  background: var(--white);
+  transition: all 0.2s;
+}
+.card:hover {
+  border-color: var(--navy-light);
+  box-shadow: 0 4px 20px rgba(26, 54, 93, 0.08);
+}
+.card-num {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--green);
+  line-height: 1;
+  margin-bottom: 12px;
+}
+.card-title { font-size: 1.1rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+.card-desc { font-size: 0.9rem; color: var(--gray); line-height: 1.5; }
+.card-meta { font-size: 0.8rem; color: var(--gray-light); margin-top: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* Chart bar */
+.bar-chart { margin-top: 2rem; }
+.bar-item { margin-bottom: 20px; }
+.bar-label { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.95rem; }
+.bar-label span:first-child { font-weight: 600; color: var(--navy); }
+.bar-label span:last-child { font-weight: 700; color: var(--green); }
+.bar-track { height: 32px; background: var(--gray-bg); border-radius: 6px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 6px; display: flex; align-items: center; justify-content: flex-end; padding-right: 12px; font-weight: 700; font-size: 0.85rem; color: var(--white); transition: width 1.5s ease; }
+.bar-green { background: linear-gradient(90deg, var(--green), var(--green-light)); }
+.bar-navy { background: linear-gradient(90deg, var(--navy), var(--navy-light)); }
+
+/* Two column */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+.col-block { padding: 30px; border-radius: 12px; }
+.col-done { background: #f0fff4; border: 1px solid #c6f6d5; }
+.col-wip { background: #fffaf0; border: 1px solid #feebc8; }
+.col-block h3 { margin-bottom: 1rem; }
+.col-block ul { list-style: none; }
+.col-block li { padding: 8px 0; font-size: 0.95rem; color: var(--text-light); border-bottom: 1px solid rgba(0,0,0,0.05); }
+.col-block li:last-child { border-bottom: none; }
+
+/* Comparison */
+.compare-table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; }
+.compare-table th { background: var(--gray-bg); padding: 12px 16px; text-align: left; font-weight: 600; font-size: 0.85rem; color: var(--navy); border-bottom: 2px solid var(--navy); }
+.compare-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 0.95rem; }
+.compare-table .highlight { font-weight: 700; color: var(--green); }
+
+/* Quote */
+.quote-block {
+  border-left: 4px solid var(--green);
+  padding-left: 24px;
+  margin: 2rem 0;
+}
+.quote-text { font-size: 1.3rem; font-weight: 600; color: var(--navy); font-style: italic; line-height: 1.5; }
+.quote-author { font-size: 0.9rem; color: var(--gray); margin-top: 0.5rem; }
+
+/* Footer */
+.slide-footer {
+  position: absolute;
+  bottom: 30px;
+  left: 80px;
+  right: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: var(--gray-light);
+  border-top: 1px solid var(--border);
+  padding-top: 15px;
+}
+
+/* Print */
+@media print {
+  .slide { height: auto; min-height: 100vh; }
+}
+
+@media (max-width: 768px) {
+  .slide { padding: 30px; }
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.5rem; }
+  .hero-stats { flex-direction: column; gap: 20px; }
+  .two-col { grid-template-columns: 1fr; }
+  .cards-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1: Title -->
+<div class="slide">
+  <div class="header-bar"></div>
+  <div class="container hero">
+    <div class="label">Стратегический отчёт</div>
+    <h1>ИИ-проекты РУСАЛ</h1>
+    <p class="subtitle">Текущий статус, эффекты и дорожная карта цифровой трансформации производства</p>
+    <div class="date">11 июня 2026</div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">4</div>
+        <div class="hero-stat-label">дивизиона</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">19</div>
+        <div class="hero-stat-label">проектов</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">4+ млрд</div>
+        <div class="hero-stat-label">руб. эффект</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">3 411</div>
+        <div class="hero-stat-label">пользователей GenAI</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 2: Project Overview -->
+<div class="slide">
+  <div class="header-bar"></div>
+  <div class="container">
+    <div class="label">Общий обзор</div>
+    <h2>Проекты в работе по дивизионам</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Дивизион</th>
+          <th>Проекты в работе</th>
+          <th>Завершённые</th>
+          <th>Новые</th>
+          <th>Ключевой эффект</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Алюминиевый (АД)</strong></td>
+          <td>Энергоэффективность, КРАЗ, Цифровой завод</td>
+          <td>ИИ-продукт запущен</td>
+          <td>Цифровой завод</td>
+          <td class="num">2 млрд ₽</td>
+        </tr>
+        <tr>
+          <td><strong>Глинозёмный (ГД)</strong></td>
+          <td>ALVERSE</td>
+          <td>—</td>
+          <td>—</td>
+          <td class="num">920 млн ₽</td>
+        </tr>
+        <tr>
+          <td><strong>Даунстрим (ДД)</strong></td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+          <td class="num">—</td>
+        </tr>
+        <tr>
+          <td><strong>Центральный офис (ЦК)</strong></td>
+          <td>ГЕНАi, Цифровой завод</td>
+          <td>—</td>
+          <td>—</td>
+          <td class="num">—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SLIDE 3: Key Projects -->
+<div class="slide">
+  <div class="header-bar"></div>
+  <div class="container">
+    <div class="label">Ключевые проекты</div>
+    <h2>Топ-5 проектов по эффекту</h2>
+    <div class="bar-chart">
+      <div class="bar-item">
+        <div class="bar-label"><span>Цифровой завод САЗ/КРАЗ</span><span>2 000 млн ₽</span></div>
+        <div class="bar-track"><div class="bar-fill bar-navy" style="width: 100%">2026–2028</div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label"><span>ALVERSE (все предприятия АД)</span><span>920 млн ₽</span></div>
+        <div class="bar-track"><div class="bar-fill bar-navy" style="width: 46%">2026</div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label"><span>Цифровое ТОРО (ИСУР + ИИ-надёжник)</span><span>980 млн ₽</span></div>
+        <div class="bar-track"><div class="bar-fill bar-navy" style="width: 49%">2026–2029</div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label"><span>Модуляция КРАЗ</span><span>1 000 млн ₽</span></div>
+        <div class="bar-track"><div class="bar-fill bar-green" style="width: 50%">2026–2027</div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label"><span>Энергоэффективность САЗ</span><span>84.2 млн ₽/год</span></div>
+        <div class="bar-track"><div class="bar-fill bar-green" style="width: 4.2%">2026–2027</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 4: Digital Factory -->
+<div class="slide">
+  <div class="header-bar"></div>
+  <div class="container">
+    <div class="label">Флагман</div>
+    <h2>Цифровой завод: 2 млрд ₽ эффекта</h2>
+    <p>ИИ-агенты для управления производством в реальном времени. Интеграция с MES, SAP, ERP.</p>
+    <div class="cards-grid" style="margin-top: 2rem;">
+      <div class="card">
+        <div class="card-num">01</div>
+        <div class="card-title">Снижение себестоимости</div>
+        <div class="card-desc">ИИ-агенты задают технологам корректировки режимов работы</div>
+      </div>
+      <div class="card">
+        <div class="card-num">02</div>
+        <div class="card-title">Повышение надёжности</div>
+        <div class="card-desc">Предиктивная аналитика оборудования, раннее предупреждение отклонений</div>
+      </div>
+      <div class="card">
+        <div class="card-num">03</div>
+        <div class="card-title">Рост производительности</div>
+        <div class="card-desc">Оптимизация режимов, сокращение простоев, рост выхода годной продукции</div>
+      </div>
+    </div>
+    <div class="quote-block" style="margin-top: 2rem;">
+      <div class="quote-text">Сделано: карта решений, оценка затрат, встречи с Яндекс и Сбер по суверенным Большим Моделям</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 5: Energy Efficiency -->
+<div class="slide">
+  <div class="header-bar"></div>
+  <div class="container">
+    <div class="label">Алюминиевый дивизион</div>
+    <h2>Энергоэффективность САЗ: 84.2 млн ₽/год</h2>
+    <p>Завод: САЗ | Срок: 2026–2027 | Заказчик: Щербаков Е.А.</p>
+    <table class="data-table" style="margin-top: 2rem;">
+      <thead>
+        <tr><th>Направление</th><th>Мероприятия</th><th>Статус</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Сжатый воздух</strong></td>
+          <td>Разработка нормативов, модели управления компрессорами</td>
+          <td class="status status-wip">В работе</td>
+        </tr>
+        <tr>
+          <td><strong>Мазут</strong></td>
+          <td>Установка влагомера, анализ данных для сушки кокса</td>
+          <td class="status status-wip">В работе</td>
+        </tr>
+        <tr>
+          <td><strong>Тепловая энергия</strong></td>
+          <td>Сбор данных, анализ норм сжатого воздуха</td>
+          <td class="status status-wip">В работе</td>
+        </tr>
+        <tr>
+          <td><strong>Силовая электроэнергия</strong></td>
+          <td>Аудит компрессоров, оценка эффективности</td>
+          <td class="status status-wip">В работе</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SLIDE 6: KRAZ -->
+<div class="slide">
+  <div class="header-bar"></div>
+  <div class="container">
+    <div class="label">Алюминиевый дивизион</div>
+    <h2>Модуляция КРАЗ: 1 млрд ₽</h2>
+    <p>Завод: КРАЗ | Срок: 2026–2027 | Заказчик: Курьянов Е.Ю.</p>
+    <div class="cards-grid" style="margin-top: 2rem;">
+      <div class="card">
+        <div class="card-num">01</div>
+        <div class="card-title">Профиль региона</div>
+        <div class="card-desc">Прогноз погодных условий Красноярска на основе данных 2023–2026</div>
+        <div class="card-meta">БД погоды собрана | ТЗ и архитектура — по графику</div>
+      </div>
+      <div class="card">
+        <div class="card-num">02</div>
+        <div class="card-title">Оптимизатор графиков</div>
+        <div class="card-desc">Оптимизация планового потребления электроэнергии на оптовом рынке</div>
+        <div class="card-meta">ТЗ подготовлено | Конкурс завершён | Начало работ с подрядчиком</div>
+      </div>
+      <div class="card">
+        <div class="card-num">03</div>
+        <div class="card-title">Цифровой технолог</div>
+        <div class="card-desc">Прогноз состояния электролизера для предотвращения аварий</div>
+        <div class="card-meta">Модель аварийного отключения | Модель низкоэффективного состояния</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 7: TORSO -->
+<div class="slide">
+  <div class="header-bar"></div>
+  <div class="container">
+    <div class="label">Алюминиевый дивизион</div>
+    <h2>Цифровое ТОРО: 980 млн ₽ эффекта</h2>
+    <p>Интеллектуальная система управления ремонтом | Срок: 2026–2028</p>
+    <div class="two-col" style="margin-top: 2rem;">
+      <div class="col-block col-done">
+        <h3>ИСУР — 680 млн ₽ к 2029</h3>
+        <ul>
+          <li>В ОПЭ на ИРКАЗ и САЗ (дизельная техника)</li>
+          <li>Тираж на заводы АД в процессе</li>
+          <li>Обследование литейного и горнорудного оборудования</li>
+        </ul>
+      </div>
+      <div class="col-block col-wip">
+        <h3>ИИ-надёжник — 300 млн ₽ в 2027</h3>
+        <ul>
+          <li>Прототип RCA — положительный результат</li>
+          <li>Сбор сценариев применения</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 8: ALVERSE -->
+<div class="slide">
+  <div class="header-bar"></div>
+  <div class="container">
+    <div class="label">Все предприятия АД</div>
+    <h2>ALVERSE: 920 млн ₽ в 2026</h2>
+    <p>6 направлений доработки:</p>
+    <table class="data-table" style="margin-top: 1.5rem;">
+      <thead>
+        <tr><th>№</th><th>Направление</th><th>Описание</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="num">1</td><td>Биржевые котировки</td><td>Учёт форвардных значений</td></tr>
+        <tr><td class="num">2</td><td>Расширение формулы нетбека</td><td>Детализация расчётов</td></tr>
+        <tr><td class="num">3</td><td>Оптимизация расшихтовки</td><td>Низкосортные марки</td></tr>
+        <tr><td class="num">4</td><td>Учёт простоев</td><td>Технологические остановы</td></tr>
+        <tr><td class="num">5</td><td>Интеграция с MES</td><td>Единая система планирования</td></tr>
+        <tr><td class="num">6</td><td>Прогнозирование спроса</td><td>ML-модели на основе истории</td></tr>
+      </tbody>
+    </table>
+    <div class="quote-block" style="margin-top: 1.5rem;">
+      <div class="quote-text">Заказчик: Никитин Е.В. | Срок: 2026–2028</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 9: GenAI -->
+<div class="slide">
+  <div class="header-bar"></div>
+  <div class="container">
+    <div class="label">Корпоративный уровень</div>
+    <h2>ГЕНАi: 3 411 пользователей</h2>
+    <p>Платформа на портале РУСАЛ. Доступно каждому сотруднику.</p>
+    <div class="cards-grid" style="margin-top: 2rem;">
+      <div class="card">
+        <div class="card-num">3 411</div>
+        <div class="card-title">Активных пользователей</div>
+        <div class="card-desc">Ежедневное использование для рабочих задач</div>
+      </div>
+      <div class="card">
+        <div class="card-num">7</div>
+        <div class="card-title">Корпоративных проектов</div>
+        <div class="card-desc">Специализированные ассистенты по задачам</div>
+      </div>
+      <div class="card">
+        <div class="card-num">∞</div>
+        <div class="card-title">Обработка документов</div>
+        <div class="card-desc">Подготовка, саммари, сравнение, поиск по базе знаний</div>
+      </div>
+    </div>
+    <div class="quote-block" style="margin-top: 2rem;">
+      <div class="quote-text">«Не кормите ГЕНУ лишними документами» — девиз платформы</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 10: Summary -->
+<div class="slide">
+  <div class="header-bar"></div>
+  <div class="container">
+    <div class="label">Итоги</div>
+    <h2>Ключевые показатели</h2>
+    <table class="data-table" style="margin-top: 1.5rem;">
+      <thead>
+        <tr><th>Показатель</th><th>Значение</th><th>Срок</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Общий эффект ИИ-проектов</td><td class="highlight num">4+ млрд ₽</td><td>2026–2029</td></tr>
+        <tr><td>Цифровой завод</td><td class="highlight num">2 млрд ₽</td><td>2026–2028</td></tr>
+        <tr><td>ALVERSE</td><td class="highlight num">920 млн ₽</td><td>2026</td></tr>
+        <tr><td>Цифровое ТОРО</td><td class="highlight num">980 млн ₽</td><td>2026–2029</td></tr>
+        <tr><td>Модуляция КРАЗ</td><td class="highlight num">1 млрд ₽</td><td>2026–2027</td></tr>
+        <tr><td>Энергоэффективность САЗ</td><td class="highlight num">84.2 млн ₽/год</td><td>2026–2027</td></tr>
+        <tr><td>Пользователи GenAI</td><td class="highlight num">3 411</td><td>Текущий</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>
