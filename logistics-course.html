@@ -181,13 +181,36 @@
             margin-bottom: 20px;
         }
         
-        .hero-cards {
+        .hero-visual {
             display: flex;
             justify-content: center;
-            gap: 12px;
-            font-size: 2rem;
-            flex-wrap: wrap;
-            padding: 0 16px;
+            align-items: center;
+        }
+        
+        .hero-card {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .hero-card h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+        
+        .hero-card p {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 20px;
+            max-width: none;
         }
         
         /* ===== SECTIONS ===== */
@@ -597,31 +620,35 @@
 <section class="hero">
     <canvas id="hero-canvas"></canvas>
     <div class="container">
-        <div class="hero-badge">Первый курс про логистику для школьников и студентов</div>
-        <h1>Логистика для <span>школьников</span></h1>
-        <p>Игровой профориентационный курс. 6 модулей, практика на реальных кейсах — от завода до доставки клиенту.</p>
-        <div class="hero-buttons">
-            <a href="mailto:project@logistoria.com?subject=Курс%20Логистика" class="btn-primary">Получить программу</a>
-            <a href="#about" class="btn-secondary">Узнать больше</a>
+        <div>
+            <div class="hero-badge">Первый курс про логистику для школьников и студентов</div>
+            <h1>Логистика для <span>школьников</span></h1>
+            <p>Игровой профориентационный курс. 5 модулей, практика на реальных кейсах — от завода до доставки клиенту.</p>
+            <div class="hero-buttons">
+                <a href="mailto:project@logistoria.com?subject=Курс%20Логистика" class="btn-primary">Получить программу</a>
+                <a href="#about" class="btn-secondary">Узнать больше</a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="hero-stat-num">5</span>
+                    <div class="hero-stat-label">модулей</div>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-num">12+</span>
+                    <div class="hero-stat-label">заданий</div>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-num">ТОП-15</span>
+                    <div class="hero-stat-label">востребованных профессий</div>
+                </div>
+            </div>
         </div>
-        <div class="hero-stats">
-            <div class="hero-stat">
-                <span class="hero-stat-num">5</span>
-                <div class="hero-stat-label">модулей</div>
+        <div class="hero-visual">
+            <div class="hero-card">
+                <h3>🎮 Как проходит занятие?</h3>
+                <p>Короткая вводная с видео → командное задание → презентация результатов → дебрифинг.</p>
+                <div class="hero-cards">🏭 📦 ⚓ 🚛 🛒</div>
             </div>
-            <div class="hero-stat">
-                <span class="hero-stat-num">12+</span>
-                <div class="hero-stat-label">заданий</div>
-            </div>
-            <div class="hero-stat">
-                <span class="hero-stat-num">ТОП-15</span>
-                <div class="hero-stat-label">востребованных профессий</div>
-            </div>
-        </div>
-        <div class="hero-illustration">
-            <h3>🎮 Как проходит занятие?</h3>
-            <p>Короткая вводная с видео → командное задание → презентация результатов → дебрифинг. Каждый ученик участвует, а не слушает.</p>
-            <div class="hero-cards">🏭 📦 ⚓ 🚛 🛒</div>
         </div>
     </div>
 </section>
