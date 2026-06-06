@@ -330,6 +330,12 @@
             gap: 20px;
         }
         
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
         .feature-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -599,6 +605,7 @@
             .hero-buttons { flex-direction: column; align-items: center; }
             .steps-grid { grid-template-columns: 1fr; }
             .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .courses-grid { grid-template-columns: repeat(2, 1fr); }
             .audience-grid { grid-template-columns: 1fr; }
             .section-title { font-size: 1.7rem; }
             .module-item { grid-template-columns: 1fr; text-align: center; }
@@ -787,6 +794,35 @@
                 <div class="audience-icon">🏫</div>
                 <h3>Вузы</h3>
                 <p>Базовый курс по логистике и SCM. Практика вместо абстрактной теории.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- OTHER COURSES -->
+<section class="section section-dark" id="courses">
+    <div class="container">
+        <div class="section-label">Экосистема Logistoria</div>
+        <h2 class="section-title">Другие программы</h2>
+        <p class="section-sub">Помимо курса для школьников — профессиональные симуляции и игры для вузов и корпораций.</p>
+        <div class="features-grid courses-grid">
+            <div class="feature-card" style="text-align:left; padding:32px;">
+                <div style="font-size:2.5rem; margin-bottom:16px;">🎲</div>
+                <h3 style="font-size:1.2rem; margin-bottom:8px;">КАДЕНА</h3>
+                <p style="font-size:0.9rem; margin-bottom:16px;">Онлайн-симуляция управления цепочками поставок. 2–100 игроков, 2 часа – 4 дня. Прогнозирование, запасы, издержки.</p>
+                <a href="/kadena.html" class="btn-primary" style="padding:10px 20px; font-size:0.85rem;">Подробнее →</a>
+            </div>
+            <div class="feature-card" style="text-align:left; padding:32px;">
+                <div style="font-size:2.5rem; margin-bottom:16px;">🍺</div>
+                <h3 style="font-size:1.2rem; margin-bottom:8px;">The Beer Game</h3>
+                <p style="font-size:0.9rem; margin-bottom:16px;">Легендарная игра MIT по логистике. 4–400 игроков, настольная/онлайн/обучающая сессия. Эффект хлыста на практике.</p>
+                <a href="/thebeergame.html" class="btn-primary" style="padding:10px 20px; font-size:0.85rem;">Подробнее →</a>
+            </div>
+            <div class="feature-card" style="text-align:left; padding:32px;">
+                <div style="font-size:2.5rem; margin-bottom:16px;">🤖</div>
+                <h3 style="font-size:1.2rem; margin-bottom:8px;">Auction Bot</h3>
+                <p style="font-size:0.9rem; margin-bottom:16px;">Симуляция аукциона с AI-участниками. Обучение закупкам, переговорам, стратегическому мышлению.</p>
+                <a href="/auction-bot.html" class="btn-primary" style="padding:10px 20px; font-size:0.85rem;">Подробнее →</a>
             </div>
         </div>
     </div>
