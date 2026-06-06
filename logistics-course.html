@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Логистика для школьников — Logistoria</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --violet: #3D1959;
@@ -137,7 +137,7 @@
         
         /* ===== HERO ===== */
         .hero {
-            background: linear-gradient(180deg, var(--violet-dark) 0%, var(--violet) 50%, var(--bg-dark) 100%);
+            background: linear-gradient(135deg, #120B1E 0%, #3D1959 50%, #2D1B4E 100%);
             color: var(--text-light);
             padding: 120px 0 60px;
             text-align: center;
@@ -272,6 +272,23 @@
             margin: 0 auto;
             width: calc(100% - 32px);
             overflow: hidden;
+            position: relative;
+            z-index: 2;
+        }
+        
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .hero .container {
+            position: relative;
+            z-index: 2;
         }
         
         .hero-illustration h3 {
@@ -700,8 +717,9 @@
 
 <!-- HERO -->
 <section class="hero">
+    <canvas id="hero-canvas"></canvas>
     <div class="container">
-        <div class="hero-badge">Первый профориентационный курс в России и СНГ</div>
+        <div class="hero-badge">Первый курс про логистику для школьников и студентов</div>
         <h1>Логистика для <span>школьников</span></h1>
         <p>Игровой профориентационный курс. 6 модулей, практика на реальных кейсах — от завода до доставки клиенту.</p>
         <div class="hero-buttons">
@@ -722,13 +740,10 @@
                 <div class="hero-stat-label">востребованных профессий</div>
             </div>
         </div>
-        <div class="hero-image" style="margin-top:40px; text-align:center;">
-            <img src="images/transport-01.png" alt="Логистика для школьников" style="max-width:100%; border-radius:16px; box-shadow:0 20px 60px rgba(0,0,0,0.3);">
-        </div>
         <div class="hero-illustration">
             <h3>🎮 Как проходит занятие?</h3>
             <p>Короткая вводная с видео → командное задание → презентация результатов → дебрифинг. Каждый ученик участвует, а не слушает.</p>
-            <div class="hero-cards">🏭 🚛 ⚓ 📦 🎲</div>
+            <div class="hero-cards">🏭 📦 ⚓ 🚛 🛒</div>
         </div>
     </div>
 </section>
@@ -880,25 +895,25 @@
                 <div style="font-size:2.5rem; margin-bottom:16px;">🎲</div>
                 <h3 style="font-size:1.2rem; margin-bottom:8px;">КАДЕНА</h3>
                 <p style="font-size:0.9rem; margin-bottom:16px;">Онлайн-симуляция управления цепочками поставок. 2–100 игроков, 2 часа – 4 дня. Прогнозирование, запасы, издержки.</p>
-                <a href="/kadena.html" class="btn-primary" style="padding:10px 20px; font-size:0.85rem;">Подробнее →</a>
+                <a href="https://kimicito.github.io/logistoria-website/kadena.html" class="btn-primary" style="padding:10px 20px; font-size:0.85rem;">Подробнее →</a>
             </div>
             <div class="feature-card" style="text-align:left; padding:32px;">
                 <div style="font-size:2.5rem; margin-bottom:16px;">🍺</div>
                 <h3 style="font-size:1.2rem; margin-bottom:8px;">The Beer Game</h3>
                 <p style="font-size:0.9rem; margin-bottom:16px;">Легендарная игра MIT по логистике. 4–400 игроков, настольная/онлайн/обучающая сессия. Эффект хлыста на практике.</p>
-                <a href="/thebeergame.html" class="btn-primary" style="padding:10px 20px; font-size:0.85rem;">Подробнее →</a>
+                <a href="https://kimicito.github.io/logistoria-website/thebeergame.html" class="btn-primary" style="padding:10px 20px; font-size:0.85rem;">Подробнее →</a>
             </div>
             <div class="feature-card" style="text-align:left; padding:32px;">
                 <div style="font-size:2.5rem; margin-bottom:16px;">🤖</div>
                 <h3 style="font-size:1.2rem; margin-bottom:8px;">Auction Bot</h3>
                 <p style="font-size:0.9rem; margin-bottom:16px;">Симуляция аукциона с AI-участниками. Обучение закупкам, переговорам, стратегическому мышлению.</p>
-                <a href="/auction-bot.html" class="btn-primary" style="padding:10px 20px; font-size:0.85rem;">Подробнее →</a>
+                <a href="https://kimicito.github.io/logistoria-website/auction-bot.html" class="btn-primary" style="padding:10px 20px; font-size:0.85rem;">Подробнее →</a>
             </div>
             <div class="feature-card" style="text-align:left; padding:32px;">
                 <div style="font-size:2.5rem; margin-bottom:16px;">📦</div>
                 <h3 style="font-size:1.2rem; margin-bottom:8px;">Кроссдок</h3>
                 <p style="font-size:0.9rem; margin-bottom:16px;">Классическая настольная игра по логистике. Игроки управляют звеньями цепочки поставок, учатся оптимизировать запасы и минимизировать издержки.</p>
-                <a href="/crossdok.html" class="btn-primary" style="padding:10px 20px; font-size:0.85rem;">Подробнее →</a>
+                <a href="https://kimicito.github.io/logistoria-website/crossdok.html" class="btn-primary" style="padding:10px 20px; font-size:0.85rem;">Подробнее →</a>
             </div>
         </div>
     </div>
@@ -928,10 +943,10 @@
             </div>
             <div class="footer-col">
                 <h4>Игры</h4>
-                <a href="/kadena.html">КАДЕНА</a>
-                <a href="/thebeergame.html">The Beer Game</a>
-                <a href="/auction-bot.html">Auction Bot</a>
-                <a href="/crossdok.html">Кроссдок</a>
+                <a href="https://kimicito.github.io/logistoria-website/kadena.html">КАДЕНА</a>
+                <a href="https://kimicito.github.io/logistoria-website/thebeergame.html">The Beer Game</a>
+                <a href="https://kimicito.github.io/logistoria-website/auction-bot.html">Auction Bot</a>
+                <a href="https://kimicito.github.io/logistoria-website/crossdok.html">Кроссдок</a>
             </div>
             <div class="footer-col">
                 <h4>Язык</h4>
@@ -967,6 +982,63 @@ links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
     burger.textContent = '☰';
 }));
 </script>
+
+// Particle canvas
+const canvas = document.getElementById('hero-canvas');
+if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let width, height;
+
+    function resize() {
+        width = canvas.width = canvas.offsetWidth;
+        height = canvas.height = canvas.offsetHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    for (let i = 0; i < 60; i++) {
+        particles.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            vx: (Math.random() - 0.5) * 0.3,
+            vy: (Math.random() - 0.5) * 0.3,
+            radius: Math.random() * 2 + 1,
+            opacity: Math.random() * 0.5 + 0.2
+        });
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, width, height);
+        for (let p of particles) {
+            p.x += p.vx;
+            p.y += p.vy;
+            if (p.x < 0 || p.x > width) p.vx *= -1;
+            if (p.y < 0 || p.y > height) p.vy *= -1;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 152, 0, ${p.opacity})`;
+            ctx.fill();
+        }
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 100) {
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.strokeStyle = `rgba(255, 152, 0, ${0.15 * (1 - dist / 100)})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.stroke();
+                }
+            }
+        }
+        requestAnimationFrame(draw);
+    }
+    draw();
+}
 
 </body>
 </html>
