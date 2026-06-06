@@ -22,6 +22,7 @@
             --text-muted-light: #8A8A9A;
             --border: #2A2A3E;
             --border-light: #E5E5EA;
+            --white: #FFFFFF;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; max-width: 100%; }
@@ -52,19 +53,21 @@
         .nav .container { height: 100%; display: flex; align-items: center; justify-content: space-between; }
         .nav-logo { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 20px; color: var(--white); letter-spacing: -0.5px; text-decoration: none; }
         .nav-logo span { color: var(--orange); }
-        .nav-links { display: flex; align-items: center; gap: 32px; }
+        .nav-links { display: flex; align-items: center; gap: 32px; flex: 1; justify-content: center; }
         .nav-links a { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; color: rgba(255,255,255,0.9); transition: color 0.2s ease; text-decoration: none; }
         .nav-links a:hover { color: var(--white); }
+        .nav-cta { display: inline-flex; align-items: center; gap: 4px; background: var(--orange); color: var(--bg-dark); padding: 8px 20px; border-radius: 50px; font-weight: 700; font-size: 12px; text-decoration: none; transition: all 0.2s; text-transform: uppercase; letter-spacing: 0.5px; }
+        .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(255,152,0,0.35); background: var(--orange-light); }
         .nav-burger { display: none; background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; padding: 4px 8px; }
         .mobile-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 99; }
         .mobile-overlay.active { display: block; }
-        @media (max-width: 768px) { .nav-burger { display: block; z-index: 101; } .nav-links { position: fixed; top: 0; right: -100%; width: 70%; max-width: 300px; height: 100vh; background: var(--bg-card); flex-direction: column; padding: 80px 32px 32px; gap: 24px; transition: right 0.3s ease; z-index: 100; border-left: 1px solid var(--border); } .nav-links.active { right: 0; } .nav-links a { margin-left: 0; font-size: 1.1rem; padding: 8px 0; border-bottom: 1px solid var(--border); width: 100%; text-transform: none; } }
+        @media (max-width: 768px) { .nav-links { position: fixed; top: 0; right: -100%; width: 70%; max-width: 300px; height: 100vh; background: var(--bg-card); flex-direction: column; padding: 80px 32px 32px; gap: 24px; transition: right 0.3s ease; z-index: 100; border-left: 1px solid var(--border); justify-content: flex-start; } .nav-links.active { right: 0; } .nav-links a { margin-left: 0; font-size: 1.1rem; padding: 8px 0; border-bottom: 1px solid var(--border); width: 100%; text-transform: none; } .nav-burger { display: block; z-index: 101; } .nav-cta { display: none; } }
         
         /* ===== HERO ===== */
         .hero { position: relative; min-height: 85vh; padding-top: 72px; background: linear-gradient(135deg, #120B1E 0%, #3D1959 50%, #2D1B4E 100%); overflow: hidden; display: flex; align-items: center; }
         .hero .container { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; text-align: left; }
         @media (max-width: 768px) { .hero .container { grid-template-columns: 1fr; gap: 40px; text-align: center; } }
-        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,152,0,0.15); border: 1px solid rgba(255,152,0,0.3); color: #FFB74D; padding: 8px 16px; border-radius: 100px; font-size: 13px; font-weight: 600; margin-bottom: 24px; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,152,0,0.15); border: 1px solid rgba(255,152,0,0.3); color: #FFB74D; padding: 8px 16px; border-radius: 100px; font-size: 13px; font-weight: 600; margin-bottom: 24px; margin-top: 24px; }
         .hero h1 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(36px, 5vw, 64px); line-height: 1.1; color: var(--white); letter-spacing: -1.5px; margin-bottom: 24px; }
         .hero h1 span { color: var(--orange); }
         .hero p { font-size: clamp(16px, 2vw, 20px); line-height: 1.6; color: rgba(255,255,255,0.75); margin-bottom: 32px; max-width: 480px; }
@@ -606,13 +609,14 @@
 <nav class="nav">
     <div class="container">
         <a href="https://kimicito.github.io/logistoria-website/index-ru.html" class="nav-logo">Логисториа<span>.</span></a>
-        <button class="nav-burger" id="navBurger" aria-label="Меню">☰</button>
         <div class="nav-links" id="navLinks">
             <a href="#about">О курсе</a>
             <a href="#modules">Модули</a>
             <a href="#audience">Аудитория</a>
             <a href="#contact">Контакты</a>
         </div>
+        <a href="mailto:project@logistoria.com?subject=Курс%20Логистика" class="nav-cta">Получить программу</a>
+        <button class="nav-burger" id="navBurger" aria-label="Меню">☰</button>
     </div>
 </nav>
 
@@ -622,11 +626,11 @@
     <div class="container">
         <div>
             <div class="hero-badge">Первый курс про логистику для школьников и студентов</div>
-            <h1>Логистика для <span>школьников</span></h1>
+            <h1>Логистика для <span>школьников и студентов</span></h1>
             <p>Игровой профориентационный курс. 5 модулей, практика на реальных кейсах — от завода до доставки клиенту.</p>
             <div class="hero-buttons">
-                <a href="mailto:project@logistoria.com?subject=Курс%20Логистика" class="btn-primary">Получить программу</a>
                 <a href="#about" class="btn-secondary">Узнать больше</a>
+                <a href="#modules" class="btn-secondary">Смотреть модули</a>
             </div>
             <div class="hero-stats">
                 <div class="hero-stat">
@@ -708,7 +712,7 @@
                 <div class="module-num">01</div>
                 <div class="module-content">
                     <h3>Завод</h3>
-                    <img src="images/modul01_zavod-01.png" alt="Завод — превью" style="width:100%; border-radius:12px; margin:10px 0; max-height:200px; object-fit:cover;">
+                    <img src="images/modul01_zavod-01.png" alt="Завод — превью" style="width:100%; border-radius:12px; margin:10px 0; ">
                     <p><strong>4 задания:</strong> размещение оборудования (поиск кратчайшего маршрута), бутылочное горлышко (оптимизация потока), Push vs Pull (когда производить), спроектируй свой завод.</p>
                     <p style="margin-top:8px; font-size:0.85rem; color:var(--text-muted);">🎥 Видео: АвтоВАЗ, производство шариковых ручек</p>
                     <span class="module-tag">Производство</span>
@@ -719,7 +723,7 @@
                 <div class="module-num">02</div>
                 <div class="module-content">
                     <h3>Склад</h3>
-                    <img src="images/modul02_sklad-01.png" alt="Склад — превью" style="width:100%; border-radius:12px; margin:10px 0; max-height:200px; object-fit:cover;">
+                    <img src="images/modul02_sklad-01.png" alt="Склад — превью" style="width:100%; border-radius:12px; margin:10px 0; ">
                     <p><strong>2 задания + расчёты:</strong> оптимальное расположение товаров на складе (уменьшение времени сбора с 80 до 60 минут), расчёт складских запасов по месяцам, прогнозирование спроса. Кейс: Amazon.</p>
                     <p style="margin-top:8px; font-size:0.85rem; color:var(--text-muted);">🎥 Видео: Amazon, автоматизация на складе Volkswagen</p>
                     <span class="module-tag">Хранение</span>
@@ -730,7 +734,7 @@
                 <div class="module-num">03</div>
                 <div class="module-content">
                     <h3>Порты</h3>
-                    <img src="images/modul03_porty-01.png" alt="Порты — превью" style="width:100%; border-radius:12px; margin:10px 0; max-height:200px; object-fit:cover;">
+                    <img src="images/modul03_porty-01.png" alt="Порты — превью" style="width:100%; border-radius:12px; margin:10px 0; ">
                     <p><strong>4 задания:</strong> виды грузов (штучный/навалочный), контейнеры и их укладка (игра), крепление контейнеров, поиск слов (портовая терминология). Кейс: порт Новороссийск — один из крупнейших в мире.</p>
                     <p style="margin-top:8px; font-size:0.85rem; color:var(--text-muted);">🎥 Видео: порт Новороссийск изнутри</p>
                     <span class="module-tag">Морская логистика</span>
@@ -741,7 +745,7 @@
                 <div class="module-num">04</div>
                 <div class="module-content">
                     <h3>Транспорт</h3>
-                    <img src="images/modul04_transport-01.png" alt="Транспорт — превью" style="width:100%; border-radius:12px; margin:10px 0; max-height:200px; object-fit:cover;">
+                    <img src="images/modul04_transport-01.png" alt="Транспорт — превью" style="width:100%; border-radius:12px; margin:10px 0; ">
                     <p><strong>5 заданий:</strong> ваши транспортные средства, выбор оптимального способа доставки, расчёт стоимости (самолёт vs судно), дистрибьюторская сеть, планирование маршрута (игра Traveling Salesman).</p>
                     <p style="margin-top:8px; font-size:0.85rem; color:var(--text-muted);">🎥 Видео: дистрибуция из Чили/Нидерландов, Müller Fresh Food Logistics</p>
                     <span class="module-tag">Перевозки</span>
@@ -752,7 +756,7 @@
                 <div class="module-num">05</div>
                 <div class="module-content">
                     <h3>E-commerce</h3>
-                    <img src="images/modul05_ecom-01.png" alt="E-commerce — превью" style="width:100%; border-radius:12px; margin:10px 0; max-height:200px; object-fit:cover;">
+                    <img src="images/modul05_ecom-01.png" alt="E-commerce — превью" style="width:100%; border-radius:12px; margin:10px 0; ">
                     <p><strong>3 задания:</strong> преимущества и неудобства для клиента и продавца, этапы обработки заказа (связать тексты с этапами), возврат товара. Кейс: Bol.com. Кроссворд и итоговый тест.</p>
                     <p style="margin-top:8px; font-size:0.85rem; color:var(--text-muted);">🎥 Видео: Bol.com — логистика онлайн-торговли</p>
                     <span class="module-tag">Онлайн-торговля</span>
@@ -818,7 +822,7 @@
                 <div style="font-size:2.5rem; margin-bottom:16px;">📦</div>
                 <h3 style="font-size:1.2rem; margin-bottom:8px;">Кроссдок</h3>
                 <p style="font-size:0.9rem; margin-bottom:16px;">Классическая настольная игра по логистике. Игроки управляют звеньями цепочки поставок, учатся оптимизировать запасы и минимизировать издержки.</p>
-                <a href="https://kimicito.github.io/logistoria-website/crossdok.html" class="btn-primary" style="padding:10px 20px; font-size:0.85rem;">Подробнее →</a>
+                <a href="https://www.krossdok.ru" class="btn-primary" style="padding:10px 20px; font-size:0.85rem;">Подробнее →</a>
             </div>
         </div>
     </div>
@@ -851,7 +855,7 @@
                 <a href="https://kimicito.github.io/logistoria-website/kadena.html">КАДЕНА</a>
                 <a href="https://kimicito.github.io/logistoria-website/thebeergame.html">The Beer Game</a>
                 <a href="https://kimicito.github.io/logistoria-website/auction-bot.html">Auction Bot</a>
-                <a href="https://kimicito.github.io/logistoria-website/crossdok.html">Кроссдок</a>
+                <a href="https://www.krossdok.ru">Кроссдок</a>
             </div>
             <div class="footer-col">
                 <h4>Язык</h4>
