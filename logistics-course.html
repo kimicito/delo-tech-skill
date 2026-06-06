@@ -490,6 +490,19 @@
             padding: 80px 0;
             text-align: center;
         }
+        .gradient-cta {
+            background: linear-gradient(135deg, #120B1E 0%, #3D1959 50%, #2D1B4E 100%) !important;
+            position: relative;
+            overflow: hidden;
+        }
+        .gradient-cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at top right, rgba(255,152,0,0.15) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .gradient-cta .container { position: relative; z-index: 2; }
         
         .cta-section h2 {
             font-size: 2.2rem;
@@ -532,7 +545,7 @@
         
         .footer-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
             gap: 40px;
             margin-bottom: 40px;
         }
@@ -615,7 +628,7 @@
             <a href="#audience">Аудитория</a>
             <a href="#contact">Контакты</a>
         </div>
-        <a href="mailto:project@logistoria.com?subject=Курс%20Логистика" class="nav-cta">Получить программу</a>
+        <a href="#contact" class="nav-cta">Получить программу</a>
         <button class="nav-burger" id="navBurger" aria-label="Меню">☰</button>
     </div>
 </nav>
@@ -629,7 +642,7 @@
             <h1>Логистика для <span>школьников и студентов</span></h1>
             <p>Игровой профориентационный курс. 5 модулей, практика на реальных кейсах — от завода до доставки клиенту.</p>
             <div class="hero-buttons">
-                <a href="mailto:project@logistoria.com?subject=Курс%20Логистика" class="btn-primary">Получить программу</a>
+                <a href="#contact" class="btn-primary">Получить программу</a>
                 <a href="#about" class="btn-secondary">Узнать больше</a>
                 <a href="#modules" class="btn-secondary">Смотреть модули</a>
             </div>
@@ -795,7 +808,7 @@
 </section>
 
 <!-- OTHER COURSES -->
-<section class="section section-dark" id="courses">
+<section class="section section-light" id="courses">
     <div class="container">
         <div class="section-label">Экосистема Logistoria</div>
         <h2 class="section-title">Другие программы</h2>
@@ -829,15 +842,14 @@
     </div>
 </section>
 
-<!-- CTA (dark) -->
-<section class="cta-section" id="contact">
+<!-- CTA (gradient) -->
+<section class="cta-section gradient-cta" id="contact">
     <div class="container">
         <h2>Готовы узнать, что такое логистика?</h2>
         <p>Запросите программу курса или запишите класс на демо-урок. Первый модуль «Завод» можно провести прямо сейчас.</p>
-        <a href="mailto:project@logistoria.com?subject=Курс%20Логистика%20для%20школьников" class="btn-primary">Получить программу курса</a>
+        <a href="#" class="btn-primary" onclick="alert('Форма заявки в разработке. Пожалуйста, свяжитесь с нами по телефону +7 499 288 73 71.')">Получить программу курса</a>
         <div class="contact-info">
             <a href="tel:+74992887371">+7 499 288 73 71</a>
-            <a href="mailto:project@logistoria.com">project@logistoria.com</a>
             <a href="https://www.logistoria.com">www.logistoria.com</a>
         </div>
     </div>
@@ -850,6 +862,14 @@
             <div class="footer-brand">
                 <h3>Логисториа<span>.</span></h3>
                 <p>Образовательные игры и симуляции для обучения логистике, управлению цепочками поставок и стратегическому мышлению.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Навигация</h4>
+                <a href="https://kimicito.github.io/logistoria-website/index-ru.html">Главная</a>
+                <a href="https://kimicito.github.io/logistoria-website/kadena.html">КАДЕНА</a>
+                <a href="https://kimicito.github.io/logistoria-website/thebeergame.html">The Beer Game</a>
+                <a href="https://kimicito.github.io/logistoria-website/auction-bot.html">Auction Bot</a>
+                <a href="https://www.krossdok.ru">Кроссдок</a>
             </div>
             <div class="footer-col">
                 <h4>Игры</h4>
