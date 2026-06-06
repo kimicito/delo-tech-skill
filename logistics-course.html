@@ -32,12 +32,14 @@
             background: var(--bg-light);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
         
         .container {
             max-width: 900px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 0 20px;
+            width: 100%;
         }
         
         /* ===== NAV ===== */
@@ -69,16 +71,64 @@
         
         .nav-logo span { color: var(--orange); }
         
-        .nav-links a {
-            color: var(--text-muted-light);
-            text-decoration: none;
-            font-size: 0.9rem;
-            margin-left: 28px;
-            transition: color 0.2s;
-            font-weight: 500;
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
         }
         
-        .nav-links a:hover { color: var(--orange); }
+        .nav-burger {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 4px 8px;
+        }
+        
+        .mobile-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 99;
+        }
+        
+        .mobile-overlay.active { display: block; }
+        
+        @media (max-width: 768px) {
+            .nav-burger {
+                display: block;
+                z-index: 101;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                max-width: 300px;
+                height: 100vh;
+                background: var(--bg-card);
+                flex-direction: column;
+                padding: 80px 32px 32px;
+                gap: 24px;
+                transition: right 0.3s ease;
+                z-index: 100;
+                border-left: 1px solid var(--border);
+            }
+            
+            .nav-links.active { right: 0; }
+            
+            .nav-links a {
+                margin-left: 0;
+                font-size: 1.1rem;
+                padding: 8px 0;
+                border-bottom: 1px solid var(--border);
+                width: 100%;
+            }
+        }
         
         /* ===== HERO ===== */
         .hero {
@@ -332,7 +382,7 @@
         
         .courses-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 20px;
         }
         
@@ -616,11 +666,15 @@
 </head>
 <body>
 
+<!-- MOBILE MENU OVERLAY -->
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
 <!-- NAV -->
 <nav class="nav">
     <div class="container">
-        <a href="/" class="nav-logo">LOGISTORIA<span>.</span></a>
-        <div class="nav-links">
+        <a href="https://kimicito.github.io/logistoria-website/index-ru.html" class="nav-logo">Логисториа<span>.</span></a>
+        <button class="nav-burger" id="navBurger" aria-label="Меню">☰</button>
+        <div class="nav-links" id="navLinks">
             <a href="#about">О курсе</a>
             <a href="#modules">Модули</a>
             <a href="#audience">Аудитория</a>
@@ -672,7 +726,7 @@
         <p class="section-sub">Профессия логиста в ТОП-15 запросов работодателей. Но старшеклассники не выбирают её, потому что не понимают, чем там занимаются.</p>
         <div class="quote-block">
             <p>«Логистика — это бесконечная и захватывающая интеллектуальная игра. 80% работы — логика оптимального товародвижения, 20% — математика.»</p>
-            <div class="author">— Разработчики курса, «Арап и Ко»</div>
+            <div class="author">— Разработчики курса</div>
         </div>
     </div>
 </section>
@@ -825,6 +879,12 @@
                 <p style="font-size:0.9rem; margin-bottom:16px;">Симуляция аукциона с AI-участниками. Обучение закупкам, переговорам, стратегическому мышлению.</p>
                 <a href="/auction-bot.html" class="btn-primary" style="padding:10px 20px; font-size:0.85rem;">Подробнее →</a>
             </div>
+            <div class="feature-card" style="text-align:left; padding:32px;">
+                <div style="font-size:2.5rem; margin-bottom:16px;">📦</div>
+                <h3 style="font-size:1.2rem; margin-bottom:8px;">Кроссдок</h3>
+                <p style="font-size:0.9rem; margin-bottom:16px;">Классическая настольная игра по логистике. Игроки управляют звеньями цепочки поставок, учатся оптимизировать запасы и минимизировать издержки.</p>
+                <a href="/crossdok.html" class="btn-primary" style="padding:10px 20px; font-size:0.85rem;">Подробнее →</a>
+            </div>
         </div>
     </div>
 </section>
@@ -848,7 +908,7 @@
     <div class="container">
         <div class="footer-grid">
             <div class="footer-brand">
-                <h3>LOGISTORIA<span>.</span></h3>
+                <h3>Логисториа<span>.</span></h3>
                 <p>Образовательные игры и симуляции для обучения логистике, управлению цепочками поставок и стратегическому мышлению.</p>
             </div>
             <div class="footer-col">
@@ -856,6 +916,7 @@
                 <a href="/kadena.html">КАДЕНА</a>
                 <a href="/thebeergame.html">The Beer Game</a>
                 <a href="/auction-bot.html">Auction Bot</a>
+                <a href="/crossdok.html">Кроссдок</a>
             </div>
             <div class="footer-col">
                 <h4>Язык</h4>
@@ -868,6 +929,29 @@
         </div>
     </div>
 </footer>
+
+<script>
+// Mobile burger menu
+const burger = document.getElementById('navBurger');
+const links = document.getElementById('navLinks');
+const overlay = document.getElementById('mobileOverlay');
+
+function toggleMenu() {
+    links.classList.toggle('active');
+    overlay.classList.toggle('active');
+    burger.textContent = links.classList.contains('active') ? '✕' : '☰';
+}
+
+burger.addEventListener('click', toggleMenu);
+overlay.addEventListener('click', toggleMenu);
+
+// Close menu on link click
+links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    links.classList.remove('active');
+    overlay.classList.remove('active');
+    burger.textContent = '☰';
+}));
+</script>
 
 </body>
 </html>
