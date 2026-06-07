@@ -637,7 +637,7 @@
             <a href="logistics-course.html" class="nav-link" style="margin-right:4px;font-size:13px;font-weight:700;">RU</a>
             <a href="logistics-course-es.html" class="nav-link" style="margin-right:8px;font-size:13px;">ES</a>
         </div>
-        <a href="#contact" class="nav-cta">Получить программу</a>
+        <a href="#contact" class="nav-cta" onclick="openProgramModal();return false;">Получить программу</a>
         <button class="nav-burger" id="navBurger" aria-label="Меню">☰</button>
     </div>
 </nav>
@@ -651,7 +651,7 @@
             <h1>Логистика для <span>школьников и студентов</span></h1>
             <p>Игровой профориентационный курс. 5 модулей, практика на реальных кейсах — от завода до доставки клиенту.</p>
             <div class="hero-buttons">
-                <a href="#contact" class="btn-primary">Получить программу</a>
+                <a href="#contact" class="btn-primary" onclick="openProgramModal();return false;">Получить программу</a>
                 <a href="#about" class="btn-secondary">Узнать больше</a>
                 <a href="#modules" class="btn-secondary">Смотреть модули</a>
             </div>
@@ -970,6 +970,35 @@ if (canvas) {
     }
     draw();
 }
+<!-- Program Modal -->
+<div class="modal" id="programModal" style="display:none;position:fixed;inset:0;background:rgba(18,11,30,0.85);backdrop-filter:blur(8px);z-index:200;align-items:center;justify-content:center;padding:24px;">
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;max-width:440px;width:100%;padding:40px;position:relative;">
+    <button onclick="closeProgramModal()" style="position:absolute;top:16px;right:16px;background:none;border:none;color:var(--gray);font-size:20px;cursor:pointer;">✕</button>
+    <h3 style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:22px;color:var(--white);margin-bottom:8px;">Получить программу курса</h3>
+    <p style="color:var(--gray);font-size:14px;margin-bottom:24px;">Оставьте свой email — отправим программу курса по логистике.</p>
+    <form action="https://formsubmit.co/project@logistoria.com" method="POST">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_subject" value="Запрос программы курса - Логисториа">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_next" value="https://kimicito.github.io/logistoria-website/logistics-course.html?program=thanks">
+      <div style="margin-bottom:16px;">
+        <label style="display:block;font-size:12px;color:var(--gray);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Email *</label>
+        <input type="email" name="email" required placeholder="your@email.com" style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--white);font-size:14px;">
+      </div>
+      <div style="margin-bottom:20px;">
+        <label style="display:block;font-size:12px;color:var(--gray);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Имя</label>
+        <input type="text" name="name" placeholder="Иван Иванов" style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--white);font-size:14px;">
+      </div>
+      <button type="submit" style="width:100%;background:var(--orange);color:var(--bg);border:none;border-radius:8px;padding:14px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:14px;cursor:pointer;">Получить программу</button>
+    </form>
+  </div>
+</div>
+<script>
+function openProgramModal() { document.getElementById('programModal').style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+function closeProgramModal() { document.getElementById('programModal').style.display = 'none'; document.body.style.overflow = ''; }
+document.getElementById('programModal').addEventListener('click', function(e) { if (e.target === this) closeProgramModal(); });
+</script>
+
 </script>
 </body>
 </html>

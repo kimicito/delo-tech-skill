@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Auction Bot — Игра-аукцион в Telegram</title>
+<title>Auction Bot — Auction Game in Telegram</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
@@ -224,18 +224,18 @@ footer { background: var(--violet-deep); color: rgba(255,255,255,0.6); padding: 
 <!-- ==================== HEADER ==================== -->
 <div class="nav" id="mainNav">
   <div class="nav-container">
-    <a href="index-ru.html" class="nav-logo">Логисториа<span class="nav-logo-dot">.</span></a>
+    <a href="index-en.html" class="nav-logo">Logistoria<span class="nav-logo-dot">.</span></a>
     <nav class="nav-links">
-      <a href="#start" class="nav-link">Как начать</a>
-      <a href="#about" class="nav-link">Суть игры</a>
-      <a href="#rules" class="nav-link">Правила</a>
-      <a href="#strategy" class="nav-link">Стратегия</a>
+      <a href="#start" class="nav-link">How to Start</a>
+      <a href="#about" class="nav-link">The Game</a>
+      <a href="#rules" class="nav-link">Rules</a>
+      <a href="#strategy" class="nav-link">Strategy</a>
     </nav>
     <div class="nav-right">
-      <a href="auction-bot-en.html" class="nav-link" style="margin-right:4px;font-size:13px;">EN</a>
-      <a href="auction-bot.html" class="nav-link" style="margin-right:4px;font-size:13px;font-weight:700;">RU</a>
+      <a href="auction-bot-en.html" class="nav-link" style="margin-right:4px;font-size:13px;font-weight:700;">EN</a>
+      <a href="auction-bot.html" class="nav-link" style="margin-right:4px;font-size:13px;">RU</a>
       <a href="auction-bot-es.html" class="nav-link" style="margin-right:8px;font-size:13px;">ES</a>
-      <a href="https://t.me/Auction_play_bot" class="btn btn-primary btn-small" target="_blank">Играть в Telegram</a>
+      <a href="https://t.me/Auction_play_bot" class="btn btn-primary btn-small" target="_blank">Play in Telegram</a>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
@@ -246,11 +246,11 @@ footer { background: var(--violet-deep); color: rgba(255,255,255,0.6); padding: 
 <div class="mobile-overlay" id="mobileOverlay"></div>
 <div class="mobile-menu" id="mobileMenu">
   <button class="mobile-close" id="mobileClose"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-  <a href="#start" class="mobile-link">Как начать</a>
-  <a href="#about" class="mobile-link">Суть игры</a>
-  <a href="#rules" class="mobile-link">Правила</a>
-  <a href="#strategy" class="mobile-link">Стратегия</a>
-  <a href="auction-bot-en.html" class="mobile-link">English version</a>
+  <a href="#start" class="mobile-link">How to Start</a>
+  <a href="#about" class="mobile-link">The Game</a>
+  <a href="#rules" class="mobile-link">Rules</a>
+  <a href="#strategy" class="mobile-link">Strategy</a>
+  <a href="auction-bot.html" class="mobile-link">Russian version</a>
   <a href="auction-bot-es.html" class="mobile-link">Versión en español</a>
 </div>
 
@@ -261,21 +261,21 @@ footer { background: var(--violet-deep); color: rgba(255,255,255,0.6); padding: 
     <div>
       <div class="hero-badge">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-        Telegram-бот
+        Telegram Bot
       </div>
       <h1>Auction <span>Bot</span></h1>
-      <p class="hero-subtitle">Игра-аукцион со скрытыми картами. Угадай истинную стоимость лота, перехитри соперников и избегай проклятия победителя.</p>
+      <p class="hero-subtitle">Auction game with hidden cards. Guess the true value of the lot, outsmart rivals, and avoid the winner's curse.</p>
       <div class="hero-buttons">
         <a href="https://t.me/Auction_play_bot" class="btn btn-primary btn-large" target="_blank">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-          Добавить бота
+          Add Bot
         </a>
-        <a href="#rules" class="btn btn-secondary btn-large">Как играть</a>
+        <a href="#rules" class="btn btn-secondary btn-large">How to Play</a>
       </div>
       <div class="hero-stats">
-        <div class="stat-item"><div class="stat-number">2-8</div><div class="stat-label">игроков</div></div>
-        <div class="stat-item"><div class="stat-number">5</div><div class="stat-label">раундов</div></div>
-        <div class="stat-item"><div class="stat-number">15</div><div class="stat-label">минут</div></div>
+        <div class="stat-item"><div class="stat-number">2-8</div><div class="stat-label">players</div></div>
+        <div class="stat-item"><div class="stat-number">5</div><div class="stat-label">rounds</div></div>
+        <div class="stat-item"><div class="stat-number">15</div><div class="stat-label">minutes</div></div>
       </div>
     </div>
     <div class="hero-visual">
@@ -283,8 +283,8 @@ footer { background: var(--violet-deep); color: rgba(255,255,255,0.6); padding: 
         <div class="hero-card-icon">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
         </div>
-        <div class="hero-card-title">Твоя ставка?</div>
-        <div class="hero-card-text">Каждый раунд — новый лот. Карты 1-6, сумма = цена. Торгуйся, блефуй, побеждай.</div>
+        <div class="hero-card-title">Your Bid?</div>
+        <div class="hero-card-text">Every round — a new lot. Cards 1-6, sum = price. Bid, bluff, win.</div>
         <div style="display:flex;gap:8px;justify-content:center;margin-top:16px;">
           <span style="width:40px;height:56px;background:rgba(255,152,0,0.2);border:1px solid rgba(255,152,0,0.4);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:800;font-size:20px;color:var(--orange-primary);">5</span>
           <span style="width:40px;height:56px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:800;font-size:20px;color:rgba(255,255,255,0.6);">?</span>
@@ -299,34 +299,34 @@ footer { background: var(--violet-deep); color: rgba(255,255,255,0.6); padding: 
 <section class="how-to" id="start">
   <div class="container">
     <div class="section-header">
-      <div class="section-label">Начало игры</div>
-      <h2 class="section-title">Как запустить аукцион за 4 шага</h2>
-      <p class="section-subtitle">Добавьте бота в группу с друзьями — и начинайте торги прямо в Telegram.</p>
+      <div class="section-label">Game Start</div>
+      <h2 class="section-title">How to Start the Auction in 4 Steps</h2>
+      <p class="section-subtitle">Add the bot to a group with friends — and start bidding right in Telegram.</p>
     </div>
     <div class="steps-grid">
       <div class="step-card reveal">
         <div class="step-number">1</div>
         <svg class="step-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        <div class="step-title">Добавьте бота</div>
-        <div class="step-desc">Добавьте <b>@Auction_play_bot</b> в группу Telegram с друзьями. Боту нужны права администратора.</div>
+        <div class="step-title">Add the Bot</div>
+        <div class="step-desc">Add <b>@Auction_play_bot</b> to a Telegram group with friends. The bot needs admin rights.</div>
       </div>
       <div class="step-card reveal">
         <div class="step-number">2</div>
         <svg class="step-icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        <div class="step-title">Создайте игру</div>
-        <div class="step-desc">Напишите <b>/newgame</b> в группе. Бот создаст лобби и выдаст каждому карты 1–6. Можно сразу задать количество: <b>/startgame 8</b> (8 карт вместо 6).</div>
+        <div class="step-title">Create Game</div>
+        <div class="step-desc">Type <b>/newgame</b> in the group. The bot will create a lobby and deal cards 1–6 to everyone. You can set the count right away: <b>/startgame 8</b> (8 cards instead of 6).</div>
       </div>
       <div class="step-card reveal">
         <div class="step-number">3</div>
         <svg class="step-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        <div class="step-title">Пригласите друзей</div>
-        <div class="step-desc">Друзья пишут <b>/join</b>, чтобы войти в лобби. Не хватает людей? Добавьте ботов командой <b>/addbots</b> — бот заполнит пустые слоты автоматически.</div>
+        <div class="step-title">Invite Friends</div>
+        <div class="step-desc">Friends type <b>/join</b> to enter the lobby. Not enough people? Add bots with <b>/addbots</b> — the bot will fill empty slots automatically.</div>
       </div>
       <div class="step-card reveal">
         <div class="step-number">4</div>
         <svg class="step-icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-        <div class="step-title">Начните торги</div>
-        <div class="step-desc">Напишите боту в личные сообщения: <b>/card 1</b> (или 2–6). Каждая карта используется один раз за игру. Торги начинаются в группе!</div>
+        <div class="step-title">Start Bidding</div>
+        <div class="step-desc">Message the bot privately: <b>/card 1</b> (or 2–6). Each card is used once per game. Bidding starts in the group!</div>
       </div>
     </div>
   </div>
@@ -337,42 +337,42 @@ footer { background: var(--violet-deep); color: rgba(255,255,255,0.6); padding: 
   <div class="container">
     <div class="about-grid">
       <div class="about-text">
-        <div class="section-label">Суть игры</div>
-        <h2>Почему аукцион — это <br>не просто удача?</h2>
-        <p>Каждый раунд аукционист выбирает вещь для продажи. Все игроки тайно выбирают по одной карте от 1 до 6. <b>Сумма этих карт — истинная стоимость лота.</b></p>
-        <p>Затем начинаются торги. По очереди игроки либо повышают ставку, либо выходят из аукциона. Когда остаётся один, он покупает лот по своей последней ставке.</p>
-        <p>Очки = истинная стоимость − цена покупки. Купил дешево — получил плюс. Переплатил — минус.</p>
+        <div class="section-label">The Game</div>
+        <h2>Why is an auction <br>not just luck?</h2>
+        <p>Every round the auctioneer chooses an item to sell. All players secretly choose one card from 1 to 6. <b>The sum of these cards is the true value of the lot.</b></p>
+        <p>Then bidding begins. Players take turns either raising the bid or dropping out. When one remains, they buy the lot at their last bid.</p>
+        <p>Points = true value − purchase price. Bought cheap — get a plus. Overpaid — minus.</p>
         <div style="margin-top:24px;background:var(--white);border-radius:var(--radius-lg);padding:24px;box-shadow:var(--shadow-card);">
-          <div style="font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--text-heading);margin-bottom:12px;">📊 Пример подсчёта очков</div>
-          <p style="font-size:14px;color:var(--text-body);margin-bottom:8px;"><b>Карты игроков:</b> 5 + 3 + 2 + 4 = <b>Истинная стоимость: 14</b></p>
-          <p style="font-size:14px;color:var(--text-body);margin-bottom:8px;"><b>Победная ставка:</b> 12 → Очки: 14 − 12 = <span style="color:#27ae60;font-weight:700;">+2 ✅</span></p>
-          <p style="font-size:14px;color:var(--text-body);"><b>Переплата:</b> 16 → Очки: 14 − 16 = <span style="color:#e74c3c;font-weight:700;">−2 ❌</span> (проклятие победителя)</p>
+          <div style="font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--text-heading);margin-bottom:12px;">📊 Score Calculation Example</div>
+          <p style="font-size:14px;color:var(--text-body);margin-bottom:8px;"><b>Players' cards:</b> 5 + 3 + 2 + 4 = <b>True value: 14</b></p>
+          <p style="font-size:14px;color:var(--text-body);margin-bottom:8px;"><b>Winning bid:</b> 12 → Points: 14 − 12 = <span style="color:#27ae60;font-weight:700;">+2 ✅</span></p>
+          <p style="font-size:14px;color:var(--text-body);"><b>Overpayment:</b> 16 → Points: 14 − 16 = <span style="color:#e74c3c;font-weight:700;">−2 ❌</span> (winner's curse)</p>
         </div>
       </div>
       <div class="about-quote" style="grid-column: 1 / -1; margin: 0 0 24px;">
-        <p>Игра полна пирровых побед, когда триумфаторы вынуждены слишком много платить за приз. Это явление аукционные экономисты окрестили «проклятием победителя».</p>
+        <p>The game is full of Pyrrhic victories where winners are forced to pay too much for the prize. Auction economists called this phenomenon the 'winner's curse'.</p>
       </div>
       <div class="about-visual">
         <div class="about-cards">
           <div class="about-card">
             <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-            <h4>30 лотов</h4>
-            <p>Уникальные вещи с описаниями</p>
+            <h4>30 lots</h4>
+            <p>Unique items with descriptions</p>
           </div>
           <div class="about-card">
             <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-            <h4>6 карт</h4>
-            <p>Тайный выбор каждый раунд</p>
+            <h4>6 cards</h4>
+            <p>Secret choice every round</p>
           </div>
           <div class="about-card">
             <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
-            <h4>Победа</h4>
-            <p>Больше очков за 5 раундов</p>
+            <h4>Victory</h4>
+            <p>More points over 5 rounds</p>
           </div>
           <div class="about-card">
             <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-            <h4>Блеф</h4>
-            <p>Играйте большую карту, но действуйте как будто маленькая</p>
+            <h4>Bluff</h4>
+            <p>Play a big card, but act like it's small</p>
           </div>
         </div>
       </div>
@@ -384,40 +384,40 @@ footer { background: var(--violet-deep); color: rgba(255,255,255,0.6); padding: 
 <section class="rules" id="rules">
   <div class="container">
     <div class="section-header">
-      <div class="section-label">Правила</div>
-      <h2 class="section-title">5 шагов одного раунда</h2>
-      <p class="section-subtitle">Поняв механику одного раунда, вы освоите всю игру.</p>
+      <div class="section-label">Rules</div>
+      <h2 class="section-title">5 Steps of One Round</h2>
+      <p class="section-subtitle">Once you understand one round's mechanics, you've mastered the whole game.</p>
     </div>
     <div class="rules-grid">
       <div class="rule-card reveal">
         <svg class="rule-icon" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-        <div class="rule-step">Шаг 1</div>
-        <div class="rule-title">Лот на продажу</div>
-        <div class="rule-desc">Аукционист выбирает вещь из каталога. Бот красочно её описывает — всем захочется купить.</div>
+        <div class="rule-step">Step 1</div>
+        <div class="rule-title">Lot for Sale</div>
+        <div class="rule-desc">The auctioneer picks an item from the catalog. The bot describes it vividly — everyone will want to buy it.</div>
       </div>
       <div class="rule-card reveal">
         <svg class="rule-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        <div class="rule-step">Шаг 2</div>
-        <div class="rule-title">Тайная оценка</div>
-        <div class="rule-desc">Каждый игрок в личку боту выбирает одну карту от 1 до 6. Использованная карта сгорает до конца игры.</div>
+        <div class="rule-step">Step 2</div>
+        <div class="rule-title">Secret Assessment</div>
+        <div class="rule-desc">Each player privately messages the bot to choose one card from 1 to 6. Used cards are burned until the end of the game.</div>
       </div>
       <div class="rule-card reveal">
         <svg class="rule-icon" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-        <div class="rule-step">Шаг 3</div>
-        <div class="rule-title">Истинная стоимость</div>
-        <div class="rule-desc">Сумма всех выбранных карт = реальная цена лота. Никому не известна до конца торгов.</div>
+        <div class="rule-step">Step 3</div>
+        <div class="rule-title">True Value</div>
+        <div class="rule-desc">Sum of all chosen cards = real lot price. Unknown to anyone until the end of bidding.</div>
       </div>
       <div class="rule-card reveal">
         <svg class="rule-icon" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-        <div class="rule-step">Шаг 4</div>
-        <div class="rule-title">Аукцион</div>
-        <div class="rule-desc">По очереди: повышайте ставку или пасуйте («пас»). Выбывший открывает свою карту — подсказка для остальных.</div>
+        <div class="rule-step">Step 4</div>
+        <div class="rule-title">Auction</div>
+        <div class="rule-desc">Take turns: raise the bid or pass ("pass"). The eliminated player reveals their card — a hint for the rest.</div>
       </div>
       <div class="rule-card reveal">
         <svg class="rule-icon" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-        <div class="rule-step">Шаг 5</div>
-        <div class="rule-title">Покупка и очки</div>
-        <div class="rule-desc">Последний игрок покупает лот. Бот открывает истинную стоимость. Очки = истинная стоимость − ваша ставка. Купил дешево — плюс, переплатил — минус (проклятие победителя). После 5 раундов бот показывает итоговую таблицу — победитель с наибольшим счётом.</div>
+        <div class="rule-step">Step 5</div>
+        <div class="rule-title">Purchase & Points</div>
+        <div class="rule-desc">The last player buys the lot. The bot reveals the true value. Points = true value − your bid. Bought cheap — plus, overpaid — minus (winner's curse). After 5 rounds the bot shows the final table — the winner has the highest score.</div>
       </div>
     </div>
   </div>
@@ -427,46 +427,46 @@ footer { background: var(--violet-deep); color: rgba(255,255,255,0.6); padding: 
 <section class="how-to" id="commands" style="padding-top:60px;padding-bottom:60px;">
   <div class="container">
     <div class="section-header">
-      <div class="section-label">Команды</div>
-      <h2 class="section-title">Шпаргалка по командам</h2>
-      <p class="section-subtitle">Все команды, которые понадобятся за одну игру.</p>
+      <div class="section-label">Commands</div>
+      <h2 class="section-title">Command Cheat Sheet</h2>
+      <p class="section-subtitle">All commands you'll need for one game.</p>
     </div>
     <div class="steps-grid" style="grid-template-columns:repeat(3,1fr);">
       <div class="step-card reveal">
         <div class="step-number" style="background:var(--violet-primary);">G</div>
         <svg class="step-icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         <div class="step-title">/newgame</div>
-        <div class="step-desc">Создать лобби в группе. Бот определит язык автоматически.</div>
+        <div class="step-desc">Create a lobby in the group. The bot will detect language automatically.</div>
       </div>
       <div class="step-card reveal">
         <div class="step-number" style="background:var(--violet-primary);">G</div>
         <svg class="step-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         <div class="step-title">/join</div>
-        <div class="step-desc">Войти в лобби. Напишите в том же чате, где создали игру.</div>
+        <div class="step-desc">Join the lobby. Type in the same chat where the game was created.</div>
       </div>
       <div class="step-card reveal">
         <div class="step-number" style="background:var(--violet-primary);">G</div>
         <svg class="step-icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
         <div class="step-title">/startgame</div>
-        <div class="step-desc">Начать торги. <b>/startgame 8</b> — играть с 8 картами (сложнее).</div>
+        <div class="step-desc">Start bidding. <b>/startgame 8</b> — play with 8 cards (harder).</div>
       </div>
       <div class="step-card reveal">
         <div class="step-number" style="background:var(--violet-primary);">G</div>
         <svg class="step-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        <div class="step-title">/card (в личку)</div>
-        <div class="step-desc">Напишите боту в ЛС: <b>/card 1</b> (или 2–6). Выбор карты — тайный.</div>
+        <div class="step-title">/card (in DM)</div>
+        <div class="step-desc">Message the bot privately: <b>/card 1</b> (or 2–6). Card choice is secret.</div>
       </div>
       <div class="step-card reveal">
         <div class="step-number" style="background:var(--violet-primary);">G</div>
         <svg class="step-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         <div class="step-title">/addbots</div>
-        <div class="step-desc">Добавить ИИ-игроков. Боты заполнят пустые слоты автоматически.</div>
+        <div class="step-desc">Add AI players. Bots will fill empty slots automatically.</div>
       </div>
       <div class="step-card reveal">
         <div class="step-number" style="background:var(--violet-primary);">G</div>
         <svg class="step-icon" viewBox="0 0 24 24"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
         <div class="step-title">/stop</div>
-        <div class="step-desc">Остановить игру. Только создатель игры может использовать.</div>
+        <div class="step-desc">Stop the game. Only the game creator can use this.</div>
       </div>
     </div>
   </div>
@@ -476,25 +476,25 @@ footer { background: var(--violet-deep); color: rgba(255,255,255,0.6); padding: 
 <section class="strategy" id="strategy">
   <div class="container">
     <div class="section-header">
-      <div class="section-label" style="color:var(--orange-soft);">Стратегия</div>
-      <h2 class="section-title">Как не попасть в проклятие</h2>
-      <p class="section-subtitle">Два подхода, которые отделяют победителей от жертв аукциона.</p>
+      <div class="section-label" style="color:var(--orange-soft);">Strategy</div>
+      <h2 class="section-title">How to Avoid the Curse</h2>
+      <p class="section-subtitle">Two approaches that separate winners from auction victims.</p>
     </div>
     <div class="strategy-grid">
       <div class="strategy-card reveal">
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-        <h3>Блеф большой картой</h3>
-        <p>Выберите высокую карту (5 или 6), но действуйте как будто у вас мало. Соперники подумают, что истинная стоимость высока, и переплатят — а вы выиграете дёшево.</p>
+        <h3>Bluff with a Big Card</h3>
+        <p>Pick a high card (5 or 6), but act like you have little. Rivals will think the true value is high and overpay — while you win cheaply.</p>
       </div>
       <div class="strategy-card reveal">
         <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-        <h3>Блеф маленькой картой</h3>
-        <p>Выберите низкую карту (1 или 2), но действуйте уверенно. Соперники решат, что лот дешёвый, и выйдут рано — а вы заберёте лот самому.</p>
+        <h3>Bluff with a Small Card</h3>
+        <p>Pick a low card (1 or 2), but act confidently. Rivals will decide the lot is cheap and exit early — while you take the lot yourself.</p>
       </div>
       <div class="strategy-card reveal">
         <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-        <h3>Следите за картами</h3>
-        <p>Игроки, выбывшие из аукциона, открывают свои карты. Это даёт информацию о диапазоне истинной стоимости. Учитывайте это при ставках!</p>
+        <h3>Watch the Cards</h3>
+        <p>Players eliminated from the auction reveal their cards. This gives info about the true value range. Factor this into your bids!</p>
       </div>
     </div>
   </div>
@@ -504,11 +504,11 @@ footer { background: var(--violet-deep); color: rgba(255,255,255,0.6); padding: 
 <section class="cta">
   <div class="container">
     <div class="cta-box">
-      <h2>Готовы к торгам?</h2>
-      <p>Добавьте бота в группу, пригласите друзей — и узнайте, кто из вас лучший аукционист.</p>
+      <h2>Ready to Bid?</h2>
+      <p>Add the bot to a group, invite friends — and find out who's the best auctioneer.</p>
       <a href="https://t.me/Auction_play_bot" class="btn btn-primary btn-large" target="_blank">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-        Начать игру в Telegram
+        Start Game in Telegram
       </a>
     </div>
   </div>
@@ -519,24 +519,24 @@ footer { background: var(--violet-deep); color: rgba(255,255,255,0.6); padding: 
   <div class="container">
     <div class="footer-grid">
       <div>
-        <div class="footer-brand">Логисториа<span>.</span></div>
-        <p class="footer-desc">Образовательные игры и симуляции для обучения логистике, управлению цепочками поставок и стратегическому мышлению.</p>
+        <div class="footer-brand">Logistoria<span>.</span></div>
+        <p class="footer-desc">Educational games and simulations for learning logistics, supply chain management, and strategic thinking.</p>
       </div>
       <div class="footer-links">
-        <h4>Игры</h4>
-        <a href="index-ru.html#games" class="footer-link">Каталог игр</a>
+        <h4>Games</h4>
+        <a href="index-en.html#games" class="footer-link">Game Catalog</a>
         <a href="kadena.html" class="footer-link">KADENA</a>
         <a href="thebeergame.html" class="footer-link">The Beer Game</a>
-        <a href="auction-bot.html" class="footer-link">Auction Bot</a>
+        <a href="auction-bot-en.html" class="footer-link">Auction Bot</a>
       </div>
       <div class="footer-links">
-        <h4>Язык</h4>
-        <a href="auction-bot-en.html" class="footer-link">English version</a>
+        <h4>Language</h4>
+        <a href="auction-bot.html" class="footer-link">Russian version</a>
         <a href="auction-bot-es.html" class="footer-link">Versión en español</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2026 Логисториа. Все права защищены.</p>
+      <p>© 2026 Logistoria. All rights reserved.</p>
       <p>Auction Bot — @Auction_play_bot</p>
     </div>
   </div>
