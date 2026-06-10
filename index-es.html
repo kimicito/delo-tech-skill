@@ -25,7 +25,7 @@
       <a href="index-en.html" class="nav-link" style="margin-right:8px;font-size:14px;">EN</a>
       <a href="index-ru.html" class="nav-link" style="margin-right:8px;font-size:14px;">RU</a>
       <a href="index-es.html" class="nav-link" style="margin-right:16px;font-size:14px;font-weight:700;">ES</a>
-      <a href="#contact" class="btn btn-primary btn-small">Solicitar Demo</a>
+      <a href="#contact" class="btn btn-primary btn-small" onclick="openDemoModal();return false;">Solicitar Demo</a>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
@@ -44,7 +44,7 @@
   <a href="#faq" class="mobile-link">FAQ</a>
   <a href="index-en.html" class="mobile-link">English version</a>
   <a href="index-ru.html" class="mobile-link">Русская версия</a>
-  <a href="#contact" class="btn btn-primary" style="margin-top:24px">Solicitar Demo</a>
+  <a href="#contact" class="btn btn-primary" style="margin-top:24px" onclick="openDemoModal();return false;">Solicitar Demo</a>
 </div>
 <div class="mobile-overlay" id="mobileOverlay"></div>
 
@@ -63,7 +63,7 @@
     </div>
     <div class="hero-buttons">
       <a href="#games" class="btn btn-primary btn-large">Explorar Juegos</a>
-      <a href="#contact" class="btn btn-secondary btn-large">Solicitar Demo</a>
+      <a href="#contact" class="btn btn-secondary btn-large" onclick="openDemoModal();return false;">Solicitar Demo</a>
     </div>
   </div>
   <div class="hero-scroll"></div>
@@ -105,11 +105,11 @@
         <div class="game-img-wrap"><img src="images/crossdok-product.jpg" alt="Crossdok" class="game-img" loading="lazy"></div>
         <div class="game-body">
           <span class="game-badge">Juego de Mesa</span>
-          <h3 class="game-name">Crossdok</h3>
+          <h3 class="game-name">Krossdok</h3>
           <p class="game-desc">La mejor simulación de cadena de suministro</p>
           <div class="game-footer">
             <span class="game-price">desde 8 800 ₽</span>
-            <a href="#" class="game-link">Detalles <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+            <a href="https://www.krossdok.ru/en" class="game-link">Detalles <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
           </div>
           <div class="game-variants"><span class="game-variant">Estándar</span><span class="game-variant">Pro</span></div>
         </div>
@@ -122,7 +122,7 @@
           <p class="game-desc">El juego logístico más conocido</p>
           <div class="game-footer">
             <span class="game-price">desde 4 000 ₽ / persona</span>
-            <a href="#" class="game-link">Detalles <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+            <a href="kadena-es.html" class="game-link">Detalles <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
           </div>
           <div class="game-variants"><span class="game-variant">Empresa</span><span class="game-variant">En Línea</span></div>
         </div>
@@ -135,7 +135,7 @@
           <p class="game-desc">El clásico legendario de cadenas de suministro</p>
           <div class="game-footer">
             <span class="game-price">9 800 ₽</span>
-            <a href="#" class="game-link">Detalles <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+            <a href="thebeergame-es.html" class="game-link">Detalles <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
           </div>
         </div>
       </div>
@@ -184,7 +184,7 @@
           <p class="game-desc">Curso en línea para estudiantes de secundaria</p>
           <div class="game-footer">
             <span class="game-price">desde 8 000 ₽</span>
-            <a href="#" class="game-link">Detalles <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+            <a href="logistics-course-es.html" class="game-link">Detalles <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
           </div>
           <div class="game-variants"><span class="game-variant">En Línea</span><span class="game-variant">Completo</span></div>
         </div>
@@ -251,7 +251,7 @@
           <li>5 accesos a KADENA en línea + soporte de interpretación de resultados</li>
           <li>Consultas sobre todas las metodologías de juego adquiridas</li>
         </ul>
-        <a href="#" class="btn btn-outlined-light">Suscribirse</a>
+        <a href="#" class="btn btn-outlined-light" onclick="openSubscribeModal();return false;">Suscribirse</a>
       </div>
       <div class="pricing-card pricing-card--popular">
         <span class="pricing-badge">MÁS POPULAR</span>
@@ -263,7 +263,7 @@
           <li>Acceso a las reglas del juego Crossdok</li>
           <li>Asistencia en la integración de tecnologías de juego en programas educativos</li>
         </ul>
-        <a href="#" class="btn btn-primary btn-large" style="width:100%;text-align:center">Suscribirse</a>
+        <a href="#" class="btn btn-primary btn-large" style="width:100%;text-align:center" onclick="openSubscribeModal();return false;">Suscribirse</a>
       </div>
     </div>
   </div>
@@ -399,7 +399,7 @@
   <div class="container" style="max-width:700px;text-align:center">
     <h2 class="cta-title">¿Listo para transformar la formación en logística?</h2>
     <p class="cta-subtitle">Solicita una demo del juego y descubre cómo los juegos serios pueden elevar las habilidades de tu equipo.</p>
-    <a href="#contact" class="btn btn-primary btn-large" style="margin-top:32px;display:inline-block">Solicitar Demo</a>
+    <a href="#contact" class="btn btn-primary btn-large" style="margin-top:32px;display:inline-block" onclick="openDemoModal();return false;">Solicitar Demo</a>
   </div>
 </section>
 
@@ -417,7 +417,6 @@
         <a href="https://www.supplychains.ru" class="footer-link">SupplyChains.ru</a>
         <a href="thebeergame-es.html" class="footer-link">El Juego de la Cerveza</a>
         <a href="https://www.krossdok.ru" class="footer-link">Krossdok</a>
-        <a href="#" class="footer-link">Plataforma de Juego</a>
       </div>
       <div class="footer-col">
         <h4 class="footer-title">Redes Sociales</h4>
@@ -440,6 +439,65 @@
     </div>
   </div>
 </footer>
+
+<!-- Demo Request Modal -->
+<div class="demo-modal-overlay" id="demoModal">
+  <div class="demo-modal">
+    <button class="demo-modal-close" onclick="closeDemoModal()" aria-label="Cerrar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <h3 class="demo-modal-title">Solicitar Demo</h3>
+    <p class="demo-modal-subtitle">Deja tu email y descríbenos qué te gustaría ver. Te responderemos en un día.</p>
+    <form id="demoForm" action="https://formsubmit.co/project@logistoria.com" method="POST">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_subject" value="Solicitud de Demo - Logistoria ES">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_next" value="https://logistoria.com/index-es.html?demo=thanks">
+      <div class="demo-form-group">
+        <label class="demo-form-label" for="demoEmail">Email *</label>
+        <input type="email" id="demoEmail" name="email" class="demo-form-input" placeholder="tu@email.com" required>
+      </div>
+      <div class="demo-form-group">
+        <label class="demo-form-label" for="demoMessage">¿Qué te gustaría ver?</label>
+        <textarea id="demoMessage" name="message" class="demo-form-textarea" placeholder="Ejemplo: demo del juego Krossdok para un grupo de 15 estudiantes..."></textarea>
+      </div>
+      <button type="submit" class="demo-form-submit">Enviar solicitud</button>
+    </form>
+  </div>
+</div>
+
+<!-- Subscribe Modal -->
+<div class="demo-modal-overlay" id="subscribeModal">
+  <div class="demo-modal">
+    <button class="demo-modal-close" onclick="closeSubscribeModal()" aria-label="Cerrar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <h3 class="demo-modal-title">Suscribirse</h3>
+    <p class="demo-modal-subtitle">Deja tus contactos — nos comunicaremos para completar la suscripción.</p>
+    <form id="subscribeForm" onsubmit="return handleSubscribe(event)">
+      <div class="demo-form-group">
+        <label class="demo-form-label" for="subName">Tu nombre *</label>
+        <input type="text" id="subName" name="name" class="demo-form-input" placeholder="Juan Pérez" required>
+      </div>
+      <div class="demo-form-group">
+        <label class="demo-form-label" for="subEmail">Email *</label>
+        <input type="email" id="subEmail" name="email" class="demo-form-input" placeholder="tu@email.com" required>
+      </div>
+      <div class="demo-form-group">
+        <label class="demo-form-label" for="subCompany">Empresa / Universidad</label>
+        <input type="text" id="subCompany" name="company" class="demo-form-input" placeholder="Nombre de la organización">
+      </div>
+      <div class="demo-form-group">
+        <label class="demo-form-label" for="subPlan">Tarifa</label>
+        <select id="subPlan" name="plan" class="demo-form-input">
+          <option value="basic">BÁSICO — ₽100 mil/año</option>
+          <option value="pro" selected>PRO — ₽280 mil/año</option>
+        </select>
+      </div>
+      <button type="submit" class="demo-form-submit">Enviar solicitud</button>
+    </form>
+  </div>
+</div>
 
 <script src="js/main.js?v=6"></script>
 </body>
