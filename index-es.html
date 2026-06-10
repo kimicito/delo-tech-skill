@@ -191,8 +191,9 @@
       </div>
       <div class="game-card game-card--soon">
         <div class="game-soon-content">
-          <h3 class="game-soon-title">Próximamente</h3>
-          <p class="game-soon-desc">Mantente al tanto de las actualizaciones</p>
+          <h3 class="game-soon-title">Invitamos a los creadores de juegos</h3>
+          <p class="game-soon-desc">Envía tu propuesta y agregaremos tu juego a Logistoria.</p>
+          <a href="#" class="btn btn-primary btn-small" style="margin-top:12px" onclick="openSubmitGameModal();return false;">Enviar propuesta</a>
         </div>
       </div>
     </div>
@@ -499,6 +500,104 @@
   </div>
 </div>
 
+<!-- Demo Request Modal -->
+<div class="demo-modal-overlay" id="demoModal">
+  <div class="demo-modal">
+    <button class="demo-modal-close" onclick="closeDemoModal()" aria-label="Cerrar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <h3 class="demo-modal-title">Solicitar Demo</h3>
+    <p class="demo-modal-subtitle">Deja tu email y descríbenos qué te gustaría ver. Te responderemos en un día.</p>
+    <form id="demoForm" action="https://formsubmit.co/project@logistoria.com" method="POST">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_subject" value="Solicitud de Demo - Logistoria ES">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_next" value="https://logistoria.com/index-es.html?demo=thanks">
+      <div class="demo-form-group">
+        <label class="demo-form-label" for="demoEmail">Email *</label>
+        <input type="email" id="demoEmail" name="email" class="demo-form-input" placeholder="tu@email.com" required>
+      </div>
+      <div class="demo-form-group">
+        <label class="demo-form-label" for="demoMessage">¿Qué te gustaría ver?</label>
+        <textarea id="demoMessage" name="message" class="demo-form-textarea" placeholder="Ejemplo: demo del juego Krossdok para un grupo de 15 estudiantes..."></textarea>
+      </div>
+      <button type="submit" class="demo-form-submit">Enviar solicitud</button>
+    </form>
+  </div>
+</div>
+
+<!-- Subscribe Modal -->
+<div class="demo-modal-overlay" id="subscribeModal">
+  <div class="demo-modal">
+    <button class="demo-modal-close" onclick="closeSubscribeModal()" aria-label="Cerrar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <h3 class="demo-modal-title">Suscribirse</h3>
+    <p class="demo-modal-subtitle">Deja tus contactos — nos comunicaremos para completar la suscripción.</p>
+    <form id="subscribeForm" onsubmit="return handleSubscribe(event)">
+      <div class="demo-form-group">
+        <label class="demo-form-label" for="subName">Tu nombre *</label>
+        <input type="text" id="subName" name="name" class="demo-form-input" placeholder="Juan Pérez" required>
+      </div>
+      <div class="demo-form-group">
+        <label class="demo-form-label" for="subEmail">Email *</label>
+        <input type="email" id="subEmail" name="email" class="demo-form-input" placeholder="tu@email.com" required>
+      </div>
+      <div class="demo-form-group">
+        <label class="demo-form-label" for="subCompany">Empresa / Universidad</label>
+        <input type="text" id="subCompany" name="company" class="demo-form-input" placeholder="Nombre de la organización">
+      </div>
+      <div class="demo-form-group">
+        <label class="demo-form-label" for="subPlan">Tarifa</label>
+        <select id="subPlan" name="plan" class="demo-form-input">
+          <option value="basic">BÁSICO — ₽100 mil/año</option>
+          <option value="pro" selected>PRO — ₽280 mil/año</option>
+        </select>
+      </div>
+      <button type="submit" class="demo-form-submit">Enviar solicitud</button>
+    </form>
+  </div>
+</div>
+
+<!-- Submit Game Modal -->
+<div class="demo-modal-overlay" id="submitGameModal">
+  <div class="demo-modal">
+    <button class="demo-modal-close" onclick="closeSubmitGameModal()" aria-label="Cerrar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <h3 class="demo-modal-title">Enviar propuesta de juego</h3>
+    <p class="demo-modal-subtitle">Cuéntanos sobre tu juego en logística. Revisaremos tu propuesta y nos pondremos en contacto.</p>
+    <form id="submitGameForm" action="https://formsubmit.co/project@logistoria.com" method="POST">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_subject" value="Propuesta de juego - Logistoria ES">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_next" value="https://logistoria.com/index-es.html?game=thanks">
+      <div class="demo-form-group">
+        <label class="demo-form-label" for="sgName">Tu nombre *</label>
+        <input type="text" id="sgName" name="name" class="demo-form-input" placeholder="Juan Pérez" required>
+      </div>
+      <div class="demo-form-group">
+        <label class="demo-form-label" for="sgEmail">Email *</label>
+        <input type="email" id="sgEmail" name="email" class="demo-form-input" placeholder="tu@email.com" required>
+      </div>
+      <div class="demo-form-group">
+        <label class="demo-form-label" for="sgGameName">Nombre del juego *</label>
+        <input type="text" id="sgGameName" name="gameName" class="demo-form-input" placeholder="Ejemplo: Logi-Quest" required>
+      </div>
+      <div class="demo-form-group">
+        <label class="demo-form-label" for="sgDescription">Descripción del juego</label>
+        <textarea id="sgDescription" name="description" class="demo-form-textarea" placeholder="Describe brevemente la mecánica, la audiencia objetivo y el formato del juego..."></textarea>
+      </div>
+      <button type="submit" class="demo-form-submit">Enviar propuesta</button>
+    </form>
+  </div>
+</div>
+
 <script src="js/main.js?v=6"></script>
+<script>
+function openSubmitGameModal() { document.getElementById('submitGameModal').style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+function closeSubmitGameModal() { document.getElementById('submitGameModal').style.display = 'none'; document.body.style.overflow = ''; }
+document.getElementById('submitGameModal').addEventListener('click', function(e) { if (e.target === this) closeSubmitGameModal(); });
+</script>
 </body>
 </html>
