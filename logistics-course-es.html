@@ -636,7 +636,7 @@
             <a href="logistics-course.html" class="nav-link" style="margin-right:8px;font-size:14px;">RU</a>
             <a href="logistics-course-es.html" class="nav-link" style="margin-right:16px;font-size:14px;font-weight:700;">ES</a>
         </div>
-        <a href="#contact" class="nav-cta">Obtener programa</a>
+        <a href="#" class="nav-cta" onclick="openProgramModal();return false;">Obtener programa</a>
         <button class="nav-burger" id="navBurger" aria-label="Menú">☰</button>
     </div>
 </nav>
@@ -650,7 +650,7 @@
             <h1>Logística para <span>estudiantes</span></h1>
             <p>Curso de orientación profesional basado en juegos. 5 módulos, práctica en casos reales — de la fábrica hasta la entrega al cliente.</p>
             <div class="hero-buttons">
-                <a href="#contact" class="btn-primary">Obtener programa</a>
+                <a href="#" class="btn-primary" onclick="openProgramModal();return false;">Obtener programa</a>
                 <a href="#about" class="btn-secondary">Saber más</a>
                 <a href="#modules" class="btn-secondary">Ver módulos</a>
             </div>
@@ -855,7 +855,7 @@
     <div class="container">
         <h2>¿Listos para descubrir la logística?</h2>
         <p>Solicita el programa del curso o reserva una clase demo. El primer módulo "Fábrica" se puede hacer ahora mismo.</p>
-        <a href="#" class="btn-primary" onclick="alert('El formulario de solicitud está en desarrollo. Por favor contáctanos al +7 499 288 73 71.')">Obtener programa</a>
+        <a href="#" class="btn-primary" onclick="openProgramModal();return false;">Obtener programa</a>
         <div class="contact-info">
             <a href="tel:+74992887371">+7 499 288 73 71</a>
             <a href="https://www.logistoria.com">www.logistoria.com</a>
@@ -969,6 +969,42 @@ if (canvas) {
     }
     draw();
 }
+<!-- Program Modal -->
+<div class="modal" id="programModal" style="display:none;position:fixed;inset:0;background:rgba(18,11,30,0.85);backdrop-filter:blur(8px);z-index:200;align-items:center;justify-content:center;padding:24px;">
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;max-width:440px;width:100%;padding:40px;position:relative;">
+    <button onclick="closeProgramModal()" style="position:absolute;top:16px;right:16px;background:none;border:none;color:var(--gray);font-size:20px;cursor:pointer;">✕</button>
+    <h3 style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:22px;color:var(--white);margin-bottom:8px;">Solicitar programa del curso</h3>
+    <p style="color:var(--gray);font-size:14px;margin-bottom:24px;">Deja tus datos y te enviaremos el programa completo en un día.</p>
+    <form action="https://formsubmit.co/project@logistoria.com" method="POST">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_subject" value="Solicitud de programa - Logistoria ES">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_next" value="https://logistoria.com/logistics-course-es.html?demo=thanks">
+      <div style="margin-bottom:16px;">
+        <label style="display:block;font-size:12px;color:var(--gray);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Tu nombre *</label>
+        <input type="text" name="name" required placeholder="Juan Pérez" style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--white);font-size:14px;">
+      </div>
+      <div style="margin-bottom:16px;">
+        <label style="display:block;font-size:12px;color:var(--gray);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Email *</label>
+        <input type="email" name="email" required placeholder="tu@email.com" style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--white);font-size:14px;">
+      </div>
+      <div style="margin-bottom:16px;">
+        <label style="display:block;font-size:12px;color:var(--gray);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Organización</label>
+        <input type="text" name="company" placeholder="Escuela / Universidad / Empresa" style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--white);font-size:14px;">
+      </div>
+      <div style="margin-bottom:20px;">
+        <label style="display:block;font-size:12px;color:var(--gray);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">¿Qué estás buscando?</label>
+        <textarea name="message" placeholder="Ejemplo: programa del curso para 25 estudiantes de secundaria..." rows="4" style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--white);font-size:14px;resize:vertical;font-family:inherit;"></textarea>
+      </div>
+      <button type="submit" style="width:100%;background:var(--orange);color:var(--bg);border:none;border-radius:8px;padding:14px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:14px;cursor:pointer;">Enviar solicitud</button>
+    </form>
+  </div>
+</div>
+<script>
+function openProgramModal() { document.getElementById('programModal').style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+function closeProgramModal() { document.getElementById('programModal').style.display = 'none'; document.body.style.overflow = ''; }
+document.getElementById('programModal').addEventListener('click', function(e) { if (e.target === this) closeProgramModal(); });
+</script>
 </script>
 </body>
 </html>

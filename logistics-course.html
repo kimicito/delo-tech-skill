@@ -856,7 +856,7 @@
     <div class="container">
         <h2>Готовы узнать, что такое логистика?</h2>
         <p>Запросите программу курса или запишите класс на демо-урок. Первый модуль «Завод» можно провести прямо сейчас.</p>
-        <a href="#" class="btn-primary" onclick="alert('Форма заявки в разработке. Пожалуйста, свяжитесь с нами по телефону +7 499 288 73 71.')">Получить программу курса</a>
+        <a href="#" class="btn-primary" onclick="openProgramModal();return false;">Получить программу курса</a>
         <div class="contact-info">
             <a href="tel:+74992887371">+7 499 288 73 71</a>
             <a href="https://www.logistoria.com">www.logistoria.com</a>
@@ -982,12 +982,20 @@ if (canvas) {
       <input type="hidden" name="_template" value="table">
       <input type="hidden" name="_next" value="https://logistoria.com/logistics-course.html?demo=thanks">
       <div style="margin-bottom:16px;">
+        <label style="display:block;font-size:12px;color:var(--gray);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Ваше имя *</label>
+        <input type="text" name="name" required placeholder="Иван Иванов" style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--white);font-size:14px;">
+      </div>
+      <div style="margin-bottom:16px;">
         <label style="display:block;font-size:12px;color:var(--gray);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Email *</label>
         <input type="email" name="email" required placeholder="your@email.com" style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--white);font-size:14px;">
       </div>
+      <div style="margin-bottom:16px;">
+        <label style="display:block;font-size:12px;color:var(--gray);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Организация</label>
+        <input type="text" name="company" placeholder="Школа / ВУЗ / Компания" style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--white);font-size:14px;">
+      </div>
       <div style="margin-bottom:20px;">
         <label style="display:block;font-size:12px;color:var(--gray);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Что хотите посмотреть?</label>
-        <textarea name="message" placeholder="Например: демо игры Кроссдок для группы из 15 студентов..." rows="4" style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--white);font-size:14px;resize:vertical;font-family:inherit;"></textarea>
+        <textarea name="message" placeholder="Например: программу курса для 25 школьников 10 класса..." rows="4" style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--white);font-size:14px;resize:vertical;font-family:inherit;"></textarea>
       </div>
       <button type="submit" style="width:100%;background:var(--orange);color:var(--bg);border:none;border-radius:8px;padding:14px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:14px;cursor:pointer;">Отправить запрос</button>
     </form>
