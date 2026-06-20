@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Согласие на обработку персональных данных — Логисториа</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=2">
+<style>
+.privacy-section { padding: 160px 0 80px; max-width: 800px; margin: 0 auto; }
+.privacy-section h1 { font-family: 'Montserrat', sans-serif; font-size: 36px; font-weight: 800; color: var(--violet-primary); margin-bottom: 16px; }
+.privacy-subtitle { color: var(--text-secondary); font-size: 18px; margin-bottom: 48px; }
+.privacy-block { margin-bottom: 40px; }
+.privacy-block h2 { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 700; color: var(--violet-primary); margin-bottom: 16px; }
+.privacy-block p { font-size: 16px; line-height: 1.7; color: var(--text-primary); margin-bottom: 12px; }
+.privacy-block ul { list-style: none; padding: 0; margin: 16px 0; }
+.privacy-block ul li { padding: 8px 0 8px 24px; position: relative; font-size: 16px; line-height: 1.6; }
+.privacy-block ul li::before { content: ''; position: absolute; left: 0; top: 16px; width: 8px; height: 8px; border-radius: 50%; background: var(--orange-primary); }
+.privacy-link { color: var(--orange-primary); text-decoration: underline; }
+.privacy-link:hover { color: var(--violet-primary); }
+.privacy-footer { margin-top: 64px; padding-top: 32px; border-top: 1px solid var(--border-color); font-size: 14px; color: var(--text-secondary); }
+@media (max-width: 768px) {
+  .privacy-section { padding: 120px 20px 60px; }
+  .privacy-section h1 { font-size: 28px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== NAVIGATION ==================== -->
+<header class="nav" id="nav">
+  <div class="nav-container">
+    <a href="index-ru.html" class="nav-logo">Логисториа<span class="nav-logo-dot">.</span></a>
+    <nav class="nav-links">
+      <a href="index-ru.html#games" class="nav-link">Игры</a>
+      <a href="index-ru.html#partners" class="nav-link">Партнёры</a>
+      <a href="index-ru.html#blog" class="nav-link">Блог</a>
+      <a href="index-ru.html#faq" class="nav-link">FAQ</a>
+    </nav>
+    <div class="nav-right">
+      <a href="index-en.html" class="nav-link" style="margin-right:8px;font-size:14px;">EN</a>
+      <a href="index-ru.html" class="nav-link" style="margin-right:8px;font-size:14px;font-weight:700;">RU</a>
+      <a href="index-es.html" class="nav-link" style="margin-right:16px;font-size:14px;">ES</a>
+      <a href="index-ru.html#contact" class="btn btn-primary btn-small" onclick="openDemoModal();return false;">Заказать демо</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="mobileClose" aria-label="Close menu">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <a href="index-ru.html#games" class="mobile-link">Игры</a>
+  <a href="index-ru.html#partners" class="mobile-link">Партнёры</a>
+  <a href="index-ru.html#blog" class="mobile-link">Блог</a>
+  <a href="index-ru.html#faq" class="mobile-link">FAQ</a>
+  <a href="index-en.html" class="mobile-link">English version</a>
+  <a href="index-es.html" class="mobile-link">Versión en español</a>
+  <a href="index-ru.html#contact" class="btn btn-primary" style="margin-top:24px" onclick="openDemoModal();return false;">Заказать демо</a>
+</div>
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+<!-- ==================== PRIVACY CONTENT ==================== -->
+<section class="privacy-section">
+  <h1>Согласие на обработку персональных данных</h1>
+  <p class="privacy-subtitle">Настоящее согласие действует в соответствии с Федеральным законом № 152-ФЗ «О персональных данных»</p>
+
+  <div class="privacy-block">
+    <h2>1. Общие положения</h2>
+    <p>Настоящим я, действуя свободно, по своей воле и в своих интересах, даю согласие Оператору персональных данных (далее — «Оператор») на обработку моих персональных данных в соответствии с условиями, изложенными ниже.</p>
+    <p>Оператор: <strong>Индивидуальный предприниматель / юридическое лицо, осуществляющее деятельность под брендом «Логисториа»</strong>.</p>
+    <p>Адрес для направления запросов: <a href="mailto:mtracorp@gmail.com" class="privacy-link">mtracorp@gmail.com</a></p>
+  </div>
+
+  <div class="privacy-block">
+    <h2>2. Цели обработки персональных данных</h2>
+    <p>Персональные данные обрабатываются в следующих целях:</p>
+    <ul>
+      <li>Подготовка и отправка ответа на запрос, оставленный через форму обратной связи</li>
+      <li>Информирование о новых продуктах, услугах, мероприятиях и специальных предложениях</li>
+      <li>Анализ обращений для улучшения качества сервиса</li>
+    </ul>
+  </div>
+
+  <div class="privacy-block">
+    <h2>3. Обрабатываемые персональные данные</h2>
+    <p>В зависимости от заполняемой формы могут собираться следующие данные:</p>
+    <ul>
+      <li>Фамилия, имя, отчество</li>
+      <li>Адрес электронной почты (email)</li>
+      <li>Название организации или учебного заведения</li>
+      <li>Текст обращения, комментарий</li>
+      <li>Название интересующего продукта или услуги</li>
+    </ul>
+  </div>
+
+  <div class="privacy-block">
+    <h2>4. Правовые основания обработки</h2>
+    <p>Обработка персональных данных осуществляется на основании:</p>
+    <ul>
+      <li>Статьи 9 Федерального закона № 152-ФЗ «О персональных данных» — согласие субъекта персональных данных</li>
+      <li>Статьи 6 Федерального закона № 152-ФЗ — необходимость обработки для исполнения договора или оказания услуги</li>
+    </ul>
+  </div>
+
+  <div class="privacy-block">
+    <h2>5. Срок действия согласия</h2>
+    <p>Настоящее согласие действует с момента его предоставления и до момента отзыва. Обработка данных прекращается в течение 30 дней с момента получения отзыва, за исключением случаев, предусмотренных законодательством Российской Федерации.</p>
+  </div>
+
+  <div class="privacy-block">
+    <h2>6. Права субъекта персональных данных</h2>
+    <p>Я имею право:</p>
+    <ul>
+      <li>Получать информацию об обработке моих персональных данных</li>
+      <li>Требовать уточнения, блокирования или уничтожения данных в случае их неполноты, неточности или незаконности обработки</li>
+      <li>Отозвать настоящее согласие путём направления письменного запроса на email Оператора</li>
+      <li>Обжаловать действия или бездействие Оператора в уполномоченный орган по защите прав субъектов персональных данных</li>
+    </ul>
+  </div>
+
+  <div class="privacy-block">
+    <h2>7. Порядок отзыва согласия</h2>
+    <p>Отзыв согласия на обработку персональных данных осуществляется путём направления письменного запроса на электронный адрес Оператора: <a href="mailto:mtracorp@gmail.com" class="privacy-link">mtracorp@gmail.com</a>. В теме письма необходимо указать «Отзыв согласия на обработку персональных данных». Запрос должен содержать фамилию, имя, отчество и email, указанные при заполнении формы.</p>
+  </div>
+
+  <div class="privacy-block">
+    <h2>8. Передача данных третьим лицам</h2>
+    <p>Персональные данные не передаются третьим лицам, за исключением случаев, предусмотренных законодательством Российской Федерации, а также случаев, когда передача необходима для исполнения договорных обязательств (например, привлечение подрядчиков для оказания услуг).</p>
+  </div>
+
+  <div class="privacy-footer">
+    <p>Дата последнего обновления: 20 июня 2026 г.</p>
+    <p>По всем вопросам, связанным с обработкой персональных данных, обращайтесь по адресу: <a href="mailto:mtracorp@gmail.com" class="privacy-link">mtracorp@gmail.com</a></p>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer" id="contact">
+  <div class="footer-container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">Логисториа<span style="color:var(--orange-primary)">.</span></div>
+        <p class="footer-desc">Игры в логистику для бизнеса и образования</p>
+      </div>
+      <div class="footer-links">
+        <a href="index-ru.html#games" class="footer-link">Игры</a>
+        <a href="index-ru.html#partners" class="footer-link">Партнёры</a>
+        <a href="index-ru.html#blog" class="footer-link">Блог</a>
+        <a href="index-ru.html#faq" class="footer-link">FAQ</a>
+      </div>
+      <div class="footer-links">
+        <a href="https://web.telegram.org/k/#@supplychains" class="footer-link">Telegram-канал</a>
+        <a href="mailto:project@logistoria.com" class="footer-link">project@logistoria.com</a>
+      </div>
+      <div class="footer-links">
+        <a href="index-en.html" class="footer-link">English version</a>
+        <a href="index-es.html" class="footer-link">Versión en español</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Логисториа. Все права защищены.</p>
+      <a href="privacy.html" class="privacy-link" style="font-size:14px;">Согласие на обработку персональных данных</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
