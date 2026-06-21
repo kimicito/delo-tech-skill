@@ -27,8 +27,8 @@
   --radius-sm: 8px; --radius-md: 10px; --radius-lg: 16px; --radius-xl: 20px; --radius-2xl: 24px;
 }
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; overflow-x: hidden; }
-body { font-family: var(--font-body); font-weight: 400; font-size: 16px; line-height: 1.7; color: var(--text-body); background: var(--white); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); font-weight: 400; font-size: 16px; line-height: 1.7; color: var(--text-body); background: var(--white); -webkit-font-smoothing: antialiased; }
 a { text-decoration: none; color: inherit; }
 button { border: none; background: none; cursor: pointer; font-family: inherit; }
 img { max-width: 100%; height: auto; display: block; }
@@ -71,7 +71,7 @@ ul { list-style: none; }
 @media (max-width: 768px) { .nav-container { padding: 0 16px; } .nav .btn-small { display: none; } }
 
 .hero { position: relative; min-height: 100dvh; min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--violet-primary) 0%, var(--violet-deep) 100%); overflow: hidden; }
-.hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; max-width: 100%; }
+.hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
 .hero-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(255,152,0,0.12) 0%, transparent 70%); pointer-events: none; z-index: 2; }
 .hero-content { position: relative; z-index: 5; text-align: center; max-width: 800px; padding: 0 24px; animation: heroFadeIn 0.8s ease-out forwards; opacity: 0; }
 .hero-label { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-body); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--orange-primary); margin-bottom: 20px; }
@@ -125,9 +125,17 @@ ul { list-style: none; }
 @media (max-width: 1024px) { .why-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 768px) { .why-grid { grid-template-columns: 1fr; } }
 
-/* About */
+/* About / Stats */
 .about { background: var(--white); }
-@media (max-width: 768px) { .about .section-header { margin-bottom: 20px; } .about .section-title { font-size: 22px; letter-spacing: -0.5px; } }
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.stat-card { border-radius: var(--radius-lg); padding: 40px; min-height: 180px; display: flex; flex-direction: column; justify-content: space-between; opacity: 0; transform: translateY(40px); transition: all 0.6s ease-out; }
+.stat-card.visible { opacity: 1; transform: translateY(0); }
+.stat-number { font-family: var(--font-display); font-weight: 800; font-size: 48px; letter-spacing: -1px; color: var(--text-heading); }
+.stat-card--light .stat-number { color: var(--white); }
+.stat-label { font-family: var(--font-body); font-weight: 500; font-size: 16px; line-height: 1.6; color: var(--text-heading); margin-top: 12px; }
+.stat-card--light .stat-label { color: rgba(255,255,255,0.85); }
+@media (max-width: 1024px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .stats-grid { grid-template-columns: 1fr; } .stat-number { font-size: 36px; } }
 
 /* Features */
 .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
@@ -177,15 +185,8 @@ ul { list-style: none; }
 .timeline-card--highlight::after { color: var(--violet-soft); }
 @media (max-width: 1024px) { .schedule-timeline { grid-template-columns: 1fr; } .timeline-card::after { display: none; } }
 
-/* Insights */
-.insight-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-.insight-card { background: var(--white); border: 1px solid var(--gray-border); border-radius: var(--radius-lg); padding: 24px; transition: all 0.3s ease; }
-.insight-card:hover { border-color: var(--violet-soft); transform: translateY(-2px); box-shadow: var(--shadow-card); }
-.insight-icon { width: 32px; height: 32px; stroke: var(--orange-primary); stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 12px; }
-.insight-title { font-family: var(--font-display); font-weight: 700; font-size: 15px; color: var(--text-heading); margin-bottom: 8px; }
-.insight-desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
-@media (max-width: 768px) { .insight-grid { grid-template-columns: 1fr; } }
-.dashboard-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 48px; align-items: start; }
+/* Dashboard */
+.dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
 .dashboard-text { font-size: 16px; line-height: 1.8; color: var(--text-body); }
 .dashboard-text p + p { margin-top: 16px; }
 .dashboard-metrics { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
@@ -233,8 +234,7 @@ ul { list-style: none; }
 .footer { background: var(--violet-deep); padding: 80px 0 40px; }
 .footer-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 48px; }
 .footer-logo { font-family: var(--font-display); font-weight: 800; font-size: 24px; color: var(--white); }
-.footer-logo span { color: var(--white); }
-.footer-logo-dot { color: var(--orange-primary); }
+.footer-logo span { color: var(--orange-primary); }
 .footer-tagline { font-size: 14px; color: rgba(255,255,255,0.5); margin-top: 12px; }
 .footer-email { display: inline-block; font-weight: 500; font-size: 14px; color: var(--orange-primary); margin-top: 20px; transition: opacity 0.2s; }
 .footer-email:hover { opacity: 0.8; }
@@ -270,7 +270,7 @@ ul { list-style: none; }
 @media (max-width: 768px) { .demo-modal { padding: 28px 20px; } .demo-modal-title { font-size: 20px; } }
 
 /* Reveal animations */
-.reveal { transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+.reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 </style>
 </head>
@@ -279,7 +279,7 @@ ul { list-style: none; }
 <!-- ==================== NAVIGATION ==================== -->
 <header class="nav" id="nav">
   <div class="nav-container">
-    <a href="index-ru.html" class="nav-logo">Логисториа<span class="nav-logo-dot">.</span></a>
+    <a href="index-ru.html" class="nav-logo">Логист<span class="nav-logo-dot">ориа</span></a>
     <nav class="nav-links">
       <a href="#about" class="nav-link">Об игре</a>
       <a href="#process" class="nav-link">Процесс</a>
@@ -288,9 +288,6 @@ ul { list-style: none; }
       <a href="#audience" class="nav-link">Для кого</a>
     </nav>
     <div class="nav-right">
-      <a href="kadena-en.html" class="nav-link" style="margin-right:8px;font-size:14px;">EN</a>
-      <a href="kadena.html" class="nav-link" style="margin-right:8px;font-size:14px;font-weight:700;">RU</a>
-      <a href="kadena-es.html" class="nav-link" style="margin-right:16px;font-size:14px;">ES</a>
       <a href="#contact" class="btn btn-primary btn-small" onclick="openDemoModal();return false;">Заказать демо</a>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -364,22 +361,35 @@ ul { list-style: none; }
 </section>
 
 <!-- ==================== ABOUT / STATS ==================== -->
-<section class="section about" style="padding: 40px 0 0;">
+<section class="section about">
   <div class="container">
     <div class="section-header">
       <span class="section-label">О чём игра</span>
       <h2 class="section-title">Планируй. Прогнозируй. Управляй.</h2>
       <p class="section-subtitle">«КАДЕНА» — это симуляция реальной ситуации в управлении цепочками поставок. Вы принимаете решения от заказа сырья до поставки товаров на рынок в условиях меняющегося спроса и конкуренции.</p>
     </div>
-    <div style="margin: 16px auto 0; max-width: 900px;">
-      <img src="assets/kadena-demand-chart.jpg" alt="График спроса в КАДЕНЕ — три рынка, 12 месяцев, прогнозирование и анализ данных" style="width: 100%; display: block; border-radius: var(--radius-md); box-shadow: var(--shadow-card);">
+    <div class="stats-grid">
+      <div class="stat-card" style="background:#FFB74D">
+        <svg class="icon" viewBox="0 0 48 48"><rect x="4" y="20" width="40" height="24" rx="2"/><path d="M4 28h40"/><path d="M12 20V12a12 12 0 0124 0v8"/><circle cx="24" cy="8" r="2"/><line x1="14" y1="32" x2="14" y2="32"/><line x1="24" y1="32" x2="24" y2="32"/><line x1="34" y1="32" x2="34" y2="32"/></svg>
+        <div class="stat-number">Прогнозирование</div>
+        <div class="stat-label">Анализ данных, прогнозы спроса и неожиданные события</div>
+      </div>
+      <div class="stat-card stat-card--light" style="background:#5C3D8A">
+        <svg class="icon icon-orange" viewBox="0 0 48 48"><rect x="8" y="4" width="32" height="40" rx="2"/><path d="M8 14h32"/><path d="M8 34h32"/><line x1="16" y1="24" x2="16" y2="24"/><line x1="24" y1="24" x2="24" y2="24"/><line x1="32" y1="24" x2="32" y2="24"/></svg>
+        <div class="stat-number" style="color:#fff">Запасы</div>
+        <div class="stat-label" style="color:rgba(255,255,255,0.85)">Современный завод vs старый дешёвый, оптимизация уровня запасов</div>
+      </div>
+      <div class="stat-card" style="background:#7BAAF7">
+        <svg class="icon" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M24 12v12l8 8"/><path d="M24 6v4"/><path d="M24 38v4"/><path d="M6 24h4"/><path d="M38 24h4"/></svg>
+        <div class="stat-number">Издержки</div>
+        <div class="stat-label">Баланс клиентского сервиса, стоимости и эффективности цепочки</div>
+      </div>
     </div>
-
   </div>
 </section>
 
 <!-- ==================== FEATURES ==================== -->
-<section class="section" id="features" style="background:var(--gray-light); padding-top: 0;">
+<section class="section" id="features" style="background:var(--gray-light)">
   <div class="container">
     <div class="section-header">
       <span class="section-label">Возможности</span>
@@ -404,10 +414,6 @@ ul { list-style: none; }
     </div>
   </div>
 </section>
-
-<div style="margin: 40px auto; max-width: 900px; padding: 0 48px;">
-    <img src="assets/kadena-features.jpg" alt="Интерфейс КАДЕНЫ — 6 шагов для нового игрока" style="width: 100%; display: block; border-radius: var(--radius-md); box-shadow: var(--shadow-card); margin-bottom: 10px;">
-</div>
 
 <!-- ==================== ROLES ==================== -->
 <section class="section" id="roles">
@@ -466,7 +472,10 @@ ul { list-style: none; }
       </div>
     </div>
 
-    <img src="assets/kadena-team.jpg" alt="Команда обсуждает стратегию в КАДЕНЕ — семинар по цепям поставок" style="width:100%;border-radius:var(--radius-lg);box-shadow:var(--shadow-card);margin-top:48px;display:block;">
+    <div class="placeholder-img" style="margin-top:48px">
+      <svg viewBox="0 0 48 48"><rect x="4" y="8" width="40" height="32" rx="2"/><path d="M4 16h40"/><line x1="10" y1="24" x2="18" y2="24"/><line x1="10" y1="28" x2="14" y2="28"/><line x1="10" y1="32" x2="16" y2="32"/><path d="M24 24l4 4 8-8"/></svg>
+      <span>Фото: команда обсуждает стратегию в мессенджере<br/>(или скриншот чата с игровыми данными)</span>
+    </div>
   </div>
 </section>
 
@@ -501,18 +510,15 @@ ul { list-style: none; }
         <span class="section-label">Результат</span>
         <h2 class="section-title" style="font-size:28px">Что дала игра</h2>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
-        <div style="background:#fff;padding:28px;border-radius:var(--radius-md);box-shadow:var(--shadow-card)">
-          <div style="font-weight:700;font-size:18px;margin-bottom:12px;color:var(--violet-primary)">Планы на будущее</div>
-          <p style="font-size:15px;line-height:1.6;color:var(--text-body);margin:0">Менеджеры возвращаются с гипотезами по прогнозированию, закупкам и запасам.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center">
+        <div style="font-size:16px;line-height:1.8;color:var(--text-body)">
+          <p style="margin-bottom:16px"><strong>Участники формируют планы на будущее:</strong> как изменить процессы прогнозирования, закупок и управления запасами в реальной работе.</p>
+          <p style="margin-bottom:16px">Каждая команда видит, как её локально оптимальные решения привели к глобальным проблемам цепи. Это понимание невозможно получить из лекции или кейса — только через собственный опыт.</p>
+          <p>После дебрифинга менеджеры возвращаются к работе с конкретными гипотезами: где сократить страховые запасы, как улучшить обмен данными с поставщиками, как выстроить прогнозирование под реальный спрос.</p>
         </div>
-        <div style="background:#fff;padding:28px;border-radius:var(--radius-md);box-shadow:var(--shadow-card)">
-          <div style="font-weight:700;font-size:18px;margin-bottom:12px;color:var(--violet-primary)">Осознание цепи</div>
-          <p style="font-size:15px;line-height:1.6;color:var(--text-body);margin:0">Локально оптимальные решения ведут к глобальным проблемам. Понимание только через собственный опыт.</p>
-        </div>
-        <div style="background:#fff;padding:28px;border-radius:var(--radius-md);box-shadow:var(--shadow-card)">
-          <div style="font-weight:700;font-size:18px;margin-bottom:12px;color:var(--violet-primary)">Конкретные шаги</div>
-          <p style="font-size:15px;line-height:1.6;color:var(--text-body);margin:0">Сократить страховые запасы, улучшить обмен данными, выстроить прогнозирование под реальный спрос.</p>
+        <div class="placeholder-img placeholder-img--square">
+          <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M24 12v12l8 8"/><path d="M24 6v4"/><path d="M24 38v4"/><path d="M6 24h4"/><path d="M38 24h4"/></svg>
+          <span>Фото: дебрифинг — фасилитатор разбирает<br/>решения команд на общем экране</span>
         </div>
       </div>
     </div>
@@ -528,30 +534,14 @@ ul { list-style: none; }
       <p class="section-subtitle">После игры каждая команда получает полный финальный отчёт с P&L за 12 месяцев, структурой затрат, динамикой сервиса по рынкам и ключевыми выводами — реальные данные, на которые можно опираться в работе.</p>
     </div>
     <div class="dashboard-grid">
+      <div class="dashboard-text">
+        <p><strong>Реальные данные за 12 месяцев.</strong> Каждая команда видит итоговый P&L: оборот €81,684, операционная прибыль €29,403, рентабельность 36%. Всё по месяцам — где заработали, где просели.</p>
+        <p><strong>Структура затрат.</strong> Хранение сырья €9,464 (32% расходов) — главная статья потерь. Производство €12,774, дистрибуция €3,837, упущенные продажи €1,174. Видно, куда уходят деньги.</p>
+        <p><strong>Сервис по рынкам.</strong> Рынок 2 — 94% сервиса, рынок 1 — 79.4%, рынок 3 — 90.4%. Понятно, какая стратегия приоритизации сработала, а где дефицит стоил прибыли.</p>
+        <p><strong>Ключевые выводы.</strong> Дашборд показывает: где избыточные запасы съели маржу, как ненадёжность заводов повлияла на продажи, где прогноз спроса расходился с реальностью. Это не просто цифры — это повод для конкретных решений.</p>
+      </div>
       <div>
-        <div class="insight-grid">
-          <div class="insight-card reveal">
-            <svg class="insight-icon" viewBox="0 0 48 48"><rect x="8" y="4" width="32" height="40" rx="2"/><path d="M8 14h32"/><path d="M12 34l6-10 4 4 10-12"/></svg>
-            <div class="insight-title">Реальные данные за 12 мес</div>
-            <div class="insight-desc">P&L: оборот €81,684, операционная прибыль €29,403, рентабельность 36%. Всё по месяцам — где заработали, где просели.</div>
-          </div>
-          <div class="insight-card reveal">
-            <svg class="insight-icon" viewBox="0 0 48 48"><circle cx="24" cy="24" r="16"/><path d="M24 8v16l12 8"/></svg>
-            <div class="insight-title">Структура затрат</div>
-            <div class="insight-desc">Хранение сырья €9,464 (32%) — главная статья. Производство €12,774, дистрибуция €3,837, упущенные продажи €1,174.</div>
-          </div>
-          <div class="insight-card reveal">
-            <svg class="insight-icon" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><ellipse cx="24" cy="24" rx="8" ry="18"/><path d="M6 24h36"/></svg>
-            <div class="insight-title">Сервис по рынкам</div>
-            <div class="insight-desc">Рынок 2 — 94%, рынок 1 — 79.4%, рынок 3 — 90.4%. Видно, какая стратегия приоритизации сработала.</div>
-          </div>
-          <div class="insight-card reveal">
-            <svg class="insight-icon" viewBox="0 0 48 48"><path d="M24 4c-6.6 0-12 5.4-12 12 0 5.2 3.3 9.6 8 11.2V32h8v-4.8c4.7-1.6 8-6 8-11.2C36 9.4 30.6 4 24 4z"/><path d="M20 36h8"/><path d="M22 40h4"/></svg>
-            <div class="insight-title">Ключевые выводы</div>
-            <div class="insight-desc">Избыточные запасы, ненадёжность заводов, расхождение прогноза с реальностью — повод для конкретных решений.</div>
-          </div>
-        </div>
-        <div class="dashboard-metrics" style="margin-top:24px">
+        <div class="dashboard-metrics" style="margin-bottom:24px">
           <div class="metric-card reveal">
             <svg class="metric-icon" viewBox="0 0 48 48"><rect x="4" y="8" width="40" height="32" rx="2"/><path d="M4 16h40"/><line x1="10" y1="24" x2="18" y2="24"/><line x1="10" y1="28" x2="14" y2="28"/><line x1="10" y1="32" x2="16" y2="32"/><path d="M24 24l4 4 8-8"/></svg>
             <div class="metric-name">Прогноз vs факт</div>
@@ -562,9 +552,22 @@ ul { list-style: none; }
             <div class="metric-name">Прибыль</div>
             <div class="metric-desc">€29 403 за 12 мес</div>
           </div>
+          <div class="metric-card reveal">
+            <svg class="metric-icon" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M24 12v12l8 8"/><path d="M24 6v4"/><path d="M24 38v4"/><path d="M6 24h4"/><path d="M38 24h4"/></svg>
+            <div class="metric-name">Рентабельность</div>
+            <div class="metric-desc">36% годовых</div>
+          </div>
+          <div class="metric-card reveal">
+            <svg class="metric-icon" viewBox="0 0 48 48"><path d="M12 40c0-6.6 5.4-12 12-12s12 5.4 12 12"/><circle cx="24" cy="14" r="6"/><path d="M24 20v8"/><path d="M20 26l4-4 4 4"/></svg>
+            <div class="metric-name">Сервис</div>
+            <div class="metric-desc">94% — лучший рынок</div>
+          </div>
+          <div class="metric-card reveal">
+            <svg class="metric-icon" viewBox="0 0 48 48"><rect x="4" y="8" width="40" height="32" rx="2"/><path d="M4 16h40"/><line x1="10" y1="24" x2="18" y2="24"/><line x1="10" y1="28" x2="14" y2="28"/><line x1="10" y1="32" x2="16" y2="32"/><path d="M24 24l4 4 8-8"/></svg>
+            <div class="metric-name">Оборот</div>
+            <div class="metric-desc">€81 684 за год</div>
+          </div>
         </div>
-      </div>
-      <div>
         <div style="border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-card); background: var(--violet-deep); padding: 8px;">
           <img src="assets/kadena-dashboard.png" alt="Финальный дашборд КАДЕНЫ — операционная прибыль €29,403, оборот €81,684, рентабельность 36%" style="width: 100%; display: block; border-radius: var(--radius-md);">
         </div>
@@ -623,12 +626,42 @@ ul { list-style: none; }
       <span class="section-label">В процессе</span>
       <h2 class="section-title">Как это выглядит</h2>
     </div>
-    <div class="photo-grid" style="grid-template-columns: 1fr 1fr;">
-      <div class="photo-item reveal">
-        <img src="assets/kadena-roles.jpg" alt="4 роли в игре КАДЕНА — Администратор, Организатор, Игрок, Наблюдатель" style="width: 100%; display: block; border-radius: var(--radius-lg); aspect-ratio: 4/3; object-fit: cover;">
+    <div class="photo-grid">
+      <div class="photo-item photo-item--wide reveal">
+        <div class="placeholder-img">
+          <svg viewBox="0 0 48 48"><rect x="4" y="8" width="40" height="28" rx="2"/><path d="M4 20h40"/><path d="M20 36l4-4 4 4"/><circle cx="24" cy="4" r="2"/></svg>
+          <span>Фото: команда за игровым столом / онлайн-сессия</span>
+        </div>
       </div>
       <div class="photo-item reveal">
-        <img src="assets/kadena-model.jpg" alt="Модель поставок КАДЕНА — офис, заводы, распределительный центр, рынки" style="width: 100%; display: block; border-radius: var(--radius-lg); aspect-ratio: 4/3; object-fit: cover;">
+        <div class="placeholder-img">
+          <svg viewBox="0 0 48 48"><circle cx="24" cy="14" r="6"/><path d="M12 40c0-6.6 5.4-12 12-12s12 5.4 12 12"/><path d="M24 20v8"/><path d="M20 26l4-4 4 4"/></svg>
+          <span>Фото: участники обсуждают стратегию</span>
+        </div>
+      </div>
+      <div class="photo-item reveal">
+        <div class="placeholder-img">
+          <svg viewBox="0 0 48 48"><rect x="4" y="4" width="18" height="18" rx="2"/><rect x="26" y="4" width="18" height="18" rx="2"/><rect x="4" y="26" width="18" height="18" rx="2"/><rect x="26" y="26" width="18" height="18" rx="2"/></svg>
+          <span>Фото: дашборд на экране</span>
+        </div>
+      </div>
+      <div class="photo-item photo-item--wide reveal">
+        <div class="placeholder-img">
+          <svg viewBox="0 0 48 48"><rect x="8" y="4" width="32" height="40" rx="2"/><path d="M8 14h32"/><path d="M8 34h32"/><circle cx="16" cy="24" r="2"/><circle cx="24" cy="24" r="2"/><circle cx="32" cy="24" r="2"/></svg>
+          <span>Фото: дебрифинг с фасилитатором</span>
+        </div>
+      </div>
+      <div class="photo-item reveal">
+        <div class="placeholder-img">
+          <svg viewBox="0 0 48 48"><path d="M24 4L4 14v20l20 10 20-10V14L24 4z"/><path d="M4 14l20 10"/><path d="M24 24v20"/><path d="M44 14L24 24"/></svg>
+          <span>Фото: сертификаты / материалы игры</span>
+        </div>
+      </div>
+      <div class="photo-item reveal">
+        <div class="placeholder-img">
+          <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M24 12v12l8 8"/><path d="M24 6v4"/><path d="M24 38v4"/><path d="M6 24h4"/><path d="M38 24h4"/></svg>
+          <span>Фото: сравнение результатов команд</span>
+        </div>
       </div>
     </div>
   </div>
@@ -682,20 +715,20 @@ ul { list-style: none; }
   <div class="container">
     <div class="footer-grid">
       <div>
-        <div class="footer-logo">Логист<span>ориа</span><span class="footer-logo-dot">.</span></div>
+        <div class="footer-logo">Логист<span>ориа</span></div>
         <p class="footer-tagline">Игровые технологии для обучения логистике и цепям поставок. Доставляем в 30+ стран.</p>
+        <a href="mailto:project@logistoria.com" class="footer-email">project@logistoria.com</a>
       </div>
       <div>
         <div class="footer-title">Навигация</div>
         <a href="index-ru.html#games" class="footer-link">Каталог игр</a>
         <a href="index-ru.html#subs" class="footer-link">Абонементы</a>
-        <a href="index-ru.html#faq" class="footer-link">Как это работает</a>
+        <a href="index-ru.html#how" class="footer-link">Как это работает</a>
       </div>
       <div>
         <div class="footer-title">Продукты</div>
-        <a href="index-ru.html" class="footer-link">Главная</a>
-        <a href="https://www.krossdok.ru" class="footer-link">Кроссдок</a>
-        <a href="thebeergame.html" class="footer-link">The Beer Game</a>
+        <a href="#" class="footer-link">КРОССДОК</a>
+        <a href="#" class="footer-link">Beer Game</a>
         <a href="#" class="footer-link">КАДЕНА</a>
       </div>
       <div>
@@ -704,7 +737,10 @@ ul { list-style: none; }
         <a href="#contact" class="footer-link" onclick="openDemoModal();return false;">Заказать демо</a>
       </div>
     </div>
-    <div class="footer-bottom">© 2026 Логисториа. Все права защищены. · <a href="privacy.html" style="color:var(--orange-primary);text-decoration:underline;">Политика обработки персональных данных</a></div>
+    <div class="footer-bottom">
+      <span>© 2022–2026 Logistoria. Все права защищены.</span>
+      <span>Информационный ресурс по закупкам, логистике и цепям поставок.</span>
+    </div>
   </div>
 </footer>
 
@@ -713,35 +749,9 @@ ul { list-style: none; }
   <div class="demo-modal">
     <button class="demo-modal-close" onclick="closeDemoModal()">✕</button>
     <h3 class="demo-modal-title">Заказать демо КАДЕНЫ</h3>
-    <p class="demo-modal-subtitle">Оставьте контакты — покажем игру в действии</p>
-    <form id="demoForm" onsubmit="submitDemo(event)">
-      <div class="demo-form-group">
-        <label class="demo-form-label">Имя и фамилия <span class="required">*</span></label>
-        <input type="text" class="demo-form-input" id="demoName" placeholder="Иван Иванов" required>
-      </div>
-      <div class="demo-form-group">
-        <label class="demo-form-label">Email <span class="required">*</span></label>
-        <input type="email" class="demo-form-input" id="demoEmail1" placeholder="your@email.com" required>
-        <div class="error-msg" id="errEmail1">Введите корректный email</div>
-      </div>
-      <div class="demo-form-group">
-        <label class="demo-form-label">Подтвердите email <span class="required">*</span></label>
-        <input type="email" class="demo-form-input" id="demoEmail2" placeholder="your@email.com" required>
-        <div class="error-msg" id="errEmail2">Email не совпадает</div>
-      </div>
-      <div class="demo-form-group">
-        <label class="demo-form-label">Организация</label>
-        <input type="text" class="demo-form-input" id="demoOrg" placeholder="Название компании или вуза">
-      </div>
-      <div class="demo-form-group">
-        <label class="demo-form-label">Что хотите посмотреть</label>
-        <textarea class="demo-form-textarea" id="demoMessage" placeholder="Например: демо для группы 30 студентов, 2 часа"></textarea>
-      </div>
-      <div class="demo-form-note">Хотим быть уверенными, что при вводе email не закралась опечатка и запрос не остался без ответа.</div>
-      <p style="font-size:13px;color:var(--text-secondary);margin:12px 0 8px;">Нажимая кнопку «Отправить», вы соглашаетесь с <a href="privacy.html" target="_blank" style="color:var(--orange-primary);text-decoration:underline;">политикой обработки персональных данных</a></p>
-      <p style="font-size:13px;color:var(--text-secondary);margin:12px 0 8px;">Нажимая кнопку «Отправить», вы соглашаетесь с <a href="privacy.html" target="_blank" style="color:var(--orange-primary);text-decoration:underline;">политикой обработки персональных данных</a></p>
-      <button type="submit" class="demo-form-submit">Отправить запрос</button>
-    </form>
+    <p class="demo-modal-subtitle">Заполните форму — мы свяжемся с вами в течение дня.</p>
+    <script src="https://forms.yandex.ru/_static/embed.js" async></script>
+    <iframe src="https://forms.yandex.ru/cloud/6a37b9d302848f4635112803?iframe=1" frameborder="0" name="ya-form-6a37b9d302848f4635112803" width="100%" height="600" style="border:none;border-radius:8px;"></iframe>
   </div>
 </div>
 
@@ -823,7 +833,7 @@ function submitDemo(e) {
     'Организация: ' + (org.value.trim() || 'Не указана') + '\n\n' +
     'Что хотят посмотреть:\n' + msg.value.trim()
   );
-  window.location.href = 'mailto:art@logistoria.ru?subject=' + subject + '&body=' + body;
+  window.location.href = 'mailto:project@logistoria.com?subject=' + subject + '&body=' + body;
   closeDemoModal();
   document.getElementById('demoForm').reset();
 }
