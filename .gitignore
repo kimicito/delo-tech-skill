@@ -1,0 +1,86 @@
+# === СИСТЕМНЫЕ ===
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# === PYTHON ===
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+
+# === NODE ===
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# === ВЛОЖЕННЫЕ GIT-РЕПОЗИТОРИИ ===
+logistoria-tmp/
+logistoria-website-fresh/
+rusal-dashboard-new/
+safemind/
+skills/soulsaying/
+projects/botgame/
+projects/dungeonbot/
+projects/super_dashboard/
+projects/walkytalky/
+storewars-app/
+kadena-game/
+
+# === КРУПНЫЕ БИНАРНИКИ ===
+*.pdf
+*.xlsx
+*.xls
+*.docx
+*.doc
+*.zip
+*.tar.gz
+*.tar
+
+# === МЕДИА (входящие) ===
+media/inbound/*.jpg
+media/inbound/*.jpeg
+media/inbound/*.png
+media/inbound/*.gif
+media/inbound/*.mp4
+media/inbound/*.avi
+media/inbound/*.mov
+media/inbound/*.mp3
+media/inbound/*.ogg
+media/inbound/*.wav
+media/inbound/*.m4a
+media/inbound/*.pdf
+media/inbound/*.zip
+media/inbound/*.tar.gz
+media/inbound/*.rar
+
+# === ОТДЕЛЬНЫЕ ПАПКИ ===
+# Локальные данные (могут быть большими)
+*.db
+*.sqlite
+*.sqlite3
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# === ИСКЛЮЧЕНИЯ (не бэкапим эти папки) ===
+# Каждый проект сам решает что коммитить
+# Но общие правила:
+**/node_modules/
+**/__pycache__/
+**/.venv/
+**/venv/

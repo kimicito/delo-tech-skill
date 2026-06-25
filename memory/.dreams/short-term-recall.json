@@ -1,0 +1,161 @@
+{
+  "version": 1,
+  "updatedAt": "2026-06-23T18:58:50.714Z",
+  "entries": {
+    "memory:memory/2026-05-31.md:38:55": {
+      "key": "memory:memory/2026-05-31.md:38:55",
+      "path": "memory/2026-05-31.md",
+      "startLine": 38,
+      "endLine": 55,
+      "source": "memory",
+      "snippet": "- Added 10px gap (`margin-bottom: 10px`) between image in \"О чём игра\" and \"Возможности\" section. - Dashboard layout: image moved to right column (1.2fr), insight cards + metrics on left (1fr). - Rebranded \"Beer Game\" → \"The Beer Game\" in footer. - Removed `project@logistoria.com` from footer and JS mailto. - Crossdok link updated to `https://www.krossdok.ru`. - GitHub commits: `aa79b67`, `f72f404`, `c60133d`. ## Logistoria Website — Code Repository - **Repository**: https://github.com/kimicito/logistoria-website - **Local workspace**: `/root/.openclaw/workspace/logistoria-redesign/` - **GitHub Pages URL**: https://kimicito.github.io/logistoria-website/ - **Files tracked**: - `index-ru.ht",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.43317052423954006,
+      "maxScore": 0.43317052423954006,
+      "firstRecalledAt": "2026-06-23T18:58:50.714Z",
+      "lastRecalledAt": "2026-06-23T18:58:50.714Z",
+      "queryHashes": [
+        "38b18b1b569f"
+      ],
+      "recallDays": [
+        "2026-06-24"
+      ],
+      "conceptTags": [
+        "margin-bottom",
+        "1.2fr",
+        "logistoria.com",
+        "www.krossdok.ru",
+        "index-ru.ht",
+        "added",
+        "10px",
+        "gap"
+      ]
+    },
+    "memory:memory/2026-05-31.md:1:28": {
+      "key": "memory:memory/2026-05-31.md:1:28",
+      "path": "memory/2026-05-31.md",
+      "startLine": 1,
+      "endLine": 28,
+      "source": "memory",
+      "snippet": "# 2026-05-31 ## Logistoria Website — kadena.html fixes - Уменьшены padding и margin в секции «О чём игра» для компактности на мобильном. - Удалены стат-карточки «Прогнозирование / Запасы / Издержки» из этой секции. - Убран `opacity: 0` и `transform: translateY(40px)` у `.stat-card` и `.reveal`, чтобы элементы были видны сразу, а не только при скролле. - GitHub commits: `882507b`, `1565904`, `2f22537`, `31134f5`, `f5231aa`. ## Logistoria Website — wareheroes.ru link - В RU-версии главной страницы (`index-ru.html`) карточка игры «Герои стеллажа и склада» — кнопка «Подробнее» теперь ведёт на `https://wareheroes.ru/` с `target=\"_blank\"`. - Commit: `f5231aa`. ## The Beer Game — Page Redesign",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.41615864038467404,
+      "maxScore": 0.41615864038467404,
+      "firstRecalledAt": "2026-06-23T18:58:50.714Z",
+      "lastRecalledAt": "2026-06-23T18:58:50.714Z",
+      "queryHashes": [
+        "38b18b1b569f"
+      ],
+      "recallDays": [
+        "2026-06-24"
+      ],
+      "conceptTags": [
+        "kadena.html",
+        "стат-карточки",
+        "stat-card",
+        "wareheroes.ru",
+        "ru-версии",
+        "index-ru.html",
+        "logistoria",
+        "website"
+      ]
+    },
+    "memory:memory/2026-06-16.md:79:107": {
+      "key": "memory:memory/2026-06-16.md:79:107",
+      "path": "memory/2026-06-16.md",
+      "startLine": 79,
+      "endLine": 107,
+      "source": "memory",
+      "snippet": "- GitHub PAT протух (401) — push не работает, требуется новый токен - Мультиплеер gameplay (игроки в комнате, синхронизация ходов) — не реализован - Admin: login `admin`, password `admin123` ### URL - http://85.239.59.8/ — Kadena Game ## 2026-06-16 04:50+08 Kadena — Вариант А + Полный UX ### Реализовано 1. **Вариант А (lead time = 1 месяц)** в `calculator_v2.py`: - Добавлено поле `raw_material_pipeline: List[int]` в `GameState` - `calculate_month_impl` берёт incoming сырьё из `pipeline[0]`, добавляет новый заказ в конец - Wrapper `calculate_month` принимает/возвращает `raw_material_pipeline` - Начальное pipeline = `[300]` (прибытие в месяц 1) - Начальный `raw_material = 300",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.40745719373226164,
+      "maxScore": 0.40745719373226164,
+      "firstRecalledAt": "2026-06-23T18:58:50.714Z",
+      "lastRecalledAt": "2026-06-23T18:58:50.714Z",
+      "queryHashes": [
+        "38b18b1b569f"
+      ],
+      "recallDays": [
+        "2026-06-24"
+      ],
+      "conceptTags": [
+        "85.239.59.8",
+        "calculator-v2.py",
+        "raw-material-pipeline",
+        "calculate-month-impl",
+        "calculate-month",
+        "принимает/возвращает",
+        "raw-material",
+        "github"
+      ]
+    },
+    "memory:memory/2026-05-31.md:23:42": {
+      "key": "memory:memory/2026-05-31.md:23:42",
+      "path": "memory/2026-05-31.md",
+      "startLine": 23,
+      "endLine": 42,
+      "source": "memory",
+      "snippet": "- Footer links updated: Кроссдок → www.krossdok.ru, Кадена → /kadena.html. - Removed email `project@logistoria.com` from footer. - Restructured \"О чём игра\" section into 3 colored cards: История (violet), Эффект хлыста (orange), Последствия (violet-soft). - GitHub commits: `7447ce4`, `ab8a3b6`, `30a8120`. ## BotGame Bot — @Auction_play_bot - Fixed `nav_lang` callback button — was trying to edit inaccessible message, now sends a new message with language selection. - Fixed `start.sh` to properly cd into project directory before activating venv. - Bot keeps getting killed by SIGTERM/SIGKILL from OpenClaw exec system — not a code issue, need systemd/cron for persistent running. - Lock file at",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4016825497150421,
+      "maxScore": 0.4016825497150421,
+      "firstRecalledAt": "2026-06-23T18:58:50.714Z",
+      "lastRecalledAt": "2026-06-23T18:58:50.714Z",
+      "queryHashes": [
+        "38b18b1b569f"
+      ],
+      "recallDays": [
+        "2026-06-24"
+      ],
+      "conceptTags": [
+        "www.krossdok.ru",
+        "kadena.html",
+        "logistoria.com",
+        "violet-soft",
+        "auction-play-bot",
+        "nav-lang",
+        "start.sh",
+        "sigterm/sigkill"
+      ]
+    },
+    "memory:memory/2026-06-16.md:1:37": {
+      "key": "memory:memory/2026-06-16.md:1:37",
+      "path": "memory/2026-06-16.md",
+      "startLine": 1,
+      "endLine": 37,
+      "source": "memory",
+      "snippet": "# Kadena Game — Обновление калькулятора до v2 ## Решения (подтверждены пользователем) - **Валюта**: Euro (€) — подтверждено многократно - **Начальные запасы на рынках**: 100 ед. каждый (КР1, КР2, КР3) - **Мягкие ограничения (Вариант Б)**: предупреждения вместо жёстких блокировок - **Последовательность рынков**: КР1 → КР2 → КР3 - **Сырьё**: Завод 1 забирает первым, Завод 2 — остаток ## Обновлённые файлы - `kadena-game/backend/calculator_v2.py` — переписан с точными формулами Excel - `kadena-game/docs/PRODUCT_SPEC_V2.md` — обновлена спецификация ## Параметры 12 месяцев (импортированы из Excel) - Спрос по месяцам для каждого рынка задан точно - Цены, себестоимость, надёжность, издержки — все",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.3888357937335968,
+      "maxScore": 0.3888357937335968,
+      "firstRecalledAt": "2026-06-23T18:58:50.714Z",
+      "lastRecalledAt": "2026-06-23T18:58:50.714Z",
+      "queryHashes": [
+        "38b18b1b569f"
+      ],
+      "recallDays": [
+        "2026-06-24"
+      ],
+      "conceptTags": [
+        "kadena",
+        "game",
+        "обновление",
+        "калькулятора",
+        "решения",
+        "подтверждены",
+        "пользователем",
+        "валюта"
+      ]
+    }
+  }
+}
