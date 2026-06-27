@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-06-23T18:58:50.714Z",
+  "updatedAt": "2026-06-26T07:29:08.127Z",
   "entries": {
     "memory:memory/2026-05-31.md:38:55": {
       "key": "memory:memory/2026-05-31.md:38:55",
@@ -155,6 +155,37 @@
         "подтверждены",
         "пользователем",
         "валюта"
+      ]
+    },
+    "memory:memory/2026-06-24.md:1:39": {
+      "key": "memory:memory/2026-06-24.md:1:39",
+      "path": "memory/2026-06-24.md",
+      "startLine": 1,
+      "endLine": 39,
+      "source": "memory",
+      "snippet": "# 2026-06-24 ## Skill price-comparison — полное обновление ### Eval-скрипт - Создан `skills/price-comparison/scripts/eval.py` - Проверяет: бренд аналога ≠ бренд оригинала, URL валидны, структура таблицы, цены/URL присутствуют - Возвращает: 0=PASS, 1=FAIL, 2=WARN - Результат на текущей таблице: 23 OK, 0 FAIL, 6 WARN ### SKILL.md — новые правила - Аналог = другой бренд (критично, никогда не тот же) - URL проверять перед записью (работающие, русскоязычные) - Кодировка URL (кириллица ломается, латиница надёжнее) - Batch_update — проверять row-номера, чтобы не перезаписать соседей ### Runner - Создан `skills/price-comparison/scripts/runner.py` — полный workflow: input → process_excel → eval",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4586593627929687,
+      "maxScore": 0.4586593627929687,
+      "firstRecalledAt": "2026-06-26T07:29:08.127Z",
+      "lastRecalledAt": "2026-06-26T07:29:08.127Z",
+      "queryHashes": [
+        "1605a20d29fe"
+      ],
+      "recallDays": [
+        "2026-06-26"
+      ],
+      "conceptTags": [
+        "price-comparison",
+        "eval-скрипт",
+        "цены/url",
+        "skill.md",
+        "batch-update",
+        "row-номера",
+        "process-excel",
+        "skill"
       ]
     }
   }
