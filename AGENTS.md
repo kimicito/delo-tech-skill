@@ -177,6 +177,26 @@ Skills provide your tools. When you need one, check its `SKILL.md`. Keep local n
 Если `.git/` разрастается >500MB — запустить `git gc --aggressive`.
 Если >1GB — предупредить пользователя, возможно нужно пересоздать репозиторий без истории.
 
+### GitHub Remote (⚠️ Важно)
+- **Репозиторий:** `github.com/kimicito/openclaw-workspace.git`
+- **Remote name:** `workspace` (основной), `origin` (для logistoria-website, не используй)
+- **Ветка:** `master`
+
+Если push не работает:
+1. Проверить remote: `git remote -v`
+2. Проверить token: `git push workspace master`
+3. Если token истёк — нужен новый GitHub PAT (classic) с правом `repo`
+
+```bash
+# Проверка remote
+$ git remote -v
+workspace  https://github.com/kimicito/openclaw-workspace.git (fetch)
+workspace  https://github.com/kimicito/openclaw-workspace.git (push)
+
+# Правильный push
+git push workspace master
+```
+
 ---
 
 
