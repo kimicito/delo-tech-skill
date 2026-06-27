@@ -68,6 +68,9 @@ def parse_vor(filepath: str) -> List[VORItem]:
         # Пропускаем пустые и заголовки разделов
         if not num or not name:
             continue
+        # Пропускаем строки с номерами колонок (1, 2, 3, 4...)
+        if isinstance(name, (int, float)) or (isinstance(name, str) and name.strip().isdigit()):
+            continue
         if isinstance(num, str) and 'раздел' in num.lower():
             continue
         if isinstance(name, str) and len(name) > 100 and 'условия' in name.lower():
@@ -113,13 +116,19 @@ def parse_smeta(filepath: str) -> List[SmetaItem]:
         unit = ws.cell(row=row, column=4).value
         qty = ws.cell(row=row, column=5).value
         
-        # Пропускаем итоги, пустые, заголовки
+        # Пропускаем итоги, пустые, заголовки, комментарии
         if not num or not name:
             continue
         num_str = str(num).strip().lower()
+        name_str = str(name).strip().lower()
         if any(x in num_str for x in ['итого', 'всего', 'накладные', 'прибыль', 'раздел']):
             continue
-        if isinstance(name, str) and 'внимание' in name.lower():
+        if isinstance(name, str) and ('внимание' in name_str or 'вндекс' in name_str):
+            continue
+        # Пропускаем комментарии (строки пояснений без числового номера позиции)
+        if isinstance(num, str) and ('поз.' in num_str or 'поправка' in num_str or 'индексы' in num_str or 'нр и сп' in num_str):
+            continue
+        if name_str.startswith('вор:') or 'сметчик' in name_str or 'код фер' in name_str:
             continue
             
         # Проверяем статус "УТОЧНИТЬ"
