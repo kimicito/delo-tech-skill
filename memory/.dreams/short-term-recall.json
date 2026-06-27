@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-06-26T07:29:08.127Z",
+  "updatedAt": "2026-06-27T16:23:59.711Z",
   "entries": {
     "memory:memory/2026-05-31.md:38:55": {
       "key": "memory:memory/2026-05-31.md:38:55",
@@ -186,6 +186,37 @@
         "row-номера",
         "process-excel",
         "skill"
+      ]
+    },
+    "memory:memory/2026-06-26.md:1:42": {
+      "key": "memory:memory/2026-06-26.md:1:42",
+      "path": "memory/2026-06-26.md",
+      "startLine": 1,
+      "endLine": 42,
+      "source": "memory",
+      "snippet": "## 2026-06-26 ### Price Comparison Skill - Создан новый skill `price-comparison` в `workspace/skills/price-comparison/` - SKILL.md — правила: аналог = другой бренд, проверка URL, русские поставщики - scripts/runner.py — чтение Excel, стандартизация вывода - scripts/eval.py — валидация: brand different, URL working, price present ### Обработка Excel: маршрутизаторы_1209424 - Исходный файл: 1 позиция — Cisco C1121-8PLTEP ISR 1100 8P Dual GE SFP + LTE, цена 91 930,46 ₽ - Найден аналог: **Huawei AR6121** (8 GE LAN, 2 combo WAN, SFP+) — цена ~75 600 ₽ (network.msk.ru) - **Критическое ограничение:** Huawei AR6121 — ближайший по портам, но **без встроенного LTE**. Прямого аналога Cisco C112",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.35782607197761535,
+      "maxScore": 0.35782607197761535,
+      "firstRecalledAt": "2026-06-27T16:23:59.711Z",
+      "lastRecalledAt": "2026-06-27T16:23:59.711Z",
+      "queryHashes": [
+        "028a7d178322"
+      ],
+      "recallDays": [
+        "2026-06-28"
+      ],
+      "conceptTags": [
+        "network",
+        "price-comparison",
+        "skill.md",
+        "scripts/runner.py",
+        "scripts/eval.py",
+        "маршрутизаторы-1209424",
+        "c1121-8pltep",
+        "network.msk.ru"
       ]
     }
   }
