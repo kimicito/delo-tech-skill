@@ -4,7 +4,7 @@ Append-only хронология изменений в базе знаний.
 
 ## [2026-06-28] setup | Wiki initialization
 - Created vault structure: 00-Inbox, 01-Projects, 02-Areas, 03-Resources, 04-Archive
-- Created schema: [[CLAUDE.md]]
+- Created schema: [[KIMI.md]]
 - Created index and log
 
 ## [2026-06-28] ingest | WEF AI Playbook for Financial Services
@@ -23,7 +23,7 @@ Append-only хронология изменений в базе знаний.
 - Source: https://gist.github.com/kimicito/6f33a4457b8c2c9767e960c692e6d7a3
 - Type: Pattern / Architecture
 - Summary: Паттерн для LLM-управляемой базы знаний (не RAG)
-- Impact: Created [[CLAUDE.md]] schema for this wiki
+- Impact: Created [[KIMI.md]] schema for this wiki
 
 ---
 

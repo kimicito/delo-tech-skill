@@ -33,7 +33,7 @@ status: done
 ## Meta
 | Page | Purpose |
 |------|---------|
-| [[CLAUDE.md]] | Schema / правила wiki |
+| [[KIMI.md]] | Schema / правила wiki |
 | [[index]] | Этот файл — каталог |
 | [[log]] | Хронология изменений |
 

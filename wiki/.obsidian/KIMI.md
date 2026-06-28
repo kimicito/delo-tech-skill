@@ -1,4 +1,4 @@
-# OpenClaw Wiki — Schema
+# Kimi Wiki — Schema
 
 Паттерн: LLM-управляемая база знаний (Obsidian vault).
 Wiki = persistent, compounding artifact. Не RAG.
@@ -11,7 +11,7 @@ Wiki = persistent, compounding artifact. Не RAG.
 ┌─────────────────────────────────────────┐
 │  RAW SOURCES (источники)                │
 │  Неизменяемые. Статьи, отчёты, PDF.     │
-│  Путь: wiki/raw/                        │
+│  Путь: raw/                             │
 ├─────────────────────────────────────────┤
 │  WIKI (Markdown-заметки)                │
 │  LLM создаёт и поддерживает.            │
@@ -26,7 +26,7 @@ Wiki = persistent, compounding artifact. Не RAG.
 ├─────────────────────────────────────────┤
 │  SCHEMA (этот файл)                     │
 │  Правила структуры, ingest, query, lint │
-│  Путь: wiki/.obsidian/CLAUDE.md         │
+│  Путь: wiki/.obsidian/KIMI.md           │
 └─────────────────────────────────────────┘
 ```
 
@@ -67,7 +67,7 @@ Wiki = persistent, compounding artifact. Не RAG.
 **Триггер:** Пользователь даёт источник (ссылка, PDF, текст).
 
 **Шаги:**
-1. Сохранить источник в `wiki/raw/`
+1. Сохранить источник в `raw/`
 2. Прочитать и обсудить ключевые моменты с пользователем
 3. Создать summary-заметку в `03-Resources/`
 4. Обновить entity-страницы (если новые сущности)
@@ -201,3 +201,4 @@ cd /root/.openclaw/workspace && ./backup.sh "[wiki] daily backup"
 *Schema version: 1.0*
 *Created: 2026-06-28*
 *Pattern: https://gist.github.com/kimicito/6f33a4457b8c2c9767e960c692e6d7a3*
+*LLM: Kimi (Moonshot AI)*
