@@ -64,3 +64,44 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 ### Cleanup done
 - `~/.openclaw/skills/smeta.skill` → `smeta.skill.old` (archived)
 - `price-comparison` lives **only** in workspace
+
+---
+
+## 🔒 Правило бэкапа — ВСЁ ВАЖНОЕ в GitHub
+
+**Принцип:** Всё, что нарабатываем — skills, проекты, MD-файлы, таблицы, PDF-документы — должно сохраняться в Git (`openclaw-workspace`).
+
+### Что бэкапится (обязательно)
+
+| Категория | Примеры | Статус |
+|---|---|---|
+| **Skills** | `workspace/skills/price-comparison/`, `smeta/`, `soulsaying/` | ✅ tracked |
+| **Projects** | `projects/smeta/`, `botgame/`, `educai8/` | ✅ tracked |
+| **Личные** | `personal/company_programs.md`, `internship.md` | ✅ tracked |
+| **Рабочие** | `work/задачи_шефа.md` | ✅ tracked |
+| **Таблицы** | `*.xlsx` в `personal/` и проектах | ✅ tracked |
+| **Документы** | `*.pdf` (ФЕР-20, сметы) в проектах | ✅ tracked |
+| **Memory** | `memory/YYYY-MM-DD.md` | ✅ tracked |
+| **Bootstrap** | `AGENTS.md`, `SOUL.md`, `TOOLS.md` | ✅ tracked |
+
+### Что НЕ бэкапится (исключения в `.gitignore`)
+
+- `venv/`, `node_modules/`, `__pycache__/` — генерируемое
+- `media/inbound/` — входящие медиа
+- `*.log`, `*.tmp`, `*.zip` — временное
+- `projects/educai8/` — свой git-репозиторий
+
+### Процесс бэкапа
+
+1. **Авто:** cron каждый день в 3:00 AM (`backup.sh`)
+2. **Ручной:** `./backup.sh "[тип] описание"`
+3. **Проверка:** `git status` — покажет что не в бэкапе
+
+### При создании нового
+
+- Новый skill → `workspace/skills/<name>/` + `git add`
+- Новый проект → `projects/<name>/` + `git add`
+- Новый MD → `personal/` или `work/` + `git add`
+- Важный PDF/XLSX → `git add -f` если в `.gitignore`
+
+**Мантра:** Если не в git — его не существует.

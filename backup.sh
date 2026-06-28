@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 # backup.sh — Smart backup script for OpenClaw workspace
+# ВАЖНО: Бэкапит ВСЁ кроме .gitignore (venv, media, логи, node_modules)
+# Skills, projects, MD, XLSX, PDF — всё сохраняется в GitHub
+#
 # Usage: ./backup.sh [message]
 
 set -e
@@ -10,6 +13,12 @@ COMMIT_MSG="${1:-"Auto backup: $(date '+%Y-%m-%d %H:%M')"}"
 cd "$WORKSPACE"
 
 echo "🔍 Checking git status..."
+
+# Показываем что будет забэкаплено
+echo ""
+echo "📋 Файлы для бэкапа:"
+git status --short | head -20
+echo ""
 
 # Check if there are changes
 if git diff --quiet && git diff --cached --quiet; then
@@ -48,3 +57,4 @@ git push "$REMOTE" "$BRANCH" 2>/dev/null || {
 
 echo "✅ Backup complete: $(git log -1 --format='%h %s')"
 echo "📊 Repo size: $(du -sh .git | cut -f1)"
+echo "📁 Важное в бэкапе: skills/, projects/, personal/, work/, memory/"

@@ -26,29 +26,6 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# === ВЛОЖЕННЫЕ GIT-РЕПОЗИТОРИИ ===
-logistoria-tmp/
-logistoria-website-fresh/
-rusal-dashboard-new/
-safemind/
-skills/soulsaying/
-projects/botgame/
-projects/dungeonbot/
-projects/super_dashboard/
-projects/walkytalky/
-storewars-app/
-kadena-game/
-
-# === КРУПНЫЕ БИНАРНИКИ ===
-*.pdf
-*.xlsx
-*.xls
-*.docx
-*.doc
-*.zip
-*.tar.gz
-*.tar
-
 # === МЕДИА (входящие) ===
 media/inbound/*.jpg
 media/inbound/*.jpeg
@@ -66,6 +43,13 @@ media/inbound/*.zip
 media/inbound/*.tar.gz
 media/inbound/*.rar
 
+# === КРУПНЫЕ БИНАРНИКИ (исключения по умолчанию, НО с исключениями ниже) ===
+# PDF: НЕ исключаем — важные документы (ФЕР, сметы)
+# XLSX: НЕ исключаем — важные таблицы (personal/, проекты)
+*.zip
+*.tar.gz
+*.tar
+
 # === ОТДЕЛЬНЫЕ ПАПКИ ===
 # Локальные данные (могут быть большими)
 *.db
@@ -77,10 +61,23 @@ media/inbound/*.rar
 .idea/
 *.sublime-*
 
-# === ИСКЛЮЧЕНИЯ (не бэкапим эти папки) ===
-# Каждый проект сам решает что коммитить
-# Но общие правила:
+# === ВЛОЖЕННЫЕ GIT-РЕПО (не бэкапим как подмодули, они сами по себе) ===
+logistoria-website-fresh/
+skills/soulsaying/
+
+# === ПРОЕКТЫ: исключаем venv, но НЕ исключаем код ===
+projects/**/venv/
+projects/**/node_modules/
+projects/**/__pycache__/
+projects/**/.env
+
+# === ИСКЛЮЧЕНИЯ ДЛЯ КОНКРЕТНЫХ ПРОЕКТОВ ===
+# educai8 — свой git, не бэкапим здесь
+projects/educai8/
+
+# === ГЛОБАЛЬНЫЕ ИСКЛЮЧЕНИЯ ===
 **/node_modules/
 **/__pycache__/
 **/.venv/
 **/venv/
+**/.env
