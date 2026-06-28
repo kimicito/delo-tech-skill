@@ -1,167 +1,202 @@
-# AI Playbook for Financial Services
-## Саммари и выводы для топ-менеджмента
+# The AI Playbook for Financial Services
+## Всемирный экономический форум (WEF) + Accenture, июнь 2026
 
-**Источник:** SmarterWay.AI — AI Playbook for Financial Services  
-**Дата:** 2026  
-**Формат:** Практическое руководство для финансовых организаций
-
----
-
-## 📊 Ключевые цифры (почему это важно)
-
-| Метрика | Результат ИИ |
-|---------|-------------|
-| +35% | Выручка на одного консультанта через ИИ-планирование |
-| +60% | Straight-through processing транзакций |
-| 2-3× | Ускорение онбординга клиентов |
-| +45% | Конверсия кросс-сейл через ИИ-рекомендации |
-| −50% | Потери от фрода с ИИ-детекцией |
-| −40% | Время на compliance-проверки |
-| −30% | Стоимость привлечения клиента |
-| 90-95% | Точность прогнозирования кэша (vs 60-70% в Excel) |
+**Источник:** https://www.weforum.org/publications/the-ai-playbook-for-financial-services/  
+**Дата:** 24 июня 2026  
+**Авторы:** WEF Centre for Financial and Monetary Systems + Accenture  
+**Методология:** 18 месяцев исследований, 150+ senior executives, 100+ организаций, раундтейблы в Hong Kong, London, New York, Singapore
 
 ---
 
-## 🎯 8 направлений применения ИИ
+## 📌 Главный тезис
 
-### 1. Wealth Management & Advisory
-- **Портфельная оптимизация:** динамическое распределение активов, повышение risk-adjusted returns на 40-60 bps
-- **Tax-loss harvesting:** снижение налоговой нагрузки на 0.5-1.2% годовых
-- **Сегментация:** 100+ микро-сегментов клиентов для гиперперсонализации
-- **Robo-advisory:** обслуживание массового рынка на 30-70% дешевле
+> **AI — это структурное смещение, а не просто инструмент повышения эффективности.** Он меняет то, как организуется работа, как принимаются решения, как создаётся ценность и как конкурируют институты.
 
-**Вывод:** ИИ освобождает 60% времени консультанта — остаётся время на стратегию и отношения.
+Центральный вызов: перейти от пилотов к масштабированию — **быстро, ответственно и устойчиво**.
 
 ---
 
-### 2. Lending & Credit (Кредитование)
-- **Кредитный скоринг:** одобрение вырастает на 5-15% при сохранении уровня риска
-- **Оригинизация:** время решения сокращается с дней до минут
-- **Стоимость кредита:** снижение на 40-60% за счёт автоматизации
-- **Взыскание:** персонализированная стратегия повышает возврат на 10-20%
+## 🔑 4 ключевых находки
 
-**Вывод:** ИИ позволяет кредитовать thin-file и unbanked заёмщиков — расширение рынка.
+### 1. AI — стратегический вопрос для Совета директоров
+- Приоритет сместился с «запустить пилот» на «встроить AI везде»
+- Лидеры должны определить: **что автоматизировать, где оставить человека, как встроить AI в операции**
+- Board-level accountability — обязательна
 
----
+### 2. Дифференциация — через отношения с клиентами, усиленные AI
+- Аналитические и генеративные возможности стали **широкодоступны**
+- Конкурентное преимущество — в **намеренном усилении клиентских отношений** через AI
+- **Доверие** — центральный элемент: клиенты должны доверять, как используется технология
 
-### 3. Risk & Compliance
-- **AML/KYC:** AI снижает false positives с 95-99% до 20-30%
-- **Sanctions screening:** проверка платежей в миллисекунды
-- **Регуляторная отчётность:** ускорение с дней до часов
-- **Model governance:** мониторинг деградации моделей в production
+### 3. Максимальная выгода — от целостного редизайна
+- Точечное внедрение даёт локальный эффект
+- **Голистический подход** (workflows + org design + tech architecture) даёт на порядок больше
+- Нельзя «накладывать AI на фрагментированное legacy»
 
-**Вывод:** AI не заменяет compliance-аналитиков — он направляет их на реальные риски.
-
----
-
-### 4. Fraud Detection
-- **Детекция:** обнаружение фрода за 100+ мс
-- **Точность:** блокировка 60-80% попыток фрода
-- **Биометрия:** верификация с точностью >99%
-- **Behavioral biometrics:** повышение точности на 15-25%
-
-**Вывод:** AI находит организованные фрод-кольца с точностью 92%.
+### 4. Agentic AI меняет правила игры
+- Спектр автономности: от assistive (помощь человеку) до autonomous (самостоятельное действие)
+- Критически важно: **кть несёт ответственность**, как делятся полномочия, сколько oversight нужно
+- Примеры: liquidity forecasting agent, balance sheet optimization agent
 
 ---
 
-### 5. Insurance (Страхование)
-- **Андеррайтинг:** мгновенное решение для 70% заявок
-- **Клеймы:** обработка сокращается с 15 дней до 2-3 дней
-- **Фрод:** предотвращение ~$1.2M потерь ежегодно на страховщика
-- **Динамический прайсинг:** улучшение combined ratio на 15-20%
+## 🏗️ Framework for Transformational AI (4 этапа)
 
-**Вывод:** 40-60% клеймов проходят end-to-end без человека.
-
----
-
-### 6. Capital Markets & Trading
-- **Алгоритмическое исполнение:** снижение market impact на 15-25%
-- **Research automation:** ускорение на 40%
-- **Sentiment analysis:** 70% точность на 3-5 дней
-- **Alternative data:** альфа +50-100 bps ежегодно
-
-**Вывод:** AI обрабатывает earnings calls и SEC filings в минуты, не недели.
-
----
-
-### 7. Payments & Banking Operations
-- **Роутинг платежей:** оптимизация по стоимости и скорости
-- **Реконсиляция:** 85% автоматически, месячный закрытие с 7-10 дней до 2-3
-- **Ликвидность:** прогнозирование дефицита за 10-15 дней
-- **Стоимость платежей:** снижение на 20-30%
-
-**Вывод:** AI выбирает оптимальный payment rail (ACH, wire, card, blockchain) в реальном времени.
-
----
-
-### 8. Customer Experience
-- **Чат-боты:** 60-75% рутинных запросов без эскалации
-- **Персонализация:** +25-35% кросс-сейл
-- **Онбординг:** сокращение с 2-3 дней до минут
-- **Предиктивные алерты:** предупреждение о овердрафте за 48 часов
-
-**Вывод:** AI не заменяет человека — он отфильтровывает рутину, оставляя сложные случаи.
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  1. DEFINE VISION AND STRATEGY                                  │
+│     • Board-level alignment на приоритетах                      │
+│     • Baseline оценка, data/model readiness                     │
+│     • Высокоценные agentic-возможности                          │
+│     • Guardrails: risk, regulation, responsible AI              │
+├─────────────────────────────────────────────────────────────────┤
+│  2. BUILD DIGITAL CORE AND AI FOUNDATIONS                       │
+│     • Enterprise intelligence platform (data + models + infra)  │
+│     • Identity, consent, interoperable architecture             │
+│     • Перевод пилотов в production с oversight                  │
+│     • Мониторинг: drift, bias, explainability, ethics           │
+├─────────────────────────────────────────────────────────────────┤
+│  3. IMPLEMENT TWO-SPEED AI APPROACH                             │
+│     • Speed 1: быстрый frontline impact (клиенты, операции)     │
+│     • Speed 2: enterprise-grade strategic AI (рост, капитал)    │
+│     • Расширение AI между бизнес-юнитами                        │
+│     • Feedback loops, outcome measurement                       │
+├─────────────────────────────────────────────────────────────────┤
+│  4. TRANSFORM WORKFORCE, PROCESSES AND CULTURE                  │
+│     • Переопределение work, decision rights, incentives         │
+│     • Skills-based structures                                   │
+│     • AI-driven decision-making как норма                       │
+│     • Culture of ethical innovation + continuous learning       │
+└─────────────────────────────────────────────────────────────────┘
+```
 
 ---
 
-## ⚠️ Где ИИ НЕ работает (и почему)
+## 🧠 Enterprise Intelligence Platform
 
-| Область | Почему |
-|---------|--------|
-| Сложное налоговое планирование | Требует юридической экспертизы и контекста |
-| Доверительные отношения | AI не строит доверие с UHNW клиентами |
-| Регуляторные суждения | Требуют человеческого judgment |
-| High-touch advisory | Ultra-high-net-worth требуют персонального присутствия |
+Платформа эмулирует человеческое познание:
+- **Perceive** — восприятие (данные, сигналы)
+- **Reason** — рассуждение (модели, агенты)
+- **Act** — действие (автоматизация, решения)
+- **Learn** — обучение (feedback, улучшение)
+
+**Ключевые элементы:**
+- Data products (consistent discovery, consumption)
+- Structured + unstructured data (enterprise + ecosystem)
+- APIs, Model Context Protocol (MCP), zero-copy integration
+- Security, scalability, cost-effectiveness
 
 ---
 
-## 🛡️ Risk Guardrails (что нужно контролировать)
+## 👥 Workforce Transformation (Hybrid Workforce)
 
-1. **Explainability** — регуляторы требуют объяснить решение (особенно при отказе)
-2. **Bias & Fairness** — проверка на дискриминацию по защищённым классам
-3. **Model Drift** — переобучение моделей при изменении рыночных условий
-4. **Data Quality** — точность прогнозов = качество данных (garbage in, garbage out)
-5. **Human-in-the-Loop** — SAR (подозрительная активность) требует человеческого решения
-6. **Audit Trail** — 100% отслеживаемость для регуляторов
+| Элемент | Описание |
+|---------|----------|
+| **Skills-based design** | Переход от ролей к навыкам |
+| **Work and role redesign** | AI reinvents tasks, not just automates |
+| **Learning pathways** | Обучение для людей и «цифровых работников» |
+| **Culture of innovation** | Этичная гибкость, continuous learning |
+| **New breed of leaders** | Лидеры, понимающие AI и человеческий капитал |
+
+**Кейс KBTG (Таиланд):**
+- 200+ innovation ideas → 60 MVPs → 8 enterprise platforms
+- 20-59% productivity improvement (admin, documentation, analysis)
+- **~30,000 workdays saved** после масштабирования AI-агентов
+- Centralized, vendor-agnostic AI platform
+
+---
+
+## 🛡️ Governance, Risk, Compliance (GRC)
+
+### Risk Management Life Cycle (адаптированный для AI)
+1. **Re/define** intended use (регуляторные мандаты + принципы организации)
+2. **Assess** risks/impact (AI-specific risks, tiering приложений)
+3. **Implement** controls (design, build, deploy, operate)
+4. **Test, monitor, report** (continuous, benchmark against best practices)
+5. **Independent validation** (before and after deployment)
+
+### Control Domain Taxonomy
+| Домен | Фокус |
+|-------|-------|
+| **Data governance** | Lawful, fit-for-purpose, traceable, controlled |
+| **Responsible AI board/C-suite** | Risk appetite, accountability, oversight |
+| **Model risk** | Independent validation, drift monitoring, hallucinations |
+| **Cyber/Third-party** | Supplier assurance, incident coordination |
+| **Agent identity** | Privilege management, segregation of duties |
+
+### Региональные фреймворки
+- **EU:** AI Act (2024) — risk-based подход
+- **US:** SR 11-7, upcoming RFI on AI governance
+- **Singapore:** MAS FEAT Principles + Project MindForge
+- **Hong Kong:** HKMA High-level Principles on AI
+- **Indonesia:** OJK AI Governance Framework
+
+---
+
+## 🤖 Agentic AI — Спектр Автономности
+
+| Уровень | Описание | Пример |
+|---------|----------|--------|
+| **Assistive** | Генерирует рекомендации, человек принимает решение | Draft email, suggestion |
+| **Semi-autonomous** | Выполняет задачи в рамках guardrails, эскалирует исключения | Routine KYC processing |
+| **Autonomous** | Планирует, решает, действует с минимальным oversight | Liquidity forecasting |
+| **Multi-agent/Orchestrator** | Координирует несколько специализированных агентов | End-to-end loan origination |
+| **Tool-using** | Взаимодействует с API, внешними системами | Payment execution |
+
+**Критически важно:**
+- Кто несёт ответственность за решение?
+- Как делятся полномочия между человеком и машиной?
+- Как эскалировать исключения?
+- Сколько oversight необходимо?
+
+---
+
+## 📊 Emerging Technologies & Future
+
+1. **Agentic systems** — от пилотов к enterprise-grade платформам
+2. **Cross-industry innovation** — обучение от других секторов
+3. **Ecosystem partnerships** — не строить всё самим
+4. **Regulatory collaboration** — совместное управление рисками
 
 ---
 
 ## 📋 Рекомендации для топ-менеджмента
 
-### Срочно (0-3 месяца)
-1. **Оценить зрелость данных** — без чистых интегрированных данных ИИ бесполезен
-2. **Пилот в одной области** — fraud detection или KYC (быстрый ROI)
-3. **Сформировать AI governance committee** — model owners, validators, compliance
+### Сейчас (0-3 месяца)
+- [ ] **Board-level alignment:** определить 3 приоритетных направления AI
+- [ ] **Baseline оценка:** data readiness, model maturity, org readiness
+- [ ] **Governance framework:** назначить AI governance committee, C-suite sponsor
 
 ### Среднесрочно (3-12 месяцев)
-4. **Расширить на lending/credit** — высокий ROI, измеримые метрики
-5. **Внедрить wealth management AI** — персонализация для массового сегмента
-6. **Автоматизировать compliance** — снижение false positives на 70-80%
+- [ ] **Two-speed approach:** запустить быстрые frontline пилоты + стратегическую платформу
+- [ ] **Enterprise intelligence platform:** data foundation, APIs, MCP, zero-copy
+- [ ] **Hybrid workforce:** skills-based design, learning pathways, role redesign
 
 ### Долгосрочно (12+ месяцев)
-7. **Платформа для capital markets** — alternative data, algorithmic execution
-8. **Customer experience transformation** — omnichannel AI, персонализация
-9. **PE/VC deal sourcing** (если применимо) — AI находит сделки в 195× быстрее аналитика
+- [ ] **Agentic AI at scale:** multi-agent systems, orchestration, autonomous decisions
+- [ ] **Culture transformation:** ethical innovation, continuous learning, human-AI collaboration
+- [ ] **Ecosystem:** партнёрства, regulatory engagement, cross-industry learning
 
 ---
 
-## 💡 Главный вывод
+## 💡 Главный вывод WEF
 
-> **AI не заменяет финансовых консультантов, аналитиков и трейдеров. AI освобождает 60% их времени от рутины — и даёт инструменты для фокусировки на стратегии, отношениях и сложных решениях.**
+> **«Организации, создающие устойчивую ценность, — это те, кто сочетает инновации с доверием, ответственным governance и трансформацией workforce. Доверие клиентов, сотрудников и регуляторов — критично для реализации полного потенциала AI.»**
 
-Организации, которые внедряют ИИ сейчас, получают:
-- **Выручку:** +35-60% на операционных метриках
-- **Скорость:** решения за минуты вместо дней
-- **Риски:** −50% потерь от фрода, −40% false positives
-- **Стоимость:** −30-60% операционных расходов
-
-**Кто не внедряет — проигрывает по стоимости и скорости.**
+**— Andre Belelieu, Head of Financial Services Industries, WEF**
 
 ---
 
-## 🔗 Источник и инструменты
+## 🔗 Источники и ссылки
 
-- **Playbook:** https://smarterway.ai/resources/ai-playbook-for-financial-services
-- **Vendor landscape:** 160+ инструментов в 9 категориях
-- **Prompt library:** 105+ готовых промптов для разных функций
-- **Implementation checklists:** пошаговые чек-листы для каждого направления
+- **Основной отчёт:** https://www.weforum.org/publications/the-ai-playbook-for-financial-services/
+- **PDF (прямая ссылка):** https://reports.weforum.org/docs/WEF_The_AI_Playbook_for_Financial_Services_2026.pdf
+- **Пресс-релиз:** https://www.weforum.org/press/2026/06/financial-institutions-race-to-scale-ai/
+- **Связанные отчёты:**
+  - WEF (2025). Artificial Intelligence in Financial Services
+  - Accenture (2026). Top Banking Trends for 2026
+  - CCAF, Cambridge (2026). The 2026 Global AI in Financial Services Report
+
+---
+
+*Примечание: предыдущая версия этого саммари была основана на SmarterWay.AI (не WEF). Эта версия — официальный отчёт Всемирного экономического форума, июнь 2026.*
