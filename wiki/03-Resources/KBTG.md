@@ -36,6 +36,7 @@ Centralized platform + Human-AI collaboration + Continuous learning = Scale
 
 ## Sources
 - [[WEF AI Playbook 2026]]
+- [[Отчет по AI в финансах]]
 
 ## Related
 - [[AI Platform]]

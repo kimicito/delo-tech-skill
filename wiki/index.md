@@ -1,6 +1,6 @@
 ---
 title: Wiki Index
-date: 2026-06-28
+date: 2026-06-29
 tags: [meta, index]
 status: done
 ---
@@ -13,12 +13,23 @@ status: done
 | Page | Source | Date | Tags |
 |------|--------|------|------|
 | [[WEF AI Playbook 2026]] | https://www.weforum.org/... | 2026-06-28 | #report #wef #ai #finance |
+| [[Отчет по AI в финансах]] | raw/Отчет по AI в финансах.md | 2026-06-29 | #report #russia #banking |
 
 ## Entities (Сущности)
+### Organizations
+| Page | Type | Tags |
+|------|------|------|
+| [[KBTG]] | Organization | #case-study #thailand |
+| [[Сбер]] | Organization | #bank #russia #ai-case |
+| [[Т-Банк]] | Organization | #bank #russia #ai-case |
+
+### Concepts
 | Page | Type | Tags |
 |------|------|------|
 | [[Agentic AI]] | Concept | #ai #concept |
-| [[KBTG]] | Organization | #case-study #thailand |
+| [[Predictive AI]] | Concept | #ai #concept #ml |
+| [[Generative AI]] | Concept | #ai #concept #llm |
+| [[Multimodal AI]] | Concept | #ai #concept #vision |
 
 ## Projects (Проекты)
 | Page | Status | Tags |
@@ -39,5 +50,5 @@ status: done
 
 ---
 
-*Last updated: 2026-06-28*
-*Total pages: 8*
+*Last updated: 2026-06-29*
+*Total pages: 13*

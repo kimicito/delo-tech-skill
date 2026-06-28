@@ -25,6 +25,14 @@ Append-only хронология изменений в базе знаний.
 - Summary: Паттерн для LLM-управляемой базы знаний (не RAG)
 - Impact: Created [[KIMI.md]] schema for this wiki
 
+## [2026-06-29] ingest | Отчёт по AI в финансах
+- Source: raw/Отчет по AI в финансах.md
+- Type: Report (Markdown)
+- Summary: [[Отчет по AI в финансах]]
+- Entities created: [[Сбер]], [[Т-Банк]], [[Predictive AI]], [[Generative AI]], [[Multimodal AI]]
+- Key insights: 78 % банков с ML в production, средний ROI 14 мес, топ-3 причины провалов
+- Updated: [[KBTG]] (добавлена ссылка на отчёт)
+
 ---
 
 *Format: `## [YYYY-MM-DD] operation | description`*
