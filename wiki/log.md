@@ -45,6 +45,14 @@ Append-only хронология изменений в базе знаний.
   - [[Индексы ФГИС ЦС]] — Индексы по статьям (INDEX_ZP, INDEX_MACH, INDEX_MAT)
 - Note: Текущие редакции, следить за обновлениями
 
+## [2026-06-29] process | Процесс обновления нормативов (сметы)
+- Created: [[Процесс обновления нормативов]] — пошаговый процесс
+- Updated: SKILL.md smeta v2.1 — добавлена проверка актуальности индексов (Шаг 0)
+- Updated: eval_smeta.py — проверка даты индексов и квартала
+- Rule: Перед каждой сметой — проверить актуальность на ФГИС ЦС
+- Rule: Индексы ежеквартально (янв, апр, июл, окт)
+- Sources: fgiscs.minstroyrf.ru, publication.pravo.gov.ru, pravo.gov.ru
+
 ---
 
 *Format: `## [YYYY-MM-DD] operation | description`*

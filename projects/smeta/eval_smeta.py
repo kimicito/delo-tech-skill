@@ -264,7 +264,7 @@ def check_quantities(vor_items: List[VORItem], smeta_items: List[SmetaItem]) -> 
 
 
 def check_bim_methodology(filepath: str) -> List[str]:
-    """Проверяет БИМ-методику: индексы по статьям, НР/СП от ФОТ, ФССЦ."""
+    """Проверяет БИМ-методику: индексы по статьям, НР/СП от ФОТ, ФССЦ, актуальность."""
     errors = []
     warnings = []
 
@@ -275,6 +275,23 @@ def check_bim_methodology(filepath: str) -> List[str]:
         for cell in row:
             if cell:
                 content += str(cell).lower() + " "
+
+    # 0. Проверка актуальности индексов
+    current_year = 2026
+    if "2026" not in content and "2025" not in content:
+        warnings.append(
+            "WARN БИМ: Не найдена дата индексов (2025 или 2026). "
+            "Убедитесь, что используются актуальные индексы."
+        )
+    
+    # Проверка квартала
+    quarters = ['1q', '2q', '3q', '4q', 'i кв', 'ii кв', 'iii кв', 'iv кв', '1 кв', '2 кв', '3 кв', '4 кв']
+    has_quarter = any(q in content for q in quarters)
+    if not has_quarter:
+        warnings.append(
+            "WARN БИМ: Не указан квартал индексов (например, 2Q2026). "
+            "Индексы Минстроя публикуются ежеквартально — укажите, какой квартал используется."
+        )
 
     # 1. Проверка на общий индекс (критично)
     if "index_smr" in content or "общий индекс" in content:

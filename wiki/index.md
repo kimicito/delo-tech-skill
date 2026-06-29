@@ -50,6 +50,7 @@ status: done
 | Page | Tags |
 |------|------|
 | [[AI in Financial Services]] | #ai #finance |
+| [[Процесс обновления нормативов]] | #process #normative #update |
 
 ## Meta
 | Page | Purpose |
@@ -61,4 +62,4 @@ status: done
 ---
 
 *Last updated: 2026-06-29*
-*Total pages: 19*
+*Total pages: 20*
