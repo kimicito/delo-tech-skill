@@ -21,9 +21,34 @@ Exit codes:
 
 import argparse
 import sys
+import json
 import openpyxl
 from dataclasses import dataclass
 from typing import List, Optional
+
+# === CONFIG LOADING ===
+CONFIG_DIR = "/root/.openclaw/workspace/projects/smeta/config"
+
+def load_indexes():
+    """Загружает индексы из config/indexes.json"""
+    try:
+        with open(f"{CONFIG_DIR}/indexes.json", "r", encoding="utf-8") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        print("WARN: config/indexes.json не найден. Используются значения по умолчанию.")
+        return {}
+
+def load_norms():
+    """Загружает нормативы из config/norms.json"""
+    try:
+        with open(f"{CONFIG_DIR}/norms.json", "r", encoding="utf-8") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        print("WARN: config/norms.json не найден.")
+        return {}
+
+INDEXES = load_indexes()
+NORMS = load_norms()
 
 
 @dataclass
@@ -263,7 +288,7 @@ def check_quantities(vor_items: List[VORItem], smeta_items: List[SmetaItem]) -> 
     return errors
 
 
-def check_bim_methodology(filepath: str) -> List[str]:
+def check_bim_methodology(filepath: str, region: str = "", quarter: str = "") -> List[str]:
     """Проверяет БИМ-методику: индексы по статьям, НР/СП от ФОТ, ФССЦ, актуальность."""
     errors = []
     warnings = []
@@ -292,6 +317,80 @@ def check_bim_methodology(filepath: str) -> List[str]:
             "WARN БИМ: Не указан квартал индексов (например, 2Q2026). "
             "Индексы Минстроя публикуются ежеквартально — укажите, какой квартал используется."
         )
+
+    # 0.1. Проверка индексов из config
+    if region and quarter:
+        region_data = INDEXES.get("indexes", {}).get(region, {})
+        quarter_data = region_data.get(quarter, {})
+        if not quarter_data:
+            warnings.append(
+                f"WARN БИМ: В config/indexes.json нет данных для {region} {quarter}. "
+                f"Проверьте актуальность индексов."
+            )
+        else:
+            # Проверяем, что в смете используются те же индексы
+            expected_zp = str(quarter_data.get("INDEX_ZP", ""))
+            expected_mach = str(quarter_data.get("INDEX_MACH", ""))
+            expected_mat = str(quarter_data.get("INDEX_MAT", ""))
+            
+            if expected_zp and expected_zp not in content:
+                warnings.append(
+                    f"WARN БИМ: В смете не найден INDEX_ZP={expected_zp} (из config для {region} {quarter}). "
+                    f"Возможно, используются устаревшие индексы."
+                )
+
+    # 1. Проверка на общий индекс (критично)
+    if "index_smr" in content or "общий индекс" in content:
+        if "index_zp" not in content and "index_ot" not in content:
+            errors.append(
+                "FAIL БИМ: Использован ОБЩИЙ индекс (INDEX_SMR) вместо индексов по статьям "
+                "(INDEX_ZP, INDEX_MACH, INDEX_MAT). Это приведёт к ошибке в 7×."
+            )
+
+    # 2. Проверка НР/СП (критично)
+    if "15%" in content and "12%" in content:
+        if "от прямых" in content or "прямые затраты" in content:
+            errors.append(
+                "FAIL БИМ: НР/СП рассчитаны от ПРЯМЫХ ЗАТРАТ (15%/12%). "
+                "Правильно: от ФОТ (фонд оплаты труда) с коэфф. по шифру работ."
+            )
+
+    if "нр" in content and "сп" in content:
+        if "фот" not in content and "фонд оплаты труда" not in content:
+            warnings.append(
+                "WARN БИМ: НР/СП найдены, но не видно, что база = ФОТ. "
+                "Проверьте: НР/СП должны считаться от фонда оплаты труда."
+            )
+
+    # 3. Проверка ФССЦ
+    fssc_keywords = ['фссц', '19.', 'материал']
+    has_fssc = any(kw in content for kw in fssc_keywords)
+    fer_keywords = ['фер20', 'фер-20', 'фер 20']
+    has_fer = any(kw in content for kw in fer_keywords)
+
+    if has_fer and not has_fssc:
+        warnings.append(
+            "WARN БИМ: В смете есть ФЕР, но не видно ФССЦ-позиций для материалов. "
+            "Материалы внутри ФЕР — только монтажные. Основные материалы добавляются отдельно через ФССЦ."
+        )
+
+    # 4. Проверка поправок
+    if "к=1.15" in content or "1,15" in content:
+        if "к=1.35" not in content and "1,35" not in content:
+            warnings.append(
+                "WARN БИМ: Найдена только одна поправка (К=1.15). "
+                "Возможно, нужны дополнительные поправки (п.58, Прил.10 и др.) с разными коэфф. по статьям."
+            )
+
+    # 5. Проверка разделения по статьям
+    if "от" not in content and "оплата труда" not in content:
+        if "эм" not in content and "машин" not in content:
+            warnings.append(
+                "WARN БИМ: Не видно разделения по статьям (ОТ, ЭМ, М). "
+                "БИМ-методика требует раздельного учёта."
+            )
+
+    return errors + warnings
 
     # 1. Проверка на общий индекс (критично)
     if "index_smr" in content or "общий индекс" in content:
@@ -388,11 +487,15 @@ def main():
     parser = argparse.ArgumentParser(description='Проверка сметы по БИМ-методике')
     parser.add_argument('--smeta', required=True, help='Файл сметы (.xlsx)')
     parser.add_argument('--vor', required=True, help='Файл ВОР (.xlsx)')
+    parser.add_argument('--region', default='', help='Регион (например, "Иркутская область")')
+    parser.add_argument('--quarter', default='', help='Квартал (например, "2Q2026")')
     args = parser.parse_args()
 
     print(f"=== ПРОВЕРКА СМЕТЫ (БИМ-методика) ===")
-    print(f"Смета: {args.smeta}")
-    print(f"ВОР:   {args.vor}")
+    print(f"Смета:  {args.smeta}")
+    print(f"ВОР:    {args.vor}")
+    print(f"Регион: {args.region or 'не указан'}")
+    print(f"Квартал: {args.quarter or 'не указан'}")
     print()
 
     try:
@@ -432,7 +535,7 @@ def main():
     all_warnings.extend(warnings)
 
     # 6. БИМ-методология (НОВОЕ)
-    bim_issues = check_bim_methodology(args.smeta)
+    bim_issues = check_bim_methodology(args.smeta, region=args.region, quarter=args.quarter)
     for issue in bim_issues:
         if issue.startswith("FAIL"):
             all_errors.append(issue)
