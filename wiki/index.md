@@ -9,6 +9,16 @@ status: done
 
 Каталог всех страниц в базе знаний.
 
+## Normative Documents (Нормативные документы)
+| Page | Type | Status | Tags |
+|------|------|--------|------|
+| [[Приказ Минстроя 421-пр]] | Methodology | active | #normative #minstroy #bim #methodology |
+| [[Приказ Минстроя 812-пр]] | Methodology | active | #normative #minstroy #nr #methodology |
+| [[Приказ Минстроя 774-пр]] | Methodology | active | #normative #minstroy #sp #methodology |
+| [[Приказ Минстроя 571-пр]] | Methodology | active | #normative #minstroy #fer #methodology |
+| [[ФГИС ЦС]] | System | active | #system #fgis #pricing #minstroy |
+| [[Индексы ФГИС ЦС]] | Reference | active | #indexes #fgis #pricing #bim |
+
 ## Sources (Источники)
 | Page | Source | Date | Tags |
 |------|--------|------|------|
@@ -51,4 +61,4 @@ status: done
 ---
 
 *Last updated: 2026-06-29*
-*Total pages: 13*
+*Total pages: 19*
