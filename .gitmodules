@@ -1,0 +1,3 @@
+[submodule "projects/smeta"]
+	path = projects/smeta
+	url = https://github.com/kimicito/smeta.git
