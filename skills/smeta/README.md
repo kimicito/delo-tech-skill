@@ -26,6 +26,8 @@ python3 scripts/eval_vor.py --vor ВОР.xlsx --example data/vor_structure_examp
 # → Если FAIL: исправить ВОР в Stage 1, потом вернуться в smeta
 ```
 
+**Эталонная смета:** `data/smeta_structure_example.json` — структура, ФЕР-коды, НР/СП, цены материалов от профи.
+
 ---
 
 ## Быстрый старт
