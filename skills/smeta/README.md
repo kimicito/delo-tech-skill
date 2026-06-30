@@ -18,6 +18,14 @@
 
 **Stage 1:** `github.com/kimicito/drawings-to-vor`
 
+**Eval перед передачей в smeta (обязательно):**
+```bash
+# Stage 1: eval ВОР
+python3 scripts/eval_vor.py --vor ВОР.xlsx --example data/vor_structure_example.json
+# → Если PASS: передавать в smeta
+# → Если FAIL: исправить ВОР в Stage 1, потом вернуться в smeta
+```
+
 ---
 
 ## Быстрый старт
