@@ -49,21 +49,28 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 
 | Skill | Path | Status |
 |-------|------|--------|
-| **price-comparison** | `workspace/skills/price-comparison/` | v3.0 — matrices, analogs, eval |
 | **smeta** | `workspace/skills/smeta/` | БИМ-methodology, FER-2020 |
 | **soulsaying** | `workspace/skills/soulsaying/` | Conversation mode |
 | email-objection-handler | `workspace/skills/email-objection-handler/` | ⚪ standby |
 | notion | `workspace/skills/notion/` | ⚪ standby |
 
+### Отдельные репозитории (standalone skills)
+
+| Skill | Репозиторий | Status |
+|-------|-------------|--------|
+| **price-comparison** | [github.com/kimicito/price-comparison-skill](https://github.com/kimicito/price-comparison-skill) | v5.0 — inline eval, dual analogs, category templates |
+| **drawings-to-vor** | [github.com/kimicito/drawings-to-vor](https://github.com/kimicito/drawings-to-vor) | Сметы из PDF |
+
 ### Rule
 - **Never** use `~/.openclaw/skills/smeta.skill` (old ZIP archive — renamed to `.old`)
 - **Always** check `workspace/skills/` before falling back to global
 - If a skill exists in workspace — that is the canonical version
+- **Standalone skills** (отдельные репо) — клонировать при обновлении: `git clone https://github.com/kimicito/price-comparison-skill.git`
 - Commit skill changes to Git immediately after editing
 
 ### Cleanup done
 - `~/.openclaw/skills/smeta.skill` → `smeta.skill.old` (archived)
-- `price-comparison` lives **only** in workspace
+- `price-comparison` → moved to [standalone repo](https://github.com/kimicito/price-comparison-skill)
 
 ---
 
