@@ -58,7 +58,7 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 
 | Skill | Репозиторий | Status |
 |-------|-------------|--------|
-| **price-comparison** | [github.com/kimicito/price-comparison-skill](https://github.com/kimicito/price-comparison-skill) | v5.1 — cache + inline eval, dual analogs, category templates |
+| **price-comparison** | [github.com/kimicito/price-comparison-skill](https://github.com/kimicito/price-comparison-skill) | v5.2 — Excel Format v2: Tab1 all prices, Tab2 same-brand, Tab3 cross-brand |
 | **drawings-to-vor** | [github.com/kimicito/drawings-to-vor](https://github.com/kimicito/drawings-to-vor) | Сметы из PDF |
 
 ### Rule
