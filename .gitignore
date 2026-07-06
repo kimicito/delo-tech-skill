@@ -81,3 +81,9 @@ projects/educai8/
 **/.venv/
 **/venv/
 **/.env
+
+# Рабочие данные (большие файлы)
+projects/drawings_analysis/*.png
+projects/drawings_analysis/*.xlsx
+projects/drawings_analysis/*.pdf
+projects/drawings_analysis/*.json

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-06-30T06:39:42.504Z",
+  "updatedAt": "2026-07-06T14:55:57.405Z",
   "entries": {
     "memory:memory/2026-05-31.md:38:55": {
       "key": "memory:memory/2026-05-31.md:38:55",
@@ -164,18 +164,20 @@
       "endLine": 39,
       "source": "memory",
       "snippet": "# 2026-06-24 ## Skill price-comparison — полное обновление ### Eval-скрипт - Создан `skills/price-comparison/scripts/eval.py` - Проверяет: бренд аналога ≠ бренд оригинала, URL валидны, структура таблицы, цены/URL присутствуют - Возвращает: 0=PASS, 1=FAIL, 2=WARN - Результат на текущей таблице: 23 OK, 0 FAIL, 6 WARN ### SKILL.md — новые правила - Аналог = другой бренд (критично, никогда не тот же) - URL проверять перед записью (работающие, русскоязычные) - Кодировка URL (кириллица ломается, латиница надёжнее) - Batch_update — проверять row-номера, чтобы не перезаписать соседей ### Runner - Создан `skills/price-comparison/scripts/runner.py` — полный workflow: input → process_excel → eval",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.4586593627929687,
+      "totalScore": 0.8763315558433532,
       "maxScore": 0.4586593627929687,
       "firstRecalledAt": "2026-06-26T07:29:08.127Z",
-      "lastRecalledAt": "2026-06-26T07:29:08.127Z",
+      "lastRecalledAt": "2026-07-06T14:55:57.405Z",
       "queryHashes": [
-        "1605a20d29fe"
+        "1605a20d29fe",
+        "cabb92593f9d"
       ],
       "recallDays": [
-        "2026-06-26"
+        "2026-06-26",
+        "2026-07-06"
       ],
       "conceptTags": [
         "price-comparison",
@@ -195,18 +197,20 @@
       "endLine": 42,
       "source": "memory",
       "snippet": "## 2026-06-26 ### Price Comparison Skill - Создан новый skill `price-comparison` в `workspace/skills/price-comparison/` - SKILL.md — правила: аналог = другой бренд, проверка URL, русские поставщики - scripts/runner.py — чтение Excel, стандартизация вывода - scripts/eval.py — валидация: brand different, URL working, price present ### Обработка Excel: маршрутизаторы_1209424 - Исходный файл: 1 позиция — Cisco C1121-8PLTEP ISR 1100 8P Dual GE SFP + LTE, цена 91 930,46 ₽ - Найден аналог: **Huawei AR6121** (8 GE LAN, 2 combo WAN, SFP+) — цена ~75 600 ₽ (network.msk.ru) - **Критическое ограничение:** Huawei AR6121 — ближайший по портам, но **без встроенного LTE**. Прямого аналога Cisco C112",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.35782607197761535,
-      "maxScore": 0.35782607197761535,
+      "totalScore": 0.8191343396902084,
+      "maxScore": 0.46130826771259303,
       "firstRecalledAt": "2026-06-27T16:23:59.711Z",
-      "lastRecalledAt": "2026-06-27T16:23:59.711Z",
+      "lastRecalledAt": "2026-07-06T14:55:57.405Z",
       "queryHashes": [
-        "028a7d178322"
+        "028a7d178322",
+        "cabb92593f9d"
       ],
       "recallDays": [
-        "2026-06-28"
+        "2026-06-28",
+        "2026-07-06"
       ],
       "conceptTags": [
         "network",
@@ -310,6 +314,223 @@
         "смета",
         "пересобрана",
         "строго"
+      ]
+    },
+    "memory:memory/2026-06-24.md:32:52": {
+      "key": "memory:memory/2026-06-24.md:32:52",
+      "path": "memory/2026-06-24.md",
+      "startLine": 32,
+      "endLine": 52,
+      "source": "memory",
+      "snippet": "- Дизайн Logistoria (violet + orange, Montserrat/Inter) - Контакт: mtracorp@gmail.com ## Ключевой урок При массовом batch-обновлении Excel через openpyxl всегда проверять соответствие row-номеров и позиций. Позиция 2 (Future Technologies) была случайно перезаписана при batch-обновлении аналогов — потребовалось восстановление. ## GitHub Pages deploy — privacy.html - Деплой страницы `privacy.html` на `kimicito.github.io/logistoria-website/privacy.html` - Использован force-push после abort rebase (были конфликты при pull) ## Полная проверка всех страниц logistoria-website - Проверены все 17 страниц — все отдают HTTP 200 OK - Список: index.html, index-ru.html, index-en.html, index-es.html, k",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4221444249153137,
+      "maxScore": 0.4221444249153137,
+      "firstRecalledAt": "2026-07-04T14:25:20.985Z",
+      "lastRecalledAt": "2026-07-04T14:25:20.985Z",
+      "queryHashes": [
+        "12a100acde86"
+      ],
+      "recallDays": [
+        "2026-07-04"
+      ],
+      "conceptTags": [
+        "montserrat/inter",
+        "gmail.com",
+        "batch-обновлении",
+        "row-номеров",
+        "privacy.html",
+        "force-push",
+        "logistoria-website",
+        "index.html"
+      ]
+    },
+    "memory:memory/2026-06-24.md:108:125": {
+      "key": "memory:memory/2026-06-24.md:108:125",
+      "path": "memory/2026-06-24.md",
+      "startLine": 108,
+      "endLine": 125,
+      "source": "memory",
+      "snippet": "При массовом batch-обновлении Excel через openpyxl всегда проверять соответствие row-номеров и позиций. Позиция 2 (Future Technologies) была случайно перезаписана при batch-обновлении аналогов — потребовалось восстановление. ## GitHub Pages deploy — privacy.html - Деплой страницы `privacy.html` на `kimicito.github.io/logistoria-website/privacy.html` - Использован force-push после abort rebase (были конфликты при pull) ## Полная проверка всех страниц logistoria-website - Проверены все 17 страниц — все отдают HTTP 200 OK - Список: index.html, index-ru.html, index-en.html, index-es.html, kadena.html (RU/EN/ES), thebeergame.html (RU/EN/ES), logistics-course.html (RU/EN/ES), auction-bot.html (",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.3753498166799545,
+      "maxScore": 0.3753498166799545,
+      "firstRecalledAt": "2026-07-04T14:25:20.985Z",
+      "lastRecalledAt": "2026-07-04T14:25:20.985Z",
+      "queryHashes": [
+        "12a100acde86"
+      ],
+      "recallDays": [
+        "2026-07-04"
+      ],
+      "conceptTags": [
+        "batch-обновлении",
+        "row-номеров",
+        "privacy.html",
+        "force-push",
+        "logistoria-website",
+        "index.html",
+        "index-ru.html",
+        "index-en.html"
+      ]
+    },
+    "memory:memory/2026-06-24.md:81:116": {
+      "key": "memory:memory/2026-06-24.md:81:116",
+      "path": "memory/2026-06-24.md",
+      "startLine": 81,
+      "endLine": 116,
+      "source": "memory",
+      "snippet": "- Результат на текущей таблице: 23 OK, 0 FAIL, 6 WARN ### SKILL.md — новые правила - Аналог = другой бренд (критично, никогда не тот же) - URL проверять перед записью (работающие, русскоязычные) - Кодировка URL (кириллица ломается, латиница надёжнее) - Batch_update — проверять row-номера, чтобы не перезаписать соседей ### Runner - Создан `skills/price-comparison/scripts/runner.py` — полный workflow: input → process_excel → eval ## Таблица ТМЦ — финальная проверка - 23 позиции сетевого оборудования - Заменены 18 неработающих URL на русскоязычные - Убраны иностранные: eBay, brandclub, atgbics, covenco - Исправлены проблемы с кодировкой URL - Все 69 URL проверены — 0 ошибок - 22/23 аналогов",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.3650321155786514,
+      "maxScore": 0.3650321155786514,
+      "firstRecalledAt": "2026-07-04T14:25:20.985Z",
+      "lastRecalledAt": "2026-07-04T14:25:20.985Z",
+      "queryHashes": [
+        "12a100acde86"
+      ],
+      "recallDays": [
+        "2026-07-04"
+      ],
+      "conceptTags": [
+        "skill.md",
+        "batch-update",
+        "row-номера",
+        "process-excel",
+        "22/23",
+        "результат",
+        "текущей",
+        "таблице"
+      ]
+    },
+    "memory:memory/2026-06-27.md:1:37": {
+      "key": "memory:memory/2026-06-27.md:1:37",
+      "path": "memory/2026-06-27.md",
+      "startLine": 1,
+      "endLine": 37,
+      "source": "memory",
+      "snippet": "## 2026-06-27 ### Price-Comparison Skill v3.0 — Технические матрицы аналогов Обновлен skill `price-comparison` до версии 3.0 с поддержкой технических сравнительных матриц. **Новая архитектура:** - Основная таблица с ценами (вкладка «Результат сравнения») - Для каждого аналога — отдельная вкладка Excel с детальной технической матрицей (30+ параметров) - Субагенты (1 на аналог) выполняют глубокое исследование спецификаций через `kimi_search` **Созданные файлы:** - `skills/price-comparison/SKILL.md` — полная документация v3.0 - `skills/price-comparison/scripts/runner_v2.py` — создание основной таблицы + analogs.json - `skills/price-comparison/scripts/matrix_builder.py` — сборка финального E",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.470157977938652,
+      "maxScore": 0.470157977938652,
+      "firstRecalledAt": "2026-07-06T14:55:57.405Z",
+      "lastRecalledAt": "2026-07-06T14:55:57.405Z",
+      "queryHashes": [
+        "cabb92593f9d"
+      ],
+      "recallDays": [
+        "2026-07-06"
+      ],
+      "conceptTags": [
+        "price-comparison",
+        "v3.0",
+        "3.0",
+        "kimi-search",
+        "skills/price-comparison/skill.md",
+        "analogs.json",
+        "price",
+        "comparison"
+      ]
+    },
+    "memory:memory/2026-06-26.md:24:67": {
+      "key": "memory:memory/2026-06-26.md:24:67",
+      "path": "memory/2026-06-26.md",
+      "startLine": 24,
+      "endLine": 67,
+      "source": "memory",
+      "snippet": "- SKILL.md дополнен примером комментария ### Задачи шефа - Добавлена задача #50: сравнение ТМЦ (Cisco C1121-8PLTEP) ### Статус подключений - Telegram ✅ - Kimi ✅ - Vosk ✅ - Browser ✅ - Memory ✅ - GitHub ✅ - DingTalk ✅ - WeCom ✅ - Feishu ⚠️ (нет appId) --- **20:45** — Обработан Excel-файл `сетевое_оборудование_Cisco_1210075` через price-comparison: - 3 позиции Cisco (C9200-24P-E, PWR-C6-600WAC/2, C9200-NM-4X) - Найдены 2 цены на каждую позицию от разных поставщиков - Для коммутатора найден аналог Huawei S5735-S24P4X (~99 194 ₽) - Блоки питания и модули — проприетарные, аналогов нет - Создан файл `сетевое_оборудование_Cisco_1210075_ОБРАБОТАНО.xlsx` и отправлен пользователю **21:17** — От",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.44412713348865507,
+      "maxScore": 0.44412713348865507,
+      "firstRecalledAt": "2026-07-06T14:55:57.405Z",
+      "lastRecalledAt": "2026-07-06T14:55:57.405Z",
+      "queryHashes": [
+        "cabb92593f9d"
+      ],
+      "recallDays": [
+        "2026-07-06"
+      ],
+      "conceptTags": [
+        "skill.md",
+        "c1121-8pltep",
+        "excel-файл",
+        "price-comparison",
+        "c9200-24p-e",
+        "pwr-c6-600wac/2",
+        "c9200-nm-4x",
+        "s5735-s24p4x"
+      ]
+    },
+    "memory:memory/2026-06-28.md:1:21": {
+      "key": "memory:memory/2026-06-28.md:1:21",
+      "path": "memory/2026-06-28.md",
+      "startLine": 1,
+      "endLine": 21,
+      "source": "memory",
+      "snippet": "## 2026-06-28 ### Price-comparison skill v3.0 — доработки - **eval.py** обновлён до v3.0: - FAIL (8 проверок): комментарий обязателен, цена 1 обязательна, цены числовые, URL кликабельны, поставщики разные, аналог — другая марка, количество позиций совпадает, цены не отличаются >10x - WARN (8 проверок): только 1 цена, экономия не указана, аналог дороже без объяснения, цены отличаются >3x, абсурдные цены, у аналога нет URL, нет матриц, в матрице 🔴 но в комментариях нет рисков - Пользователь: «Сделай только FAIL и WARN, Info — не делай» — реализовано - **runner_v2.py** — доработки по запросу пользователя: 1. Бренд в заголовке: авто-определение из первого слова названия позиции (Cisco",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.44208365380764003,
+      "maxScore": 0.44208365380764003,
+      "firstRecalledAt": "2026-07-06T14:55:57.405Z",
+      "lastRecalledAt": "2026-07-06T14:55:57.405Z",
+      "queryHashes": [
+        "cabb92593f9d"
+      ],
+      "recallDays": [
+        "2026-07-06"
+      ],
+      "conceptTags": [
+        "price-comparison",
+        "v3.0",
+        "eval.py",
+        "runner-v2.py",
+        "авто-определение",
+        "price",
+        "comparison",
+        "skill"
+      ]
+    },
+    "memory:memory/2026-06-26.md:80:99": {
+      "key": "memory:memory/2026-06-26.md:80:99",
+      "path": "memory/2026-06-26.md",
+      "startLine": 80,
+      "endLine": 99,
+      "source": "memory",
+      "snippet": "- **Статусы:** ✅ Совпадает / ⚠️ Частично / 🔴 Критично / ⚪ Н/Д - **Цветовая кодировка:** зелёный/жёлтый/красный/серый в Excel - **Демонстрация:** Cisco C9200-24P-E vs Huawei S5735-S24P4X - 17 параметров ✅ совпадают - 9 параметров ⚠️ частично - 2 параметра 🔴 критично (MACsec, forwarding rate) - Файл: `price_comparison_v3_demo.xlsx` ### Обновление eval.py v3.0 - **FAIL (8 проверок):** комментарий обязателен, цена 1 обязательна, цены числовые, URL кликабельны, поставщики разные, аналог — другая марка, количество позиций совпадает, цены не отличаются >10x - **WARN (8 проверок):** только 1 цена, экономия не указана, аналог дороже без объяснения, цены отличаются >3x, абсурдные цены, у а",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.3861667364835739,
+      "maxScore": 0.3861667364835739,
+      "firstRecalledAt": "2026-07-06T14:55:57.405Z",
+      "lastRecalledAt": "2026-07-06T14:55:57.405Z",
+      "queryHashes": [
+        "cabb92593f9d"
+      ],
+      "recallDays": [
+        "2026-07-06"
+      ],
+      "conceptTags": [
+        "н/д",
+        "зелёный/жёлтый/красный/серый",
+        "c9200-24p-e",
+        "s5735-s24p4x",
+        "price-comparison-v3-demo.xlsx",
+        "eval.py",
+        "v3.0",
+        "статусы"
       ]
     }
   }
