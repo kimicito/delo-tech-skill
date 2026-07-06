@@ -2,6 +2,65 @@
 
 ---
 
+## Drawing OCR / VOR Extraction
+
+**Repo:** `github.com/kimicito/drawings-to-vor` (separate project)
+**Local:** `projects/drawings-to-vor/`
+
+**Workflow:**
+1. `python3 preprocess.py input.tiff` — tile into 1000×1000
+2. `python3 tile_ocr.py --tiles-dir tiles/ --output ocr_result.json` — OCR via Qwen-VL
+3. `python3 extract_vor.py --ocr-json ocr_result.json --type piles` — extract VOR (ВОР)
+
+**API:** Alibaba Qwen-VL-OCR (key in `~/.openclaw/workspace/.env`)
+
+---
+
+## WB Tax Calculator (РВБ / Wildberries)
+
+**Skill:** `skills/wb-tax-calculator/`
+**Docs:** `skills/wb-tax-calculator/SKILL.md`
+**Script:** `skills/wb-tax-calculator/calculator.py`
+
+**Input files:**
+1. Реестр еженедельных операций (Excel/CSV)
+2. Детализация отчётов (Excel/CSV)
+3. Уведомления о выкупе (Excel/CSV, optional)
+4. Доп. расходы из Аналитики (optional)
+
+**Run:**
+```bash
+python skills/wb-tax-calculator/calculator.py --registry реестр.xlsx --details детализация.xlsx
+```
+
+---
+
+## Ozon Tax Calculator (ООО Интернет Решения)
+
+**Skill:** `skills/ozon-tax-calculator/`
+**Docs:** `skills/ozon-tax-calculator/SKILL.md`
+**Script:** `skills/ozon-tax-calculator/calculator.py`
+
+**Input files:**
+1. Отчёт о реализации (Excel/CSV)
+2. Отчёт о взаиморасчётах (Excel/CSV)
+
+**Run:**
+```bash
+python skills/ozon-tax-calculator/calculator.py --realization отчёт_реализации.xlsx --mutual_settlement отчёт_взаиморасчётов.xlsx
+```
+
+---
+
+## Git Notes
+
+- **Main repo:** `github.com/kimicito/openclaw-workspace.git` (branch: `master`, remote: `workspace`)
+- **Drawing repo:** `github.com/kimicito/drawings-to-vor.git` (branch: `master`, remote: `origin`)
+- **Push main:** `git push workspace master`
+- **Push drawing:** `cd projects/drawings-to-vor && git push origin master`
+
+---
+
 ## Ozon Tax Calculator (ООО «Интернет Решения»)
 
 **Skill:** `workspace/skills/ozon-tax-calculator/`
