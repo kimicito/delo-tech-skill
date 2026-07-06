@@ -30,6 +30,35 @@ def read_file(path: Path) -> pd.DataFrame:
         raise ValueError(f"Unsupported format: {path.suffix}")
 
 
+def calculate_commission(df: pd.DataFrame) -> dict:
+    """Calculate total commission and additional deductions from registry.
+    
+    Returns dict with keys: commission, additional, total
+    """
+    # Filter by report type
+    main_df = df[df['Тип отчета'] == 'Основной']
+    
+    total_sales = main_df['Продажа'].sum() if not main_df.empty else 0.0
+    total_payout = main_df['Итого к оплате'].sum() if not main_df.empty else 0.0
+    commission = total_sales - total_payout
+    
+    # Additional deductions
+    additional = 0.0
+    for col in ['Стоимость логистики', 'Стоимость хранения', 
+                'Стоимость операций на приемке', 'Прочие удержания/выплаты',
+                'Общая сумма штрафов', 'Корректировка Вознаграждения Вайлдберриз (ВВ)',
+                'Стоимость участия в программе лояльности', 
+                'Сумма баллов, удержанных по программе лояльности']:
+        if col in df.columns:
+            additional += df[col].sum()
+    
+    return {
+        'commission': round(commission, 2),
+        'additional': round(additional, 2),
+        'total': round(commission + additional, 2)
+    }
+
+
 def calculate_main_commission(df: pd.DataFrame) -> float:
     """Calculate commission for 'Основной' report type."""
     # Filter by report type

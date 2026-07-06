@@ -2,6 +2,19 @@
 
 ---
 
+## Project Templates
+
+**Plan.md** — шаблон планирования сложных задач  
+`templates/Plan.md`
+
+**State Machine** — фазы выполнения скиллов  
+`docs/state-machine.md`
+
+**HARNESS.md** — структура проекта для агентов  
+Пример: `projects/drawings-to-vor/HARNESS.md`
+
+---
+
 ## Drawing OCR / VOR Extraction
 
 **Repo:** `github.com/kimicito/drawings-to-vor` (separate project)
@@ -21,6 +34,7 @@
 **Skill:** `skills/wb-tax-calculator/`
 **Docs:** `skills/wb-tax-calculator/SKILL.md`
 **Script:** `skills/wb-tax-calculator/calculator.py`
+**Tests:** `skills/wb-tax-calculator/tests/`
 
 **Input files:**
 1. Реестр еженедельных операций (Excel/CSV)
@@ -31,6 +45,11 @@
 **Run:**
 ```bash
 python skills/wb-tax-calculator/calculator.py --registry реестр.xlsx --details детализация.xlsx
+```
+
+**Tests:**
+```bash
+cd skills/wb-tax-calculator && python3 tests/test_calculator.py
 ```
 
 ---
