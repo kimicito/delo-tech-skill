@@ -123,3 +123,30 @@ python skills/ozon-tax-calculator/calculator.py --realization отчет.xlsx --
 ```bash
 python skills/wb-tax-calculator/calculator.py --registry реестр.xlsx --details детализация.xlsx [--purchases уведомления.xlsx --losses 9104.28]
 ```
+
+---
+
+## AI Job Search (OpenClaw/Kimi)
+
+**Skill:** `skills/ai-job-search/`
+**Docs:** `skills/ai-job-search/SKILL.md`
+**Profile:** `memory/candidate-profile.md`
+**Scraper:** `skills/ai-job-search/scripts/hh_scraper.py`
+
+**Workflow:**
+1. `/setup` — заполнить профиль (через Telegram)
+2. `/scrape` — поиск вакансий на hh.ru через kimi_search/browser
+3. `/apply <url>` — оценка + CV + сопроводительное письмо
+
+**Job search:**
+```
+kimi_search: "site:hh.ru [query] вакансия"
+# или
+browser: open https://hh.ru/search/vacancy?text=[query]
+```
+
+**Адаптация:**
+- Заменён Claude Code → OpenClaw subagents
+- LaTeX → Markdown (проще для OpenClaw)
+- Датские порталы → hh.ru (русский рынок)
+- Slash commands → Telegram команды
