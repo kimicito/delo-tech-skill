@@ -300,4 +300,41 @@ Always include the transcribed text in the response so the user knows what was u
 
 ---
 
+## Skill Selection Rules (Self-Improving + Ontology)
+
+Before answering, ALWAYS check if a skill is relevant:
+
+| Keywords | Skill to Load | Priority |
+|----------|---------------|----------|
+| вакансия, работа, hh, резюме, CV, job, career | ai-job-search | HIGH |
+| проект, задача, запомни, свяжи, remember, link, task | ontology | HIGH |
+| skill install, clawhub, установи скилл, проверь скилл | skill-vetter | HIGH |
+| найди, поиск, google, новости, search, find | multi-search-engine | MEDIUM |
+| deploy, server, docker, VPS, ssh, хостинг | node-connect | MEDIUM |
+| PDF, document, word, docx, документ | word-docx | MEDIUM |
+| excel, xlsx, таблица, spreadsheet, csv | excel-xlsx | MEDIUM |
+| MCP, mcp server, подключи, protocol | mcporter | MEDIUM |
+| youtube, видео, transcript, ролик | youtube-watcher | LOW |
+| обнови, update, upgrade, версия, version | auto-updater | LOW |
+
+### Git Discipline (Mandatory)
+- ALL changes MUST be committed to git immediately
+- Commit format: `[skill] description` or `[fix] description` or `[memory] description`
+- Push to workspace master branch after every commit
+- Never leave uncommitted changes in workspace
+
+### How to Activate Self-Improving
+1. Correction must be recorded in `~/self-improving/corrections.md`
+2. After 3 repetitions, the rule moves to `~/self-improving/memory.md` (HOT tier)
+3. I will automatically check memory.md before each response
+4. To force activation: say "примени self-improving правила" or "apply self-improving"
+
+### How to Activate Ontology Triggers
+1. Query: "какие skills связаны с X?" or "show skill triggers for X"
+2. I will read `memory/ontology/graph.jsonl` and find relevant triggers
+3. To add new trigger: say "добавь триггер: skill Y для ключевых слов Z"
+4. I will append to graph.jsonl and commit
+
+---
+
 
