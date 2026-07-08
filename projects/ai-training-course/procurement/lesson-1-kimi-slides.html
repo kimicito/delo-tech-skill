@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Presentation</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/black.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+
+:root {
+  --r-background-color: #0a0a0f;
+  --r-main-font: 'Inter', sans-serif;
+  --r-heading-font: 'Inter', sans-serif;
+  --r-main-color: #ffffff;
+  --r-heading-color: #ffffff;
+  --r-heading-font-weight: 800;
+  --r-link-color: #00d4ff;
+  --r-selection-background-color: #00d4ff;
+  --accent: #00d4ff;
+  --accent2: #7b2cbf;
+}
+.reveal { font-family: var(--r-main-font); font-size: 32px; }
+.reveal h1 { font-size: 2.4em; font-weight: 900; line-height: 1.1; text-transform: none; }
+.reveal h2 { font-size: 1.6em; font-weight: 700; text-transform: none; margin-bottom: 0.6em; }
+.reveal h3 { font-size: 1.2em; font-weight: 600; text-transform: none; }
+.reveal p, .reveal li { color: #cbd5e1; font-size: 0.85em; line-height: 1.5; }
+.reveal section { text-align: left; }
+.reveal .center { text-align: center; }
+
+.slide-bg-gradient {
+  background: linear-gradient(135deg, #0a0a0f 0%, #12121f 50%, #0f0f1a 100%);
+}
+.slide-bg-accent {
+  background: linear-gradient(135deg, rgba(0,212,255,0.08), rgba(123,44,191,0.08));
+}
+
+.card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 24px;
+  backdrop-filter: blur(10px);
+  transition: all 0.4s ease;
+}
+.card:hover {
+  transform: translateY(-5px) scale(1.02);
+  border-color: rgba(0,212,255,0.4);
+  box-shadow: 0 20px 40px rgba(0,212,255,0.15);
+}
+
+.stat-number {
+  font-size: 2.2em;
+  font-weight: 900;
+  background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 0.55em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+.highlight-box {
+  background: linear-gradient(135deg, rgba(0,212,255,0.12), rgba(123,44,191,0.12));
+  border: 1px solid rgba(0,212,255,0.25);
+  border-radius: 20px;
+  padding: 30px 40px;
+}
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+.grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px; }
+
+.reveal .slides section .fragment {
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal .slides section .fragment.fade-up {
+  transform: translateY(30px);
+}
+.reveal .slides section .fragment.fade-up.visible {
+  transform: translateY(0);
+}
+
+@media (max-width: 900px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+}
+
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)" class="center">
+  
+  <h1 style="text-align: center; margin-bottom: 0.3em;">Урок 1: Подготовка закупки</h1>
+  <p style="text-align: center; color: #8892b0; font-size: 0.9em; max-width: 800px; margin: 0 auto;">Как ИИ помогает составлять ТЗ, запрашивать цены и формировать конкурентные листы<br><br>AI для закупщиков и логистов • 1.5 часа • Внутренняя коммерческая закупка</p>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #0f0f1a 100%)">
+  <h2 style="text-align: center; margin-bottom: 50px;">Что вы заберёте с собой</h2>
+  <div class="grid-3" style="max-width: 1200px; margin: 0 auto;">
+    <div class="card fragment fade-up" data-fragment-index="0"><div class="stat-number">ТЗ за 15 мин</div><p style="margin-top: 12px; color: #8892b0; font-size: 0.75em;">Составлять технические задания вместо 2 часов ручной работы. AI генерирует структуру, таблицы, требования — остаётся только проверить.</p></div>
+<div class="card fragment fade-up" data-fragment-index="1"><div class="stat-number">3 КП в таблице</div><p style="margin-top: 12px; color: #8892b0; font-size: 0.75em;">Сравнивать коммерческие предложения с рейтингом по критериям. Автоматический расчёт: цена, сроки, гарантия, условия.</p></div>
+<div class="card fragment fade-up" data-fragment-index="2"><div class="stat-number">5 поставщиков</div><p style="margin-top: 12px; color: #8892b0; font-size: 0.75em;">Находить потенциальных поставщиков с контактами, плюсами/минусами и приоритетами. Важно: проверять реальность контактов.</p></div>
+  </div>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)">
+  <h2 style="margin-bottom: 30px;">Что такое Generative AI? Простая аналогия</h2>
+  <div style="max-width: 1100px;">
+    <p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">Представьте, что вы задаёте вопрос очень опытному коллеге, который прочитал тысячи документов, участвовал в сотнях закупок и помнит всё. Он отвечает за секунды, не устаёт, не болеет, работает 24/7.</p>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">Это НЕ поисковик:</p>
+<ul style="margin-left: 20px; margin-bottom: 15px;">
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">Яндекс находит ссылки → вы сами читаете и обобщаете → 10 ссылок = 2 часа работы</li>
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">AI создаёт готовый документ → обобщает за вас → 1 ответ = 2 минуты проверки</li>
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">AI понимает контекст вашей компании, если загрузить документы</li>
+</ul>
+  </div>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)">
+  <h2 style="margin-bottom: 30px;">Почему именно OpenWebUI? Безопасность данных</h2>
+  <div style="max-width: 1100px;">
+    <p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">Ваши данные НЕ уходят наружу:</p>
+<ul style="margin-left: 20px; margin-bottom: 15px;">
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">Не в ChatGPT (OpenAI, США)</li>
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">Не в Яндекс GPT (Яндекс, РФ)</li>
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">Не в Google (Gemini, США)</li>
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">Работаем в закрытом контуре компании</li>
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">Сервер стоит внутри, данные остаются внутри</li>
+</ul>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">Что можно загружать без опасений:</p>
+<ul style="margin-left: 20px; margin-bottom: 15px;">
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">Внутренние регламенты закупок</li>
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">Коммерческие предложения с реальными ценами</li>
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">Договоры и приложения</li>
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">Прайс-листы и технические задания</li>
+</ul>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">Схема: Ваш компьютер → Внутренний сервер → Ответ (никуда больше не идёт)</p>
+  </div>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0f0f1a 0%, #0a0a12 100%)">
+  <h2 style="text-align: center; margin-bottom: 40px;">Интерфейс OpenWebUI — 5 главных элементов</h2>
+  <div class="grid-3" style="max-width: 1300px; margin: 0 auto;">
+    <div class="card fragment fade-up" data-fragment-index="0"><h3 style="font-size: 0.9em; margin-bottom: 8px;">Новый чат (+)</h3><p style="color: #8892b0; font-size: 0.7em;">Начать новый разговор. Старые чаты сохраняются в истории слева. Можно вернуться к любому диалогу.</p></div>
+<div class="card fragment fade-up" data-fragment-index="1"><h3 style="font-size: 0.9em; margin-bottom: 8px;">Скрепка 📎</h3><p style="color: #8892b0; font-size: 0.7em;">Прикрепить файл: PDF (ТЗ, КП, договор), Word, Excel. AI проанализирует содержимое и ответит по документу.</p></div>
+<div class="card fragment fade-up" data-fragment-index="2"><h3 style="font-size: 0.9em; margin-bottom: 8px;">Выбор модели</h3><p style="color: #8892b0; font-size: 0.7em;">Llama 3 / Mistral — для текстов и анализа. Qwen — если работаете с китайскими поставщиками. Переключайте под задачу.</p></div>
+<div class="card fragment fade-up" data-fragment-index="3"><h3 style="font-size: 0.9em; margin-bottom: 8px;">Настройки ⚙️</h3><p style="color: #8892b0; font-size: 0.7em;">System Prompt — настройка ассистента под ваш стиль. Temperature — строгость ответов (0.1 для документов, 0.7 для идей).</p></div>
+<div class="card fragment fade-up" data-fragment-index="4"><h3 style="font-size: 0.9em; margin-bottom: 8px;">Шаблоны (/)</h3><p style="color: #8892b0; font-size: 0.7em;">Сохраняйте частые запросы. Пример: /ТЗ → готовый промпт за 2 секунды. Экономия 5-10 минут на каждый запрос.</p></div>
+  </div>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)">
+  <h2 style="margin-bottom: 30px;">Формула РКЗФО — говорите с ИИ на одном языке</h2>
+  <div style="max-width: 1100px;">
+    <p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">Проблема: 'Проверь договор' = плохой запрос. Почему? ИИ не знает:</p>
+<ul style="margin-left: 20px; margin-bottom: 15px;">
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">Кто вы? (юрист, закупщик, директор?)</li>
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">Что искать? (риски, цены, сроки?)</li>
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">Для чего? (для согласования, для переговоров?)</li>
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">В каком формате? (таблица, текст, письмо?)</li>
+</ul>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">Решение — 5 элементов:</p>
+<ul style="margin-left: 20px; margin-bottom: 15px;">
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">РОЛЬ — кто вы? ('Ты — закупщик с 10-летним стажем')</li>
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">КОНТЕКСТ — ситуация ('Внутренняя закупка, бюджет до 2 млн ₽')</li>
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">ЗАДАЧА — что сделать ('Составь ТЗ на светильники LED')</li>
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">ФОРМАТ — как оформить ('Таблица + требования + форма заявки')</li>
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">ОГРАНИЧЕНИЯ — границы ('Без 44-ФЗ, только внутренние требования')</li>
+</ul>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">🔑 Начинайте с РОЛИ. Одно слово повышает качество на 50%.</p>
+  </div>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)">
+  <h2 style="margin-bottom: 40px;">Плохой vs Хороший запрос</h2>
+  <div class="grid-2" style="max-width: 1200px;">
+    <div class="card" style="border-color: rgba(239,68,68,0.3);">
+      <h3 style="color: #ef4444; font-size: 0.95em; margin-bottom: 15px;">❌ Плохой запрос</h3>
+      <ul style="margin-left: 15px;"><li style="color: #cbd5e1; font-size: 0.75em; line-height: 1.5; margin-bottom: 6px;">Напиши ТЗ на кабель</li>
+<li style="color: #cbd5e1; font-size: 0.75em; line-height: 1.5; margin-bottom: 6px;">→ Общий шаблон, неприменимый</li>
+<li style="color: #cbd5e1; font-size: 0.75em; line-height: 1.5; margin-bottom: 6px;">→ Без параметров, без контекста</li>
+<li style="color: #cbd5e1; font-size: 0.75em; line-height: 1.5; margin-bottom: 6px;">→ Без требований к поставщику</li>
+<li style="color: #cbd5e1; font-size: 0.75em; line-height: 1.5; margin-bottom: 6px;">Результат: непригодно к использованию</li></ul>
+    </div>
+    <div class="card" style="border-color: rgba(16,185,129,0.3);">
+      <h3 style="color: #10b981; font-size: 0.95em; margin-bottom: 15px;">✅ Хороший запрос (РКЗФО)</h3>
+      <ul style="margin-left: 15px;"><li style="color: #cbd5e1; font-size: 0.75em; line-height: 1.5; margin-bottom: 6px;">Роль: инженер-электрик</li>
+<li style="color: #cbd5e1; font-size: 0.75em; line-height: 1.5; margin-bottom: 6px;">Контекст: ЖК на 240 квартир</li>
+<li style="color: #cbd5e1; font-size: 0.75em; line-height: 1.5; margin-bottom: 6px;">Задача: ТЗ на кабель ВВГнг-LS</li>
+<li style="color: #cbd5e1; font-size: 0.75em; line-height: 1.5; margin-bottom: 6px;">Формат: таблица с сечениями, длинами</li>
+<li style="color: #cbd5e1; font-size: 0.75em; line-height: 1.5; margin-bottom: 6px;">Ограничения: без 44-ФЗ, бюджет 500K</li>
+<li style="color: #cbd5e1; font-size: 0.75em; line-height: 1.5; margin-bottom: 6px;">Результат: готовое ТЗ для поставщика</li></ul>
+    </div>
+  </div>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)">
+  <h2 style="margin-bottom: 30px;">Eval — ИИ проверяет сам себя</h2>
+  <div style="max-width: 1100px;">
+    <p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">Зачем нужен Eval? AI может:</p>
+<ul style="margin-left: 20px; margin-bottom: 15px;">
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">Что-то упустить (забыть про гарантию)</li>
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">Обобщить важную деталь</li>
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">Домыслить то, чего нет в контексте</li>
+</ul>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">Eval = просим ИИ найти свои ошибки.</p>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">4 вопроса для Eval:</p>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">1. 'Оцени ответ 1–10' — выявляет галлюцинации, выдуманные факты</p>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">2. 'Что ты не учёл?' — находит слепые пятна, упущенные параметры</p>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">3. 'Найди 3 слабых места' — ловит неточности, допущения</p>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">4. 'Предложи другой подход' — даёт альтернативные решения</p>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">Пример Eval для ТЗ:</p>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">'Оцени ТЗ 1–10. Какие технические параметры упустил? Что должен указать заказчик? Какие риски для поставщика не учтены?'</p>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">Результат: ИИ находит слабые места и предлагает улучшения.</p>
+  </div>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0f0f1a 0%, #0a0a12 100%)">
+  <h2 style="text-align: center; margin-bottom: 40px;">4 фишки OpenWebUI для закупщика</h2>
+  <div class="grid-3" style="max-width: 1300px; margin: 0 auto;">
+    <div class="card fragment fade-up" data-fragment-index="0"><h3 style="font-size: 0.9em; margin-bottom: 8px;">Фишка 1: Загрузка файлов 📎</h3><p style="color: #8892b0; font-size: 0.7em;">Загружайте старые ТЗ → ИИ повторит структуру. Загружайте КП → ИИ извлечёт цены. Загружайте договоры → ИИ найдёт риски.</p></div>
+<div class="card fragment fade-up" data-fragment-index="1"><h3 style="font-size: 0.9em; margin-bottom: 8px;">Фишка 2: System Prompt</h3><p style="color: #8892b0; font-size: 0.7em;">Настройка ассистента: 'Ты — ассистент закупщика. Всегда используй таблицы. Структура: анализ → риски → рекомендация.' Каждый чат работает по вашим правилам.</p></div>
+<div class="card fragment fade-up" data-fragment-index="2"><h3 style="font-size: 0.9em; margin-bottom: 8px;">Фишка 3: Шаблоны (/)</h3><p style="color: #8892b0; font-size: 0.7em;">Сохраните хороший промпт → введите '/' → выберите. /ТЗ_закупка → готовый промпт за 2 секунды. Экономия 5-10 минут.</p></div>
+<div class="card fragment fade-up" data-fragment-index="3"><h3 style="font-size: 0.9em; margin-bottom: 8px;">Фишка 4: Knowledge Base</h3><p style="color: #8892b0; font-size: 0.7em;">Загрузите регламенты, шаблоны ТЗ, историю закупок. ИИ будет отвечать с учётом ваших правил и примеров.</p></div>
+  </div>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)">
+  <h2 style="margin-bottom: 30px;">Демо 1: Составление ТЗ на светильники LED</h2>
+  <div style="max-width: 1100px;">
+    <p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">Сценарий: нужно купить светильники для офиса 500 м².</p>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">Шаг 1 — базовый запрос:</p>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">'Составь ТЗ на закупку светильников LED для офиса 500 м².'</p>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">→ Результат: общий шаблон. Без параметров, без специфики.</p>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">Шаг 2 — улучшенный запрос (РКЗФО):</p>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">Роль: инженер по освещению. Контекст: офис 500 м², open space, 60 рабочих мест, 8 переговорок, 2 кухни, 24/7. Задача: ТЗ на поставку и монтаж LED. Формат: общие требования + технические параметры (таблица: зона, тип, мощность, температура, количество) + требования к поставщику + условия поставки + форма заявки. Ограничения: только LED, экономия ≥ 40%.</p>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">→ Результат: готовое ТЗ с таблицами.</p>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">Шаг 3 — Eval:</p>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">'Оцени ТЗ 1–10. Что не учтено для 24/7? Какие требования нужны для кухонь?'</p>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">→ Результат: улучшенное ТЗ с недостающими пунктами.</p>
+  </div>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)">
+  <h2 style="margin-bottom: 30px;">Демо 2: Конкурентный лист из 3 КП</h2>
+  <div style="max-width: 1100px;">
+    <p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">Сценарий: получили 3 предложения на светильники LED (50 шт).</p>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">Данные:</p>
+<ul style="margin-left: 20px; margin-bottom: 15px;">
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">Поставщик А: 1250 ₽/шт, 3 дня, гарантия 2 года, оплата 50/50, монтаж 300 ₽/шт</li>
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">Поставщик Б: 980 ₽/шт, 14 дней, гарантия 1 год, оплата 100%, монтажа нет</li>
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">Поставщик В: 1100 ₽/шт, 7 дней, гарантия 3 года, оплата 30/70, монтаж 250 ₽/шт</li>
+</ul>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">Промпт:</p>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">Роль: аналитик закупок. Задача: сформировать конкурентный лист. Требования: таблица сравнения + критерии оценки (цена 40%, срок 20%, гарантия 20%, условия 20%) + рейтинг 1-5 по каждому критерию + итоговый рейтинг + рекомендация с обоснованием.</p>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">Результат: таблица с взвешенными оценками, итоговый рейтинг, рекомендация с цифрами.</p>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">Eval: 'Какие риски не учтены? Что проверить у поставщиков? Какие скрытые затраты?'</p>
+  </div>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)">
+  <h2 style="margin-bottom: 30px;">Демо 3: Поиск поставщиков кабеля ВВГнг-LS</h2>
+  <div style="max-width: 1100px;">
+    <p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">Промпт:</p>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">Роль: закупщик электротехники. Задача: список поставщиков кабеля ВВГнг-LS в Москве. Требования: собственное производство или прямые договоры с заводами, гарантия, сертификаты пожарной безопасности. Формат: таблица (компания, сайт, телефон, ассортимент, плюсы, минусы, приоритет 1-5). Ограничения: только реальные компании в РФ. Не выдумывай контакты. [уточнить] если не уверен.</p>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">⚠️ Важное предупреждение:</p>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">ИИ может выдумать компании, сайты или телефоны. Всегда проверяйте:</p>
+<ul style="margin-left: 20px; margin-bottom: 15px;">
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">Откройте сайт — работает ли?</li>
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">Позвоните по телефону — отвечают ли?</li>
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">Проверьте через госреестры (ЕГРЮЛ, ФНС)</li>
+</ul>
+  </div>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #0f0f1a 100%)">
+  <h2 style="text-align: center; margin-bottom: 50px;">Практика — 2 задания по 15 минут</h2>
+  <div class="grid-3" style="max-width: 1200px; margin: 0 auto;">
+    <div class="card fragment fade-up" data-fragment-index="0"><div class="stat-number">Задание 1</div><p style="margin-top: 12px; color: #8892b0; font-size: 0.75em;">Составить ТЗ на освещение склада 1000 м² через ИИ. Зона приёмки, хранение (стеллажи 6м), отгрузка, офис, санузлы. Использовать РКЗФО + Eval.</p></div>
+<div class="card fragment fade-up" data-fragment-index="1"><div class="stat-number">Задание 2</div><p style="margin-top: 12px; color: #8892b0; font-size: 0.75em;">Сформировать конкурентный лист на кабель ВВГнг-LS 3×2.5 мм², 5000м из 3 предложений. Таблица + критерии + рейтинг + рекомендация.</p></div>
+  </div>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0f0f1a 0%, #0a0a12 100%)">
+  <h2 style="text-align: center; margin-bottom: 40px;">Готовые шаблоны (сохраните через /)</h2>
+  <div class="grid-3" style="max-width: 1300px; margin: 0 auto;">
+    <div class="card fragment fade-up" data-fragment-index="0"><h3 style="font-size: 0.9em; margin-bottom: 8px;">/ТЗ_закупка</h3><p style="color: #8892b0; font-size: 0.7em;">Роль + Контекст + Задача + Формат (5 разделов) + Ограничения. Готовое ТЗ за 2 минуты.</p></div>
+<div class="card fragment fade-up" data-fragment-index="1"><h3 style="font-size: 0.9em; margin-bottom: 8px;">/конкурентный_лист</h3><p style="color: #8892b0; font-size: 0.7em;">3+ предложения → таблица → критерии с весами → рейтинг 1-5 → итоговый рейтинг → рекомендация.</p></div>
+<div class="card fragment fade-up" data-fragment-index="2"><h3 style="font-size: 0.9em; margin-bottom: 8px;">/поиск_поставщиков</h3><p style="color: #8892b0; font-size: 0.7em;">Регион + продукт → список компаний с контактами, плюсами/минусами, приоритетами. Предупреждение про выдумки.</p></div>
+  </div>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)">
+  <h2 style="margin-bottom: 30px;">Домашнее задание</h2>
+  <div style="max-width: 1100px;">
+    <p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">Выберите одну из ваших текущих закупок:</p>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">1. Составьте ТЗ с помощью ИИ (используйте РКЗФО)</p>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">2. Проведите Eval (улучшите ТЗ)</p>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">3. Если есть КП — сформируйте конкурентный лист</p>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">4. Если нужно найти поставщиков — попробуйте через ИИ (проверьте реальность!)</p>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">Формат сдачи:</p>
+<ul style="margin-left: 20px; margin-bottom: 15px;">
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">Скриншот диалога с ИИ</li>
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">Итоговый документ (ТЗ или конкурентный лист)</li>
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">Короткое резюме: 'Что получилось / что не получилось / сколько времени сэкономил'</li>
+</ul>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">Куда: чат #ai-help или email [внутренний]</p>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">Дедлайн: до Урока 2</p>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">💡 Совет: Не ждите идеального кейса. Попробуйте на чём угодно — даже на закупке канцелярии. Главное — привычка.</p>
+  </div>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)">
+  <h2 style="margin-bottom: 30px;">Что будет в Уроке 2: Анализ и выбор</h2>
+  <div style="max-width: 1100px;">
+    <p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">Следующее занятие:</p>
+<ul style="margin-left: 20px; margin-bottom: 15px;">
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">Сравнение ТКП с техническим заданием — соответствуют ли предложения ТЗ?</li>
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">Проверка договоров — риски, неопределённости, отсутствующие условия</li>
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">Red Team анализ — ИИ играет против нас, чтобы найти слабые места</li>
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">TCO (стоимость владения) — считаем не только цену, но и 3-летнюю стоимость</li>
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">Обоснованная рекомендация с цифрами</li>
+</ul>
+<p style="color: #e2e8f0; font-size: 0.85em; line-height: 1.6; margin-bottom: 12px;">Готовьте:</p>
+<ul style="margin-left: 20px; margin-bottom: 15px;">
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">Реальные КП от поставщиков (если есть)</li>
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">Шаблон вашего договора (если можно)</li>
+<li style="color: #cbd5e1; font-size: 0.8em; line-height: 1.6; margin-bottom: 6px;">Вопросы, которые возникли после Урока 1</li>
+</ul>
+  </div>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)" class="center">
+  
+  <h1 style="text-align: center; margin-bottom: 0.3em;">Вопросы?</h1>
+  <p style="text-align: center; color: #8892b0; font-size: 0.9em; max-width: 800px; margin: 0 auto;">Контакты: чат #ai-help • Шаблоны: /ТЗ_закупка /конкурентный_лист /поиск_поставщиков<br><br>Правило: Если задача занимает > 15 минут — сначала спросите ИИ.<br><br>Урок 2: Анализ и выбор → сравнение ТКП, проверка договоров, риски, TCO</p>
+</section>
+
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      slideNumber: 'c/t',
+      transition: 'slide',
+      transitionSpeed: 'default',
+      backgroundTransition: 'fade',
+      center: false,
+      width: 1280,
+      height: 720,
+      margin: 0.04
+    });
+  </script>
+</body>
+</html>
