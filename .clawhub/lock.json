@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "skills": {
+    "self-improving": {
+      "version": "1.2.16",
+      "installedAt": 1783443050186
+    },
+    "multi-search-engine": {
+      "version": "2.1.3",
+      "installedAt": 1783443059935
+    },
+    "skill-vetter": {
+      "version": "1.0.0",
+      "installedAt": 1783443070334
+    },
+    "@maximeprades/auto-updater": {
+      "version": "1.0.0",
+      "installedAt": 1783443476834,
+      "ownerHandle": "maximeprades"
+    },
+    "@michaelgathara/youtube-watcher": {
+      "version": "1.0.0",
+      "installedAt": 1783443509991,
+      "ownerHandle": "michaelgathara"
+    },
+    "word-docx": {
+      "version": "1.0.2",
+      "installedAt": 1783448383884,
+      "ownerHandle": "ivangdavila"
+    },
+    "@ivangdavila/excel-xlsx": {
+      "version": "1.0.2",
+      "installedAt": 1783448389666,
+      "ownerHandle": "ivangdavila"
+    },
+    "ontology": {
+      "version": "1.0.4",
+      "installedAt": 1783449321567,
+      "ownerHandle": "oswalpalash"
+    },
+    "@steipete/mcporter": {
+      "version": "1.0.0",
+      "installedAt": 1783449328338,
+      "ownerHandle": "steipete"
+    }
+  }
+}
