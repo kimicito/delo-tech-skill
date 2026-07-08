@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Presentation</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/black.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+
+:root {
+  --r-background-color: #0a0a0f;
+  --r-main-font: 'Inter', sans-serif;
+  --r-heading-font: 'Inter', sans-serif;
+  --r-main-color: #ffffff;
+  --r-heading-color: #ffffff;
+  --r-heading-font-weight: 800;
+  --r-link-color: #00d4ff;
+  --r-selection-background-color: #00d4ff;
+  --accent: #00d4ff;
+  --accent2: #7b2cbf;
+}
+.reveal { font-family: var(--r-main-font); font-size: 32px; }
+.reveal h1 { font-size: 2.4em; font-weight: 900; line-height: 1.1; text-transform: none; }
+.reveal h2 { font-size: 1.6em; font-weight: 700; text-transform: none; margin-bottom: 0.6em; }
+.reveal h3 { font-size: 1.2em; font-weight: 600; text-transform: none; }
+.reveal p, .reveal li { color: #cbd5e1; font-size: 0.85em; line-height: 1.5; }
+.reveal section { text-align: left; }
+.reveal .center { text-align: center; }
+
+.slide-bg-gradient {
+  background: linear-gradient(135deg, #0a0a0f 0%, #12121f 50%, #0f0f1a 100%);
+}
+.slide-bg-accent {
+  background: linear-gradient(135deg, rgba(0,212,255,0.08), rgba(123,44,191,0.08));
+}
+
+.card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 24px;
+  backdrop-filter: blur(10px);
+  transition: all 0.4s ease;
+}
+.card:hover {
+  transform: translateY(-5px) scale(1.02);
+  border-color: rgba(0,212,255,0.4);
+  box-shadow: 0 20px 40px rgba(0,212,255,0.15);
+}
+
+.stat-number {
+  font-size: 2.2em;
+  font-weight: 900;
+  background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 0.55em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+.highlight-box {
+  background: linear-gradient(135deg, rgba(0,212,255,0.12), rgba(123,44,191,0.12));
+  border: 1px solid rgba(0,212,255,0.25);
+  border-radius: 20px;
+  padding: 30px 40px;
+}
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+.grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px; }
+
+.reveal .slides section .fragment {
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal .slides section .fragment.fade-up {
+  transform: translateY(30px);
+}
+.reveal .slides section .fragment.fade-up.visible {
+  transform: translateY(0);
+}
+
+@media (max-width: 900px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+}
+
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)" class="center">
+  
+  <h1 style="text-align: center; margin-bottom: 0.3em;">Presentation</h1>
+  <p style="text-align: center; color: #8892b0; font-size: 0.9em; max-width: 800px; margin: 0 auto;"></p>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)" class="center">
+  
+  <h1 style="text-align: center; margin-bottom: 0.3em;">Что вы заберёте с собой</h1>
+  <p style="text-align: center; color: #8892b0; font-size: 0.9em; max-width: 800px; margin: 0 auto;"></p>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)" class="center">
+  
+  <h1 style="text-align: center; margin-bottom: 0.3em;">Что такое Generative AI?</h1>
+  <p style="text-align: center; color: #8892b0; font-size: 0.9em; max-width: 800px; margin: 0 auto;"></p>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)" class="center">
+  
+  <h1 style="text-align: center; margin-bottom: 0.3em;">Поисковик vs Generative AI</h1>
+  <p style="text-align: center; color: #8892b0; font-size: 0.9em; max-width: 800px; margin: 0 auto;"></p>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)" class="center">
+  
+  <h1 style="text-align: center; margin-bottom: 0.3em;">Почему OpenWebUI?</h1>
+  <p style="text-align: center; color: #8892b0; font-size: 0.9em; max-width: 800px; margin: 0 auto;"></p>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)" class="center">
+  
+  <h1 style="text-align: center; margin-bottom: 0.3em;">Интерфейс OpenWebUI — 5 элементов</h1>
+  <p style="text-align: center; color: #8892b0; font-size: 0.9em; max-width: 800px; margin: 0 auto;"></p>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)" class="center">
+  
+  <h1 style="text-align: center; margin-bottom: 0.3em;">Формула РКЗФО — говорите с ИИ на одном языке</h1>
+  <p style="text-align: center; color: #8892b0; font-size: 0.9em; max-width: 800px; margin: 0 auto;"></p>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)" class="center">
+  
+  <h1 style="text-align: center; margin-bottom: 0.3em;">Плохо → Хорошо</h1>
+  <p style="text-align: center; color: #8892b0; font-size: 0.9em; max-width: 800px; margin: 0 auto;"></p>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)" class="center">
+  
+  <h1 style="text-align: center; margin-bottom: 0.3em;">Eval — ИИ проверяет сам себя</h1>
+  <p style="text-align: center; color: #8892b0; font-size: 0.9em; max-width: 800px; margin: 0 auto;"></p>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)" class="center">
+  
+  <h1 style="text-align: center; margin-bottom: 0.3em;">Демо 1: Техническое задание</h1>
+  <p style="text-align: center; color: #8892b0; font-size: 0.9em; max-width: 800px; margin: 0 auto;"></p>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)" class="center">
+  
+  <h1 style="text-align: center; margin-bottom: 0.3em;">Демо 2: Конкурентный лист из 3 КП</h1>
+  <p style="text-align: center; color: #8892b0; font-size: 0.9em; max-width: 800px; margin: 0 auto;"></p>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)" class="center">
+  
+  <h1 style="text-align: center; margin-bottom: 0.3em;">Демо 3: Поиск поставщиков</h1>
+  <p style="text-align: center; color: #8892b0; font-size: 0.9em; max-width: 800px; margin: 0 auto;"></p>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)" class="center">
+  
+  <h1 style="text-align: center; margin-bottom: 0.3em;">Практика — 2 задания</h1>
+  <p style="text-align: center; color: #8892b0; font-size: 0.9em; max-width: 800px; margin: 0 auto;"></p>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)" class="center">
+  
+  <h1 style="text-align: center; margin-bottom: 0.3em;">Готовые шаблоны для закупщика</h1>
+  <p style="text-align: center; color: #8892b0; font-size: 0.9em; max-width: 800px; margin: 0 auto;"></p>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)" class="center">
+  
+  <h1 style="text-align: center; margin-bottom: 0.3em;">Домашнее задание</h1>
+  <p style="text-align: center; color: #8892b0; font-size: 0.9em; max-width: 800px; margin: 0 auto;"></p>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)" class="center">
+  
+  <h1 style="text-align: center; margin-bottom: 0.3em;">Presentation</h1>
+  <p style="text-align: center; color: #8892b0; font-size: 0.9em; max-width: 800px; margin: 0 auto;"></p>
+</section>
+
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      slideNumber: 'c/t',
+      transition: 'slide',
+      transitionSpeed: 'default',
+      backgroundTransition: 'fade',
+      center: false,
+      width: 1280,
+      height: 720,
+      margin: 0.04
+    });
+  </script>
+</body>
+</html>
