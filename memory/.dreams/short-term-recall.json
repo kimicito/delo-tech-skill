@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-06T14:55:57.405Z",
+  "updatedAt": "2026-07-09T20:38:47.215Z",
   "entries": {
     "memory:memory/2026-05-31.md:38:55": {
       "key": "memory:memory/2026-05-31.md:38:55",
@@ -531,6 +531,68 @@
         "eval.py",
         "v3.0",
         "статусы"
+      ]
+    },
+    "memory:memory/2026-07-05.md:1:31": {
+      "key": "memory:memory/2026-07-05.md:1:31",
+      "path": "memory/2026-07-05.md",
+      "startLine": 1,
+      "endLine": 31,
+      "source": "memory",
+      "snippet": "# 2026-07-05 — Memory Log ## Logistoria Website Fixes (Completed) - All footer edits, meta descriptions, Yandex Form replacements done - All changes pushed to `kimicito/logistoria-website` (master branch) - Yandex Forms embedded on EN/ES pages + RU kadena/thebeergame pages - RU index-ru.html subscription form uses Yandex Form `6a49638a...` - EN/ES demo forms use Yandex Form `6a496576...` - RU kadena/thebeergame demo forms use Yandex Form `6a37b9d3...` - privacy.html email updated: `project@logistoria.com` - All index pages have meta description + keywords ## SafeMind Project Audit & Migration - Full audit completed: 22 issues found (10 critical, 7 important, 5 nice-to-have) - Created new r",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.6414702551970188,
+      "maxScore": 0.6414702551970188,
+      "firstRecalledAt": "2026-07-09T20:38:47.215Z",
+      "lastRecalledAt": "2026-07-09T20:38:47.215Z",
+      "queryHashes": [
+        "101b377aa12a"
+      ],
+      "recallDays": [
+        "2026-07-10"
+      ],
+      "conceptTags": [
+        "kimicito/logistoria-website",
+        "en/es",
+        "kadena/thebeergame",
+        "index-ru.html",
+        "privacy.html",
+        "logistoria.com",
+        "nice-to-have",
+        "log"
+      ]
+    },
+    "memory:memory/2026-07-05.md:24:42": {
+      "key": "memory:memory/2026-07-05.md:24:42",
+      "path": "memory/2026-07-05.md",
+      "startLine": 24,
+      "endLine": 42,
+      "source": "memory",
+      "snippet": "3. Unisender API key for backend .env 4. Privacy Policy + Terms of Service (drafts needed) 5. GitHub Actions secrets (VPS_HOST, VPS_USER, VPS_SSH_KEY) ## OCR Pipeline (Blocked) - Waiting for Alibaba Cloud API key activation/top-up - Pixtral works well but user wants free solution - Qwen-VL-OCR is the target once Alibaba account is funded - Ollama llava-phi3 tested and FAILED (hallucinations, OOM) - User said: \"Чуть позже пополню alibaba\" ## Key Identifiers - `safemind.pro` — domain (DNS 85.239.59.8, currently down) - `@Mentesegura_bot` — Telegram bot - `kimicito/safemindpro` — new primary repo - `kimicito/safemind-landing` — old repo (preserved) - `project@logistoria.com` — main email - `l",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.6074941801460705,
+      "maxScore": 0.6074941801460705,
+      "firstRecalledAt": "2026-07-09T20:38:47.215Z",
+      "lastRecalledAt": "2026-07-09T20:38:47.215Z",
+      "queryHashes": [
+        "101b377aa12a"
+      ],
+      "recallDays": [
+        "2026-07-10"
+      ],
+      "conceptTags": [
+        "vps-host",
+        "vps-user",
+        "vps-ssh-key",
+        "activation/top-up",
+        "qwen-vl-ocr",
+        "llava-phi3",
+        "safemind.pro",
+        "85.239.59.8"
       ]
     }
   }
