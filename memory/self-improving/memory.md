@@ -4,6 +4,34 @@
 
 ---
 
+[HOT] Clarifying Questions Rule
+Trigger: User assigns a new task (not a follow-up or simple request)
+Action:
+  1. STOP before starting work
+  2. Ask 2-3 clarifying questions minimum:
+     - What is the desired outcome / success criteria?
+     - Are there constraints (budget, deadline, style, tools)?
+     - Who is the target audience / what context should I know?
+  3. Do NOT start implementation until user answers OR explicitly says "just do it"
+  4. Exception: Simple requests (< 2 min tasks) can skip clarifying questions
+
+---
+
+[HOT] Task Pause/Resume Rule
+Trigger: Task execution exceeds 10 minutes OR user asks to pause
+Action:
+  1. STOP current work gracefully (finish current atomic operation)
+  2. Save state:
+     - Write progress to memory/YYYY-MM-DD.md with timestamp
+     - List completed steps and remaining steps
+     - Note any decisions made and why
+  3. Report to user: current status, what was done, what remains
+  4. To resume: user says "continue" or asks about the task
+  5. On resume: read saved state, verify what was done, continue from where stopped
+  6. Quality preservation: always verify previous work before continuing, don't assume it was done correctly
+
+---
+
 [HOT] Skill Discovery Rule (Unified Registry)
 Trigger: User asks ANY question or task
 Action:
