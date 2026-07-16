@@ -87,3 +87,4 @@ projects/drawings_analysis/*.png
 projects/drawings_analysis/*.xlsx
 projects/drawings_analysis/*.pdf
 projects/drawings_analysis/*.json
+.env
