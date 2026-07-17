@@ -41,6 +41,8 @@ _(Ошибки и как их избежать)_
 ### API Discoveries (открытия)
 _(Новые инструменты, endpoint'ы, библиотеки)_
 
+- **CLI-Anything** (HKUDS): Фреймворк для создания CLI-обёрток (harnesses) вокруг любого ПО, чтобы AI-агенты управляли им через текстовые команды. Форк: `github.com/kimicito/CLI-Anything`. Реестр: CLI-Hub (`pip install cli-anything-hub`). Уже готовы harnesses для FreeCAD, Blender, QGIS, ArcGIS, Kdenlive, Shotcut, Obsidian, Zotero, n8n, ChromaDB, LibreOffice и 200+ других. **Использовать при задачах, требующих управления desktop-software или CAD/медиа/документами.**
+
 ## Текущие проекты
 
 ### logistoria-website

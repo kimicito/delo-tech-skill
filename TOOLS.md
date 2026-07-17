@@ -29,6 +29,32 @@
 
 ---
 
+## CLI-Anything (Desktop Software Harnesses)
+
+**Repo:** `github.com/kimicito/CLI-Anything` (fork от HKUDS)
+**Hub:** `pip install cli-anything-hub`
+**Docs:** https://hkuds.github.io/CLI-Anything/
+
+**Что это:** Фреймворк для создания CLI-обёрток (harnesses) вокруг любого ПО, чтобы AI-агенты управляли им через текстовые команды. Не замена скриптам — стандартный разъём для AI-агентов.
+
+**Готовые harnesses, релевантные проектам:**
+- **CAD/3D:** FreeCAD, Blender, SolidWorks, 3MF
+- **GIS:** QGIS, ArcGIS Pro
+- **Медиа:** Kdenlive, Shotcut, Openscreen, MiniMax (TTS)
+- **Документы:** LibreOffice, Obsidian, Zotero, Joplin
+- **Автоматизация:** n8n, Dify Workflow, ChromaDB (векторный поиск)
+
+**Когда использовать:**
+- Задача требует управления desktop-software из AI-агента
+- Нужна интеграция CAD/медиа/документов в пайплайн OpenClaw
+- Хочешь избежать ручного API-программирования для каждого инструмента
+
+**Когда НЕ использовать:**
+- Простые REST API — проще напрямую
+- Задачи, где уже есть готовый скилл
+
+---
+
 ## WB Tax Calculator (РВБ / Wildberries)
 
 **Skill:** `skills/wb-tax-calculator/`
