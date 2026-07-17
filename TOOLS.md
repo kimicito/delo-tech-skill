@@ -15,6 +15,26 @@
 
 ---
 
+## Browser Scraping (геоблок, JS-рендеринг)
+
+**Repo:** `github.com/kimicito/browser-scraping`
+**Когда:** curl 403/5xx, SPA без контента, геоблок (gge.ru)
+**Команды:** `browser navigate` → `snapshot` → клики по дереву → скриншот
+
+**Проверенные сайты:**
+- `fgiscs.minstroyrf.ru` — ФГИС ЦС, индексы, расценки
+- `pravo.gov.ru` — приказы Минстроя, экспорт RTF
+
+---
+
+## Price Comparison Skill
+
+**Repo:** `github.com/kimicito/price-comparison-skill`
+**Когда:** закупки, сравнение аналогов, категорийные шаблоны
+**Что делает:** inline eval, dual analogs, категорийные матрицы
+
+---
+
 ## Drawing OCR / VOR Extraction
 
 **Repo:** `github.com/kimicito/drawings-to-vor` (separate project)
