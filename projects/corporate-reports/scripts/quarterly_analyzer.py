@@ -5,21 +5,43 @@
 """
 
 import pandas as pd
+import pdfplumber
 import argparse
 import sys
 from pathlib import Path
 from datetime import datetime
 
 
+def extract_tables_from_pdf(path):
+    """Извлекает таблицы из PDF, возвращает DataFrame с первой найденной таблицей."""
+    print(f"Extracting tables from PDF: {path}")
+    with pdfplumber.open(path) as pdf:
+        for i, page in enumerate(pdf.pages):
+            tables = page.extract_tables()
+            for j, table in enumerate(tables):
+                if len(table) > 2 and len(table[0]) > 2:
+                    # Первая строка = заголовки, первая колонка = индекс
+                    df = pd.DataFrame(table[1:], columns=table[0])
+                    df = df.set_index(df.columns[0])
+                    # Преобразуем числа
+                    for col in df.columns:
+                        df[col] = pd.to_numeric(df[col].astype(str).str.replace(' ', '').str.replace(',', '.'), errors='coerce')
+                    print(f"  Found table on page {i+1}, table {j+1}: {len(df)} rows × {len(df.columns)} cols")
+                    return df
+    raise ValueError("No valid tables found in PDF")
+
+
 def load_report(path):
-    """Загружает отчёт: Excel или CSV."""
+    """Загружает отчёт: Excel, CSV или PDF."""
     ext = Path(path).suffix.lower()
     if ext in ('.xlsx', '.xls'):
         return pd.read_excel(path, index_col=0)
     elif ext == '.csv':
         return pd.read_csv(path, index_col=0)
+    elif ext == '.pdf':
+        return extract_tables_from_pdf(path)
     else:
-        raise ValueError(f"Unsupported format: {ext}. Use .xlsx, .xls, .csv")
+        raise ValueError(f"Unsupported format: {ext}. Use .xlsx, .xls, .csv, .pdf")
 
 
 def calculate_margins(df):

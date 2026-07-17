@@ -7,8 +7,9 @@
 
 Анализирует квартальные и годовые отчёты компании: P&L, Balance Sheet, Cash Flow.
 
-- **Вход:** Excel (.xlsx), CSV с отчётами
+- **Вход:** PDF, Excel (.xlsx), CSV с отчётами
 - **Выход:** Markdown отчёт с динамикой, маржами, аномалиями
+- **Автозагрузка:** Может сам скачать отчёт с сайта и проанализировать
 
 ## Возможности
 
@@ -25,10 +26,11 @@
 
 ```
 corporate-reports/
-├── data/               # Excel/CSV отчёты (не в git)
+├── data/               # Excel/CSV/PDF отчёты (не в git)
 ├── reports/            # Генерация (не в git)
 ├── scripts/
-│   └── quarterly_analyzer.py
+│   ├── quarterly_analyzer.py   # Основной анализ
+│   └── fetch_and_analyze.py    # Скачать с сайта → проанализировать
 ├── config/
 │   └── report_templates.json
 └── SKILL.md
@@ -36,15 +38,22 @@ corporate-reports/
 
 ## Запуск
 
+### Локальный файл
 ```bash
-# Анализ квартального отчёта
-python scripts/quarterly_analyzer.py --input data/q2_2026.xlsx --type pnl
+# Анализ квартального отчёта (Excel/CSV/PDF)
+python scripts/quarterly_analyzer.py --input data/q2_2026.xlsx --output reports/analysis.md
 
-# Сравнение с прошлым кварталом
-python scripts/quarterly_analyzer.py --input data/q2_2026.xlsx --compare data/q1_2026.xlsx
+# Анализ PDF отчёта
+python scripts/quarterly_analyzer.py --input data/annual_report_2025.pdf --output reports/analysis.md
+```
 
-# Полный анализ (P&L + Balance + Cash Flow)
-python scripts/quarterly_analyzer.py --input data/full_report.xlsx --full
+### Скачать с сайта и проанализировать
+```bash
+# Прямая ссылка на файл
+python scripts/fetch_and_analyze.py --url https://company.com/reports/q2_2026.pdf --direct
+
+# Искать отчёты на странице
+python scripts/fetch_and_analyze.py --url https://company.com/investors/reports
 ```
 
 ## Формат входных данных
