@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>1.1 提示词工程 — 非IT专业人士的AI</title>
+<link rel="stylesheet" href="../../style.css">
+<style>
+  :root { --bg: #0B0F19; --card: #111827; --text: #F3F4F6; --muted: #9CA3AF; --accent: #8B5CF6; --accent2: #06B6D4; --border: rgba(255,255,255,0.08); --success: #10B981; --warning: #F59E0B; --danger: #EF4444; }
+  * { box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; margin: 0; overflow-x: hidden; }
+  .container { max-width: 800px; margin: 0 auto; padding: 0 16px; }
+  header { padding: 16px 0; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg); z-index: 100; }
+  header .container { display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-size: 1.1rem; font-weight: 700; color: var(--accent); text-decoration: none; }
+  .lesson-header { padding: 32px 0 16px; }
+  .lesson-header .phase { color: var(--accent); font-size: 0.85rem; font-weight: 600; }
+  .lesson-header h1 { margin: 8px 0; font-size: 1.8rem; line-height: 1.25; }
+  .lesson-header .meta { color: var(--muted); font-size: 0.9rem; }
+  .section { margin: 28px 0; }
+  .section h2 { color: var(--accent); font-size: 1.2rem; margin-bottom: 12px; }
+  .section h3 { color: var(--accent2); font-size: 1.05rem; margin: 20px 0 10px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin: 14px 0; }
+  .card-accent { border-left: 4px solid var(--accent); }
+  .card-success { border-left: 4px solid var(--success); }
+  .card-warning { border-left: 4px solid var(--warning); }
+  .card-danger { border-left: 4px solid var(--danger); }
+  .highlight { background: rgba(139,92,246,0.1); padding: 2px 6px; border-radius: 4px; }
+  .checklist { list-style: none; padding: 0; }
+  .checklist li { padding: 8px 0; padding-left: 28px; position: relative; }
+  .checklist li:before { content: "☐"; position: absolute; left: 0; color: var(--accent); }
+  .example { background: rgba(6,182,212,0.05); border: 1px solid rgba(6,182,212,0.2); border-radius: 8px; padding: 14px; margin: 12px 0; }
+  .example-label { color: var(--accent2); font-size: 0.75rem; font-weight: 600; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .bad-prompt { background: rgba(239,68,68,0.05); border: 1px solid rgba(239,68,68,0.2); border-radius: 8px; padding: 14px; margin: 12px 0; }
+  .bad-prompt-label { color: var(--danger); font-size: 0.75rem; font-weight: 600; margin-bottom: 6px; text-transform: uppercase; }
+  .nav-footer { display: flex; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 32px; flex-wrap: wrap; gap: 8px; }
+  .nav-btn { padding: 10px 20px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; color: var(--text); text-decoration: none; transition: all 0.2s; }
+  .nav-btn:hover { border-color: var(--accent); }
+  .nav-btn.primary { background: var(--accent); border-color: var(--accent); }
+  footer { padding: 32px 16px; text-align: center; color: var(--muted); border-top: 1px solid var(--border); }
+  .card + .card { margin-top: 40px; }
+  .quiz-option + .quiz-option { margin-top: 8px; }
+  .card-accent:has(.quiz-option) { border-left: none; border-top: 3px solid var(--accent); }
+  .quiz-option { display: block; word-wrap: break-word; padding: 12px 16px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; margin: 8px 0; cursor: pointer; transition: all 0.2s; }
+  .quiz-option:hover { border-color: var(--accent); }
+  .quiz-option.correct { border-color: var(--success); background: rgba(16,185,129,0.1); }
+  .quiz-option.wrong { border-color: var(--danger); background: rgba(239,68,68,0.1); }
+  .quiz-option.disabled { opacity: 0.5; pointer-events: none; }
+  .result { display: none; padding: 16px; border-radius: 8px; margin: 16px 0; }
+  .result.show { display: block; }
+  pre { background: rgba(0,0,0,0.3); padding: 12px; border-radius: 6px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; }
+  ul, ol { padding-left: 20px; }
+  li { margin: 4px 0; }
+  table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9rem; }
+  th, td { padding: 10px; text-align: left; border-bottom: 1px solid var(--border); }
+  th { color: var(--accent); font-weight: 600; }
+  tr:hover { background: rgba(255,255,255,0.02); }
+  @media (max-width: 768px) {
+    .lesson-header h1 { font-size: 1.4rem; }
+    .nav-footer { flex-direction: column; }
+    .nav-btn { width: 100%; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <a href="../../index.html" class="logo">🧠 非IT专业人士的AI</a>
+    <a href="../../catalog.html" style="color: var(--muted); text-decoration: none; font-size: 0.9rem;">← 目录</a> <span style="color: var(--border); margin: 0 8px;">|</span> <a href="../../glossary.html" style="color: var(--muted); text-decoration: none; font-size: 0.9rem;">📖 术语</a>
+  </div>
+</header>
+
+<article class="container">
+
+  <div class="lesson-header">
+    <div class="phase">🛠️ 级别 1 · 工具掌握</div>
+    <h1>1.1 · 面向管理者的提示词工程</h1>
+    <div class="meta">🎯 无代码 · ✅ 交互式测验</div>
+  </div>
+
+  <!-- 为什么企业需要 -->
+  <div class="section">
+    <h2>🎯 为什么企业需要这个</h2>
+    <p><span class="highlight">AI结果的80%不取决于模型，而取决于您如何提问。</span></p>
+    <p>管理者平均每天花<strong>2-3小时</strong>在：撰写邮件、分析文档、对比提案、准备报告。好的提示词可将这些时间缩短3-5倍。</p>
+    <div class="card card-success">
+      <p><strong>节省示例：</strong></p>
+      <p>手动对比3个供应商报价需要2小时。用好提示词只需15分钟。节省：<strong>1小时45分钟 × 每月10次 = 17.5小时</strong>。</p>
+    </div>
+  </div>
+
+  <!-- 学习内容 -->
+  <div class="section">
+    <h2>📚 学习内容</h2>
+    
+    <h3>好提示词公式：RCOF</h3>
+    <div class="card card-accent">
+      <table>
+        <tr><th>字母</th><th>含义</th><th>问题</th></tr>
+        <tr><td><strong>R</strong></td><td>Role (角色)</td><td>谁来回答？「你是一位资深采购员」</td></tr>
+        <tr><td><strong>C</strong></td><td>Context (上下文)</td><td>发生了什么？「我们在为饼干选择包装」</td></tr>
+        <tr><td><strong>O</strong></td><td>Objective (目标)</td><td>要得到什么？「对比3个报价」</td></tr>
+        <tr><td><strong>F</strong></td><td>Format (格式)</td><td>以什么形式？「表格：标准 | 供应商1 | 供应商2」</td></tr>
+      </table>
+    </div>
+
+    <h3>对比：差提示词 vs 好提示词</h3>
+    <div class="bad-prompt">
+      <div class="bad-prompt-label">❌ 差提示词</div>
+      <pre>"分析报价并告诉我哪个更好"</pre>
+      <p style="color: var(--muted); font-size: 0.85rem; margin-top: 8px;">结果：泛泛的回答，没有具体细节，需要追问3次</p>
+    </div>
+    
+    <div class="example">
+      <div class="example-label">✅ 好提示词 (RCOF)</div>
+      <pre>你是一位有10年经验的FMCG采购员。
+我们正在为饼干选择纸板包装供应商。
+收到了3个报价（见附件）。
+
+任务：按标准对比报价并推荐最佳方案。
+
+标准：
+1. 单价（含运费）
+2. 最小订单量
+3. 生产周期
+4. 付款条件
+5. 供应商评级
+
+格式：对比表格 + 明确推荐及理由。
+
+限制：如果周期 > 14天 — 标记为风险。</pre>
+    </div>
+  </div>
+
+  <!-- 如何应用 -->
+  <div class="section">
+    <h2>🛠️ 如何应用</h2>
+    
+    <h3>步骤1：定义角色</h3>
+    <div class="card">
+      <p>AI在知道「扮演谁」时回答更好。角色决定专业性和语气。</p>
+      <ul>
+        <li><strong>「你是律师」</strong> — 法律分析，谨慎措辞</li>
+        <li><strong>「你是营销人员」</strong> — 创意、指标、行动号召</li>
+        <li><strong>「你是财务分析师」</strong> — 数字、投资回报率、风险</li>
+      </ul>
+    </div>
+
+    <h3>步骤2：提供上下文</h3>
+    <div class="card">
+      <p>没有上下文，AI给出泛泛回答。有上下文，给出具体回答。</p>
+      <div class="example">
+        <div class="example-label">💡 示例</div>
+        <p><strong>没有上下文：</strong> "如何降低成本？
