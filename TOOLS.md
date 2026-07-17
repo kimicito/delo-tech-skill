@@ -49,6 +49,27 @@
 
 ---
 
+## Composio (500+ интеграций)
+
+**Repo:** `skills/composio/` (установлен через clawhub)
+**API:** https://platform.composio.dev
+**Ключ:** `ak_S1D3MP7UQakVc1zuUkff` (в `.env`)
+
+**Что это:** 500+ интеграций через единый API — Gmail, Slack, GitHub, Notion, X/Twitter, Figma, Google Workspace, и т.д.
+
+**Команды:**
+- `SEARCH_TOOLS` — найти нужный инструмент
+- `MANAGE_CONNECTIONS` — OAuth-подключение к сервисам
+- `MULTI_EXECUTE_TOOL` — выполнить 1-50 операций параллельно
+- `REMOTE_WORKBENCH` — Python sandbox для обработки
+
+**Когда использовать:**
+- Отправить email, создать встречу, запостить в Slack
+- Интеграция с GitHub (issues, PR), Notion, Google Sheets
+- Облачные сервисы, а не desktop-software (для desktop — CLI-Anything)
+
+---
+
 ## CLI-Anything (Desktop Software Harnesses)
 
 **Repo:** `github.com/kimicito/CLI-Anything` (fork от HKUDS)
