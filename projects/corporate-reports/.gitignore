@@ -1,0 +1,5 @@
+# Corporate Reports — generated data
+reports/
+*.xlsx
+*.csv
+*.pdf
