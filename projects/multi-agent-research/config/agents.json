@@ -1,0 +1,35 @@
+{
+  "coordinator": {
+    "model": "kimi-k2p6",
+    "timeout_seconds": 300,
+    "max_agents": 4,
+    "retry_count": 2
+  },
+  "agents": [
+    {
+      "id": "price",
+      "name": "Price Monitor",
+      "task": "Найди актуальные цены на {topic}. Источники: fgiscs.minstroyrf.ru, Авито, Пульс цен, ЦИАН. Формат: таблица (поставщик, цена, регион, дата)",
+      "tools": ["browser", "kimi_search"],
+      "timeout": 120
+    },
+    {
+      "id": "regulation",
+      "name": "Regulation Watcher",
+      "task": "Проверь изменения в ГОСТ, СП, приказах Минстроя по теме {topic}. Источники: pravo.gov.ru, docs.cntd.ru. Формат: список изменений с датами вступления в силу",
+      "tools": ["browser", "web_fetch"],
+      "timeout": 120
+    },
+    {
+      "id": "suppliers",
+      "name": "Supplier Finder",
+      "task": "Найди новых поставщиков {topic} в Москве и Московской области. Источники: Авито, 2ГИС, Яндекс.Карты. Формат: контакты, рейтинг, отзывы",
+      "tools": ["kimi_search", "browser"],
+      "timeout": 120
+    }
+  ],
+  "output": {
+    "format": "markdown",
+    "delivery": ["telegram", "file"]
+  }
+}

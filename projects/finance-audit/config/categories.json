@@ -1,0 +1,14 @@
+{
+  "categories": {
+    "streaming": ["netflix", "spotify", "apple music", "youtube premium", "yandex plus"],
+    "cloud": ["yandex cloud", "aws", "google cloud", "digitalocean", "selectel"],
+    "software": ["notion", "figma", "slack", "zoom", "teams", "linear", "jira"],
+    "hosting": ["hostinger", "beget", "reg.ru", "timeweb", "sweb"],
+    "mobile": ["мтс", "билайн", "мегафон", "tele2", "yota"],
+    "finance": ["брокер", "инвест", "тинькофф", "сбер", "альфа"],
+    "other": []
+  },
+  "anomaly_threshold": 0.3,
+  "subscription_variance": 0.05,
+  "min_occurrences": 2
+}

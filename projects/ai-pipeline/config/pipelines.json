@@ -1,0 +1,76 @@
+{
+  "pipelines": [
+    {
+      "id": "course",
+      "name": "Course Content Pipeline",
+      "steps": [
+        {
+          "id": "slides",
+          "name": "Generate Slides",
+          "skill": "openclaw-slides",
+          "input_template": "Создай курс: {input}",
+          "output_format": "pptx",
+          "retry": 3,
+          "timeout": 300
+        },
+        {
+          "id": "voiceover",
+          "name": "Generate Voiceover",
+          "skill": "tts",
+          "input_from": "slides",
+          "output_format": "mp3",
+          "retry": 3,
+          "timeout": 120
+        },
+        {
+          "id": "youtube",
+          "name": "Upload to YouTube",
+          "skill": "browser",
+          "action": "upload",
+          "input_from": "voiceover",
+          "retry": 2,
+          "timeout": 600
+        },
+        {
+          "id": "notify",
+          "name": "Send Telegram",
+          "skill": "telegram",
+          "action": "send",
+          "message": "Курс готов: {youtube_url}",
+          "retry": 1
+        }
+      ]
+    },
+    {
+      "id": "weekly_content",
+      "name": "Weekly Content Pipeline",
+      "steps": [
+        {
+          "id": "research",
+          "name": "Research Topic",
+          "skill": "kimi_search",
+          "input_template": "Найди 5 новостей про {input} за неделю",
+          "retry": 2,
+          "timeout": 120
+        },
+        {
+          "id": "article",
+          "name": "Write Article",
+          "skill": "content-research-writer",
+          "input_from": "research",
+          "output_format": "md",
+          "retry": 2,
+          "timeout": 300
+        },
+        {
+          "id": "post",
+          "name": "Post to Social",
+          "skill": "telegram",
+          "action": "send",
+          "message": "Новая статья: {article_url}",
+          "retry": 1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+# AI Pipeline — generated data
+state/
+output/
+*.tmp
+*.pptx
+*.mp3
+*.mp4

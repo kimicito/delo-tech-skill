@@ -1,0 +1,6 @@
+# Finance Audit — generated data and reports
+data/
+reports/
+*.csv
+*.xlsx
+*.pdf
