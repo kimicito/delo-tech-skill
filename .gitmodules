@@ -1,1 +1,4 @@
 
+[submodule "skills/ux-site-tester"]
+	path = skills/ux-site-tester
+	url = https://github.com/kimicito/ux-site-tester.git
