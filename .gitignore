@@ -8,6 +8,14 @@
 .DS_Store
 Thumbs.db
 
+# === UX SITE TESTER ===
+reports/
+skills/ux-site-tester/reports/
+
+# === CRM файлы ===
+CRM_Logistoria*.xlsx
+crm_*.py
+
 # === PYTHON ===
 __pycache__/
 *.py[cod]
