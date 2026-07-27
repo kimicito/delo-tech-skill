@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-09T20:38:47.215Z",
+  "updatedAt": "2026-07-23T20:47:20.124Z",
   "entries": {
     "memory:memory/2026-05-31.md:38:55": {
       "key": "memory:memory/2026-05-31.md:38:55",
@@ -323,18 +323,22 @@
       "endLine": 52,
       "source": "memory",
       "snippet": "- Дизайн Logistoria (violet + orange, Montserrat/Inter) - Контакт: mtracorp@gmail.com ## Ключевой урок При массовом batch-обновлении Excel через openpyxl всегда проверять соответствие row-номеров и позиций. Позиция 2 (Future Technologies) была случайно перезаписана при batch-обновлении аналогов — потребовалось восстановление. ## GitHub Pages deploy — privacy.html - Деплой страницы `privacy.html` на `kimicito.github.io/logistoria-website/privacy.html` - Использован force-push после abort rebase (были конфликты при pull) ## Полная проверка всех страниц logistoria-website - Проверены все 17 страниц — все отдают HTTP 200 OK - Список: index.html, index-ru.html, index-en.html, index-es.html, k",
-      "recallCount": 1,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.4221444249153137,
-      "maxScore": 0.4221444249153137,
+      "totalScore": 1.275321474671364,
+      "maxScore": 0.4302262395620346,
       "firstRecalledAt": "2026-07-04T14:25:20.985Z",
-      "lastRecalledAt": "2026-07-04T14:25:20.985Z",
+      "lastRecalledAt": "2026-07-21T19:52:19.972Z",
       "queryHashes": [
-        "12a100acde86"
+        "12a100acde86",
+        "785ad1fc8c47",
+        "b2c4d1269998"
       ],
       "recallDays": [
-        "2026-07-04"
+        "2026-07-04",
+        "2026-07-21",
+        "2026-07-22"
       ],
       "conceptTags": [
         "montserrat/inter",
@@ -385,18 +389,20 @@
       "endLine": 116,
       "source": "memory",
       "snippet": "- Результат на текущей таблице: 23 OK, 0 FAIL, 6 WARN ### SKILL.md — новые правила - Аналог = другой бренд (критично, никогда не тот же) - URL проверять перед записью (работающие, русскоязычные) - Кодировка URL (кириллица ломается, латиница надёжнее) - Batch_update — проверять row-номера, чтобы не перезаписать соседей ### Runner - Создан `skills/price-comparison/scripts/runner.py` — полный workflow: input → process_excel → eval ## Таблица ТМЦ — финальная проверка - 23 позиции сетевого оборудования - Заменены 18 неработающих URL на русскоязычные - Убраны иностранные: eBay, brandclub, atgbics, covenco - Исправлены проблемы с кодировкой URL - Все 69 URL проверены — 0 ошибок - 22/23 аналогов",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.3650321155786514,
-      "maxScore": 0.3650321155786514,
+      "totalScore": 0.7453961074352264,
+      "maxScore": 0.380363991856575,
       "firstRecalledAt": "2026-07-04T14:25:20.985Z",
-      "lastRecalledAt": "2026-07-04T14:25:20.985Z",
+      "lastRecalledAt": "2026-07-21T19:52:19.972Z",
       "queryHashes": [
-        "12a100acde86"
+        "12a100acde86",
+        "b2c4d1269998"
       ],
       "recallDays": [
-        "2026-07-04"
+        "2026-07-04",
+        "2026-07-22"
       ],
       "conceptTags": [
         "skill.md",
@@ -540,18 +546,24 @@
       "endLine": 31,
       "source": "memory",
       "snippet": "# 2026-07-05 — Memory Log ## Logistoria Website Fixes (Completed) - All footer edits, meta descriptions, Yandex Form replacements done - All changes pushed to `kimicito/logistoria-website` (master branch) - Yandex Forms embedded on EN/ES pages + RU kadena/thebeergame pages - RU index-ru.html subscription form uses Yandex Form `6a49638a...` - EN/ES demo forms use Yandex Form `6a496576...` - RU kadena/thebeergame demo forms use Yandex Form `6a37b9d3...` - privacy.html email updated: `project@logistoria.com` - All index pages have meta description + keywords ## SafeMind Project Audit & Migration - Full audit completed: 22 issues found (10 critical, 7 important, 5 nice-to-have) - Created new r",
-      "recallCount": 1,
+      "recallCount": 4,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.6414702551970188,
-      "maxScore": 0.6414702551970188,
+      "totalScore": 2.111387479325459,
+      "maxScore": 0.6914536876275095,
       "firstRecalledAt": "2026-07-09T20:38:47.215Z",
-      "lastRecalledAt": "2026-07-09T20:38:47.215Z",
+      "lastRecalledAt": "2026-07-23T20:47:20.124Z",
       "queryHashes": [
-        "101b377aa12a"
+        "101b377aa12a",
+        "785ad1fc8c47",
+        "b2c4d1269998",
+        "02034459720b"
       ],
       "recallDays": [
-        "2026-07-10"
+        "2026-07-10",
+        "2026-07-21",
+        "2026-07-22",
+        "2026-07-24"
       ],
       "conceptTags": [
         "kimicito/logistoria-website",
@@ -571,18 +583,22 @@
       "endLine": 42,
       "source": "memory",
       "snippet": "3. Unisender API key for backend .env 4. Privacy Policy + Terms of Service (drafts needed) 5. GitHub Actions secrets (VPS_HOST, VPS_USER, VPS_SSH_KEY) ## OCR Pipeline (Blocked) - Waiting for Alibaba Cloud API key activation/top-up - Pixtral works well but user wants free solution - Qwen-VL-OCR is the target once Alibaba account is funded - Ollama llava-phi3 tested and FAILED (hallucinations, OOM) - User said: \"Чуть позже пополню alibaba\" ## Key Identifiers - `safemind.pro` — domain (DNS 85.239.59.8, currently down) - `@Mentesegura_bot` — Telegram bot - `kimicito/safemindpro` — new primary repo - `kimicito/safemind-landing` — old repo (preserved) - `project@logistoria.com` — main email - `l",
-      "recallCount": 1,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.6074941801460705,
+      "totalScore": 1.3410177903803309,
       "maxScore": 0.6074941801460705,
       "firstRecalledAt": "2026-07-09T20:38:47.215Z",
-      "lastRecalledAt": "2026-07-09T20:38:47.215Z",
+      "lastRecalledAt": "2026-07-23T20:47:20.124Z",
       "queryHashes": [
-        "101b377aa12a"
+        "101b377aa12a",
+        "de535aaf1ac1",
+        "02034459720b"
       ],
       "recallDays": [
-        "2026-07-10"
+        "2026-07-10",
+        "2026-07-21",
+        "2026-07-24"
       ],
       "conceptTags": [
         "vps-host",
@@ -593,6 +609,442 @@
         "llava-phi3",
         "safemind.pro",
         "85.239.59.8"
+      ]
+    },
+    "memory:memory/2026-07-09.md:255:285": {
+      "key": "memory:memory/2026-07-09.md:255:285",
+      "path": "memory/2026-07-09.md",
+      "startLine": 255,
+      "endLine": 285,
+      "source": "memory",
+      "snippet": "- All HTML pages (index, ru, es, en variants) - Game pages: kadena, thebeergame, auction-bot, logistics-course - CSS: style.css, JS: main.js - Images (~25 files), assets (~20 files) - Dashboard page, privacy pages ### Next Steps 1. User to pay 3072₽ to activate Hoster hosting 2. Point domain logistoria.com to 31.28.24.131 3. Setup SSL (Let's Encrypt) in Hoster panel 4. After activation — pipeline will auto-deploy on every push ### Note User wants to continue editing logistoria-website in GitHub and have auto-deploy to Hoster.ru. Pipeline is ready and tested. --- ## Дополнительно (вечер) ### Статья для книги к 90-летию Таганского района - Проект: `projects/taganka-industry/` - Тема: Пром",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4288035184144974,
+      "maxScore": 0.4288035184144974,
+      "firstRecalledAt": "2026-07-20T21:03:49.465Z",
+      "lastRecalledAt": "2026-07-20T21:03:49.465Z",
+      "queryHashes": [
+        "785ad1fc8c47"
+      ],
+      "recallDays": [
+        "2026-07-21"
+      ],
+      "conceptTags": [
+        "auction-bot",
+        "logistics-course",
+        "style.css",
+        "main.js",
+        "logistoria.com",
+        "31.28.24.131",
+        "auto-deploy",
+        "logistoria-website"
+      ]
+    },
+    "memory:memory/2026-07-09.md:227:263": {
+      "key": "memory:memory/2026-07-09.md:227:263",
+      "path": "memory/2026-07-09.md",
+      "startLine": 227,
+      "endLine": 263,
+      "source": "memory",
+      "snippet": "- Подготовить материалы для следующего занятия (ИИ-агенты, уровень 4). - Добавить реальные кейсы из работы компании в модули 1-4. - Установить P2 skills (nano-pdf, ontology, automation workflows, evolver) по согласованию. - Продолжить обработку чертежей: тестировать Вариант A (крупные тайлы 2000×2000) vs Вариант B (Qwen-VL промпт на планах) для извлечения без reference ВОР. - Проверить `git status` и сделать commit/push если есть uncommitted changes. ## Logistoria Website Deployment — 2026-07-09 ### Hoster.ru Hosting - **Server:** srv250356.srv.hoster.ru - **IP:** 31.28.24.131 - **Temp URL:** http://srv250356.hoster-test.ru - **Status:** Test mode (10 days), needs 3072₽ to activate - **Dom",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4246527850627899,
+      "maxScore": 0.4246527850627899,
+      "firstRecalledAt": "2026-07-20T21:03:49.465Z",
+      "lastRecalledAt": "2026-07-20T21:03:49.465Z",
+      "queryHashes": [
+        "785ad1fc8c47"
+      ],
+      "recallDays": [
+        "2026-07-21"
+      ],
+      "conceptTags": [
+        "ии-агенты",
+        "1-4",
+        "nano-pdf",
+        "qwen-vl",
+        "commit/push",
+        "hoster.ru",
+        "srv250356.srv.hoster.ru",
+        "31.28.24.131"
+      ]
+    },
+    "memory:memory/2026-07-10.md:1:29": {
+      "key": "memory:memory/2026-07-10.md:1:29",
+      "path": "memory/2026-07-10.md",
+      "startLine": 1,
+      "endLine": 29,
+      "source": "memory",
+      "snippet": "# Дневник — 2026-07-09/10 (переход через полночь) ## Logistoria Website - Служба поддержки Hoster.ru ответила: сайт задеплоен в папку тестового домена (`srv250356.hoster-test.ru`), нужно деплоить в папку с названием домена (`logistoria.com`). - Изменён `server-dir` в `.github/workflows/deploy.yml`: `/srv250356.hoster-test.ru/` → `/logistoria.com/`. - GitHub Actions запущен, деплой в новую папку выполнен. - Обновлён `DEPLOY.md` с актуальной инструкцией по деплою на Hoster.ru (FTP, DNS, GitHub Actions). - **Блокер:** нужно настроить DNS A-запись у регистратора домена на `31.28.24.131`. ## Taganka — статья «Промышленность Таганки» - Переписана статья в структуре «по предприятиям» (от основани",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.781082859635353,
+      "maxScore": 0.4094961673021316,
+      "firstRecalledAt": "2026-07-20T21:03:49.465Z",
+      "lastRecalledAt": "2026-07-23T20:42:40.646Z",
+      "queryHashes": [
+        "785ad1fc8c47",
+        "d90874591932"
+      ],
+      "recallDays": [
+        "2026-07-21",
+        "2026-07-24"
+      ],
+      "conceptTags": [
+        "2026-07-09/10",
+        "hoster.ru",
+        "srv250356.hoster-test.ru",
+        "logistoria.com",
+        "server-dir",
+        "github/workflows/deploy.yml",
+        "deploy.md",
+        "a-запись"
+      ]
+    },
+    "memory:memory/2026-07-21.md:1:46": {
+      "key": "memory:memory/2026-07-21.md:1:46",
+      "path": "memory/2026-07-21.md",
+      "startLine": 1,
+      "endLine": 46,
+      "source": "memory",
+      "snippet": "# 2026-07-21 — Logistoria.com аудит ## Выполнен полный аудит сайта logistoria.com (9 пунктов) ### 1. SEO - 11 страниц без meta description — нужно добавить - Robots.txt + sitemap.xml созданы и задеплоены - Ключевые слова: игры в логистику, supply chain simulation, serious games, KADENA, The Beer Game ### 2. Яндекс.Метрика (92824982) - ✅ Добавлена во все 21 HTML-файл - Настройки: clickmap, trackLinks, accurateTrackBounce, webvisor - Дополнительно рекомендовано: Google Analytics 4, VK Pixel ### 3. Скорость загрузки - Проблема: папка images = 25 МБ (heroes-rack-product.jpg = 3.6 МБ) - Решение: сжать все изображения до <200 КБ ### 4. HR-аудит - Критические проблемы: нет цен на главной, нет",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.38037751019001004,
+      "maxScore": 0.38037751019001004,
+      "firstRecalledAt": "2026-07-21T19:52:19.972Z",
+      "lastRecalledAt": "2026-07-21T19:52:19.972Z",
+      "queryHashes": [
+        "b2c4d1269998"
+      ],
+      "recallDays": [
+        "2026-07-22"
+      ],
+      "conceptTags": [
+        "logistoria.com",
+        "robots.txt",
+        "sitemap.xml",
+        "яндекс.метрика",
+        "html-файл",
+        "heroes-rack-product.jpg",
+        "3.6",
+        "hr-аудит"
+      ]
+    },
+    "memory:memory/2026-07-09.md:151:188": {
+      "key": "memory:memory/2026-07-09.md:151:188",
+      "path": "memory/2026-07-09.md",
+      "startLine": 151,
+      "endLine": 188,
+      "source": "memory",
+      "snippet": "- **Server:** srv250356.srv.hoster.ru - **IP:** 31.28.24.131 - **Temp URL:** http://srv250356.hoster-test.ru - **Status:** Test mode (10 days), needs 3072₽ to activate - **Domain target:** logistoria.com → 31.28.24.131 (A-record) ### FTP Credentials - **Host:** ftp-250356.srv.hoster.ru - **Login:** srv250356 - **Password:** f83jVkPb ### GitHub Actions Auto-Deploy - **Workflow:** `.github/workflows/deploy.yml` (SamKirkland/FTP-Deploy-Action@v4.3.5) - **Secret:** `HOSTER_FTP_PASSWORD` added to repo secrets - **Trigger:** Push to master branch - **Status:** Tested successfully — all green checkmarks - **Pipeline:** Edit in GitHub → Push → GitHub Actions → FTP deploy to Hoster.ru ### Files De",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.3615408390760422,
+      "maxScore": 0.3615408390760422,
+      "firstRecalledAt": "2026-07-21T19:52:19.972Z",
+      "lastRecalledAt": "2026-07-21T19:52:19.972Z",
+      "queryHashes": [
+        "b2c4d1269998"
+      ],
+      "recallDays": [
+        "2026-07-22"
+      ],
+      "conceptTags": [
+        "srv250356.srv.hoster.ru",
+        "31.28.24.131",
+        "srv250356.hoster-test.ru",
+        "logistoria.com",
+        "a-record",
+        "ftp-250356.srv.hoster.ru",
+        "auto-deploy",
+        "github/workflows/deploy.yml"
+      ]
+    },
+    "memory:memory/2026-07-21.md:133:175": {
+      "key": "memory:memory/2026-07-21.md:133:175",
+      "path": "memory/2026-07-21.md",
+      "startLine": 133,
+      "endLine": 175,
+      "source": "memory",
+      "snippet": "- Token: `7585418611:AAG3y1sv4vQTkDM24HuDM_Ie4NcUnV5MXXU` - Admin chat_id: `143946238` - Channel: `@supplychains` ### Расписание постов (утверждено пользователем) - **Пн**: 🎮 Game Digest — новости геймификации в бизнес-обучении (весь мир, кроме UA/PL) - **Вт**: 📢 Попробуй игру — анонс одной игры с logistoria.com + CTA - **Ср**: 🚀 Logistics WOW — wow-новости логистики (бизнес, без войны) - **Чт**: 💼 Кейс недели — success story игроков (можно на основе реальных демо) - **Пт**: 📚 Полка логиста — книга/фильм про логистику, 3 тезиса - **Сб**: 🧩 Викторина — вопрос с 4 вариантами, ответ в воскресенье - **Вс**: 🔥 Итоги недели — топ-3 постов + анонс ### Запуск - Бот запущен в screen-сессии н",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4215956389904022,
+      "maxScore": 0.4215956389904022,
+      "firstRecalledAt": "2026-07-23T20:42:40.646Z",
+      "lastRecalledAt": "2026-07-23T20:42:40.646Z",
+      "queryHashes": [
+        "d90874591932"
+      ],
+      "recallDays": [
+        "2026-07-24"
+      ],
+      "conceptTags": [
+        "chat-id",
+        "бизнес-обучении",
+        "ua/pl",
+        "logistoria.com",
+        "wow-новости",
+        "книга/фильм",
+        "топ-3",
+        "screen-сессии"
+      ]
+    },
+    "memory:memory/2026-07-21.md:202:230": {
+      "key": "memory:memory/2026-07-21.md:202:230",
+      "path": "memory/2026-07-21.md",
+      "startLine": 202,
+      "endLine": 230,
+      "source": "memory",
+      "snippet": "## Обновление бота @supplychains — реальные статьи с supplychains.ru (16:35–17:02) ### Задача от пользователя - Бот во вторник и четверг должен брать разные статьи из раздела «Учебник по закупкам» на supplychains.ru - Делать саммари статьи и постить в @supplychains со ссылкой на полную версию - Не придумывать статьи — только реальные, что есть на сайте - Ротация: не повторять статьи минимум месяц (25 статей = ~3 месяца) ### Процесс сбора статей - Используется browser-scraping (сайт на Tilda, динамический контент) - Сделано 2 нажатия «ЗАГРУЗИТЬ ЕЩЁ» для догрузки ленты - Собрано **25 реальных статей** из раздела /blog ### Найденные статьи (URL подтверждены) 1. https://supplychains.ru/blog/l",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.38731085062026976,
+      "maxScore": 0.38731085062026976,
+      "firstRecalledAt": "2026-07-23T20:42:40.646Z",
+      "lastRecalledAt": "2026-07-23T20:42:40.646Z",
+      "queryHashes": [
+        "d90874591932"
+      ],
+      "recallDays": [
+        "2026-07-24"
+      ],
+      "conceptTags": [
+        "supplychains.ru",
+        "browser-scraping",
+        "supplychains.ru/blog/l",
+        "обновление",
+        "бота",
+        "supplychains",
+        "реальные",
+        "статьи"
+      ]
+    },
+    "memory:memory/2026-07-21.md:167:207": {
+      "key": "memory:memory/2026-07-21.md:167:207",
+      "path": "memory/2026-07-21.md",
+      "startLine": 167,
+      "endLine": 207,
+      "source": "memory",
+      "snippet": "|------|---------|-----|---------------| | Пн | 🎮 Game Digest | news | ✅ | | Вт | 🚀 Logistics WOW | supplychains_digest | ✅ | | Ср | 📢 Попробуй игру | promo | ✅ | | Чт | 🚀 Logistics WOW | supplychains_digest | ✅ | | Пт | 📚 Полка логиста | book_review | ✅ | | Сб | 🤫 Тишина | silence | ❌ выходной | | Вс | 🔥 Итоги недели | digest | ✅ | ### Контент - **Игры (ротация):** KADENA, The Beer Game, Auction Bot, Storewars, Герои стеллажа, MarketPlays, Курс логистики - **Книги/фильмы (ротация):** Цель, The Box, Logistics Clusters, Dunkirk, The Martian, Essentials of SCM, King of Oil, Основатель - **Статьи supplychains.ru:** 5 шаблонов с реальными URL ### Ресурсы - RAM: ~55 MB (0.7% от сервера)",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.3784141391515732,
+      "maxScore": 0.3784141391515732,
+      "firstRecalledAt": "2026-07-23T20:42:40.646Z",
+      "lastRecalledAt": "2026-07-23T20:42:40.646Z",
+      "queryHashes": [
+        "d90874591932"
+      ],
+      "recallDays": [
+        "2026-07-24"
+      ],
+      "conceptTags": [
+        "supplychains-digest",
+        "book-review",
+        "книги/фильмы",
+        "supplychains.ru",
+        "0.7",
+        "game",
+        "digest",
+        "news"
+      ]
+    },
+    "memory:memory/2026-07-10.md:22:58": {
+      "key": "memory:memory/2026-07-10.md:22:58",
+      "path": "memory/2026-07-10.md",
+      "startLine": 22,
+      "endLine": 58,
+      "source": "memory",
+      "snippet": "- Запуск студентов с чертежами + ИИ в контур (#64) - Проект с Танцура по ВОР (#65) - Проект с Андрианов по мониторингу технологий — нужен РП (#66) - Все изменения запушены в git (`[task] update задачи_шефа: удалены 22,29,32; добавлены 55-66`). ## 2026-07-10 (ночь/рано утром, GMT+8) ### Задачи шефа — добавление задач - Добавлено 4 задачи (#67–#70): Верич (риски), Петрова (ЦЗ), БП2027 Воробьёв, БП2027 Сушкин. - Добавлена задача #71: посчитать ресурсы для проекта «0 документов ДОБ». - Добавлено 18 задач (#72–#89): - Как покупать китайские решения в Африку - Сделать задачи для Шанхайского офиса - Сделать задачи для Пекинского офиса - Уточнить что с Неверовым - Посмотреть как вы",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.3750604450702667,
+      "maxScore": 0.3750604450702667,
+      "firstRecalledAt": "2026-07-23T20:42:40.646Z",
+      "lastRecalledAt": "2026-07-23T20:42:40.646Z",
+      "queryHashes": [
+        "d90874591932"
+      ],
+      "recallDays": [
+        "2026-07-24"
+      ],
+      "conceptTags": [
+        "задачи-шефа",
+        "55-66",
+        "ночь/рано",
+        "запуск",
+        "студентов",
+        "чертежами",
+        "контур",
+        "проект"
+      ]
+    },
+    "memory:memory/2026-07-10.md:50:72": {
+      "key": "memory:memory/2026-07-10.md:50:72",
+      "path": "memory/2026-07-10.md",
+      "startLine": 50,
+      "endLine": 72,
+      "source": "memory",
+      "snippet": "- ИИ переводы — делаем? - Всего задач в списке: 89. ### Cron: ежедневные задачи в 10:00 по Москве - Создан cron job `daily-tasks-10am-moscow` (ID: `185b9bfb-ffb4-4ca1-8393-07058c31542d`). - Расписание: `10 7 * * *` UTC = 10:00 по Москве (GMT+3). - Присылает `задачи_шефа` в Telegram. ### Logistoria Website — фикс iframe форм - Проблема: на страницах kadena и thebeergame (во всех 3 языках) iframe Яндекс-формы имел фиксированную ширину `width=\"650\"`, из-за чего на узких экранах выходил за границы. - Исправлено в 6 файлах: `kadena.html`, `kadena-en.html`, `kadena-es.html`, `thebeergame.html`, `thebeergame-en.html`, `thebeergame-es.html`. - Изменения: `width=\"100%\"`, `height=\"600\"`, обёртка `",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.3721892178058624,
+      "maxScore": 0.3721892178058624,
+      "firstRecalledAt": "2026-07-23T20:42:40.646Z",
+      "lastRecalledAt": "2026-07-23T20:42:40.646Z",
+      "queryHashes": [
+        "d90874591932"
+      ],
+      "recallDays": [
+        "2026-07-24"
+      ],
+      "conceptTags": [
+        "daily-tasks-10am-moscow",
+        "задачи-шефа",
+        "яндекс-формы",
+        "из-за",
+        "kadena.html",
+        "kadena-en.html",
+        "kadena-es.html",
+        "thebeergame.html"
+      ]
+    },
+    "memory:memory/2026-07-10.md:137:158": {
+      "key": "memory:memory/2026-07-10.md:137:158",
+      "path": "memory/2026-07-10.md",
+      "startLine": 137,
+      "endLine": 158,
+      "source": "memory",
+      "snippet": "- Создан `MEETING_AGENDA.md` с разделами: модель обслуживания, продуктовая линейка, монетизация (аффилиаты, подарочные сертификаты, разовые консультации, API/white-label), привлечение, слепые зоны. ### Council (Vece) skill - Создан skill `council` (алиасы: council, vece, panel, board) в `~/.openclaw/skills/council/SKILL.md`. - Многоагентная система: спавн 3-5 subagent'ов с разными ролями → сбор мнений → синтез консенсуса. - Коммит: `8a2706e`. ## 2026-07-10 (день, GMT+8) — SafeMind Pro (продолжение) ### Редизайн CTA и форм консультации (все 3 языка) - Убраны все прямые переходы в Telegram (`t.me/Mentesegura_bot`) из кнопок CTA. - Все кнопки \"Присоединиться\" / \"Join\" / \"Únete\" ведут на якор",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.41272360682487486,
+      "maxScore": 0.41272360682487486,
+      "firstRecalledAt": "2026-07-23T20:47:20.124Z",
+      "lastRecalledAt": "2026-07-23T20:47:20.124Z",
+      "queryHashes": [
+        "02034459720b"
+      ],
+      "recallDays": [
+        "2026-07-24"
+      ],
+      "conceptTags": [
+        "meeting-agenda.md",
+        "api/white-label",
+        "openclaw/skills/council/skill.md",
+        "3-5",
+        "t.me/mentesegura-bot",
+        "создан",
+        "разделами",
+        "модель"
+      ]
+    },
+    "memory:memory/2026-07-10.md:86:117": {
+      "key": "memory:memory/2026-07-10.md:86:117",
+      "path": "memory/2026-07-10.md",
+      "startLine": 86,
+      "endLine": 117,
+      "source": "memory",
+      "snippet": "- UX-принципы: feature parity, единый FAQ на главной, чёткая иерархия, логичные CTA. - Коммит: `a3b5412`. ### Задачи шефа - Добавлено 2 новые задачи (#90, #91): - #90: БП2027 Станислав — как выглядит цикл продаж ИИ - #91: Как построить защиту от ТГ каналов — рабочий чат ### Блокеры - **VPS SafeMind** (85.239.59.8): всё ещё недоступен (не настроен или не оплачен). - **DNS Logistoria**: нужно настроить A-запись `www.logistoria.com` у регистратора. ## 2026-07-10 (день, GMT+8) — SafeMind Pro ### Убрано \"сообщество\", заменено на персональный чат - Во всех 3 языках (RU/EN/ES) убраны упоминания \"сообщества\" и \"групповых\" форматов. - Заменено на модель **персональный чат (тет-а-тет) + амбас",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.40048674046993255,
+      "maxScore": 0.40048674046993255,
+      "firstRecalledAt": "2026-07-23T20:47:20.124Z",
+      "lastRecalledAt": "2026-07-23T20:47:20.124Z",
+      "queryHashes": [
+        "02034459720b"
+      ],
+      "recallDays": [
+        "2026-07-24"
+      ],
+      "conceptTags": [
+        "ux-принципы",
+        "85.239.59.8",
+        "a-запись",
+        "www.logistoria.com",
+        "ru/en/es",
+        "тет-а-тет",
+        "принципы",
+        "feature"
+      ]
+    },
+    "memory:memory/2026-07-10.md:69:95": {
+      "key": "memory:memory/2026-07-10.md:69:95",
+      "path": "memory/2026-07-10.md",
+      "startLine": 69,
+      "endLine": 95,
+      "source": "memory",
+      "snippet": "- **Logo color fix**: на `thebeergame.html` (RU) логотип был частично оранжевым — исправлен на оранжевую только точку. - **Copyright 2026**: на всех 9+ страницах обновлен год до 2026. - **Телефон**: унифицирован формат +7 917 532-36-06 (без пробела после +7). - **Переименование игры**: `Crossdok` → `Krossdok` во всех EN/ES страницах (`index.html`, `index-es.html`, `kadena-en.html`). Коммит: `b25c343`. - **`.htaccess`**: создан с 301-редиректами www→non-www и HTTP→HTTPS, gzip, кэширование. Коммит: `433f012`. ### SafeMind Pro — убраны психологи - Убраны все упоминания психологов/психотерапевтов из RU/EN/ES версий (7 HTML-файлов). - Убраны все упоминания Доктора Елены Васкес и её услуг (9 HTML",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.37866754531860347,
+      "maxScore": 0.37866754531860347,
+      "firstRecalledAt": "2026-07-23T20:47:20.124Z",
+      "lastRecalledAt": "2026-07-23T20:47:20.124Z",
+      "queryHashes": [
+        "02034459720b"
+      ],
+      "recallDays": [
+        "2026-07-24"
+      ],
+      "conceptTags": [
+        "thebeergame.html",
+        "532-36-06",
+        "en/es",
+        "index.html",
+        "index-es.html",
+        "kadena-en.html",
+        "301-редиректами",
+        "non-www"
+      ]
+    },
+    "memory:memory/2026-07-09.md:60:77": {
+      "key": "memory:memory/2026-07-09.md:60:77",
+      "path": "memory/2026-07-09.md",
+      "startLine": 60,
+      "endLine": 77,
+      "source": "memory",
+      "snippet": "- Клонирован `github.com/MadsLorentzen/ai-job-search`. - Адаптирован под **Kimi/OpenClaw**: заменён Claude Code на OpenClaw subagents, LaTeX на Markdown, датские порталы на hh.ru. - Поиск вакансий (Head of AI / CAIO / CDO) за последний месяц — выполнен, результаты сохранены в `skills/ai-job-search/`. ## Оценка проектов - **LightVLM** (`github.com/MikaelArustamov/LightVLM`): оценён советом (вече). Вердикт: **P1** — интересен для mobile/VLM, но не приоритет сейчас. Артефакт мудрости сохранён. - **ClawHub skills**: установлены P0 (mermaid, gh-issues, html-mailer-builder, node-connect, weather, tmux, taskflow, video-frames) и P1 (excel-xlsx, word-docx, browser-scraping, youtube-watcher, mcporte",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.3657982796430588,
+      "maxScore": 0.3657982796430588,
+      "firstRecalledAt": "2026-07-23T20:47:20.124Z",
+      "lastRecalledAt": "2026-07-23T20:47:20.124Z",
+      "queryHashes": [
+        "02034459720b"
+      ],
+      "recallDays": [
+        "2026-07-24"
+      ],
+      "conceptTags": [
+        "kimi/openclaw",
+        "hh.ru",
+        "skills/ai-job-search",
+        "mobile/vlm",
+        "gh-issues",
+        "html-mailer-builder",
+        "node-connect",
+        "video-frames"
       ]
     }
   }

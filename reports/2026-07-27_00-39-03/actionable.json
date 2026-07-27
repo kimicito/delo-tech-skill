@@ -1,0 +1,99 @@
+{
+  "timestamp": "2026-07-27T00:42:23.343884",
+  "url": "https://logistoria.com",
+  "total_issues": 8,
+  "critical": 1,
+  "major": 7,
+  "minor": 0,
+  "auto_fixable": 0,
+  "issues": [
+    {
+      "id": 1,
+      "severity": "critical",
+      "category": "navigation",
+      "title": "Страница не загружается",
+      "description": "Page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://logistoria.com/kadena.html\", waiting until \"networkidle\"\n",
+      "location": "https://logistoria.com/kadena.html",
+      "fix_suggestion": "Проверить сервер, DNS, конфигурацию",
+      "auto_fixable": false,
+      "status": "open"
+    },
+    {
+      "id": 2,
+      "severity": "major",
+      "category": "navigation",
+      "title": "Битая ссылка (404)",
+      "description": "Страница вернула статус 404",
+      "location": "https://logistoria.com/storewars-en.html",
+      "fix_suggestion": "Проверить URL, исправить или удалить ссылку",
+      "auto_fixable": false,
+      "status": "open"
+    },
+    {
+      "id": 3,
+      "severity": "major",
+      "category": "navigation",
+      "title": "Битая ссылка (404)",
+      "description": "Страница вернула статус 404",
+      "location": "https://logistoria.com/heroes-rack-en.html",
+      "fix_suggestion": "Проверить URL, исправить или удалить ссылку",
+      "auto_fixable": false,
+      "status": "open"
+    },
+    {
+      "id": 4,
+      "severity": "major",
+      "category": "navigation",
+      "title": "Битая ссылка (404)",
+      "description": "Страница вернула статус 404",
+      "location": "https://logistoria.com/downloads/heroes-rack-print-play.pdf",
+      "fix_suggestion": "Проверить URL, исправить или удалить ссылку",
+      "auto_fixable": false,
+      "status": "open"
+    },
+    {
+      "id": 5,
+      "severity": "major",
+      "category": "navigation",
+      "title": "Битая ссылка (404)",
+      "description": "Страница вернула статус 404",
+      "location": "https://logistoria.com/market-plays-en.html",
+      "fix_suggestion": "Проверить URL, исправить или удалить ссылку",
+      "auto_fixable": false,
+      "status": "open"
+    },
+    {
+      "id": 6,
+      "severity": "major",
+      "category": "navigation",
+      "title": "Битая ссылка (404)",
+      "description": "Страница вернула статус 404",
+      "location": "https://logistoria.com/downloads/market-plays-cards.pdf",
+      "fix_suggestion": "Проверить URL, исправить или удалить ссылку",
+      "auto_fixable": false,
+      "status": "open"
+    },
+    {
+      "id": 7,
+      "severity": "major",
+      "category": "responsive",
+      "title": "Ошибка на desktop",
+      "description": "Page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://logistoria.com/\", waiting until \"networkidle\"\n",
+      "location": "https://logistoria.com",
+      "fix_suggestion": "Проверить адаптивные стили",
+      "auto_fixable": false,
+      "status": "open"
+    },
+    {
+      "id": 8,
+      "severity": "major",
+      "category": "responsive",
+      "title": "Ошибка на mobile",
+      "description": "Page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://logistoria.com/\", waiting until \"networkidle\"\n",
+      "location": "https://logistoria.com",
+      "fix_suggestion": "Проверить адаптивные стили",
+      "auto_fixable": false,
+      "status": "open"
+    }
+  ]
+}
