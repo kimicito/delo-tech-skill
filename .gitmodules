@@ -4,4 +4,4 @@
 	url = https://github.com/kimicito/ux-site-tester.git
 [submodule "claude-video-fork"]
 	path = claude-video-fork
-	url = https://github.com/bradautomates/claude-video.git
+	url = https://github.com/kimicito/claude-video.git
