@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Витрины царской России — Историческая лекция</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+  <link href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --sepia-dark: #2a1f14;
+      --sepia-mid: #5c4033;
+      --sepia-light: #8b6f47;
+      --gold: #c9a84c;
+      --gold-bright: #e8c547;
+      --cream: #f5f0e6;
+      --paper: #faf6ed;
+      --red-russian: #8b1a1a;
+    }
+
+    .reveal {
+      font-family: 'PT Serif', Georgia, serif;
+      font-size: 28px;
+      color: var(--sepia-dark);
+    }
+
+    .reveal .slides {
+      text-align: left;
+    }
+
+    .reveal .slides section {
+      height: 100%;
+      padding: 40px 60px;
+      box-sizing: border-box;
+    }
+
+    /* Title slide */
+    .reveal .slides .title-slide {
+      background: linear-gradient(135deg, var(--sepia-dark) 0%, var(--sepia-mid) 50%, var(--sepia-dark) 100%);
+      color: var(--cream);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .title-slide h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 2.8em;
+      font-weight: 700;
+      color: var(--gold-bright);
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+      margin-bottom: 0.3em;
+      line-height: 1.2;
+    }
+
+    .title-slide .subtitle {
+      font-family: 'Old Standard TT', serif;
+      font-size: 1.3em;
+      color: var(--cream);
+      opacity: 0.9;
+      margin-bottom: 2em;
+    }
+
+    .title-slide .ornament {
+      font-size: 2em;
+      color: var(--gold);
+      margin: 0.5em 0;
+    }
+
+    .title-slide .meta {
+      font-size: 0.8em;
+      color: var(--gold);
+      opacity: 0.8;
+      margin-top: 3em;
+    }
+
+    /* Chapter slides */
+    .reveal .slides .chapter-slide {
+      background: linear-gradient(135deg, var(--sepia-mid) 0%, var(--sepia-dark) 100%);
+      color: var(--cream);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .chapter-slide h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 2.4em;
+      color: var(--gold-bright);
+      margin-bottom: 0.5em;
+    }
+
+    .chapter-slide .chapter-sub {
+      font-family: 'Old Standard TT', serif;
+      font-size: 1.2em;
+      color: var(--cream);
+      opacity: 0.85;
+    }
+
+    .chapter-slide .chapter-number {
+      font-family: 'Cinzel', serif;
+      font-size: 1em;
+      color: var(--gold);
+      letter-spacing: 3px;
+      margin-bottom: 1em;
+      text-transform: uppercase;
+    }
+
+    /* Content slides */
+    .reveal .slides .content-slide {
+      background: var(--paper);
+    }
+
+    .content-slide h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.8em;
+      color: var(--sepia-dark);
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 0.3em;
+      margin-bottom: 0.8em;
+    }
+
+    .content-slide .slide-body {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+      height: calc(100% - 120px);
+    }
+
+    .content-slide .slide-text {
+      flex: 1;
+      font-size: 0.85em;
+      line-height: 1.6;
+      color: var(--sepia-mid);
+    }
+
+    .content-slide .slide-text strong {
+      color: var(--sepia-dark);
+    }
+
+    .content-slide .slide-image {
+      flex: 0 0 45%;
+      max-height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .content-slide .slide-image img {
+      max-width: 100%;
+      max-height: 420px;
+      object-fit: contain;
+      border: 4px solid var(--sepia-light);
+      box-shadow: 0 8px 24px rgba(42, 31, 20, 0.3);
+    }
+
+    .content-slide .slide-image .caption {
+      font-size: 0.65em;
+      color: var(--sepia-light);
+      margin-top: 8px;
+      font-style: italic;
+    }
+
+    /* Full-width content */
+    .content-slide.full-width .slide-body {
+      flex-direction: column;
+    }
+
+    .content-slide.full-width .slide-text {
+      column-count: 2;
+      column-gap: 40px;
+    }
+
+    /* Quote style */
+    .quote-box {
+      background: linear-gradient(135deg, rgba(201,168,76,0.1), rgba(201,168,76,0.05));
+      border-left: 4px solid var(--gold);
+      padding: 20px 24px;
+      margin: 20px 0;
+      font-style: italic;
+      font-size: 0.9em;
+      color: var(--sepia-mid);
+    }
+
+    /* Stats */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-top: 30px;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 20px;
+      background: rgba(201,168,76,0.08);
+      border: 1px solid rgba(201,168,76,0.2);
+    }
+
+    .stat-item .number {
+      font-family: 'Cinzel', serif;
+      font-size: 2em;
+      color: var(--red-russian);
+      font-weight: 700;
+    }
+
+    .stat-item .label {
+      font-size: 0.75em;
+      color: var(--sepia-light);
+      margin-top: 8px;
+    }
+
+    /* Final slide */
+    .reveal .slides .final-slide {
+      background: linear-gradient(135deg, var(--sepia-dark) 0%, var(--sepia-mid) 50%, var(--sepia-dark) 100%);
+      color: var(--cream);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .final-slide h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 2.2em;
+      color: var(--gold-bright);
+      margin-bottom: 0.5em;
+    }
+
+    .final-slide .source {
+      font-size: 0.8em;
+      color: var(--gold);
+      opacity: 0.8;
+      margin-top: 2em;
+    }
+
+    /* List styling */
+    .reveal ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .reveal ul li {
+      position: relative;
+      padding-left: 28px;
+      margin-bottom: 12px;
+    }
+
+    .reveal ul li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+    }
+
+    /* Navigation */
+    .reveal .controls {
+      color: var(--gold);
+    }
+
+    .reveal .progress {
+      background: rgba(201,168,76,0.2);
+    }
+
+    .reveal .progress span {
+      background: var(--gold);
+    }
+
+    /* Slide number */
+    .reveal .slide-number {
+      background: rgba(42, 31, 20, 0.6);
+      color: var(--gold);
+      font-family: 'Cinzel', serif;
+      padding: 8px 12px;
+      border-radius: 0;
+    }
+
+    /* Two column layout for cases */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .two-col .col-image img {
+      width: 100%;
+      border: 3px solid var(--sepia-light);
+      box-shadow: 0 6px 20px rgba(42, 31, 20, 0.25);
+    }
+
+    .two-col .col-text {
+      font-size: 0.85em;
+      line-height: 1.6;
+    }
+
+    /* Highlight text */
+    .highlight {
+      color: var(--red-russian);
+      font-weight: 700;
+    }
+
+    .gold-text {
+      color: var(--gold);
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- Slide 1: Title -->
+      <section class="title-slide">
+        <div class="chapter-number">Историческая лекция</div>
+        <h1>Витрины царской России</h1>
+        <div class="ornament">❦ ❦ ❦</div>
+        <p class="subtitle">От вывески до рекламного агентства<br>1850 — 1920</p>
+        <p class="meta">На основе материалов reklama.school<br>История российской рекламы</p>
+      </section>
+
+      <!-- Slide 2: Context -->
+      <section class="content-slide">
+        <h2>Контекст эпохи</h2>
+        <div class="slide-body">
+          <div class="slide-text">
+            <p><strong>«Великие реформы» Александра II</strong> запустили механизм модернизации Российской империи. Промышленный бум второй половины XIX века преобразил города.</p>
+            <p>К <span class="highlight">1914 году</span> Россия входила в <strong>пятерку ведущих экономик мира</strong> — после США, Великобритании, Франции и Германии.</p>
+            <div class="quote-box">
+              «Реклама как социальная и маркетинговая коммуникация появлялась там и тогда, где возникала конкуренция между производителями товаров и услуг»
+            </div>
+            <p>Города наполнялись <strong>лавками, магазинами, мастерскими, трактирами, кондитерскими</strong> — точками розничной торговли, которым нужна была реклама.</p>
+          </div>
+          <div class="slide-image">
+            <img src="https://reklama.school/images/009/023/613/9023613/130x172/Ris0125.jpg" alt="Москва, Тверская улица, 1896">
+            <span class="caption">Москва, Тверская улица. 1896 год</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 3: Chapter 1 -->
+      <section class="chapter-slide">
+        <div class="chapter-number">Раздел I</div>
+        <h2>Вывески и товарные знаки</h2>
+        <div class="ornament">— ❦ —</div>
+        <p class="chapter-sub">Старейший вид рекламы в России</p>
+      </section>
+
+      <!-- Slide 4: Signboards -->
+      <section class="content-slide">
+        <h2>Вывески как искусство</h2>
+        <div class="slide-body">
+          <div class="slide-text">
+            <p>В России, как и в других странах, одним из <strong>старейших видов рекламы</strong> были вывески. Промышленный бум сопровождался открытием в городах и селах большего числа торговых точек.</p>
+            <p>Каждое заведение нуждалось в <span class="highlight">вывеске</span> — знаке, привлекающем внимание и рассказывающем о товаре.</p>
+            <ul>
+              <li>Деревянные резные вывески</li>
+              <li>Металлические кованые знаки</li>
+              <li>Стеклянные витрины с позолотой</li>
+              <li>Роспись фасадов зданий</li>
+            </ul>
+          </div>
+          <div class="slide-image">
+            <img src="https://reklama.school/images/009/023/614/9023614/130x212/Ris0111B.jpg" alt="Дореволюционная вывеска">
+            <span class="caption">Типичная вывеска торговой лавки</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5: Trademarks -->
+      <section class="content-slide">
+        <h2>Товарные знаки и клейма</h2>
+        <div class="slide-body">
+          <div class="slide-text">
+            <p>Качество и происхождение товара подтверждались <strong>клеймами и знаками</strong>. Фабричные изделия имели специальные марки.</p>
+            <div class="quote-box">
+              Товарные знаки становились предшественниками современных брендов. Покупатель узнавал продукцию по знаку — и доверял ему.
+            </div>
+            <p>Клейма ставились на:</p>
+            <ul>
+              <li>Металлических изделиях (самовары, утюги)</li>
+              <li>Тканях и кожаных товарах</li>
+              <li>Фарфоре и стекле</li>
+              <li>Ювелирных украшениях</li>
+            </ul>
+          </div>
+          <div class="slide-image">
+            <img src="https://reklama.school/images/009/023/615/9023615/130x179/Ris0111A.jpg" alt="Товарный знак">
+            <span class="caption">Пример товарного клейма периода</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6: Chapter 2 -->
+      <section class="chapter-slide">
+        <div class="chapter-number">Раздел II</div>
+        <h2>Реклама в прессе</h2>
+        <div class="ornament">— ❦ —</div>
+        <p class="chapter-sub">Газеты и журналы как рекламные носители</p>
+      </section>
+
+      <!-- Slide 7: Literacy -->
+      <section class="content-slide">
+        <h2>Рост грамотности = рост рекламы</h2>
+        <div class="slide-body">
+          <div class="slide-text">
+            <p><strong>«Великие реформы»</strong> способствовали росту грамотности населения. Появились новые группы читателей.</p>
+            <p>Реклама в прессе достигала:</p>
+            <ul>
+              <li>Ремесленников и торговцев</li>
+              <li>Мещан и купцов</li>
+              <li>Студентов и интеллигенции</li>
+              <li>Чиновников и дворян</li>
+            </ul>
+            <div class="stat-grid">
+              <div class="stat-item">
+                <div class="number">5-е</div>
+                <div class="label">место в мире<br>по экономике</div>
+              </div>
+              <div class="stat-item">
+                <div class="number">1000+</div>
+                <div class="label">газет и журналов<br>к 1914 году</div>
+              </div>
+              <div class="stat-item">
+                <div class="number">∞</div>
+                <div class="label">возможностей<br>для рекламы</div>
+              </div>
+            </div>
+          </div>
+          <div class="slide-image">
+            <img src="https://reklama.school/images/009/023/616/9023616/130x209/Ris0132.jpg" alt="Газетная реклама">
+            <span class="caption">Рекламные объявления в периодической печати</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 8: Press Ads -->
+      <section class="content-slide">
+        <h2>Рекламные объявления в печати</h2>
+        <div class="slide-body">
+          <div class="slide-text">
+            <p>Объявления в прессе были преимущественно <strong>текстовыми</strong>, без иллюстраций. Но они достигали <span class="highlight">широчайшей аудитории</span>.</p>
+            <p>Газеты публиковали рекламу:</p>
+            <ul>
+              <li>Лекарственных средств и косметики</li>
+              <li>Одежды и обуви</li>
+              <li>Мебели и посуды</li>
+              <li>Недвижимости</li>
+              <li>Услуг (юристов, врачей, репетиторов)</li>
+            </ul>
+            <div class="quote-box">
+              Каждое объявление — попытка выделиться среди десятков других на полосе газеты.
+            </div>
+          </div>
+          <div class="slide-image">
+            <img src="https://reklama.school/images/009/023/617/9023617/130x201/Ris0130.jpg" alt="Газетные объявления">
+            <span class="caption">Типичная страница с объявлениями</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 9: Chapter 3 -->
+      <section class="chapter-slide">
+        <div class="chapter-number">Раздел III</div>
+        <h2>Афиши и рекламные плакаты</h2>
+        <div class="ornament">— ❦ —</div>
+        <p class="chapter-sub">Рождение плакатного искусства в России</p>
+      </section>
+
+      <!-- Slide 10: From Poster to Placard -->
+      <section class="content-slide">
+        <h2>От афиши к плакату</h2>
+        <div class="slide-body">
+          <div class="slide-text">
+            <p>В <strong>конце XIX века</strong> в России появилось понятие <span class="highlight">«художественная афиша»</span>.</p>
+            <p>В <strong>начале XX века</strong> оно трансформировалось в термин <span class="highlight">«плакат»</span>.</p>
+            <div class="quote-box">
+              Становление отечественного плаката совпало с утверждением в России стиля модерн, эстетические принципы которого — обращение к массовому зрителю — отвечали самой природе плакатного искусства.
+            </div>
+            <p>Плакат стал <strong>новым видом рекламы</strong>, призванным стимулировать продажи товаров и услуг.</p>
+          </div>
+          <div class="slide-image">
+            <img src="https://reklama.school/images/009/023/618/9023618/130x89/Ris0127.jpg" alt="Художественная афиша">
+            <span class="caption">Ранняя художественная афиша в стиле модерн</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 11: Art of Poster -->
+      <section class="content-slide">
+        <h2>Художественная афиша</h2>
+        <div class="slide-body">
+          <div class="slide-text">
+            <p>Яркие красочные плакаты оказались <strong>востребованы фабрикантами, предпринимателями и торговцами</strong>.</p>
+            <p>Художники модерна создавали шедевры, которые украшали улицы городов:</p>
+            <ul>
+              <li>Москва — Тверская, Кузнецкий Мост</li>
+              <li>Санкт-Петербург — Невский проспект</li>
+              <li>Киев, Одесса, Харьков, Варшава</li>
+            </ul>
+            <div class="quote-box">
+              Плакатное искусство объединяло коммерческую задачу и высокую эстетику.
+            </div>
+          </div>
+          <div class="slide-image">
+            <img src="https://reklama.school/images/009/023/612/9023612/130x121/Ris0104.jpg" alt="Рекламный плакат">
+            <span class="caption">Торговый плакат конца XIX века</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 12: Chapter 4 -->
+      <section class="chapter-slide">
+        <div class="chapter-number">Раздел IV</div>
+        <h2>Что «продавали» плакаты?</h2>
+        <div class="ornament">— ❦ —</div>
+        <p class="chapter-sub">Товары и услуги дореволюционной эпохи</p>
+      </section>
+
+      <!-- Slide 13: Assortment -->
+      <section class="content-slide full-width">
+        <h2>Ассортимент рекламы</h2>
+        <div class="slide-body">
+          <div class="slide-text">
+            <p>Плакаты рекламировали <strong>всё</strong> — от мыла и парфюмерии до швейных машинок и велосипедов.</p>
+            <p>Популярные категории:</p>
+            <ul>
+              <li><strong>Лекарственные средства</strong> — «пилюли от всех болезней»</li>
+              <li><strong>Парфюмерия и косметика</strong> — одеколоны, помады, пудры</li>
+              <li><strong>Продукты питания</strong> — чай, шоколад, спички, пиво, водка</li>
+              <li><strong>Техника</strong> — швейные машинки, велосипеды, фонари</li>
+              <li><strong>Ткани и одежда</strong> — ситец, бархат, меха</li>
+              <li><strong>Услуги</strong> — театры, цирки, магазины, рестораны</li>
+            </ul>
+            <p>Каждый товар требовал <span class="highlight">особого подхода</span> — и особого художественного решения.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 14: Theater -->
+      <section class="content-slide">
+        <h2>Театральные афиши</h2>
+        <div class="slide-body">
+          <div class="slide-text">
+            <p>Особое место занимали <strong>театральные афиши</strong> — Большой театр, Малый, частные театры.</p>
+            <p>Афиша должна была:</p>
+            <ul>
+              <li>Привлечь зрителя</li>
+              <li>Рассказать о спектакле</li>
+              <li>Создать настроение</li>
+              <li>Передать жанр и стиль</li>
+            </ul>
+            <div class="quote-box">
+              Художники афиш стали настоящими звездами — их имена привлекали публику не меньше, чем названия спектаклей.
+            </div>
+          </div>
+          <div class="slide-image">
+            <img src="https://reklama.school/images/009/023/614/9023614/130x212/Ris0111B.jpg" alt="Театральная афиша">
+            <span class="caption">Театральная афиша начала XX века</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 15: Chapter 5 -->
+      <section class="chapter-slide">
+        <div class="chapter-number">Раздел V</div>
+        <h2>Конторы объявлений</h2>
+        <div class="ornament">— ❦ —</div>
+        <p class="chapter-sub">Первые рекламные агентства России</p>
+      </section>
+
+      <!-- Slide 16: Birth of Agencies -->
+      <section class="content-slide">
+        <h2>Рождение агентств</h2>
+        <div class="slide-body">
+          <div class="slide-text">
+            <p><strong>Конторы объявлений</strong> — прототипы современных рекламных агентств.</p>
+            <p>Они не только размещали рекламу, но и <span class="highlight">создавали её</span>:</p>
+            <ul>
+              <li><strong>Креатив</strong> — придумывали идею</li>
+              <li><strong>Копирайт</strong> — составляли текст</li>
+              <li><strong>Дизайн</strong> — разрабатывали иллюстрации</li>
+              <li><strong>Верстка</strong> — готовили макет к печати</li>
+              <li><strong>Медиапланирование</strong> — выбирали площадки</li>
+              <li><strong>Размещение</strong> — договаривались с изданиями</li>
+            </ul>
+          </div>
+          <div class="slide-image">
+            <img src="https://reklama.school/images/009/023/615/9023615/130x179/Ris0111A.jpg" alt="Контора объявлений">
+            <span class="caption">Объявление конторы рекламных услуг</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 17: Metzl -->
+      <section class="content-slide">
+        <h2>«Центральная контора Метцль и К°»</h2>
+        <div class="slide-body">
+          <div class="slide-text">
+            <p>Контора объявлений <strong>Метцелей</strong> стала первым в стране рекламным агентством <span class="highlight">полного цикла</span>.</p>
+            <div class="quote-box">
+              Эксклюзивное право на рекламу по почте, первые скоординированные рекламные кампании, раздача листовок на Невском проспекте.
+            </div>
+            <p>Услуги конторы:</p>
+            <ul>
+              <li>Составление и печать объявлений</li>
+              <li>Размещение в газетах и журналах</li>
+              <li>Почтовые рассылки</li>
+              <li>Распространение листовок</li>
+              <li>Разработка фирменного стиля</li>
+            </ul>
+          </div>
+          <div class="slide-image">
+            <img src="https://reklama.school/images/009/023/616/9023616/130x209/Ris0132.jpg" alt="Реклама конторы Метцль">
+            <span class="caption">Рекламные материалы конторы Метцль</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 18: Cases Chapter -->
+      <section class="chapter-slide">
+        <div class="chapter-number">Кейсы</div>
+        <h2>Лубок, Зингер, Метцель</h2>
+        <div class="ornament">— ❦ —</div>
+        <p class="chapter-sub">Три истории успеха дореволюционной рекламы</p>
+      </section>
+
+      <!-- Slide 19: Lubok -->
+      <section class="content-slide">
+        <h2>Лубок и лубочная реклама</h2>
+        <div class="slide-body">
+          <div class="slide-text">
+            <p><strong>Лубок</strong> — народная картинка с краткой подписью. Простота сюжета, яркие краски, узнаваемый стиль.</p>
+            <p>Традиционные лубки изготавливались:</p>
+            <ul>
+              <li>Ксилографией (гравюра на дереве)</li>
+              <li>Гравюрой на меди</li>
+              <li>Литографией</li>
+            </ul>
+            <p>В конце XIX века популярные лубочные картинки стали выпускать <span class="highlight">типографии крупными тиражами</span> методом литографии.</p>
+            <div class="quote-box">
+              Лубочная реклама достигала самых широких слоев населения — от крестьян до городского люда.
+            </div>
+          </div>
+          <div class="slide-image">
+            <img src="https://reklama.school/images/009/023/617/9023617/130x201/Ris0130.jpg" alt="Лубочная картинка">
+            <span class="caption">Лубок как рекламный носитель</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 20: Singer -->
+      <section class="content-slide">
+        <h2>«Зингер» — американская марка в России</h2>
+        <div class="slide-body">
+          <div class="slide-text">
+            <p>Компания <strong>Зингер</strong> в конце XIX века вывела на российский рынок <span class="highlight">швейные машинки</span>.</p>
+            <p>Рекламная кампания опиралась на <strong>«малые формы рекламы»</strong>:</p>
+            <ul>
+              <li>Этикетки и ярлыки</li>
+              <li>Прейскуранты и каталоги</li>
+              <li>Открытки и визитные карточки</li>
+              <li>Бланки и рекламные вкладыши</li>
+            </ul>
+            <p>В <strong>1904 году</strong> открыт завод в Подольске Московской губернии.</p>
+            <div class="quote-box">
+              Фирменный стиль узнавали мгновенно — красный цвет, золотые буквы, изображение птицы.
+            </div>
+          </div>
+          <div class="slide-image">
+            <img src="https://reklama.school/images/009/023/618/9023618/130x89/Ris0127.jpg" alt="Реклама Зингер">
+            <span class="caption">Рекламные материалы фирмы «Зингер»</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 21: Conclusions -->
+      <section class="content-slide full-width">
+        <h2>Выводы</h2>
+        <div class="slide-body">
+          <div class="slide-text">
+            <p>К <strong>1914 году</strong> в России сформировалась <span class="highlight">развитая рекламная индустрия</span> с тремя звеньями:</p>
+            <div class="two-col" style="margin-top: 20px;">
+              <div class="col-text">
+                <p><strong>1. Рекламодатели</strong> — заказчики рекламы (фабриканты, торговцы, предприниматели)</p>
+                <p><strong>2. Рекламные агентства</strong> — «конторы объявлений» (креатив, дизайн, размещение)</p>
+                <p><strong>3. Рекламные носители</strong> — средства, на которых размещается реклама</p>
+              </div>
+              <div class="col-text">
+                <p><strong>Востребованные виды рекламы:</strong></p>
+                <ul>
+                  <li>Пресса (газеты и журналы)</li>
+                  <li>Плакаты и афиши</li>
+                  <li>Вывески и витрины</li>
+                  <li>Наружная реклама (брендмауэры, щиты)</li>
+                  <li>Транзитная реклама (трамваи, авто)</li>
+                  <li>Полиграфия (каталоги, визитки, этикетки)</li>
+                </ul>
+              </div>
+            </div>
+            <div class="quote-box" style="margin-top: 20px;">
+              Российская империя накануне Первой мировой войны представляла собой индустриально-аграрное государство, по основным экономическим показателям входившее в число пяти ведущих экономик мира. Развитие рекламного дела соответствовало уровню развития её экономики.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 22: Final -->
+      <section class="final-slide">
+        <div class="ornament" style="font-size: 2em; margin-bottom: 1em;">❦</div>
+        <h2>Витрины царской России</h2>
+        <p style="font-size: 1.1em; opacity: 0.9; margin-bottom: 2em;">От вывески до рекламного агентства: 1850 — 1920</p>
+        <div class="ornament">— ❦ ❦ ❦ —</div>
+        <p class="source">
+          Источник: <strong>reklama.school</strong> — История российской рекламы<br>
+          Автор: <strong>С.М. Исаев</strong>, к.э.н., доцент РАНХиГС<br>
+          Сайт: reklama.school
+        </p>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      slideNumber: 'c/t',
+      transition: 'slide',
+      transitionSpeed: 'default',
+      backgroundTransition: 'fade',
+      center: false,
+      width: 1280,
+      height: 720,
+      margin: 0.04,
+      keyboard: true,
+      overview: true,
+      touch: true
+    });
+  </script>
+</body>
+</html>
