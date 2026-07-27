@@ -2,3 +2,6 @@
 [submodule "skills/ux-site-tester"]
 	path = skills/ux-site-tester
 	url = https://github.com/kimicito/ux-site-tester.git
+[submodule "claude-video-fork"]
+	path = claude-video-fork
+	url = https://github.com/bradautomates/claude-video.git
