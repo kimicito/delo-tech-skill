@@ -21,13 +21,3 @@ cd ~/.openclaw/workspace && git status --short
 ```
 - Если есть изменения — закоммитить и push
 
-### 3. Instagram cron
-```bash
-crontab -l | grep logistoria
-```
-- Проверить, что cron активен
-
-### 4. Заявки Instagram (если есть)
-```bash
-cd ~/.openclaw/workspace/projects/logistoria-social && python3 scripts/check_leads.py
-```
