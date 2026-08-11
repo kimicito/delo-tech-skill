@@ -2,15 +2,20 @@
 
 _Learn about the person you're helping. Update this as you go._
 
-- **Name:**
-- **What to call them:**
+- **Name:** Artur A.
+- **What to call them:** Артур / Artur
 - **Pronouns:** _(optional)_
-- **Timezone:**
+- **Timezone:** Europe/Moscow (предположительно)
 - **Notes:**
 
-## Context
+## Preferences
+- **Никогда не упоминать** без явного запроса: logistoria.com, Кроссдок, supplychains.ru, игры в логистике, канал @supplychains
+- Только если он сам первый напишет про них
 
-_(What do they care about? What projects are they working on? What annoys them? What makes them laugh? Build this over time.)_
+## Context
+- Руководящая позиция ("задачи_шефа")
+- Проекты в сфере обучения, цифровизации, ИИ
+- Интересуется ИИ-агентами, автоматизацией
 
 ---
 
