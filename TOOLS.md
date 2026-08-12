@@ -268,7 +268,7 @@ python skills/wb-tax-calculator/calculator.py --registry реестр.xlsx --det
 - **Важно:** IMAP должен быть включён в настройках Yandex → Почтовые программы
 
 ### 📂 Yandex Disk — artem.avyan@yandex.com
-- **Тип:** WebDAV
+- **Тип:** WebDAV + OAuth
 - **Статус:** ✅ Подключено и работает
 - **Настройки:** `~/.openclaw/kimi-skills/yandex-disk-webdav.env`
 - **App Password:** `scygsyeseepfchkv` (files/webdav)
@@ -278,32 +278,80 @@ python skills/wb-tax-calculator/calculator.py --registry реестр.xlsx --det
   - Скачивание (`GET`)
   - Загрузка (`PUT`)
   - Создание папок (`MKCOL`)
-- **Использование:** `curl -u artem.avyan@yandex.com:scygsyeseepfchkv -X PROPFIND https://webdav.yandex.ru/`
 
-### Почему это важно
+### 🧠 Dashscope / Alibaba Qwen (OCR)
+- **Тип:** REST API для AI-распознавания изображений
+- **Статус:** ✅ Подключено и работает
+- **API Key:** в `~/.openclaw/workspace/.env`
+- **Базовый URL:** `https://ws-tgqwfcamlhhgyuu2.ap-southeast-1.maas.aliyuncs.com`
+- **Что умеет:**
+  - OCR (распознавание текста с изображений)
+  - Распознавание чертежей и схем
+  - Извлечение структурированных данных из документов
+- **Используется в:** `projects/drawings-to-vor/` — извлечение ВОР (ведомость объёмов работ)
+
+### 🐙 GitHub (PAT)
+- **Тип:** GitHub API через Personal Access Token
+- **Статус:** ✅ Подключено и работает
+- **Токен:** в `~/.openclaw/workspace/.env`
+- **Репозитории:**
+  - `github.com/kimicito/openclaw-workspace.git` (branch: `master`, remote: `workspace`)
+  - `github.com/kimicito/drawings-to-vor.git` (branch: `master`, remote: `origin`)
+- **Что умеет:**
+  - Push/pull репозиториев
+  - Создание issues/PR
+  - Actions (CI/CD)
+  - Хранение кода и бэкапов
+
+### 📊 Yandex Metrika
+- **Тип:** REST API аналитики
+- **Статус:** ✅ Подключено и работает
+- **Токен + Client ID/Secret:** в `~/.openclaw/workspace/.env`
+- **Счётчики:**
+  - `92824982` — logistoria
+  - `30201489` — supplychains
+  - `45030274` — crossdoc
+- **Что умеет:**
+  - Получать статистику посещаемости
+  - Источники трафика
+  - Популярные страницы
+  - Данные в реальном времени
+
+### 📱 Instagram API + Facebook Page
+- **Тип:** Meta Graph API
+- **Статус:** ✅ Токен есть (проверить актуальность при использовании)
+- **Настройки:** `projects/ai-nontechnical-course/.env`
+  - `INSTAGRAM_ACCESS_TOKEN`
+  - `INSTAGRAM_BUSINESS_ID=17841439161166578`
+  - `FACEBOOK_PAGE_ID=1201091379758387`
+- **Что умеет:**
+  - Публикация постов/сторис
+  - Ответы на комментарии
+  - Получение статистики взаимодействий
+
+### 🤖 Telegram Bot (@supplychains)
+- **Тип:** Bot API
+- **Статус:** ✅ Подключено и работает
+- **Настройки:** `projects/supplychains-bot/.env`
+  - `TELEGRAM_BOT_TOKEN`
+  - `ADMIN_CHAT_ID=143946238`
+  - `CHANNEL_ID=@supplychains`
+- **Что умеет:**
+  - Рассылка уведомлений подписчикам канала
+  - Интерактивные квизы и опросы
+  - Приём заявок/обратной связи
+  - Автоответы на частые вопросы
+
+### 📋 Правило использования
 При задачах, связанных с:
-- Отправкой/получением писем → использовать Yandex Email
-- Хранением/обменом файлами → использовать Яндекс.Диск
-- **Не забывать** спрашивать пользователя, нужно ли использовать эти интеграции
+- **Почта** → использовать Yandex Email
+- **Файлы/хранилище** → использовать Яндекс.Диск
+- **Распознавание документов** → использовать Dashscope/Qwen
+- **Код/бэкапы** → использовать GitHub
+- **Аналитика сайтов** → использовать Yandex Metrika
+- **Соцсети** → использовать Instagram/Facebook
+- **Telegram** → использовать Telegram Bot
 
-**Docs:** `skills/ai-job-search/SKILL.md`
-**Profile:** `memory/candidate-profile.md`
-**Scraper:** `skills/ai-job-search/scripts/hh_scraper.py`
+**Всегда спрашивать пользователя** перед использованием интеграций — данные чувствительные.
 
-**Workflow:**
-1. `/setup` — заполнить профиль (через Telegram)
-2. `/scrape` — поиск вакансий на hh.ru через kimi_search/browser
-3. `/apply <url>` — оценка + CV + сопроводительное письмо
-
-**Job search:**
-```
-kimi_search: "site:hh.ru [query] вакансия"
-# или
-browser: open https://hh.ru/search/vacancy?text=[query]
-```
-
-**Адаптация:**
-- Заменён Claude Code → OpenClaw subagents
-- LaTeX → Markdown (проще для OpenClaw)
-- Датские порталы → hh.ru (русский рынок)
-- Slash commands → Telegram команды
+**Skill:** `skills/ai-job-search/SKILL.md`
