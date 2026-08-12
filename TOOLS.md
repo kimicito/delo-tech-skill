@@ -252,7 +252,40 @@ python skills/wb-tax-calculator/calculator.py --registry реестр.xlsx --det
 *Добавлено: 2026-07-16. Источник: адаптация паттернов Claude Code (https://github.com/justxor/Claudecourse/).*
 
 
-**Skill:** `skills/ai-job-search/`
+
+## Connected Integrations (Активные интеграции)
+
+### 📧 Yandex Email — artem.avyan@yandex.com
+- **Тип:** IMAP/SMTP через skill `imap-smtp-email`
+- **Статус:** ✅ Подключено и работает
+- **Настройки:** `~/.openclaw/kimi-skills/imap-smtp-email/.env`
+- **App Password:** `fnjqyitphxxielho` (mail/imap/smtp)
+- **Что умеет:**
+  - Читать входящие (`check`, `fetch`)
+  - Искать по ящику (`search`)
+  - Отправлять письма (`send`)
+  - Скачивать вложения (`download`)
+- **Важно:** IMAP должен быть включён в настройках Yandex → Почтовые программы
+
+### 📂 Yandex Disk — artem.avyan@yandex.com
+- **Тип:** WebDAV
+- **Статус:** ✅ Подключено и работает
+- **Настройки:** `~/.openclaw/kimi-skills/yandex-disk-webdav.env`
+- **App Password:** `scygsyeseepfchkv` (files/webdav)
+- **URL:** `https://webdav.yandex.ru`
+- **Что умеет:**
+  - Список файлов и папок (`PROPFIND`)
+  - Скачивание (`GET`)
+  - Загрузка (`PUT`)
+  - Создание папок (`MKCOL`)
+- **Использование:** `curl -u artem.avyan@yandex.com:scygsyeseepfchkv -X PROPFIND https://webdav.yandex.ru/`
+
+### Почему это важно
+При задачах, связанных с:
+- Отправкой/получением писем → использовать Yandex Email
+- Хранением/обменом файлами → использовать Яндекс.Диск
+- **Не забывать** спрашивать пользователя, нужно ли использовать эти интеграции
+
 **Docs:** `skills/ai-job-search/SKILL.md`
 **Profile:** `memory/candidate-profile.md`
 **Scraper:** `skills/ai-job-search/scripts/hh_scraper.py`

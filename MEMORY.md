@@ -47,6 +47,11 @@ _(Новые инструменты, endpoint'ы, библиотеки)_
 
 ## Текущие проекты
 
+### Connected Integrations (2026-08-12)
+- **Yandex Email** (artem.avyan@yandex.com) — IMAP/SMTP через `imap-smtp-email` skill, статус: ✅ активно
+- **Yandex Disk** (artem.avyan@yandex.com) — WebDAV, статус: ✅ активно
+- Конфиги: `~/.openclaw/kimi-skills/imap-smtp-email/.env` и `yandex-disk-webdav.env`
+
 ### logistoria-website
 - **MarketPlays**: денежные значения ×10, старт 40 000 ₽, 20 товаров, 15/30 раундов
 - **AI-курс**: 10 уровней, русский язык, Pagefind search

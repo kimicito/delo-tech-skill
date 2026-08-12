@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Presentation</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/black.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+
+:root {
+  --r-background-color: #0a0a0f;
+  --r-main-font: 'Inter', sans-serif;
+  --r-heading-font: 'Inter', sans-serif;
+  --r-main-color: #ffffff;
+  --r-heading-color: #ffffff;
+  --r-heading-font-weight: 800;
+  --r-link-color: #00d4ff;
+  --r-selection-background-color: #00d4ff;
+  --accent: #00d4ff;
+  --accent2: #7b2cbf;
+}
+.reveal { font-family: var(--r-main-font); font-size: 32px; }
+.reveal h1 { font-size: 2.4em; font-weight: 900; line-height: 1.1; text-transform: none; }
+.reveal h2 { font-size: 1.6em; font-weight: 700; text-transform: none; margin-bottom: 0.6em; }
+.reveal h3 { font-size: 1.2em; font-weight: 600; text-transform: none; }
+.reveal p, .reveal li { color: #cbd5e1; font-size: 0.85em; line-height: 1.5; }
+.reveal section { text-align: left; }
+.reveal .center { text-align: center; }
+
+.slide-bg-gradient {
+  background: linear-gradient(135deg, #0a0a0f 0%, #12121f 50%, #0f0f1a 100%);
+}
+.slide-bg-accent {
+  background: linear-gradient(135deg, rgba(0,212,255,0.08), rgba(123,44,191,0.08));
+}
+
+.card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 24px;
+  backdrop-filter: blur(10px);
+  transition: all 0.4s ease;
+}
+.card:hover {
+  transform: translateY(-5px) scale(1.02);
+  border-color: rgba(0,212,255,0.4);
+  box-shadow: 0 20px 40px rgba(0,212,255,0.15);
+}
+
+.stat-number {
+  font-size: 2.2em;
+  font-weight: 900;
+  background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 0.55em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+.highlight-box {
+  background: linear-gradient(135deg, rgba(0,212,255,0.12), rgba(123,44,191,0.12));
+  border: 1px solid rgba(0,212,255,0.25);
+  border-radius: 20px;
+  padding: 30px 40px;
+}
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+.grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px; }
+
+.reveal .slides section .fragment {
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal .slides section .fragment.fade-up {
+  transform: translateY(30px);
+}
+.reveal .slides section .fragment.fade-up.visible {
+  transform: translateY(0);
+}
+
+@media (max-width: 900px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+}
+
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)" class="center">
+  
+  <h1 style="text-align: center; margin-bottom: 0.3em;">Presentation</h1>
+  <p style="text-align: center; color: #8892b0; font-size: 0.9em; max-width: 800px; margin: 0 auto;"></p>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)" class="center">
+  
+  <h1 style="text-align: center; margin-bottom: 0.3em;">Presentation</h1>
+  <p style="text-align: center; color: #8892b0; font-size: 0.9em; max-width: 800px; margin: 0 auto;"></p>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)">
+  <h2 style="margin-bottom: 40px;"></h2>
+  <div class="grid-2" style="max-width: 1200px;">
+    <div class="card" style="border-color: rgba(239,68,68,0.3);">
+      <h3 style="color: #ef4444; font-size: 0.95em; margin-bottom: 15px;">Классическая компания</h3>
+      <ul style="margin-left: 15px;"></ul>
+    </div>
+    <div class="card" style="border-color: rgba(16,185,129,0.3);">
+      <h3 style="color: #10b981; font-size: 0.95em; margin-bottom: 15px;">AI-Native компания</h3>
+      <ul style="margin-left: 15px;"></ul>
+    </div>
+  </div>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)" class="center">
+  
+  <h1 style="text-align: center; margin-bottom: 0.3em;">Presentation</h1>
+  <p style="text-align: center; color: #8892b0; font-size: 0.9em; max-width: 800px; margin: 0 auto;"></p>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)">
+  <h2 style="text-align: center; margin-bottom: 30px;">Chart</h2>
+  <div style="max-width: 700px; margin: 0 auto;">
+    <canvas id="chart_6653"></canvas>
+  </div>
+  <script>
+    Reveal.on('ready', function(event) {
+      var ctx = document.getElementById('chart_6653');
+      if (!ctx) return;
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: [],
+          datasets: [{
+            data: [],
+            backgroundColor: [],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { position: 'bottom', labels: { color: '#cbd5e1', font: { size: 14 }, padding: 20 } }
+          }
+        }
+      });
+    });
+  </script>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)" class="center">
+  
+  <h1 style="text-align: center; margin-bottom: 0.3em;">Presentation</h1>
+  <p style="text-align: center; color: #8892b0; font-size: 0.9em; max-width: 800px; margin: 0 auto;"></p>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)" class="center">
+  
+  <h1 style="text-align: center; margin-bottom: 0.3em;">Presentation</h1>
+  <p style="text-align: center; color: #8892b0; font-size: 0.9em; max-width: 800px; margin: 0 auto;"></p>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)" class="center">
+  
+  <h1 style="text-align: center; margin-bottom: 0.3em;">Presentation</h1>
+  <p style="text-align: center; color: #8892b0; font-size: 0.9em; max-width: 800px; margin: 0 auto;"></p>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)" class="center">
+  
+  <h1 style="text-align: center; margin-bottom: 0.3em;">Presentation</h1>
+  <p style="text-align: center; color: #8892b0; font-size: 0.9em; max-width: 800px; margin: 0 auto;"></p>
+</section>
+
+
+<section data-background-gradient="linear-gradient(135deg, #0a0a0f 0%, #12121f 100%)">
+  <h2 style="text-align: center; margin-bottom: 40px;">Conclusion</h2>
+  <div class="highlight-box fragment fade-up" style="max-width: 1000px; margin: 0 auto 40px;">
+    <p style="font-size: 0.9em; line-height: 1.7; color: #e2e8f0; text-align: center;"></p>
+  </div>
+  <div class="grid-3" style="max-width: 1100px; margin: 0 auto;">
+    <div class="card fragment fade-up" data-fragment-index="0" style="text-align: center;"><h3 style="font-size: 0.85em; margin-bottom: 10px;">✅ GO</h3><p style="color: #8892b0; font-size: 0.7em;">AI-Native модель технически реализуема и экономически выгодна</p></div>
+<div class="card fragment fade-up" data-fragment-index="1" style="text-align: center;"><h3 style="font-size: 0.85em; margin-bottom: 10px;">⚠️ Поэтапный запуск</h3><p style="color: #8892b0; font-size: 0.7em;">2 завода → 5 заводов за 12 месяцев</p></div>
+<div class="card fragment fade-up" data-fragment-index="2" style="text-align: center;"><h3 style="font-size: 0.85em; margin-bottom: 10px;">🔒 Контрактная защита данных</h3><p style="color: #8892b0; font-size: 0.7em;">Структурная оборона от интернализации клиентом</p></div>
+<div class="card fragment fade-up" data-fragment-index="3" style="text-align: center;"><h3 style="font-size: 0.85em; margin-bottom: 10px;">📈 Диверсификация</h3><p style="color: #8892b0; font-size: 0.7em;">Второй клиент к 12-му месяцу</p></div>
+<div class="card fragment fade-up" data-fragment-index="4" style="text-align: center;"><h3 style="font-size: 0.85em; margin-bottom: 10px;">💰 Резерв ликвидности</h3><p style="color: #8892b0; font-size: 0.7em;">6 месяцев — рабочий капитал критичен</p></div>
+  </div>
+</section>
+
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      slideNumber: 'c/t',
+      transition: 'slide',
+      transitionSpeed: 'default',
+      backgroundTransition: 'fade',
+      center: false,
+      width: 1280,
+      height: 720,
+      margin: 0.04
+    });
+  </script>
+</body>
+</html>

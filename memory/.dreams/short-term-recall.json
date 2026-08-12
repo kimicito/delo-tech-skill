@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-23T20:47:20.124Z",
+  "updatedAt": "2026-08-08T07:57:51.244Z",
   "entries": {
     "memory:memory/2026-05-31.md:38:55": {
       "key": "memory:memory/2026-05-31.md:38:55",
@@ -261,18 +261,22 @@
       "endLine": 139,
       "source": "memory",
       "snippet": "- Похожих названий (`private`, `notes`, `my`) тоже нет - Файл с задачами (`tasks.md`, `todo.md`, `задачи.md`) **не найден** в workspace, memory, inbox, downloads, projects ### Единственные TODO-файлы 1. `safemind/PIPELINE_TODO.md` — задачи по SafeMind (ожидает настройки email, Phase 1) 2. `projects/educai8/roadmap.md` — план обучения (4 занятия) ### Vosk — установка и тест - Установлен `vosk 0.3.45` через pip - Скачана модель `vosk-model-small-ru-0.22` (~44 МБ) - Тестовая расшифровка: «покажи задачи шефа» — успешно - Добавлено правило в AGENTS.md: при получении аудио автоматически транскрибировать через Vosk - Скрипт: `vesti/transcribe.py` ### Результат для пользователя Задачи \"шефа\" нигд",
-      "recallCount": 1,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.352579978108406,
-      "maxScore": 0.352579978108406,
+      "totalScore": 1.4532307453014954,
+      "maxScore": 0.6524803168633089,
       "firstRecalledAt": "2026-06-30T06:39:42.504Z",
-      "lastRecalledAt": "2026-06-30T06:39:42.504Z",
+      "lastRecalledAt": "2026-08-05T07:03:19.651Z",
       "queryHashes": [
-        "eb2846e76884"
+        "eb2846e76884",
+        "fb13600613e5",
+        "30a477213bc6"
       ],
       "recallDays": [
-        "2026-06-30"
+        "2026-06-30",
+        "2026-08-03",
+        "2026-08-05"
       ],
       "conceptTags": [
         "tasks.md",
@@ -618,18 +622,22 @@
       "endLine": 285,
       "source": "memory",
       "snippet": "- All HTML pages (index, ru, es, en variants) - Game pages: kadena, thebeergame, auction-bot, logistics-course - CSS: style.css, JS: main.js - Images (~25 files), assets (~20 files) - Dashboard page, privacy pages ### Next Steps 1. User to pay 3072₽ to activate Hoster hosting 2. Point domain logistoria.com to 31.28.24.131 3. Setup SSL (Let's Encrypt) in Hoster panel 4. After activation — pipeline will auto-deploy on every push ### Note User wants to continue editing logistoria-website in GitHub and have auto-deploy to Hoster.ru. Pipeline is ready and tested. --- ## Дополнительно (вечер) ### Статья для книги к 90-летию Таганского района - Проект: `projects/taganka-industry/` - Тема: Пром",
-      "recallCount": 1,
+      "recallCount": 4,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.4288035184144974,
-      "maxScore": 0.4288035184144974,
+      "totalScore": 1.7106253087520598,
+      "maxScore": 0.43748266398906704,
       "firstRecalledAt": "2026-07-20T21:03:49.465Z",
-      "lastRecalledAt": "2026-07-20T21:03:49.465Z",
+      "lastRecalledAt": "2026-08-08T07:57:51.244Z",
       "queryHashes": [
-        "785ad1fc8c47"
+        "785ad1fc8c47",
+        "44cae0a5a4ba",
+        "4f3802b9dd8b",
+        "1fdeab396a6e"
       ],
       "recallDays": [
-        "2026-07-21"
+        "2026-07-21",
+        "2026-08-08"
       ],
       "conceptTags": [
         "auction-bot",
@@ -649,18 +657,22 @@
       "endLine": 263,
       "source": "memory",
       "snippet": "- Подготовить материалы для следующего занятия (ИИ-агенты, уровень 4). - Добавить реальные кейсы из работы компании в модули 1-4. - Установить P2 skills (nano-pdf, ontology, automation workflows, evolver) по согласованию. - Продолжить обработку чертежей: тестировать Вариант A (крупные тайлы 2000×2000) vs Вариант B (Qwen-VL промпт на планах) для извлечения без reference ВОР. - Проверить `git status` и сделать commit/push если есть uncommitted changes. ## Logistoria Website Deployment — 2026-07-09 ### Hoster.ru Hosting - **Server:** srv250356.srv.hoster.ru - **IP:** 31.28.24.131 - **Temp URL:** http://srv250356.hoster-test.ru - **Status:** Test mode (10 days), needs 3072₽ to activate - **Dom",
-      "recallCount": 1,
+      "recallCount": 4,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.4246527850627899,
-      "maxScore": 0.4246527850627899,
+      "totalScore": 1.8035502284765244,
+      "maxScore": 0.4722150593996048,
       "firstRecalledAt": "2026-07-20T21:03:49.465Z",
-      "lastRecalledAt": "2026-07-20T21:03:49.465Z",
+      "lastRecalledAt": "2026-08-08T07:57:51.244Z",
       "queryHashes": [
-        "785ad1fc8c47"
+        "785ad1fc8c47",
+        "44cae0a5a4ba",
+        "4f3802b9dd8b",
+        "1fdeab396a6e"
       ],
       "recallDays": [
-        "2026-07-21"
+        "2026-07-21",
+        "2026-08-08"
       ],
       "conceptTags": [
         "ии-агенты",
@@ -680,20 +692,28 @@
       "endLine": 29,
       "source": "memory",
       "snippet": "# Дневник — 2026-07-09/10 (переход через полночь) ## Logistoria Website - Служба поддержки Hoster.ru ответила: сайт задеплоен в папку тестового домена (`srv250356.hoster-test.ru`), нужно деплоить в папку с названием домена (`logistoria.com`). - Изменён `server-dir` в `.github/workflows/deploy.yml`: `/srv250356.hoster-test.ru/` → `/logistoria.com/`. - GitHub Actions запущен, деплой в новую папку выполнен. - Обновлён `DEPLOY.md` с актуальной инструкцией по деплою на Hoster.ru (FTP, DNS, GitHub Actions). - **Блокер:** нужно настроить DNS A-запись у регистратора домена на `31.28.24.131`. ## Taganka — статья «Промышленность Таганки» - Переписана статья в структуре «по предприятиям» (от основани",
-      "recallCount": 2,
+      "recallCount": 7,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.781082859635353,
-      "maxScore": 0.4094961673021316,
+      "totalScore": 3.0208321497738733,
+      "maxScore": 0.6082744286358733,
       "firstRecalledAt": "2026-07-20T21:03:49.465Z",
-      "lastRecalledAt": "2026-07-23T20:42:40.646Z",
+      "lastRecalledAt": "2026-08-08T07:57:51.244Z",
       "queryHashes": [
         "785ad1fc8c47",
-        "d90874591932"
+        "d90874591932",
+        "fb13600613e5",
+        "30a477213bc6",
+        "44cae0a5a4ba",
+        "4f3802b9dd8b",
+        "1fdeab396a6e"
       ],
       "recallDays": [
         "2026-07-21",
-        "2026-07-24"
+        "2026-07-24",
+        "2026-08-03",
+        "2026-08-05",
+        "2026-08-08"
       ],
       "conceptTags": [
         "2026-07-09/10",
@@ -744,18 +764,22 @@
       "endLine": 188,
       "source": "memory",
       "snippet": "- **Server:** srv250356.srv.hoster.ru - **IP:** 31.28.24.131 - **Temp URL:** http://srv250356.hoster-test.ru - **Status:** Test mode (10 days), needs 3072₽ to activate - **Domain target:** logistoria.com → 31.28.24.131 (A-record) ### FTP Credentials - **Host:** ftp-250356.srv.hoster.ru - **Login:** srv250356 - **Password:** f83jVkPb ### GitHub Actions Auto-Deploy - **Workflow:** `.github/workflows/deploy.yml` (SamKirkland/FTP-Deploy-Action@v4.3.5) - **Secret:** `HOSTER_FTP_PASSWORD` added to repo secrets - **Trigger:** Push to master branch - **Status:** Tested successfully — all green checkmarks - **Pipeline:** Edit in GitHub → Push → GitHub Actions → FTP deploy to Hoster.ru ### Files De",
-      "recallCount": 1,
+      "recallCount": 4,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.3615408390760422,
-      "maxScore": 0.3615408390760422,
+      "totalScore": 1.7723047494888307,
+      "maxScore": 0.47717787325382227,
       "firstRecalledAt": "2026-07-21T19:52:19.972Z",
-      "lastRecalledAt": "2026-07-21T19:52:19.972Z",
+      "lastRecalledAt": "2026-08-08T07:57:51.244Z",
       "queryHashes": [
-        "b2c4d1269998"
+        "b2c4d1269998",
+        "44cae0a5a4ba",
+        "4f3802b9dd8b",
+        "1fdeab396a6e"
       ],
       "recallDays": [
-        "2026-07-22"
+        "2026-07-22",
+        "2026-08-08"
       ],
       "conceptTags": [
         "srv250356.srv.hoster.ru",
@@ -868,18 +892,22 @@
       "endLine": 58,
       "source": "memory",
       "snippet": "- Запуск студентов с чертежами + ИИ в контур (#64) - Проект с Танцура по ВОР (#65) - Проект с Андрианов по мониторингу технологий — нужен РП (#66) - Все изменения запушены в git (`[task] update задачи_шефа: удалены 22,29,32; добавлены 55-66`). ## 2026-07-10 (ночь/рано утром, GMT+8) ### Задачи шефа — добавление задач - Добавлено 4 задачи (#67–#70): Верич (риски), Петрова (ЦЗ), БП2027 Воробьёв, БП2027 Сушкин. - Добавлена задача #71: посчитать ресурсы для проекта «0 документов ДОБ». - Добавлено 18 задач (#72–#89): - Как покупать китайские решения в Африку - Сделать задачи для Шанхайского офиса - Сделать задачи для Пекинского офиса - Уточнить что с Неверовым - Посмотреть как вы",
-      "recallCount": 1,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.3750604450702667,
-      "maxScore": 0.3750604450702667,
+      "totalScore": 1.4843922122983542,
+      "maxScore": 0.6815171941785421,
       "firstRecalledAt": "2026-07-23T20:42:40.646Z",
-      "lastRecalledAt": "2026-07-23T20:42:40.646Z",
+      "lastRecalledAt": "2026-08-05T07:03:19.651Z",
       "queryHashes": [
-        "d90874591932"
+        "d90874591932",
+        "fb13600613e5",
+        "30a477213bc6"
       ],
       "recallDays": [
-        "2026-07-24"
+        "2026-07-24",
+        "2026-08-03",
+        "2026-08-05"
       ],
       "conceptTags": [
         "задачи-шефа",
@@ -899,18 +927,22 @@
       "endLine": 72,
       "source": "memory",
       "snippet": "- ИИ переводы — делаем? - Всего задач в списке: 89. ### Cron: ежедневные задачи в 10:00 по Москве - Создан cron job `daily-tasks-10am-moscow` (ID: `185b9bfb-ffb4-4ca1-8393-07058c31542d`). - Расписание: `10 7 * * *` UTC = 10:00 по Москве (GMT+3). - Присылает `задачи_шефа` в Telegram. ### Logistoria Website — фикс iframe форм - Проблема: на страницах kadena и thebeergame (во всех 3 языках) iframe Яндекс-формы имел фиксированную ширину `width=\"650\"`, из-за чего на узких экранах выходил за границы. - Исправлено в 6 файлах: `kadena.html`, `kadena-en.html`, `kadena-es.html`, `thebeergame.html`, `thebeergame-en.html`, `thebeergame-es.html`. - Изменения: `width=\"100%\"`, `height=\"600\"`, обёртка `",
-      "recallCount": 1,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.3721892178058624,
-      "maxScore": 0.3721892178058624,
+      "totalScore": 1.34792503418396,
+      "maxScore": 0.6020813614315796,
       "firstRecalledAt": "2026-07-23T20:42:40.646Z",
-      "lastRecalledAt": "2026-07-23T20:42:40.646Z",
+      "lastRecalledAt": "2026-08-05T07:03:19.651Z",
       "queryHashes": [
-        "d90874591932"
+        "d90874591932",
+        "fb13600613e5",
+        "30a477213bc6"
       ],
       "recallDays": [
-        "2026-07-24"
+        "2026-07-24",
+        "2026-08-03",
+        "2026-08-05"
       ],
       "conceptTags": [
         "daily-tasks-10am-moscow",
@@ -961,18 +993,20 @@
       "endLine": 117,
       "source": "memory",
       "snippet": "- UX-принципы: feature parity, единый FAQ на главной, чёткая иерархия, логичные CTA. - Коммит: `a3b5412`. ### Задачи шефа - Добавлено 2 новые задачи (#90, #91): - #90: БП2027 Станислав — как выглядит цикл продаж ИИ - #91: Как построить защиту от ТГ каналов — рабочий чат ### Блокеры - **VPS SafeMind** (85.239.59.8): всё ещё недоступен (не настроен или не оплачен). - **DNS Logistoria**: нужно настроить A-запись `www.logistoria.com` у регистратора. ## 2026-07-10 (день, GMT+8) — SafeMind Pro ### Убрано \"сообщество\", заменено на персональный чат - Во всех 3 языках (RU/EN/ES) убраны упоминания \"сообщества\" и \"групповых\" форматов. - Заменено на модель **персональный чат (тет-а-тет) + амбас",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.40048674046993255,
-      "maxScore": 0.40048674046993255,
+      "totalScore": 0.9995296507252496,
+      "maxScore": 0.599042910255317,
       "firstRecalledAt": "2026-07-23T20:47:20.124Z",
-      "lastRecalledAt": "2026-07-23T20:47:20.124Z",
+      "lastRecalledAt": "2026-08-05T07:03:19.651Z",
       "queryHashes": [
-        "02034459720b"
+        "02034459720b",
+        "30a477213bc6"
       ],
       "recallDays": [
-        "2026-07-24"
+        "2026-07-24",
+        "2026-08-05"
       ],
       "conceptTags": [
         "ux-принципы",
@@ -1045,6 +1079,132 @@
         "html-mailer-builder",
         "node-connect",
         "video-frames"
+      ]
+    },
+    "memory:memory/2026-07-15.md:124:144": {
+      "key": "memory:memory/2026-07-15.md:124:144",
+      "path": "memory/2026-07-15.md",
+      "startLine": 124,
+      "endLine": 144,
+      "source": "memory",
+      "snippet": "7. 🚀 Руководитель проектов (project plan with risks, retrospective, status update) 8. 🔍 Рекрутер (behavioral interview questions, resume analysis, rejection email) 9. 📰 PR-менеджер (press release, crisis response, launch communications plan) 10. 📈 Бизнес-аналитик (SWOT analysis, BRD, supplier/competitor comparison) 11. 🛒 Закупщик (supplier comparison, delivery contract check, purchase request/TZ) 12. 💼 Клиентский менеджер (key client meeting plan, upsell email, NPS analysis) ### Navigation Updates - Added \"🎯 Примеры\" / \"🎯 Examples\" / \"🎯 Exemples\" / \"🎯 示例\" link to nav in all index/catalog/glossary pages across all 4 languages. - Desktop nav + mobile nav updated in: `ind",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.3774798929691314,
+      "maxScore": 0.3774798929691314,
+      "firstRecalledAt": "2026-08-03T11:16:11.528Z",
+      "lastRecalledAt": "2026-08-03T11:16:11.528Z",
+      "queryHashes": [
+        "fb13600613e5"
+      ],
+      "recallDays": [
+        "2026-08-03"
+      ],
+      "conceptTags": [
+        "pr-менеджер",
+        "бизнес-аналитик",
+        "supplier/competitor",
+        "request/tz",
+        "index/catalog/glossary",
+        "руководитель",
+        "проектов",
+        "project"
+      ]
+    },
+    "memory:memory/2026-07-23.md:162:185": {
+      "key": "memory:memory/2026-07-23.md:162:185",
+      "path": "memory/2026-07-23.md",
+      "startLine": 162,
+      "endLine": 185,
+      "source": "memory",
+      "snippet": "- **fr/14-1-on-prem** — 8 on-prem sales tasks (client base, demand forecasting, commercial negotiations, CRM analytics) - **fr/14-2-cloud** — 8 external AI tasks (content plan, copywriting, SEO, competitor analysis, exhibition materials) - **fr/14-3-hybrid** — 4 hybrid tasks (commercial proposals, email campaigns, IR materials, pricing strategy) - **fr/14-4-summary** — Final matrix, checklist, time savings, quiz - **Committed and pushed** first French batch (6 files: 07-5, 08-5, 14-1, 14-2, 14-3, 14-4) ### Level 15 (Legal) — French Translation Completed - **fr/15-1-on-prem** — 13 on-prem legal tasks (contracts, litigation, corporate, compliance, IP, labor) - **fr/15-2-cloud** — 8 external A",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.36516062319278714,
+      "maxScore": 0.36516062319278714,
+      "firstRecalledAt": "2026-08-03T11:16:11.528Z",
+      "lastRecalledAt": "2026-08-03T11:16:11.528Z",
+      "queryHashes": [
+        "fb13600613e5"
+      ],
+      "recallDays": [
+        "2026-08-03"
+      ],
+      "conceptTags": [
+        "fr/14-1-on-prem",
+        "on-prem",
+        "fr/14-2-cloud",
+        "fr/14-3-hybrid",
+        "fr/14-4-summary",
+        "07-5",
+        "08-5",
+        "14-1"
+      ]
+    },
+    "memory:memory/2026-07-20.md:25:58": {
+      "key": "memory:memory/2026-07-20.md:25:58",
+      "path": "memory/2026-07-20.md",
+      "startLine": 25,
+      "endLine": 58,
+      "source": "memory",
+      "snippet": "New command pattern accepted: \"Форкни без клона [URL]\" or \"Fork without clone [URL]\" → creates GitHub fork only, zero local RAM/disk usage. I will ask before forking by default. ## Tasks (задачи_шефа) - **Deleted:** #11 (Нанять БА на цифровой завод БАЗ) - **Added:** - #98 — Обучение ИИ для Фенстер - #99 — Встреча с Н Миронкиной по обучению - #100 — Протокол с Петровой ОФ выпустить --- ## AI Course Update — Level 11: Quality Management **Date:** 2026-07-20 **Repo:** https://github.com/kimicito/ai-nontechnical-course **Added Level 11 — AI for Дирекция по качеству (Quality Management):** - **11.1 On-prem:** 11 tasks (root-cause, 8D reports, audit, ТУ development, R&D, Cost of Qualit",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.5871955991387754,
+      "maxScore": 0.5871955991387754,
+      "firstRecalledAt": "2026-08-05T07:03:19.651Z",
+      "lastRecalledAt": "2026-08-05T07:03:19.651Z",
+      "queryHashes": [
+        "30a477213bc6"
+      ],
+      "recallDays": [
+        "2026-08-05"
+      ],
+      "conceptTags": [
+        "ram/disk",
+        "задачи-шефа",
+        "11.1",
+        "on-prem",
+        "root-cause",
+        "new",
+        "command",
+        "pattern"
+      ]
+    },
+    "memory:memory/2026-07-10.md:153:164": {
+      "key": "memory:memory/2026-07-10.md:153:164",
+      "path": "memory/2026-07-10.md",
+      "startLine": 153,
+      "endLine": 164,
+      "source": "memory",
+      "snippet": "- Изменены 9 файлов: `ru/index.html`, `en/index.html`, `es/index.html`, `ru/pro.html`, `ru/challenge.html`, `ru/diagnostic.html`, `en/pro.html`, `en/challenge.html`, `en/diagnostic.html`. - Коммит: `6975983`. ### Logistoria — HTTPS диагностика и фикс - Проблема: `https://logistoria.com` таймаут на 443 порту (`31.28.24.131:443`). - HTTP (порт 80) работает и отдаёт 301 редирект на HTTPS. - Пользователь прислал скриншот DNS-записей: **две A-записи** — `31.28.24.131` и `31.28.24.244`. - Сертификат Let's Encrypt привязался к `31.28.24.244`, но на этом IP нет сайта → отсюда таймаут HTTPS. - **Временный фикс**: удалён `.htaccess` с редиректом HTTP→HTTPS. Сайт теперь доступен по `http://logistoria.",
+      "recallCount": 3,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1.270941972732544,
+      "maxScore": 0.4391548484563827,
+      "firstRecalledAt": "2026-08-07T22:25:30.953Z",
+      "lastRecalledAt": "2026-08-08T07:57:51.244Z",
+      "queryHashes": [
+        "44cae0a5a4ba",
+        "4f3802b9dd8b",
+        "1fdeab396a6e"
+      ],
+      "recallDays": [
+        "2026-08-08"
+      ],
+      "conceptTags": [
+        "ru/index.html",
+        "en/index.html",
+        "es/index.html",
+        "ru/pro.html",
+        "ru/challenge.html",
+        "ru/diagnostic.html",
+        "en/pro.html",
+        "en/challenge.html"
       ]
     }
   }

@@ -1,0 +1,36 @@
+{
+  "total_issues": 4,
+  "critical": 0,
+  "major": 4,
+  "minor": 0,
+  "issues": [
+    {
+      "severity": "major",
+      "category": "i18n",
+      "title": "No language switchers found on index.html",
+      "location": "index.html",
+      "fix_suggestion": "Add EN/RU/ES language links in header nav"
+    },
+    {
+      "severity": "major",
+      "category": "i18n",
+      "title": "No language switchers found on index-fr.html",
+      "location": "index-fr.html",
+      "fix_suggestion": "Add EN/RU/ES language links in header nav"
+    },
+    {
+      "severity": "major",
+      "category": "i18n",
+      "title": "No language switchers found on index-es.html",
+      "location": "index-es.html",
+      "fix_suggestion": "Add EN/RU/ES language links in header nav"
+    },
+    {
+      "severity": "major",
+      "category": "i18n",
+      "title": "No language switchers found on index-zh.html",
+      "location": "index-zh.html",
+      "fix_suggestion": "Add EN/RU/ES language links in header nav"
+    }
+  ]
+}
