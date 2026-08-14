@@ -1,0 +1,83 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Supplychains.ru",
+  "url": "https://supplychains.ru",
+  "logo": "https://supplychains.ru/images/logo.png",
+  "description": "Игры в логистику и цепочки поставок для обучения",
+  "telephone": "+7-499-288-7371",
+  "email": "PROJECT@supplychains.ru",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "RU"
+  },
+  "sameAs": [
+    "https://t.me/supplychains",
+    "https://dzen.ru/id/6087b8f77887f67488160f65"
+  ]
+}
+</script>
+
+<!-- Yandex Metrica Goals for supplychains.ru -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Form submission tracking
+    document.querySelectorAll('form').forEach(function(form) {
+        form.addEventListener('submit', function(e) {
+            ym(30201489, 'reachGoal', 'form_contact');
+        });
+    });
+
+    // Popup open tracking (t708 widget)
+    document.querySelectorAll('.t708__btn, .t708__btn_wrapper').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            ym(30201489, 'reachGoal', 'popup_open');
+        });
+    });
+
+    // Project links tracking
+    document.querySelectorAll('a[href*="krossdok.ru"]').forEach(function(link) {
+        link.addEventListener('click', function() {
+            ym(30201489, 'reachGoal', 'link_krossdok');
+        });
+    });
+
+    document.querySelectorAll('a[href*="logistoria.com"]').forEach(function(link) {
+        link.addEventListener('click', function() {
+            ym(30201489, 'reachGoal', 'link_logistoria');
+        });
+    });
+
+    document.querySelectorAll('a[href*="kadena"], a[href*="thekadenagame"]').forEach(function(link) {
+        link.addEventListener('click', function() {
+            ym(30201489, 'reachGoal', 'link_kadena');
+        });
+    });
+
+    document.querySelectorAll('a[href*="beergame"]').forEach(function(link) {
+        link.addEventListener('click', function() {
+            ym(30201489, 'reachGoal', 'link_beergame');
+        });
+    });
+
+    document.querySelectorAll('a[href*="platform"], a[href*="vercel.app"]').forEach(function(link) {
+        link.addEventListener('click', function() {
+            ym(30201489, 'reachGoal', 'link_platform');
+        });
+    });
+
+    // Social links tracking
+    document.querySelectorAll('a[href*="t.me/supplychains"]').forEach(function(link) {
+        link.addEventListener('click', function() {
+            ym(30201489, 'reachGoal', 'social_telegram');
+        });
+    });
+
+    document.querySelectorAll('a[href*="vk.com"]').forEach(function(link) {
+        link.addEventListener('click', function() {
+            ym(30201489, 'reachGoal', 'social_vk');
+        });
+    });
+});
+</script>
