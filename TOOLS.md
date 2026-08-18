@@ -317,6 +317,16 @@ python skills/wb-tax-calculator/calculator.py --registry реестр.xlsx --det
   - Популярные страницы
   - Данные в реальном времени
 
+### 🖥️ SafeMind Server (Timeweb Cloud)
+- **Хостинг:** timeweb.cloud
+- **IP:** `200.165.227.84` (IPv6: `2a03:6f00:a::2:1bf7`)
+- **SSH:** `ssh root@200.165.227.84`
+- **Root-пароль:** `gN8J__WG#P88wf`
+- **Нода:** `kmnvm-737`
+- **Закрытые порты:** 2525, 3389, 465, 25, 389, 587, 53413
+- **Сайт:** https://safemind.pro
+- **Статус:** требует перезапуска сервиса при сбоях
+
 ### 📱 Instagram API + Facebook Page
 - **Тип:** Meta Graph API
 - **Статус:** ✅ Токен есть (проверить актуальность при использовании)

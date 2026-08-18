@@ -52,7 +52,16 @@ _(Новые инструменты, endpoint'ы, библиотеки)_
 - **Yandex Disk** (artem.avyan@yandex.com) — WebDAV, статус: ✅ активно
 - Конфиги: `~/.openclaw/kimi-skills/imap-smtp-email/.env` и `yandex-disk-webdav.env`
 
-### logistoria-website
+### safemind.pro (2026-08-16)
+- **Status:** ✅ Recovered and operational
+- **Server:** Nimble Cepheus (Timeweb Cloud), IP: 200.165.227.84
+- **DNS:** REG.RU (updated A-record from old IP 85.239.59.8 to current 200.165.227.84)
+- **Nginx:** SSL via Let's Encrypt, proxies to backends on ports 3001, 3002, 8002
+- **Full recovery log:** `memory/projects/safemind-pro.md`
+- **Key lesson:** If server shows "В сети" but SSH timeout → hard reboot (power off/on) fixes boot hang
+- **Quick access:** `ssh root@200.165.227.84` (password in TOOLS.md / project file)
+
+
 - **MarketPlays**: денежные значения ×10, старт 40 000 ₽, 20 товаров, 15/30 раундов
 - **AI-курс**: 10 уровней, русский язык, Pagefind search
 
