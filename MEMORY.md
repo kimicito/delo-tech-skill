@@ -47,7 +47,30 @@ _(Новые инструменты, endpoint'ы, библиотеки)_
 
 ## Текущие проекты
 
-### Connected Integrations (2026-08-12)
+### Skills on GitHub (2026-08-21)
+
+**Правило:** Каждый skill, созданный или улучшенный в этом workspace, должен быть запушен на GitHub в отдельный репозиторий.
+
+| Skill | Repo | Status |
+|-------|------|--------|
+| delo-tech | `github.com/kimicito/delo-tech` | ✅ pushed |
+
+**Команда для нового skill:**
+```bash
+cd skills/<skill-name>
+git init
+git add .
+git commit -m "Initial commit"
+gh repo create <skill-name> --public --description "..." --source=. --remote=origin --push
+```
+
+**Команда для обновления:**
+```bash
+cd skills/<skill-name>
+git add .
+git commit -m "[fix/feature] description"
+git push origin master
+```
 - **Yandex Email** (artem.avyan@yandex.com) — IMAP/SMTP через `imap-smtp-email` skill, статус: ✅ активно
 - **Yandex Disk** (artem.avyan@yandex.com) — WebDAV, статус: ✅ активно
 - Конфиги: `~/.openclaw/kimi-skills/imap-smtp-email/.env` и `yandex-disk-webdav.env`

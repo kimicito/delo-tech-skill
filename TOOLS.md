@@ -32,6 +32,31 @@
 
 ---
 
+## Skill Repositories on GitHub
+
+**Правило:** Каждый skill пушится в отдельный GitHub-репозиторий. При любом улучшении здесь — сразу `git commit && git push`.
+
+| Skill | Repo | Описание |
+|-------|------|----------|
+| delo-tech | `github.com/kimicito/delo-tech` | Автоматизация ДЕЛО ТЕХ (rlisystems.ru/conterra/) |
+
+**Workflow для нового skill:**
+```bash
+cd skills/<name>
+git init
+git add . && git commit -m "Initial commit"
+gh repo create <name> --public --source=. --remote=origin --push
+```
+
+**Workflow для обновления:**
+```bash
+cd skills/<name>
+git add . && git commit -m "[fix] description"
+git push origin master
+```
+
+---
+
 ## Browser Scraping (геоблок, JS-рендеринг)
 
 **Repo:** `github.com/kimicito/browser-scraping`
