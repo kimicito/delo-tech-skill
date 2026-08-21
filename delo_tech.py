@@ -1,234 +1,200 @@
 #!/usr/bin/env python3
-"""
-delo-tech — Automation for ДЕЛО ТЕХ (rlisystems.ru/conterra/)
+"""Модуль для автоматизации работы с ДЕЛО ТЕХ.
 
-Usage:
-    python delo_tech.py --action login
-    python delo_tech.py --action balance
-    python delo_tech.py --action orders
+Примеры использования:
+    >>> from delo_tech import DeloTechClient
+    >>> client = DeloTechClient()
+    >>> client.extract_report_13()  # Извлечь отчёт через CDP
 """
-
-import os
-import sys
-import time
-import argparse
-from dataclasses import dataclass
+import asyncio
+import json
+import csv
+from pathlib import Path
 from typing import Optional
-
-try:
-    from dotenv import load_dotenv
-    load_dotenv()
-except ImportError:
-    pass
-
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException, NoSuchElementException
+from dataclasses import dataclass
 
 
 @dataclass
-class DashboardInfo:
-    """Parsed dashboard data."""
-    user: str
-    company: str
-    inn: str
-    balance: str
-    terminal: str
-    orders: list
+class ReportConfig:
+    """Конфигурация отчёта."""
+    contract_id: str
+    start_date: str  # DD.MM.YYYY
+    end_date: str    # DD.MM.YYYY
+    report_type: str = "13"  # Тип отчёта
 
 
 class DeloTechClient:
-    """Client for ДЕЛО ТЕХ automation."""
-
-    BASE_URL = os.getenv("DELOTECH_BASE_URL", "https://rlisystems.ru/conterra/")
-    SSO_URL = os.getenv("DELOTECH_SSO_URL", "https://rlisystems.ru/webiom/sso/")
-    TIMEOUT = int(os.getenv("DELOTECH_TIMEOUT", "30"))
-
-    def __init__(self, username: Optional[str] = None, password: Optional[str] = None, headless: bool = True):
-        self.username = username or os.getenv("DELOTECH_USERNAME", "")
-        self.password = password or os.getenv("DELOTECH_PASSWORD", "")
-        self.headless = headless
-        self.driver: Optional[webdriver.Chrome] = None
-        self._logged_in = False
-
-    def _init_driver(self) -> webdriver.Chrome:
-        """Initialize Chrome WebDriver."""
-        options = Options()
-        if self.headless:
-            options.add_argument("--headless=new")
-        options.add_argument("--no-sandbox")
-        options.add_argument("--disable-dev-shm-usage")
-        options.add_argument("--disable-gpu")
-        options.add_argument("--window-size=1920,1080")
-        options.add_argument("--disable-blink-features=AutomationControlled")
-        options.add_experimental_option("excludeSwitches", ["enable-automation"])
-        options.add_experimental_option("useAutomationExtension", False)
-        options.add_argument(
-            "user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
-            "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-        )
-
+    """Клиент для работы с системой ДЕЛО ТЕХ.
+    
+    Использует CDP (Chrome DevTools Protocol) для извлечения данных
+    из iframe с Vaadin-отчётами.
+    
+    Attributes:
+        cdp_port: Порт для подключения к Chrome DevTools (по умолчанию 18800)
+        output_dir: Директория для сохранения файлов
+    """
+    
+    def __init__(self, cdp_port: int = 18800, output_dir: Optional[str] = None):
+        self.cdp_port = cdp_port
+        self.output_dir = Path(output_dir) if output_dir else Path(__file__).parent
+        self._ws_url: Optional[str] = None
+    
+    async def _find_page(self) -> Optional[str]:
+        """Находит WebSocket URL страницы ДЕЛО ТЕХ в CDP.
+        
+        Returns:
+            WebSocket URL или None, если страница не найдена
+        """
+        import urllib.request
+        
         try:
-            self.driver = webdriver.Chrome(options=options)
-        except Exception:
-            # Fallback: try with default ChromeDriver path
-            try:
-                service = Service()
-                self.driver = webdriver.Chrome(service=service, options=options)
-            except Exception as e:
-                raise RuntimeError(
-                    f"Failed to initialize Chrome WebDriver: {e}\n"
-                    "Install Chrome and chromedriver:\n"
-                    "  apt-get install chromium-browser chromium-chromedriver\n"
-                    "Or use: playwright install chromium"
-                )
-
-        self.driver.execute_script(
-            "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
-        )
-        return self.driver
-
-    def login(self) -> bool:
-        """Log in to ДЕЛО ТЕХ. Returns True on success."""
-        if not self.username or not self.password:
-            raise ValueError("Username and password required. Set DELOTECH_USERNAME and DELOTECH_PASSWORD env vars.")
-
-        if self.driver is None:
-            self._init_driver()
-
-        driver = self.driver
-        wait = WebDriverWait(driver, self.TIMEOUT)
-
-        # Open direct SSO page (avoids iframe issues)
-        driver.get(self.SSO_URL)
-        time.sleep(2)
-
-        # Find and fill login form
-        try:
-            # Try by name first
-            user_field = driver.find_element(By.NAME, "user")
-        except NoSuchElementException:
-            # Fallback: find first visible text input
-            user_field = driver.find_element(By.XPATH, "//input[@type='text']")
-
-        try:
-            pass_field = driver.find_element(By.NAME, "password")
-        except NoSuchElementException:
-            pass_field = driver.find_element(By.XPATH, "//input[@type='password']")
-
-        user_field.clear()
-        user_field.send_keys(self.username)
-
-        pass_field.clear()
-        pass_field.send_keys(self.password)
-
-        # Click login button
-        try:
-            login_btn = driver.find_element(By.XPATH, "//button[@type='submit']")
-        except NoSuchElementException:
-            login_btn = driver.find_element(By.XPATH, "//input[@type='submit']")
-
-        login_btn.click()
-
-        # Wait for redirect to dashboard (or error)
-        time.sleep(3)
-
-        # Check if we're logged in (look for dashboard elements)
-        current_url = driver.current_url
-        if "error" in current_url.lower():
-            # Sometimes there's an intermediate error page, wait for auto-redirect
-            time.sleep(5)
-            current_url = driver.current_url
-
-        self._logged_in = "webiom" in current_url and "sso" not in current_url
-        return self._logged_in
-
-    def get_page_source(self) -> str:
-        """Get current page HTML."""
-        if self.driver is None:
-            raise RuntimeError("Not initialized. Call login() first.")
-        return self.driver.page_source
-
-    def get_current_url(self) -> str:
-        """Get current URL."""
-        if self.driver is None:
-            return ""
-        return self.driver.current_url
-
-    def parse_dashboard(self) -> Optional[DashboardInfo]:
-        """Parse dashboard info from current page."""
-        if not self._logged_in:
+            with urllib.request.urlopen(f"http://127.0.0.1:{self.cdp_port}/json") as response:
+                pages = json.loads(response.read())
+                
+                for page in pages:
+                    url = page.get("url", "")
+                    if "rlisystems.ru" in url and "reports" not in url:
+                        self._ws_url = page["webSocketDebuggerUrl"]
+                        return self._ws_url
+        except Exception as e:
+            print(f"❌ Ошибка подключения к CDP: {e}")
             return None
+        
+        return None
+    
+    async def _extract_data(self) -> Optional[str]:
+        """Извлекает данные отчёта из iframe.
+        
+        Returns:
+            CSV-строка с данными или None
+        """
+        import websockets
+        
+        if not self._ws_url:
+            await self._find_page()
+        
+        if not self._ws_url:
+            return None
+        
+        async with websockets.connect(self._ws_url) as ws:
+            # Включаем Runtime
+            await ws.send(json.dumps({"id": 1, "method": "Runtime.enable"}))
+            
+            while True:
+                msg = await ws.recv()
+                data = json.loads(msg)
+                if data.get("id") == 1:
+                    break
+            
+            # Скрипт для извлечения данных
+            script = """
+            (function() {
+                const frame = document.querySelectorAll('iframe')[1];
+                try {
+                    const doc = frame.contentDocument || frame.contentWindow.document;
+                    let csv = '';
+                    const tables = doc.querySelectorAll('table');
+                    
+                    for (let t of tables) {
+                        const rows = t.querySelectorAll('tr');
+                        for (let r of rows) {
+                            const cells = r.querySelectorAll('td, th');
+                            if (cells.length > 3) {
+                                let row = [];
+                                for (let c of cells) {
+                                    row.push(c.textContent.trim().replace(/\\s+/g, ' '));
+                                }
+                                csv += row.join(';') + '\\n';
+                            }
+                        }
+                    }
+                    return csv;
+                } catch(e) {
+                    return 'error: ' + e.message;
+                }
+            })()
+            """
+            
+            await ws.send(json.dumps({
+                "id": 2,
+                "method": "Runtime.evaluate",
+                "params": {
+                    "expression": script,
+                    "returnByValue": True
+                }
+            }))
+            
+            while True:
+                msg = await ws.recv()
+                data = json.loads(msg)
+                if data.get("id") == 2:
+                    break
+            
+            if "result" in data and "result" in data["result"]:
+                return data["result"]["result"]["value"]
+            
+            return None
+    
+    def extract_report_13(self) -> dict:
+        """Извлекает отчёт 13 (Движение по импорту).
+        
+        Returns:
+            Словарь с путями к файлам:
+                - csv: путь к CSV
+                - xlsx: путь к Excel
+        """
+        # Запускаем асинхронную часть
+        data = asyncio.run(self._extract_data())
+        
+        if not data or data.startswith('error:'):
+            raise RuntimeError(f"Ошибка извлечения: {data}")
+        
+        # Сохраняем CSV
+        csv_path = self.output_dir / 'report_13_import.csv'
+        with open(csv_path, 'w', encoding='utf-8') as f:
+            f.write(data)
+        
+        # Конвертируем в Excel
+        xlsx_path = self.output_dir / 'report_13_import.xlsx'
+        self._csv_to_excel(csv_path, xlsx_path)
+        
+        return {
+            'csv': str(csv_path),
+            'xlsx': str(xlsx_path),
+            'rows': len(data.strip().split('\n'))
+        }
+    
+    def _csv_to_excel(self, csv_path: Path, xlsx_path: Path):
+        """Конвертирует CSV в Excel."""
+        from openpyxl import Workbook
+        
+        wb = Workbook()
+        ws = wb.active
+        ws.title = 'Импорт'
+        
+        with open(csv_path, 'r', encoding='utf-8') as f:
+            reader = csv.reader(f, delimiter=';')
+            for row in reader:
+                ws.append(row)
+        
+        wb.save(xlsx_path)
 
-        source = self.get_page_source()
-        # Basic parsing — can be enhanced with BeautifulSoup
-        return None  # TODO: implement parsing
 
-    def screenshot(self, path: str = "delo_tech_screenshot.png") -> str:
-        """Take screenshot of current page."""
-        if self.driver is None:
-            raise RuntimeError("Not initialized. Call login() first.")
-        self.driver.save_screenshot(path)
-        return path
-
-    def close(self):
-        """Close browser and cleanup."""
-        if self.driver:
-            self.driver.quit()
-            self.driver = None
-            self._logged_in = False
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, *args):
-        self.close()
-
-
-def main():
-    parser = argparse.ArgumentParser(description="ДЕЛО ТЕХ Automation")
-    parser.add_argument("--action", choices=["login", "balance", "orders", "screenshot"], default="login")
-    parser.add_argument("--username", help="Login username")
-    parser.add_argument("--password", help="Login password")
-    parser.add_argument("--headless", action="store_true", default=True, help="Run in headless mode")
-    parser.add_argument("--no-headless", dest="headless", action="store_false", help="Show browser window")
-    args = parser.parse_args()
-
-    client = DeloTechClient(
-        username=args.username,
-        password=args.password,
-        headless=args.headless
-    )
-
-    try:
-        if args.action == "login":
-            success = client.login()
-            print(f"Login: {'SUCCESS' if success else 'FAILED'}")
-            print(f"Current URL: {client.get_current_url()}")
-            if success:
-                path = client.screenshot("delo_tech_dashboard.png")
-                print(f"Screenshot saved: {path}")
-
-        elif args.action == "screenshot":
-            client.login()
-            path = client.screenshot()
-            print(f"Screenshot saved: {path}")
-
-        elif args.action in ("balance", "orders"):
-            client.login()
-            print(f"Action '{args.action}' — TODO: implement parsing")
-            print(f"Current URL: {client.get_current_url()}")
-
-    except Exception as e:
-        print(f"Error: {e}", file=sys.stderr)
-        sys.exit(1)
-    finally:
-        client.close()
-
-
+# CLI-интерфейс
 if __name__ == "__main__":
-    main()
+    import argparse
+    
+    parser = argparse.ArgumentParser(description='ДЕЛО ТЕХ — автоматизация')
+    parser.add_argument('--action', choices=['report13'], required=True,
+                       help='Действие: report13 — извлечь отчёт 13')
+    parser.add_argument('--output', '-o', default='.',
+                       help='Директория для сохранения')
+    
+    args = parser.parse_args()
+    
+    if args.action == 'report13':
+        client = DeloTechClient(output_dir=args.output)
+        result = client.extract_report_13()
+        print(f"✅ Извлечено {result['rows']} строк")
+        print(f"   CSV:  {result['csv']}")
+        print(f"   Excel: {result['xlsx']}")
