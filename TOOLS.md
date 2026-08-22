@@ -36,23 +36,18 @@
 
 **Правило:** Каждый skill пушится в отдельный GitHub-репозиторий. При любом улучшении здесь — сразу `git commit && git push`.
 
-| Skill | Repo | Описание |
-|-------|------|----------|
-| delo-tech | `github.com/kimicito/delo-tech` | Автоматизация ДЕЛО ТЕХ (rlisystems.ru/conterra/) |
+| Skill | Repo | Описание | Синхронизация |
+|-------|------|----------|---------------|
+| delo-tech | `github.com/kimicito/delo-tech-skill` | Автоматизация ДЕЛО ТЕХ (rlisystems.ru/conterra/) | `scripts/sync-delo-tech.sh` |
 
-**Workflow для нового skill:**
+**Workflow для обновления (subtree):**
 ```bash
-cd skills/<name>
-git init
-git add . && git commit -m "Initial commit"
-gh repo create <name> --public --source=. --remote=origin --push
-```
+# Автоматическая синхронизация
+bash scripts/sync-delo-tech.sh
 
-**Workflow для обновления:**
-```bash
-cd skills/<name>
-git add . && git commit -m "[fix] description"
-git push origin master
+# Или вручную:
+cd /root/.openclaw/workspace
+git subtree push --prefix=skills/delo-tech delo-tech-skill master
 ```
 
 ---
