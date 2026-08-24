@@ -1,0 +1,11 @@
+{
+  "name": "bland-phone-caller",
+  "version": "1.0.0",
+  "description": "AI phone calls via Bland.ai for OpenClaw",
+  "author": "kimicito",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kimicito/bland-phone-caller"
+  }
+}
