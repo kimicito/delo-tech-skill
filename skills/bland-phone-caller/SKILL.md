@@ -163,6 +163,57 @@ node skills/bland-phone-caller/reference/scripts/call.js \
 - **Бесплатный входящий номер**
 - **Запись разговоров** включена
 
+## 📊 Результаты звонков
+
+### Автоматическое сохранение
+
+После каждого звонка результат сохраняется в:
+```
+skills/bland-phone-caller/results/call_{CALL_ID}_{ДАТА}.json
+```
+
+**Что внутри:**
+- 📞 Номер и длительность
+- 📝 Полный транскрипт разговора
+- 📈 Анализ (успех, summary)
+- 🎙️ Ссылка на аудиозапись
+- 💰 Стоимость звонка
+
+### Получить результат
+
+```bash
+# Получить и сохранить результат по call_id
+node skills/bland-phone-caller/reference/scripts/get-result.js --call-id abc123
+```
+
+**Вывод:**
+```
+✅ Результат получен и сохранён!
+📁 Файл: skills/bland-phone-caller/results/call_abc123_2026-08-25.json
+
+📊 Резюме звонка:
+  Статус: completed
+  Номер: +79001234567
+  Длительность: 45 сек
+  Стоимость: $0.07
+
+📝 Транскрипт:
+  Алло... Да, здравствуйте...
+  ...
+
+🎙️  Запись: https://api.bland.ai/recordings/abc123.mp3
+```
+
+### Просмотр всех результатов
+
+```bash
+# Список всех сохранённых звонков
+ls -la skills/bland-phone-caller/results/
+
+# Последний результат
+cat skills/bland-phone-caller/results/$(ls -t skills/bland-phone-caller/results/*.json | head -1)
+```
+
 ## Безопасность
 
 ⚠️ **Важно:**
