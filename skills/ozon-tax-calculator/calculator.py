@@ -95,12 +95,14 @@ def main():
     print("-" * 60)
     print(f"ИТОГО (Приход в ЛКН):      {total_income:>15,.2f} руб.")
     print("=" * 60)
-    print("\nРекомендация по ЛКН АУСН (операция 'Взаимозачёт'):")
-    print(f"  • Приход:            {total_income:>15,.2f} руб.")
-    print(f"  • Возврат прихода:   {total_returns:>15,.2f} руб.")
-    print(f"  • Расход:            {total_services:>15,.2f} руб.")
+    print("\n📝 ЧТО ВНОСИТЬ В ЛКН АУСН (операция 'Взаимозачёт'):")
     if total_returns == 0:
-        print("  • Возвратов нет — можно внести одной суммой")
+        print(f"\n  ✅ Расход = {total_services:>15,.2f} руб.")
+        print("  (Возвратов нет — вносите только расход)")
+    else:
+        print(f"\n  • Приход:            {total_income:>15,.2f} руб.")
+        print(f"  • Возврат прихода:   {total_returns:>15,.2f} руб.")
+        print(f"  • Расход:            {total_services:>15,.2f} руб.")
     print("=" * 60)
 
 
