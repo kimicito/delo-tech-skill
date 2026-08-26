@@ -41,25 +41,30 @@ def calculate_returns(df: pd.DataFrame) -> float:
 
 
 def calculate_services(df: pd.DataFrame) -> float:
-    """Calculate total services from mutual settlements report."""
-    col_amount = 'Суммы дебиторской задолженности'
+    """Calculate total services from mutual settlements report.
     
-    if col_amount not in df.columns:
-        raise ValueError(f"Column not found: {col_amount}")
-    
-    # Filter rows by service type
+    The report fields may vary monthly. We analyze the specific report:
+    - Look for rows containing service type names
+    - Take amounts from the FIRST column (column index 0)
+    """
+    # Service types to look for (may vary by month)
     service_types = [
-        'Отчет о реализации',
+        'Акт по страховой премии',
         'Акт выполненных работ',
         'Отчет о перевыставлении услуг',
-        'Акт об оказанных услугах'
+        'Отчёт о перевыставлении услуг'
     ]
+    
+    # Use first column for amounts (column names vary monthly)
+    amount_col = df.columns[0]
     
     total = 0.0
     for service_type in service_types:
-        rows = df[df.apply(lambda row: row.astype(str).str.contains(service_type, case=False, na=False).any(), axis=1)]
+        # Search across all string columns for the service type
+        mask = df.apply(lambda row: row.astype(str).str.contains(service_type, case=False, na=False).any(), axis=1)
+        rows = df[mask]
         if not rows.empty:
-            total += rows[col_amount].sum()
+            total += rows[amount_col].sum()
     
     return round(total, 2)
 
