@@ -88,6 +88,17 @@ class CDPClient:
             with urllib.request.urlopen(f"http://127.0.0.1:{self.port}/json") as response:
                 pages = json.loads(response.read())
                 
+                # Сначала ищем авторизованную страницу (с именем пользователя в title)
+                for page in pages:
+                    url = page.get("url", "")
+                    title = page.get("title", "")
+                    if "rlisystems.ru" in url and "reports" not in url:
+                        # Авторизованная страница содержит pl_ (ID пользователя)
+                        if "pl_" in title:
+                            self._ws_url = page["webSocketDebuggerUrl"]
+                            return True
+                
+                # Fallback — любая страница ДЕЛО ТЕХ
                 for page in pages:
                     url = page.get("url", "")
                     if "rlisystems.ru" in url and "reports" not in url:
@@ -147,38 +158,30 @@ class CDPClient:
             return None
     
     async def extract_table_data(self, iframe_index: int = 1) -> Optional[str]:
-        """Извлекает данные таблицы из iframe.
-        
-        Args:
-            iframe_index: Индекс iframe (по умолчанию 1 — основной отчёт)
-            
-        Returns:
-            CSV-строка с данными
-        """
-        script = f"""
-            const frame = document.querySelectorAll('iframe')[{iframe_index}];
-            try {{
-                const doc = frame.contentDocument || frame.contentWindow.document;
+        """Извлекает данные таблицы из основного документа (Vaadin больше не в iframe)."""
+        script = """
+            try {
+                // Ищем таблицы в основном документе
                 let csv = '';
-                const tables = doc.querySelectorAll('table');
+                const tables = document.querySelectorAll('table');
                 
-                for (let t of tables) {{
+                for (let t of tables) {
                     const rows = t.querySelectorAll('tr');
-                    for (let r of rows) {{
+                    for (let r of rows) {
                         const cells = r.querySelectorAll('td, th');
-                        if (cells.length > 3) {{
+                        if (cells.length > 3) {
                             let row = [];
-                            for (let c of cells) {{
+                            for (let c of cells) {
                                 row.push(c.textContent.trim().replace(/\\s+/g, ' '));
-                            }}
+                            }
                             csv += row.join(';') + '\\n';
-                        }}
-                    }}
-                }}
-                return csv;
-            }} catch(e) {{
+                        }
+                    }
+                }
+                return csv || 'no tables found';
+            } catch(e) {
                 return 'error: ' + e.message;
-            }}
+            }
         """
         
         return await self.execute(script)
@@ -196,26 +199,17 @@ class SessionManager:
         self._is_authenticated: Optional[bool] = None
     
     async def check_auth(self) -> bool:
-        """Проверяет, авторизован ли пользователь.
-        
-        Returns:
-            True если пользователь вошёл в систему
-        """
+        """Проверяет, авторизован ли пользователь."""
         script = """
-            // Проверяем наличие элементов личного кабинета
-            const frame = document.querySelectorAll('iframe')[1];
-            try {
-                const doc = frame.contentDocument || frame.contentWindow.document;
-                const hasDashboard = doc.querySelector('.v-app') !== null;
-                const hasLogin = doc.querySelector('input[type="password"]') !== null;
-                return hasDashboard && !hasLogin;
-            } catch(e) {
-                return false;
-            }
+            const hasDashboard = document.querySelector('.v-app') !== null;
+            const hasLogin = document.querySelector('input[type="password"]') !== null;
+            const hasBalance = document.body.textContent.includes('Баланс:');
+            return (hasDashboard && !hasLogin) || hasBalance;
         """
         
         result = await self.cdp.execute(script)
-        self._is_authenticated = result == "true"
+        # CDP возвращает boolean True/False
+        self._is_authenticated = bool(result)
         return self._is_authenticated
     
     async def ensure_auth(self) -> bool:
@@ -239,6 +233,15 @@ class ReportManager:
     """Управление отчётами.
     
     Все операции с отчётами: извлечение, конвертация, сохранение.
+    
+    Рабочий метод (август 2026):
+    1. Пользователь открывает отчёт 13 в браузере вручную
+    2. Агент подключается через CDP к авторизованной странице
+    3. Извлекает таблицу из основного документа (Vaadin больше не в iframe)
+    4. Сохраняет в CSV и Excel
+    
+    Навигация по меню Vaadin автоматически НЕ работает — 
+    только извлечение данных из уже открытого отчёта.
     """
     
     def __init__(self, cdp: CDPClient, output_dir: Path):
@@ -254,13 +257,19 @@ class ReportManager:
         Returns:
             Результат операции с путями к файлам
         """
-        # Извлекаем данные
-        csv_data = await self.cdp.extract_table_data(iframe_index=1)
+        # Извлекаем данные из основного документа
+        csv_data = await self.cdp.extract_table_data()
         
         if not csv_data or csv_data.startswith('error:'):
             return OperationResult(
                 success=False,
                 message=f"Ошибка извлечения: {csv_data}"
+            )
+        
+        if csv_data == 'no tables found':
+            return OperationResult(
+                success=False,
+                message="Таблицы не найдены. Убедитесь, что отчёт открыт в браузере."
             )
         
         # Сохраняем CSV
@@ -276,7 +285,7 @@ class ReportManager:
         xlsx_path = self.output_dir / xlsx_filename
         self._csv_to_excel(csv_path, xlsx_path)
         
-        row_count = len(csv_data.strip().split('\n'))
+        row_count = len([l for l in csv_data.strip().split('\n') if l.strip()])
         
         return OperationResult(
             success=True,
@@ -285,7 +294,7 @@ class ReportManager:
                 'csv': str(csv_path),
                 'xlsx': str(xlsx_path)
             },
-            message=f"Отчёт {config.report_type} извлечён",
+            message=f"Отчёт {config.report_type} извлечён ({row_count} строк)",
             row_count=row_count
         )
     
