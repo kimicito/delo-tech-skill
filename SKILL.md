@@ -1,0 +1,264 @@
+# delo-tech
+
+**Skill для автоматизации работы с личным кабинетом ДЕЛО ТЕХ (rlisystems.ru/conterra/)**
+
+## Описание
+
+Автоматизирует вход, навигацию и извлечение отчётов из системы «ДЕЛО ТЕХ» (RLISystems / Контейнерный терминал). Используется для логистики и таможенного документооборота.
+
+## Триггеры
+
+- Пользователь упоминает: "delo tech", "дело тех", "rlisystems", "conterra", "контейнерный терминал"
+- Запрос на проверку статуса контейнера, релиз-ордеров, баланса
+- Запрос на выгрузку отчёта (особенно отчёт 13 — «Движение по импорту»)
+
+---
+
+## 🏗 Архитектура Skill'а
+
+### Структура
+
+```
+delo-tech/
+├── 🧠 delo_tech.py              # ЯДРО: сессия, CDP, роутер операций
+├── 📊 reports/                  # Модули отчётов
+├── ⚙️ operations/               # Операции (статус, релиз-ордера)
+├── 🛠 utils/                    # Утилиты (CDP, конвертация)
+└── 📄 SKILL.md                  # Эта документация
+```
+
+### Принцип: Одно ядро — много операций
+
+**Почему один skill, а не оркестратор:**
+- ✅ **Общая сессия** — логин один раз на все операции
+- ✅ **Общий CDP-клиент** — не дублируем код подключения к браузеру
+- ✅ **Простота** — не нужен сложный оркестратор
+- ✅ **Легко расширять** — добавляем модуль → добавляем операцию
+
+**Когда переходить на оркестратор:**
+- Когда операций станет > 15
+- Когда нужны параллельные задачи
+- Когда появятся независимые команды разработки
+
+---
+
+## 🚀 Быстрый старт
+
+### Установка
+
+```bash
+pip install -r requirements.txt
+```
+
+### Извлечь отчёт 13 (Импорт)
+
+```python
+from skills.delo-tech.delo_tech import DeloTechCore
+
+core = DeloTechCore()
+result = core.run_report(
+    report_type="13",
+    start_date="01.08.2026",
+    end_date="21.08.2026"
+)
+
+if result.success:
+    print(f"✅ Извлечено {result.row_count} строк")
+    print(f"   Excel: {result.files['xlsx']}")
+```
+
+### CLI
+
+```bash
+# Отчёт 13
+python delo_tech.py --action report --report-type 13 \
+    --start-date 01.08.2026 --end-date 21.08.2026
+
+# Статус контейнера
+python delo_tech.py --action status --container TKRU3055043
+
+# Релиз-ордера
+python delo_tech.py --action orders
+
+# Баланс
+python delo_tech.py --action balance
+```
+
+---
+
+## 📋 Операции
+
+### Готовые
+
+| Операция | Метод | Описание | Статус |
+|----------|-------|----------|--------|
+| Отчёт 13 | `run_report("13", ...)` | Движение по импорту | ✅ Готово |
+
+### В разработке
+
+| Операция | Метод | Описание | Статус |
+|----------|-------|----------|--------|
+| Статус контейнера | `get_container_status("TKRU...")` | Где контейнер | 🔄 Запланировано |
+| Релиз-ордера | `get_release_orders()` | Список ордеров | 🔄 Запланировано |
+| Баланс | `get_balance()` | Денежный баланс | 🔄 Запланировано |
+| Таможенные документы | `get_customs_docs()` | ГТД, декларации | 🔄 Запланировано |
+
+---
+
+## 🔧 Добавление новой операции
+
+### Шаг 1: Создать модуль
+
+```python
+# operations/my_operation.py
+from ..delo_tech import CDPClient
+
+async def run(cdp: CDPClient, param: str) -> dict:
+    """Моя новая операция."""
+    script = f"""
+        // JavaScript для CDP
+        const frame = document.querySelectorAll('iframe')[1];
+        const doc = frame.contentDocument || frame.contentWindow.document;
+        
+        // ... логика операции ...
+        
+        return JSON.stringify({{result: 'ok'}});
+    """
+    
+    result = await cdp.execute(script)
+    return json.loads(result)
+```
+
+### Шаг 2: Добавить в ядро
+
+```python
+# delo_tech.py → class DeloTechCore
+
+def my_operation(self, param: str) -> dict:
+    """Моя новая операция."""
+    from .operations.my_operation import run
+    return asyncio.run(run(self.cdp, param))
+```
+
+### Шаг 3: Обновить документацию
+
+Добавить в `SKILL.md` в таблицу операций.
+
+---
+
+## 📁 Файлы
+
+| Файл | Назначение |
+|------|------------|
+| `SKILL.md` | Эта документация |
+| `ARCHITECTURE.md` | Архитектура и примеры расширения |
+| `delo_tech.py` | Ядро системы |
+| `reports/` | Модули отчётов |
+| `operations/` | Модули операций |
+| `utils/` | Утилиты |
+| `.env.example` | Шаблон настроек |
+| `requirements.txt` | Зависимости |
+
+---
+
+## 🏛 Архитектура системы ДЕЛО ТЕХ
+
+### Компоненты
+
+| Компонент | URL | Назначение |
+|-----------|-----|------------|
+| Основной сайт | `https://rlisystems.ru/conterra/` | iframe-контейнер |
+| SSO | `https://rlisystems.ru/webiom/sso/` | Аутентификация |
+| Отчёты | `https://rlisystems.ru/conterra/reports/~<ID>.html` | Vaadin-отчёты |
+
+### Технический стек
+
+- **Frontend:** Vaadin Framework (GWT-based)
+- **Аутентификация:** SSO (Single Sign-On)
+- **Отчёты:** iframe с отдельными HTML-страницами
+- **Защита:** Same-origin policy для iframe
+
+### Почему CDP?
+
+| Подход | Результат |
+|--------|-----------|
+| curl/requests | ❌ 403/SSO |
+| Playwright headless | ❌ iframe не загружается |
+| Playwright headed | ❌ Vaadin не рендерит |
+| **CDP + Chrome** | ✅ Работает |
+
+---
+
+## 🔒 Безопасность
+
+- Учётные данные хранятся в `.env` (gitignored)
+- Все операции через HTTPS
+- Сессионные cookies в памяти (не сохраняются)
+- CDP-доступ только локальный (`127.0.0.1`)
+
+---
+
+## 📝 Примеры CDP-скриптов
+
+### Проверка iframe
+
+```javascript
+const iframes = document.querySelectorAll('iframe');
+let result = '';
+for (let i=0; i<iframes.length; i++) {
+    result += `iframe${i}: ${iframes[i].src}\n`;
+}
+return result;
+```
+
+### Извлечение таблицы
+
+```javascript
+const frame = document.querySelectorAll('iframe')[1];
+const doc = frame.contentDocument || frame.contentWindow.document;
+let csv = '';
+const tables = doc.querySelectorAll('table');
+for (let t of tables) {
+    const rows = t.querySelectorAll('tr');
+    for (let r of rows) {
+        const cells = r.querySelectorAll('td, th');
+        if (cells.length > 3) {
+            let row = [];
+            for (let c of cells) {
+                row.push(c.textContent.trim().replace(/\s+/g, ' '));
+            }
+            csv += row.join(';') + '\n';
+        }
+    }
+}
+return csv;
+```
+
+---
+
+## 🎓 Универсальный шаблон разработки агента
+
+Этот skill демонстрирует **полный цикл разработки** для enterprise-систем:
+
+### Этапы (применимо к любой системе)
+
+1. **Разведка** — анализ SPA/iframe/SSO/API
+2. **Выбор стратегии** — curl → Playwright → CDP
+3. **Реализация доступа** — подключение через CDP
+4. **Извлечение данных** — JavaScript в контексте iframe
+5. **Обработка** — CSV → Excel
+6. **Проверка** — wc -l, head -5
+
+### Антипаттерны
+
+❌ Playwright + iframe (не работает с Vaadin)  
+❌ Попытка скачать файл через кнопку  
+❌ Игнорировать same-origin policy  
+✅ CDP + JavaScript — единственный рабочий путь
+
+---
+
+## 👤 Автор
+
+Создано для Artur A.  
+2026-08-22 — Полная переработка с модульной архитектурой
