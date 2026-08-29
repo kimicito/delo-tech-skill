@@ -60,6 +60,19 @@ delo-tech/
 | **Активная сессия** | Требуется авторизация (сессия не должна протухнуть) |
 | **Chrome CDP** | Должен быть запущен с `--remote-debugging-port=18800` |
 | **Данные в iframe** | Отчёт загружается во iframe (извлекаем через `contentDocument`) |
+| **Навигация Vaadin** | ❌ Автоклики по меню НЕ работают — только ручная навигация |
+
+### ❌ Что НЕ работает автоматически
+
+**Vaadin Menu Navigation:**
+- CDP synthetic mouse events → Vaadin игнорирует ❌
+- Playwright `mouse.click()` → Submenu не открывается ❌
+- JavaScript `element.click()` → Vaadin блокирует ❌
+- Прямой URL с параметрами → Vaadin игнорирует ❌
+
+**Причина:** Компонент `ekp_menu_item_label` требует реальные события ОС (trusted events), которые невозможно эмулировать через CDP/Playwright на headless/remote сервере.
+
+**Решение:** Ручная навигация пользователем + автоматическое извлечение данных агентом.
 
 ---
 
